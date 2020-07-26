@@ -101,7 +101,6 @@ const SideBar: FC<SideBarProps> = ({ handleDrawerClose, open }) => {
             )}
           </IconButton>
         </div>
-        <Divider />
         <List>
           <ListItem button>
             <ListItemIcon>
