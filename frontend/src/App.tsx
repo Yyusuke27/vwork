@@ -10,11 +10,11 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/" exact>
-          <Dashboard />
-        </Route>
         <Route path="/auth" exact>
           <Auth />
+        </Route>
+        <Route path="/">
+          <Dashboard />
         </Route>
       </Switch>
     </Router>
