@@ -4,8 +4,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import MenuIcon from "@material-ui/icons/Menu";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import HomeIcon from "@material-ui/icons/Home";
@@ -13,12 +12,7 @@ import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import MessageIcon from "@material-ui/icons/Message";
 import Drawer from "@material-ui/core/Drawer";
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-  useTheme,
-} from "@material-ui/core/styles";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
 const drawerWidth = 240;
 
@@ -75,7 +69,6 @@ interface SideBarProps {
 
 const SideBar: FC<SideBarProps> = ({ handleDrawerClose, open }) => {
   const classes = useStyles();
-  const theme = useTheme();
 
   return (
     <div className={classes.root}>
@@ -94,11 +87,7 @@ const SideBar: FC<SideBarProps> = ({ handleDrawerClose, open }) => {
       >
         <div className={classes.toolbar}>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
+            <MenuIcon />
           </IconButton>
         </div>
         <List>
