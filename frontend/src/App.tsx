@@ -1,23 +1,28 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { MuiThemeProvider } from "@material-ui/core";
+
 import Dashboard from "./Dashboard/pages/Dashboard";
 import Auth from "./Auth/pages/Auth";
 
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { theme } from "./shared/util/theme";
 
 import "./App.css";
 
 const App = () => {
   return (
-    <Router>
-      <Switch>
-        <Route path="/auth">
-          <Auth />
-        </Route>
-        <Route path="/">
-          <Dashboard />
-        </Route>
-      </Switch>
-    </Router>
+    <MuiThemeProvider theme={theme}>
+      <Router>
+        <Switch>
+          <Route path="/auth">
+            <Auth />
+          </Route>
+          <Route path="/">
+            <Dashboard />
+          </Route>
+        </Switch>
+      </Router>
+    </MuiThemeProvider>
   );
 };
 
