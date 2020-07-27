@@ -17,14 +17,11 @@ const useStyles = makeStyles({
     minWidth: 275,
     borderRadius: 10,
     backgroundColor: "vwork-light-blue.color",
+    height: 185,
   },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
-  },
+
   title: {
-    fontSize: 20,
+    fontSize: 18,
   },
   pos: {
     marginBottom: 12,
@@ -36,7 +33,7 @@ const CheckAttendanceArea = () => {
 
   return (
     <>
-      <Box borderBottom={1} {...defaultProps}>
+      <Box borderBottom={1} {...defaultProps} className={classes.title}>
         勤怠管理
       </Box>
       <Card className={classes.root}>
@@ -48,7 +45,13 @@ const CheckAttendanceArea = () => {
           >
             2020年8月10日
           </Typography>
-          <Box display="flex" flexDirection="row" p={1} m={1}>
+          <Box
+            display="flex"
+            flexDirection="row"
+            p={1}
+            m={1}
+            className={classes.title}
+          >
             <Box p={0} mr={15}>
               出社：
             </Box>
