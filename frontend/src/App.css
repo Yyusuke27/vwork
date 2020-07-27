@@ -1,0 +1,75 @@
+.logo {
+    font-family: 'Cairo', sans-serif;
+}
+
+.vwork-red {
+    color: #F50357;
+}
+
+.vwork-dark-red {
+    color: #A81347;
+}
+
+.vwork-blue {
+    color: #1BC9F5;
+}
+
+.vwork-dark-blue {
+    color: #0A88A8;
+}
+
+.vwork-light-blue {
+    color: #F0F7F8;
+}
+
+.vwork-yellow {
+    color: #F5E21B;
+}
+
+.vwork-gray {
+    color: #A7A7A7;
+}
+
+.vwork-black {
+    color: #424242;
+}
+
+.vwork-white {
+    color: #FFFFFF;
+}
+
+.vwork-bg-red {
+    background-color: #F50357;
+}
+
+.vwork-bg-dark-red {
+    background-color: #A81347;
+}
+
+.vwork-bg-blue {
+    background-color: #1BC9F5;
+}
+
+.vwork-bg-dark-blue {
+    background-color: #0A88A8;
+}
+
+.vwork-bg-light-blue {
+    background-color: #F0F7F8;
+}
+
+.vwork-bg-yellow {
+    background-color: #F5E21B;
+}
+
+.vwork-bg-gray {
+    background-color: #A7A7A7;
+}
+
+.vwork-bg-black {
+    background-color: #424242;
+}
+
+.vwork-bg-white {
+    background-color: #FFFFFF;
+}
