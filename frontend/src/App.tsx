@@ -10,7 +10,7 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/auth" exact>
+        <Route path="/auth">
           <Auth />
         </Route>
         <Route path="/">
