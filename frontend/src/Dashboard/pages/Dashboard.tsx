@@ -3,6 +3,8 @@ import MainNavigation from "../../shared/components/Navigation/MainNavigation";
 
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import CheckAttendanceArea from "../Attendance/components/CheckAttendanceArea";
+import TaskAlertArea from "../TaskAlert/components/TaskAlertArea";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,6 +35,8 @@ const Dashboard = () => {
       <MainNavigation />
       <main className={classes.content}>
         <div className={classes.toolbar} />
+        <CheckAttendanceArea />
+        <TaskAlertArea />
       </main>
     </div>
   );
