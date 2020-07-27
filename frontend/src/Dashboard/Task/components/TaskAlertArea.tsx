@@ -7,7 +7,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import { red } from "@material-ui/core/colors";
 

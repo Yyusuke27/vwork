@@ -6,6 +6,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import Color from "../../../shared/util/color";
 
 const defaultProps = {
   m: 1,
@@ -16,7 +17,7 @@ const useStyles = makeStyles({
   root: {
     minWidth: 275,
     borderRadius: 10,
-    backgroundColor: "vwork-light-blue.color",
+    backgroundColor: Color.VWORK_LIGHT_BLUE,
     height: 185,
   },
 
@@ -72,7 +73,7 @@ const CheckAttendanceArea = () => {
             style={{ width: "100%" }}
           >
             <Box p={1}>
-              <Button size="small" variant="contained" color="secondary">
+              <Button size="small" variant="contained" color="primary">
                 出社
               </Button>
             </Box>
