@@ -6,6 +6,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import clsx from "clsx";
 import IconButton from "@material-ui/core/IconButton";
+import Color from "../../../shared/util/color";
 
 const drawerWidth = 240;
 
@@ -16,8 +17,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     appBar: {
       zIndex: theme.zIndex.drawer + 1,
+      backgroundColor: Color.VWORK_WHITE,
+      color: Color.VWORK_BLACK,
+
       transition: theme.transitions.create(["width", "margin"], {
         easing: theme.transitions.easing.sharp,
+
         duration: theme.transitions.duration.leavingScreen,
       }),
     },
