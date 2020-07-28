@@ -1,8 +1,10 @@
 import React from "react";
+import { Route, Switch } from "react-router-dom";
 
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import AfterTaikinMonitor from "../AfterTaikin/components/AfterTaikinMonitor";
+import Home from "./Home";
+import MainNavigation from "../../shared/components/Navigation/MainNavigation";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,10 +31,15 @@ const Dashboard = () => {
 
   return (
     <div className={classes.root}>
+      <MainNavigation />
       <CssBaseline />
-      <AfterTaikinMonitor />
       <main className={classes.content}>
         <div className={classes.toolbar} />
+        <Switch>
+          <Route path="/" exact>
+            <Home />
+          </Route>
+        </Switch>
       </main>
     </div>
   );

@@ -8,7 +8,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import { makeStyles } from "@material-ui/core/styles";
-import Avatar from "@material-ui/core/Avatar";
 import Color from "../../../shared/util/color";
 
 const defaultProps = {
