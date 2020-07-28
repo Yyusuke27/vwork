@@ -20,7 +20,6 @@ const useStyles = makeStyles({
     minWidth: 275,
     borderRadius: 10,
     height: 80,
-    marginTop: 25,
   },
 
   title: {
@@ -39,7 +38,13 @@ const TaskAlertArea = () => {
 
   return (
     <>
-      <Box borderBottom={1} {...defaultProps} className={classes.title} mt={10}>
+      <Box
+        borderBottom={1}
+        {...defaultProps}
+        className={classes.title}
+        mt={10}
+        mb={3}
+      >
         期限が近いタスク
       </Box>
       <Card className={classes.root}>
