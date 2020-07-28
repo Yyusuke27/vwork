@@ -1,9 +1,8 @@
 import React from "react";
-import MainNavigation from "../../shared/components/Navigation/MainNavigation";
 
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import TaskAdd from "../Task/components/TaskAdd";
+import AfterTaikinMonitor from "../AfterTaikin/components/AfterTaikinMonitor";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,8 +30,7 @@ const Dashboard = () => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <MainNavigation />
-      <TaskAdd />
+      <AfterTaikinMonitor />
       <main className={classes.content}>
         <div className={classes.toolbar} />
       </main>
