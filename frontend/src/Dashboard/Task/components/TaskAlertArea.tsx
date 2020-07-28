@@ -9,7 +9,7 @@ import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
-import { red } from "@material-ui/core/colors";
+import Color from "../../../shared/util/color";
 
 const defaultProps = {
   m: 1,
@@ -20,16 +20,18 @@ const useStyles = makeStyles({
   root: {
     minWidth: 275,
     borderRadius: 10,
-    backgroundColor: "vwork-light-blue.color",
     height: 80,
     marginTop: 25,
   },
 
   title: {
-    fontSize: 20,
+    fontSize: 18,
   },
   pos: {
     marginBottom: 12,
+  },
+  color: {
+    color: Color.VWORK_RED,
   },
 });
 
@@ -48,74 +50,23 @@ const TaskAlertArea = () => {
             justifyContent="space-between"
             alignItems="center"
             mb={1}
-            pb={4}
+            pb={1}
           >
             <ListItem button>
               <ListItemIcon>
-                <ErrorOutlineIcon style={{ color: red[500] }} />
+                <ErrorOutlineIcon className={classes.color} />
               </ListItemIcon>
-              <ListItemText primary="管理画面のUIデザイン見直し" />
+              <ListItemText
+                primary="管理画面のUIデザイン見直し"
+                className={classes.title}
+              />
             </ListItem>
             <ListItem button className={classes.title}>
               <ListItemIcon>
                 プロジェクト名
                 <AccessTimeIcon />
-                2020/8/15
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-              </ListItemIcon>
-              <ListItemText />
-            </ListItem>
-          </Box>
-        </CardContent>
-      </Card>
-      <Card className={classes.root}>
-        <CardContent>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            mb={1}
-            pb={4}
-          >
-            <ListItem button>
-              <ListItemIcon>
-                <ErrorOutlineIcon style={{ color: red[500] }} />
-              </ListItemIcon>
-              <ListItemText primary="管理画面のUIデザイン見直し" />
-            </ListItem>
-            <ListItem button className={classes.title}>
-              <ListItemIcon>
-                プロジェクト名
-                <AccessTimeIcon />
-                2020/8/15
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-              </ListItemIcon>
-              <ListItemText />
-            </ListItem>
-          </Box>
-        </CardContent>
-      </Card>
-      <Card className={classes.root}>
-        <CardContent>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            mb={1}
-            pb={4}
-          >
-            <ListItem button>
-              <ListItemIcon>
-                <ErrorOutlineIcon style={{ color: red[500] }} />
-              </ListItemIcon>
-              <ListItemText primary="管理画面のUIデザイン見直し" />
-            </ListItem>
-            <ListItem button className={classes.title}>
-              <ListItemIcon>
-                プロジェクト名
-                <AccessTimeIcon />
-                2020/8/15
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                2020/08/15
+                {/*<Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />*/}
               </ListItemIcon>
               <ListItemText />
             </ListItem>

@@ -19,13 +19,15 @@ const useStyles = makeStyles({
     borderRadius: 10,
     backgroundColor: Color.VWORK_LIGHT_BLUE,
     height: 185,
+    marginTop: 25,
   },
 
   title: {
     fontSize: 18,
   },
-  pos: {
-    marginBottom: 12,
+
+  color: {
+    backgroundColor: Color.VWORK_RED,
   },
 });
 
@@ -73,7 +75,11 @@ const CheckAttendanceArea = () => {
             style={{ width: "100%" }}
           >
             <Box p={1}>
-              <Button size="small" variant="contained" color="primary">
+              <Button
+                size="small"
+                variant="contained"
+                className={classes.color}
+              >
                 出社
               </Button>
             </Box>
