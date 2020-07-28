@@ -3,9 +3,7 @@ import MainNavigation from "../../shared/components/Navigation/MainNavigation";
 
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import CheckAttendanceArea from "../Attendance/components/CheckAttendanceArea";
-import TaskAlertArea from "../Task/components/TaskAlertArea";
-import AttendingProjectArea from "../AttendingProject/components/AttendingProjectArea";
+import TaskAdd from "../Task/components/TaskAdd";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,11 +32,9 @@ const Dashboard = () => {
     <div className={classes.root}>
       <CssBaseline />
       <MainNavigation />
+      <TaskAdd />
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <CheckAttendanceArea />
-        <TaskAlertArea />
-        <AttendingProjectArea />
       </main>
     </div>
   );
