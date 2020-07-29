@@ -13,6 +13,7 @@ import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import MessageIcon from "@material-ui/icons/Message";
 import Drawer from "@material-ui/core/Drawer";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { NavLink } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -91,13 +92,13 @@ const SideBar: FC<SideBarProps> = ({ handleDrawerClose, open }) => {
           </IconButton>
         </div>
         <List>
-          <ListItem button>
+          <ListItem button component={NavLink} to="/" exact>
             <ListItemIcon>
               <HomeIcon />
             </ListItemIcon>
             <ListItemText primary="ホーム" />
           </ListItem>
-          <ListItem button>
+          <ListItem button component={NavLink} to="/my_task" exact>
             <ListItemIcon>
               <CheckCircleOutlineIcon />
             </ListItemIcon>
