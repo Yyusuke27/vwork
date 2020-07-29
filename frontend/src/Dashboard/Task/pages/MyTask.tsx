@@ -1,10 +1,10 @@
 import React from "react";
-import TaskAdd from "../Task/components/TaskAdd";
+import TaskAddButton from "../components/TaskAddButton";
 
 const MyTask = () => {
   return (
     <>
-      <TaskAdd />
+      <TaskAddButton />
     </>
   );
 };

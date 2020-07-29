@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const TaskAdd = () => {
+const TaskAddButton = () => {
   const classes = useStyles();
   const [text, setText] = React.useState("");
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -108,4 +108,4 @@ const TaskAdd = () => {
   );
 };
 
-export default TaskAdd;
+export default TaskAddButton;
