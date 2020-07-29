@@ -3,6 +3,7 @@ import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import ProjectItem from "./ProjectItem";
+import Color from "../../../shared/util/color";
 
 const defaultProps = {
   m: 1,
@@ -16,10 +17,9 @@ const useStyles = makeStyles({
 });
 
 const projectData = [
-  { title: "UI改修" },
-  { title: "WordPressテーマ開発" },
-  { title: "SEO対策" },
-  { title: "プロジェクト作成" },
+  { title: "UI改修", bgcolor: Color.VWORK_LIGHT_BLUE },
+  { title: "WordPressテーマ開発", bgcolor: Color.VWORK_DARK_RED },
+  { title: "SEO対策", bgcolor: Color.VWORK_RED },
 ];
 
 const ProjectList = () => {
@@ -37,7 +37,7 @@ const ProjectList = () => {
       </Box>
       <Grid container justify="flex-start">
         {projectData.map((data) => {
-          return <ProjectItem name={data.title} />;
+          return <ProjectItem name={data.title} bgcolor={data.bgcolor} />;
         })}
       </Grid>
     </>

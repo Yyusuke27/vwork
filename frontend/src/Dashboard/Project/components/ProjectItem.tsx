@@ -24,30 +24,33 @@ const useStyles = makeStyles({
 
 interface ProjectItemProps {
   name: string;
+  bgcolor: Color;
 }
 
-const ProjectItem: FC<ProjectItemProps> = ({ name = "" }) => {
+const ProjectItem: FC<ProjectItemProps> = ({ name = "", bgcolor }) => {
   const classes = useStyles();
 
   return (
-    <Box className={classes.contentWidth} mr={3} mb={3}>
-      <Grid container direction="column">
-        <Grid
-          item
-          container
-          justify="center"
-          alignItems="center"
-          className={clsx(classes.iconArea, classes.contentWidth)}
-        >
-          <FormatListBulletedIcon className={classes.icon} />
+    <>
+      <Box className={classes.contentWidth} mr={3} mb={3}>
+        <Grid container direction="column">
+          <Grid
+            item
+            container
+            justify="center"
+            alignItems="center"
+            className={clsx(classes.iconArea, classes.contentWidth)}
+          >
+            <FormatListBulletedIcon className={classes.icon} />
+          </Grid>
+          <Grid item className={classes.contentWidth}>
+            <Box textAlign="center">
+              <Typography>{name}</Typography>
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item className={classes.contentWidth}>
-          <Box textAlign="center">
-            <Typography>{name}</Typography>
-          </Box>
-        </Grid>
-      </Grid>
-    </Box>
+      </Box>
+    </>
   );
 };
 
