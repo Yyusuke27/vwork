@@ -4,6 +4,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import ProjectItem from "./ProjectItem";
 import Color from "../../../shared/util/color";
+import clsx from "clsx";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import AddIcon from "@material-ui/icons/Add";
 
 const defaultProps = {
   m: 1,
@@ -16,6 +20,21 @@ const useStyles = makeStyles({
   },
   contentWidth: {
     width: 150,
+  },
+  iconArea: {
+    height: 150,
+    borderRadius: 8,
+  },
+  boxstyle: {
+    borderStyle: "dotted",
+  },
+  icon: {
+    fontSize: 55,
+  },
+  iconstyle: {
+    borderStyle: "dotted",
+    borderRadius: 8,
+    height: 150,
   },
 });
 
@@ -46,13 +65,32 @@ const ProjectList = () => {
             })}
           </Grid>
         </Grid>
-        {/*<Grid item>*/}
-        {/*    <Box className={classes.contentWidth} mr={3} mb={3}>*/}
-        {/*        <Grid container direction="column">*/}
-        {/*            <Grid*/}
-        {/*        </Grid>*/}
-        {/*    </Box>*/}
-        {/*</Grid>*/}
+        <Grid item>
+          <Box
+            className={clsx(classes.contentWidth, classes.iconstyle)}
+            mr={3}
+            mb={3}
+          >
+            <Grid container direction="column">
+              <Grid
+                item
+                container
+                justify="center"
+                alignItems="center"
+                className={clsx(classes.iconArea, classes.contentWidth)}
+              >
+                <IconButton aria-label="add">
+                  <AddIcon style={{ fontSize: 100 }} />
+                </IconButton>
+              </Grid>
+              <Grid item className={classes.contentWidth}>
+                <Box textAlign="center">
+                  <Typography>プロジェクト作成</Typography>
+                </Box>
+              </Grid>
+            </Grid>
+          </Box>
+        </Grid>
       </Grid>
     </>
   );
