@@ -10,11 +10,6 @@ import Typography from "@material-ui/core/Typography";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import Avatar from "@material-ui/core/Avatar";
 
-const defaultProps = {
-  m: 1,
-  style: { width: "20rem" },
-};
-
 const useStyles = makeStyles({
   root: {
     minWidth: 275,

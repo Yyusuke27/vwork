@@ -7,6 +7,9 @@ import Typography from "@material-ui/core/Typography";
 import clsx from "clsx";
 import IconButton from "@material-ui/core/IconButton";
 import Color from "../../../shared/util/color";
+import Grid from "@material-ui/core/Grid";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import Avatar from "@material-ui/core/Avatar";
 
 const drawerWidth = 240;
 
@@ -71,9 +74,33 @@ const MainHeader: FC<MainHeaderProps> = ({ handleDrawerOpen, open }) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            ホーム
-          </Typography>
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+          >
+            <Grid item>
+              <Typography variant="h6" noWrap>
+                ホーム
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Grid
+                container
+                direction="row"
+                justify="flex-end"
+                alignItems="center"
+              >
+                <Grid item>
+                  <AddCircleOutlineIcon style={{ fontSize: 45 }} />
+                </Grid>
+                <Grid item>
+                  <Avatar />
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
     </div>

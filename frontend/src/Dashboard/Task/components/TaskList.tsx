@@ -1,14 +1,8 @@
 import React from "react";
 import Box from "@material-ui/core/Box";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
-import AccessTimeIcon from "@material-ui/icons/AccessTime";
+
 import { makeStyles } from "@material-ui/core/styles";
-import Color from "../../../shared/util/color";
+
 import TaskItem from "./TaskItem";
 import Grid from "@material-ui/core/Grid";
 
