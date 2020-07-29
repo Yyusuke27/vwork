@@ -93,7 +93,9 @@ const MainHeader: FC<MainHeaderProps> = ({ handleDrawerOpen, open }) => {
                 alignItems="center"
               >
                 <Grid item>
-                  <AddCircleOutlineIcon style={{ fontSize: 45 }} />
+                  <IconButton aria-label="add">
+                    <AddCircleOutlineIcon style={{ fontSize: 40 }} />
+                  </IconButton>
                 </Grid>
                 <Grid item>
                   <Avatar />
