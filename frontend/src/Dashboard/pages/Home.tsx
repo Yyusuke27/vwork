@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <>
       <CheckAttendanceArea />
-      <TaskList />
+      <TaskList title="期限が近いタスク" />
       <ProjectList />
     </>
   );

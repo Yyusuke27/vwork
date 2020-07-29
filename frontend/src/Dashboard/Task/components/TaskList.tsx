@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import Box from "@material-ui/core/Box";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -25,26 +25,30 @@ const useStyles = makeStyles({
 
 const taskData = [
   { title: "管理画面のUI見直し", project: "プロジェクト名", data: "日付" },
-  { title: "管理画面のUI見直し", project: "プロジェクト名", data: "日付" },
-  { title: "管理画面のUI見直し", project: "プロジェクト名", data: "日付" },
-  { title: "管理画面のUI見直し", project: "プロジェクト名", data: "日付" },
-  { title: "管理画面のUI見直し", project: "プロジェクト名", data: "日付" },
 ];
 
-const TaskList = () => {
+interface TaskListProps {
+  title?: string;
+}
+
+const TaskList: FC<TaskListProps> = ({ title = "" }) => {
   const classes = useStyles();
 
   return (
     <>
-      <Box
-        borderBottom={1}
-        {...defaultProps}
-        className={classes.title}
-        mt={10}
-        mb={3}
-      >
-        期限が近いタスク
-      </Box>
+      {title ? (
+        <Box
+          borderBottom={1}
+          {...defaultProps}
+          className={classes.title}
+          mt={10}
+          mb={3}
+        >
+          {title}
+        </Box>
+      ) : (
+        ""
+      )}
       <Grid container direction="column" justify="flex-start">
         {taskData.map((data) => {
           return (

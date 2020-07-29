@@ -12,7 +12,6 @@ const useStyles = makeStyles({
     fontSize: 55,
   },
   iconArea: {
-    backgroundColor: Color.VWORK_BLUE,
     color: "white",
     height: 150,
     borderRadius: 8,
@@ -40,6 +39,7 @@ const ProjectItem: FC<ProjectItemProps> = ({ name = "", bgcolor }) => {
             justify="center"
             alignItems="center"
             className={clsx(classes.iconArea, classes.contentWidth)}
+            style={{ backgroundColor: bgcolor }}
           >
             <FormatListBulletedIcon className={classes.icon} />
           </Grid>
