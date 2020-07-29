@@ -5,6 +5,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Home from "./Home";
 import MainNavigation from "../../shared/components/Navigation/MainNavigation";
+import MyTask from "./MyTask";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,6 +39,9 @@ const Dashboard = () => {
         <Switch>
           <Route path="/" exact>
             <Home />
+          </Route>
+          <Route path="/MyTask" exact>
+            <MyTask />
           </Route>
         </Switch>
       </main>
