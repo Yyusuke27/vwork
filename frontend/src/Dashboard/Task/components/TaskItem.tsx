@@ -50,33 +50,44 @@ const TaskItem: FC<TaskItemProps> = ({
           direction="row"
           justify="space-between"
           alignItems="center"
+          style={{ height: 80, margin: "auto" }}
         >
-          <Grid item container>
-            <Grid item spacing={3}>
-              <ErrorOutlineIcon className={classes.color} />
-            </Grid>
-            <Grid item>
-              <Typography className={classes.title}>{title}</Typography>
+          <Grid item>
+            <Grid
+              container
+              direction="row"
+              justify="space-between"
+              alignItems="center"
+              style={{ width: 220, paddingLeft: 10 }}
+            >
+              <Grid item>
+                <ErrorOutlineIcon className={classes.color} />
+              </Grid>
+              <Grid item>
+                <Typography className={classes.title}>{title}</Typography>
+              </Grid>
             </Grid>
           </Grid>
-          <Grid
-            item
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="center"
-          >
-            <Grid item>
-              <Typography>{project}</Typography>
-            </Grid>
-            <Grid item>
-              <AccessTimeIcon />
-            </Grid>
-            <Grid item>
-              <Typography>{data}</Typography>
-            </Grid>
-            <Grid item>
-              <Avatar>S</Avatar>
+          <Grid item>
+            <Grid
+              container
+              direction="row"
+              justify="space-between"
+              alignItems="center"
+              style={{ width: 280, paddingRight: 10 }}
+            >
+              <Grid item>
+                <Typography>{project}</Typography>
+              </Grid>
+              <Grid item>
+                <AccessTimeIcon />
+              </Grid>
+              <Grid item>
+                <Typography>{data}</Typography>
+              </Grid>
+              <Grid item>
+                <Avatar>S</Avatar>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
