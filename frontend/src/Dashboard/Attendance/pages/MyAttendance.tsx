@@ -3,7 +3,7 @@ import CheckAttendanceArea from "../components/CheckAttendanceArea";
 import DatePickerArea from "../components/DatePickerArea";
 import Container from "@material-ui/core/Container";
 
-const KintaiManagement = () => {
+const MyAttendance = () => {
   return (
     <>
       <Container>
@@ -14,4 +14,4 @@ const KintaiManagement = () => {
   );
 };
 
-export default KintaiManagement;
+export default MyAttendance;
