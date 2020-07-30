@@ -47,15 +47,9 @@ const AttendanceItem = () => {
                     alignItems="center"
                     className={clsx(classes.title, classes.space)}
                   >
-                    <Grid item style={{ marginRight: 55 }}>
-                      出社: 09:15
-                    </Grid>
-                    <Grid item style={{ marginRight: 55 }}>
-                      休憩: 12:05~13:00
-                    </Grid>
-                    <Grid item style={{ marginRight: 55 }}>
-                      退社: 18:55
-                    </Grid>
+                    <Grid item>出社: 09:15</Grid>
+                    <Grid item>休憩: 12:05~13:00</Grid>
+                    <Grid item>退社: 18:55</Grid>
                   </Grid>
                 </Grid>
                 <Grid item>DatePickerと連動</Grid>
@@ -87,7 +81,7 @@ const AttendanceItem = () => {
                 <Grid item>
                   <ChatBubbleIcon style={{ marginRight: 20 }} />
                 </Grid>
-                <Grid item style={{ width: "95%" }}>
+                <Grid item style={{ width: "93%" }}>
                   <TextField
                     id="outlined-multiline-static"
                     multiline

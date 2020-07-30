@@ -2,7 +2,7 @@ import React from "react";
 import CheckAttendanceArea from "../components/CheckAttendanceArea";
 import DatePickerArea from "../components/DatePickerArea";
 import Container from "@material-ui/core/Container";
-import AttendanceItem from "../components/AttendanceItem";
+import AttendanceList from "../components/AttendanceList";
 
 const MyAttendance = () => {
   return (
@@ -10,7 +10,7 @@ const MyAttendance = () => {
       <Container>
         <CheckAttendanceArea />
         <DatePickerArea />
-        <AttendanceItem />
+        <AttendanceList />
       </Container>
     </>
   );
