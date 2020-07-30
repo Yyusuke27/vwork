@@ -10,6 +10,7 @@ import Color from "../../../shared/util/color";
 import Grid from "@material-ui/core/Grid";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import Avatar from "@material-ui/core/Avatar";
+import Container from "@material-ui/core/Container";
 
 const drawerWidth = 240;
 
@@ -56,55 +57,57 @@ const MainHeader: FC<MainHeaderProps> = ({ handleDrawerOpen, open }) => {
 
   return (
     <div className={classes.root}>
-      <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, {
-              [classes.hide]: open,
-            })}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="center"
-          >
-            <Grid item>
-              <Typography variant="h6" noWrap>
-                ホーム
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Grid
-                container
-                direction="row"
-                justify="flex-end"
-                alignItems="center"
-              >
-                <Grid item>
-                  <IconButton aria-label="add">
-                    <AddCircleOutlineIcon style={{ fontSize: 40 }} />
-                  </IconButton>
-                </Grid>
-                <Grid item>
-                  <Avatar />
+      <Container>
+        <AppBar
+          position="fixed"
+          className={clsx(classes.appBar, {
+            [classes.appBarShift]: open,
+          })}
+        >
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              className={clsx(classes.menuButton, {
+                [classes.hide]: open,
+              })}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Grid
+              container
+              direction="row"
+              justify="space-between"
+              alignItems="center"
+            >
+              <Grid item>
+                <Typography variant="h6" noWrap>
+                  ホーム
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Grid
+                  container
+                  direction="row"
+                  justify="flex-end"
+                  alignItems="center"
+                >
+                  <Grid item>
+                    <IconButton aria-label="add">
+                      <AddCircleOutlineIcon style={{ fontSize: 40 }} />
+                    </IconButton>
+                  </Grid>
+                  <Grid item>
+                    <Avatar />
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </Toolbar>
-      </AppBar>
+          </Toolbar>
+        </AppBar>
+      </Container>
     </div>
   );
 };
