@@ -6,6 +6,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Home from "./Home";
 import MainNavigation from "../../shared/components/Navigation/MainNavigation";
 import MyTask from "../Task/pages/MyTask";
+import KintaiManagement from "../Attendance/pages/KintaiManagement";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,6 +43,9 @@ const Dashboard = () => {
           </Route>
           <Route path="/my_task" exact>
             <MyTask />
+          </Route>
+          <Route path="/kintai_manage" exact>
+            <KintaiManagement />
           </Route>
         </Switch>
       </main>

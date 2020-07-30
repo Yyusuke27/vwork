@@ -104,7 +104,7 @@ const SideBar: FC<SideBarProps> = ({ handleDrawerClose, open }) => {
             </ListItemIcon>
             <ListItemText primary="マイタスク" />
           </ListItem>
-          <ListItem button>
+          <ListItem button component={NavLink} to="/kintai_manage" exact>
             <ListItemIcon>
               <QueryBuilderIcon />
             </ListItemIcon>
