@@ -14,6 +14,7 @@ import MessageIcon from "@material-ui/icons/Message";
 import Drawer from "@material-ui/core/Drawer";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { NavLink } from "react-router-dom";
+import Grid from "@material-ui/core/Grid";
 
 const drawerWidth = 240;
 
@@ -86,38 +87,42 @@ const SideBar: FC<SideBarProps> = ({ handleDrawerClose, open }) => {
           }),
         }}
       >
-        <div className={classes.toolbar}>
-          <IconButton onClick={handleDrawerClose}>
-            <MenuIcon />
-          </IconButton>
-        </div>
-        <List>
-          <ListItem button component={NavLink} to="/" exact>
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary="ホーム" />
-          </ListItem>
-          <ListItem button component={NavLink} to="/my_task" exact>
-            <ListItemIcon>
-              <CheckCircleOutlineIcon />
-            </ListItemIcon>
-            <ListItemText primary="マイタスク" />
-          </ListItem>
-          <ListItem button component={NavLink} to="/kintai_manage" exact>
-            <ListItemIcon>
-              <QueryBuilderIcon />
-            </ListItemIcon>
-            <ListItemText primary="勤怠管理" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <MessageIcon />
-            </ListItemIcon>
-            <ListItemText primary="フィードバック" />
-          </ListItem>
-        </List>
-        <Divider />
+        <Grid container direction="column">
+          <Grid item>
+            <div className={classes.toolbar}>
+              <IconButton onClick={handleDrawerClose}>
+                <MenuIcon />
+              </IconButton>
+            </div>
+            <List>
+              <ListItem button component={NavLink} to="/" exact>
+                <ListItemIcon>
+                  <HomeIcon />
+                </ListItemIcon>
+                <ListItemText primary="ホーム" />
+              </ListItem>
+              <ListItem button component={NavLink} to="/my_task" exact>
+                <ListItemIcon>
+                  <CheckCircleOutlineIcon />
+                </ListItemIcon>
+                <ListItemText primary="マイタスク" />
+              </ListItem>
+              <ListItem button component={NavLink} to="/kintai_manage" exact>
+                <ListItemIcon>
+                  <QueryBuilderIcon />
+                </ListItemIcon>
+                <ListItemText primary="勤怠管理" />
+              </ListItem>
+              <ListItem button>
+                <ListItemIcon>
+                  <MessageIcon />
+                </ListItemIcon>
+                <ListItemText primary="フィードバック" />
+              </ListItem>
+            </List>
+          </Grid>
+          <Grid item></Grid>
+        </Grid>
       </Drawer>
     </div>
   );
