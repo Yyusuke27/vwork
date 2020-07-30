@@ -1,12 +1,15 @@
 import React from "react";
 import CheckAttendanceArea from "../components/CheckAttendanceArea";
 import DatePickerArea from "../components/DatePickerArea";
+import Container from "@material-ui/core/Container";
 
 const KintaiManagement = () => {
   return (
     <>
-      <CheckAttendanceArea />
-      <DatePickerArea />
+      <Container>
+        <CheckAttendanceArea />
+        <DatePickerArea />
+      </Container>
     </>
   );
 };
