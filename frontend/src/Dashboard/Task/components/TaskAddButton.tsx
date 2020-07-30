@@ -77,7 +77,6 @@ const TaskAddButton = () => {
         direction="row"
         justify="space-between"
         alignItems="center"
-        style={{ paddingLeft: 100, paddingRight: 200 }}
       >
         <Grid item>
           <Button
