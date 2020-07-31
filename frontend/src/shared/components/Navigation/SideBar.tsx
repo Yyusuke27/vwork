@@ -13,7 +13,6 @@ import MessageIcon from "@material-ui/icons/Message";
 import Drawer from "@material-ui/core/Drawer";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { NavLink } from "react-router-dom";
-import Grid from "@material-ui/core/Grid";
 import MyProject from "./MyProject";
 import Container from "@material-ui/core/Container";
 
@@ -75,52 +74,54 @@ const SideBar: FC<SideBarProps> = ({ handleDrawerClose, open }) => {
 
   return (
     <div className={classes.root}>
-      <Drawer
-        variant="permanent"
-        className={clsx(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
-        })}
-        classes={{
-          paper: clsx({
+      <Container>
+        <Drawer
+          variant="permanent"
+          className={clsx(classes.drawer, {
             [classes.drawerOpen]: open,
             [classes.drawerClose]: !open,
-          }),
-        }}
-      >
-        <div className={classes.toolbar}>
-          <IconButton onClick={handleDrawerClose}>
-            <MenuIcon style={{ fontSize: 40 }} />
-          </IconButton>
-        </div>
-        <List>
-          <ListItem button component={NavLink} to="/" exact>
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary="ホーム" />
-          </ListItem>
-          <ListItem button component={NavLink} to="/my_task" exact>
-            <ListItemIcon>
-              <CheckCircleOutlineIcon />
-            </ListItemIcon>
-            <ListItemText primary="マイタスク" />
-          </ListItem>
-          <ListItem button component={NavLink} to="/kintai_manage" exact>
-            <ListItemIcon>
-              <QueryBuilderIcon />
-            </ListItemIcon>
-            <ListItemText primary="勤怠管理" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <MessageIcon />
-            </ListItemIcon>
-            <ListItemText primary="フィードバック" />
-          </ListItem>
-        </List>
-        <MyProject />
-      </Drawer>
+          })}
+          classes={{
+            paper: clsx({
+              [classes.drawerOpen]: open,
+              [classes.drawerClose]: !open,
+            }),
+          }}
+        >
+          <div className={classes.toolbar}>
+            <IconButton onClick={handleDrawerClose}>
+              <MenuIcon style={{ fontSize: 40 }} />
+            </IconButton>
+          </div>
+          <List>
+            <ListItem button component={NavLink} to="/" exact>
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText primary="ホーム" />
+            </ListItem>
+            <ListItem button component={NavLink} to="/my_task" exact>
+              <ListItemIcon>
+                <CheckCircleOutlineIcon />
+              </ListItemIcon>
+              <ListItemText primary="マイタスク" />
+            </ListItem>
+            <ListItem button component={NavLink} to="/kintai_manage" exact>
+              <ListItemIcon>
+                <QueryBuilderIcon />
+              </ListItemIcon>
+              <ListItemText primary="勤怠管理" />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon>
+                <MessageIcon />
+              </ListItemIcon>
+              <ListItemText primary="フィードバック" />
+            </ListItem>
+          </List>
+          <MyProject />
+        </Drawer>
+      </Container>
     </div>
   );
 };

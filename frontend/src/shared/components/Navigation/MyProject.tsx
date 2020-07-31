@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import AddIcon from "@material-ui/icons/Add";
 import Typography from "@material-ui/core/Typography";
+import EachProjectItem from "./EachProjectItem";
 
 const defaultProps = {
   m: 2,
@@ -34,12 +35,13 @@ const MyProject = () => {
             <Typography>マイプロジェクト</Typography>
           </Grid>
           <Grid item>
-            <IconButton>
-              <AddIcon />
+            <IconButton style={{ padding: 0 }}>
+              <AddIcon style={{ borderRadius: 10 }} />
             </IconButton>
           </Grid>
         </Grid>
       </Box>
+      <EachProjectItem />
     </>
   );
 };
