@@ -1,15 +1,18 @@
-import React from "react";
+import React, { FC } from "react";
 import MainHeader from "./MainHeader";
 import SideBar from "./SideBar";
 
-const MainNavigation = () => {
-  const [open, setOpen] = React.useState(true);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+interface MainNavigationProps {
+  handleDrawerOpen: () => void;
+  handleDrawerClose: () => void;
+  open: boolean;
+}
+
+const MainNavigation: FC<MainNavigationProps> = ({
+  handleDrawerOpen,
+  handleDrawerClose,
+  open,
+}) => {
   return (
     <>
       <MainHeader handleDrawerOpen={handleDrawerOpen} open={open} />
