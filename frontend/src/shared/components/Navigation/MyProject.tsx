@@ -7,8 +7,9 @@ import AddIcon from "@material-ui/icons/Add";
 import Typography from "@material-ui/core/Typography";
 
 const defaultProps = {
-  m: 1,
-  style: { width: "20rem" },
+  m: 2,
+  style: { width: "13rem" },
+  borderColor: "text.primary",
 };
 
 const useStyles = makeStyles({
@@ -22,11 +23,11 @@ const MyProject = () => {
   const classes = useStyles();
   return (
     <>
-      <Box borderBottom={0.5} {...defaultProps} className={classes.title}>
+      <Box borderBottom={1} {...defaultProps} className={classes.title}>
         <Grid
           container
           direction="row"
-          justify="flex-start"
+          justify="space-between"
           alignItems="center"
         >
           <Grid item>
