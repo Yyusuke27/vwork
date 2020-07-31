@@ -15,6 +15,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { NavLink } from "react-router-dom";
 import MyProject from "./MyProject";
 import Container from "@material-ui/core/Container";
+import Color from "../../util/color";
 
 const drawerWidth = 240;
 
@@ -29,7 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
     drawer: {
       width: drawerWidth,
       flexShrink: 0,
-      whiteSpace: "nowrap",
     },
     drawerOpen: {
       width: drawerWidth,
@@ -49,17 +49,32 @@ const useStyles = makeStyles((theme: Theme) =>
         width: theme.spacing(9) + 1,
       },
     },
-    toolbar: {
+    drawerPaper: {
+      width: drawerWidth,
+    },
+    drawerHeader: {
       display: "flex",
       alignItems: "center",
-      justifyContent: "flex-end",
       padding: theme.spacing(0, 1),
       // necessary for content to be below app bar
       ...theme.mixins.toolbar,
+      justifyContent: "flex-end",
     },
     content: {
       flexGrow: 1,
       padding: theme.spacing(3),
+      transition: theme.transitions.create("margin", {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      marginLeft: -drawerWidth,
+    },
+    contentShift: {
+      transition: theme.transitions.create("margin", {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: 0,
     },
   })
 );
@@ -71,27 +86,22 @@ interface SideBarProps {
 
 const SideBar: FC<SideBarProps> = ({ handleDrawerClose, open }) => {
   const classes = useStyles();
-  // const [state, setState] = useState(<MyProject />);
 
   return (
     <div className={classes.root}>
       <Container>
         <Drawer
-          variant="permanent"
-          className={clsx(classes.drawer, {
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
-          })}
+          className={classes.drawer}
+          variant="persistent"
+          anchor="left"
+          open={open}
           classes={{
-            paper: clsx({
-              [classes.drawerOpen]: open,
-              [classes.drawerClose]: !open,
-            }),
+            paper: classes.drawerPaper,
           }}
         >
-          <div className={classes.toolbar}>
+          <div className={classes.drawerHeader}>
             <IconButton onClick={handleDrawerClose}>
-              <MenuIcon style={{ fontSize: 40 }} />
+              <MenuIcon style={{ fontSize: 40, color: Color.VWORK_GRAY }} />
             </IconButton>
           </div>
           <List>

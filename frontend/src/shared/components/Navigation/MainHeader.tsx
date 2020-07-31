@@ -20,21 +20,16 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
     },
     appBar: {
-      zIndex: theme.zIndex.drawer + 1,
-      backgroundColor: Color.VWORK_WHITE,
-      color: Color.VWORK_BLACK,
-
-      transition: theme.transitions.create(["width", "margin"], {
+      transition: theme.transitions.create(["margin", "width"], {
         easing: theme.transitions.easing.sharp,
-
         duration: theme.transitions.duration.leavingScreen,
       }),
     },
     appBarShift: {
-      marginLeft: drawerWidth,
       width: `calc(100% - ${drawerWidth}px)`,
-      transition: theme.transitions.create(["width", "margin"], {
-        easing: theme.transitions.easing.sharp,
+      marginLeft: drawerWidth,
+      transition: theme.transitions.create(["margin", "width"], {
+        easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
     },
@@ -59,6 +54,7 @@ const MainHeader: FC<MainHeaderProps> = ({ handleDrawerOpen, open }) => {
     <div className={classes.root}>
       <Container>
         <AppBar
+          style={{ backgroundColor: Color.VWORK_WHITE }}
           position="fixed"
           className={clsx(classes.appBar, {
             [classes.appBarShift]: open,
@@ -70,11 +66,9 @@ const MainHeader: FC<MainHeaderProps> = ({ handleDrawerOpen, open }) => {
               aria-label="open drawer"
               onClick={handleDrawerOpen}
               edge="start"
-              className={clsx(classes.menuButton, {
-                [classes.hide]: open,
-              })}
+              className={clsx(classes.menuButton, open && classes.hide)}
             >
-              <MenuIcon style={{ fontSize: 40 }} />
+              <MenuIcon style={{ fontSize: 40, color: Color.VWORK_GRAY }} />
             </IconButton>
             <Grid
               container
@@ -83,7 +77,11 @@ const MainHeader: FC<MainHeaderProps> = ({ handleDrawerOpen, open }) => {
               alignItems="center"
             >
               <Grid item>
-                <Typography variant="h6" noWrap>
+                <Typography
+                  variant="h6"
+                  style={{ color: Color.VWORK_GRAY }}
+                  noWrap
+                >
                   ホーム
                 </Typography>
               </Grid>
