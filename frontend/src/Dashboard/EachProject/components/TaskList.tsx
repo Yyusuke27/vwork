@@ -8,6 +8,7 @@ import Grid from "@material-ui/core/Grid";
 
 const defaultProps = {
   m: 1,
+  style: { width: "20rem" },
 };
 
 const useStyles = makeStyles({
