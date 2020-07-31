@@ -7,6 +7,7 @@ import Home from "./Home";
 import MainNavigation from "../../shared/components/Navigation/MainNavigation";
 import MyTask from "../Task/pages/MyTask";
 import MyAttendance from "../Attendance/pages/MyAttendance";
+import EachProject from "../EachProject/pages/EachProject";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,6 +47,9 @@ const Dashboard = () => {
           </Route>
           <Route path="/kintai_manage" exact>
             <MyAttendance />
+          </Route>
+          <Route path="/my_project" exact>
+            <EachProject />
           </Route>
         </Switch>
       </main>

@@ -71,6 +71,7 @@ interface SideBarProps {
 
 const SideBar: FC<SideBarProps> = ({ handleDrawerClose, open }) => {
   const classes = useStyles();
+  // const [state, setState] = useState(<MyProject />);
 
   return (
     <div className={classes.root}>
