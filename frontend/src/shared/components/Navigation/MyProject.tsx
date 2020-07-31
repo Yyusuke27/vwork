@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import AddIcon from "@material-ui/icons/Add";
 import Typography from "@material-ui/core/Typography";
-import EachProjectItem from "./EachProjectItem";
+import EacProjectList from "./EachProjectList";
 
 const defaultProps = {
   m: 2,
@@ -41,7 +41,7 @@ const MyProject = () => {
           </Grid>
         </Grid>
       </Box>
-      <EachProjectItem />
+      <EacProjectList />
     </>
   );
 };
