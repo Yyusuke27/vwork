@@ -74,7 +74,7 @@ const MainHeader: FC<MainHeaderProps> = ({ handleDrawerOpen, open }) => {
                 [classes.hide]: open,
               })}
             >
-              <MenuIcon />
+              <MenuIcon style={{ fontSize: 40 }} />
             </IconButton>
             <Grid
               container

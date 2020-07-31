@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import clsx from "clsx";
 import IconButton from "@material-ui/core/IconButton";
-import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -15,6 +14,7 @@ import Drawer from "@material-ui/core/Drawer";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { NavLink } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
+import MyProject from "./MyProject";
 
 const drawerWidth = 240;
 
@@ -87,11 +87,11 @@ const SideBar: FC<SideBarProps> = ({ handleDrawerClose, open }) => {
           }),
         }}
       >
-        <Grid container direction="column">
+        <Grid container direction="column" justify="center">
           <Grid item>
             <div className={classes.toolbar}>
               <IconButton onClick={handleDrawerClose}>
-                <MenuIcon />
+                <MenuIcon style={{ fontSize: 40 }} />
               </IconButton>
             </div>
             <List>
@@ -121,7 +121,9 @@ const SideBar: FC<SideBarProps> = ({ handleDrawerClose, open }) => {
               </ListItem>
             </List>
           </Grid>
-          <Grid item></Grid>
+        </Grid>
+        <Grid item>
+          <MyProject />
         </Grid>
       </Drawer>
     </div>
