@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import clsx from "clsx";
+import AppContext from "../../AppContext";
 
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -55,33 +56,37 @@ const Dashboard = () => {
   };
   return (
     <div className={classes.root}>
-      <MainNavigation
-        handleDrawerOpen={handleDrawerOpen}
-        handleDrawerClose={handleDrawerClose}
-        open={open}
-      />
-      <CssBaseline />
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open,
-        })}
+      <AppContext.Provider
+        value={{ handleDrawerOpen, handleDrawerClose, open }}
       >
-        <div className={classes.drawerHeader} />
-        <Switch>
-          <Route path="/" exact>
-            <Home />
-          </Route>
-          <Route path="/my_task" exact>
-            <MyTask />
-          </Route>
-          <Route path="/kintai_manage" exact>
-            <MyAttendance />
-          </Route>
-          <Route path="/my_project" exact>
-            <EachProject />
-          </Route>
-        </Switch>
-      </main>
+        <MainNavigation
+          handleDrawerOpen={handleDrawerOpen}
+          handleDrawerClose={handleDrawerClose}
+          open={open}
+        />
+        <CssBaseline />
+        <main
+          className={clsx(classes.content, {
+            [classes.contentShift]: open,
+          })}
+        >
+          <div className={classes.drawerHeader} />
+          <Switch>
+            <Route path="/" exact>
+              <Home />
+            </Route>
+            <Route path="/my_task" exact>
+              <MyTask />
+            </Route>
+            <Route path="/kintai_manage" exact>
+              <MyAttendance />
+            </Route>
+            <Route path="/my_project" exact>
+              <EachProject />
+            </Route>
+          </Switch>
+        </main>
+      </AppContext.Provider>
     </div>
   );
 };

@@ -1,5 +1,11 @@
 import { createContext } from "react";
 
-const AppContext = createContext(null);
+interface AppContextInterface {
+  handleDrawerOpen: () => void;
+  handleDrawerClose: () => void;
+  open: boolean;
+}
+
+const AppContext = createContext<AppContextInterface | null>(null);
 
 export default AppContext;
