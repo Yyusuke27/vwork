@@ -7,7 +7,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Home from "./Home";
 import MyTask from "../Task/pages/MyTask";
 import MyAttendance from "../Attendance/pages/MyAttendance";
-import EachProject from "../EachProject/pages/EachProject";
+import EachProject from "../Project/pages/EachProject";
 import MainNavigation from "../../shared/components/Navigation/MainNavigation";
 
 const drawerWidth = 240;

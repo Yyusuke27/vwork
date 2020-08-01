@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const TaskAddButton = () => {
+const AddButtonInProject = () => {
   const classes = useStyles();
 
   return (
@@ -46,4 +46,4 @@ const TaskAddButton = () => {
   );
 };
 
-export default TaskAddButton;
+export default AddButtonInProject;
