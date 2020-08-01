@@ -11,7 +11,7 @@ const Home = () => {
       <Container>
         <MainHeader title="ホーム" />
         <CheckAttendanceArea />
-        <TaskList title="期限が近いタスク" />
+        <TaskList title="期限が近いタスク" iconType="alert" />
         <ProjectList />
       </Container>
     </>

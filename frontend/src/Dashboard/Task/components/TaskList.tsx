@@ -28,9 +28,10 @@ const taskData = [
 
 interface TaskListProps {
   title?: string;
+  iconType?: string;
 }
 
-const TaskList: FC<TaskListProps> = ({ title = "" }) => {
+const TaskList: FC<TaskListProps> = ({ title = "", iconType = "" }) => {
   const classes = useStyles();
 
   return (
@@ -55,6 +56,7 @@ const TaskList: FC<TaskListProps> = ({ title = "" }) => {
               title={data.title}
               project={data.project}
               data={data.data}
+              iconType={iconType}
             />
           );
         })}
