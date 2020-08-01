@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { FC, useContext } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -43,7 +43,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const MainHeader = () => {
+interface MainHeaderProps {
+  title: string;
+}
+
+const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
   const classes = useStyles();
   // @ts-ignore
   const { handleDrawerOpen, open } = useContext(AppContext);
@@ -80,7 +84,7 @@ const MainHeader = () => {
                   style={{ color: Color.VWORK_GRAY }}
                   noWrap
                 >
-                  ホーム
+                  {title}
                 </Typography>
               </Grid>
               <Grid item>
