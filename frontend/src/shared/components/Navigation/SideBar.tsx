@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { useContext } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -15,6 +15,7 @@ import { NavLink } from "react-router-dom";
 import MyProject from "./MyProject";
 import Container from "@material-ui/core/Container";
 import Color from "../../util/color";
+import AppContext from "../../../AppContext";
 
 const drawerWidth = 240;
 
@@ -62,13 +63,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface SideBarProps {
-  handleDrawerClose: () => void;
-  open: boolean;
-}
-
-const SideBar: FC<SideBarProps> = ({ handleDrawerClose, open }) => {
+const SideBar = () => {
   const classes = useStyles();
+  // @ts-ignore
+  const { handleDrawerClose, open } = useContext(AppContext);
 
   return (
     <div className={classes.root}>

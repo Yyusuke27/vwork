@@ -59,11 +59,7 @@ const Dashboard = () => {
       <AppContext.Provider
         value={{ handleDrawerOpen, handleDrawerClose, open }}
       >
-        <MainNavigation
-          handleDrawerOpen={handleDrawerOpen}
-          handleDrawerClose={handleDrawerClose}
-          open={open}
-        />
+        <MainNavigation />
         <CssBaseline />
         <main
           className={clsx(classes.content, {

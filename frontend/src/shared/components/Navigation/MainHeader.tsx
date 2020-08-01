@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { useContext } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -11,6 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import Avatar from "@material-ui/core/Avatar";
 import Container from "@material-ui/core/Container";
+import AppContext from "../../../AppContext";
 
 const drawerWidth = 240;
 
@@ -42,13 +43,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface MainHeaderProps {
-  handleDrawerOpen: () => void;
-  open: boolean;
-}
-
-const MainHeader: FC<MainHeaderProps> = ({ handleDrawerOpen, open }) => {
+const MainHeader = () => {
   const classes = useStyles();
+  // @ts-ignore
+  const { handleDrawerOpen, open } = useContext(AppContext);
 
   return (
     <div className={classes.root}>
