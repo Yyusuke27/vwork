@@ -50,13 +50,14 @@ const TaskList: FC<TaskListProps> = ({ title = "", iconType = "" }) => {
         ""
       )}
       <Grid container direction="column" justify="flex-start">
-        {taskData.map((data) => {
+        {taskData.map((data, index) => {
           return (
             <TaskItem
               title={data.title}
               project={data.project}
               data={data.data}
               iconType={iconType}
+              key={index}
             />
           );
         })}

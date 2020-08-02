@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
     drawer: {
       width: drawerWidth,
       flexShrink: 0,
+      color: Color.VWORK_BLACK,
     },
     drawerOpen: {
       width: drawerWidth,

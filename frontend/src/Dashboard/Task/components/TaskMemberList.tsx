@@ -52,8 +52,10 @@ const TaskMemberList = () => {
           </ListItem>
         </Grid>
         <Grid item>
-          {programDate.map((date) => {
-            return <TaskMemberItem name={date.name} icon={date.icon} />;
+          {programDate.map((date, index) => {
+            return (
+              <TaskMemberItem name={date.name} icon={date.icon} key={index} />
+            );
           })}
         </Grid>
       </Grid>

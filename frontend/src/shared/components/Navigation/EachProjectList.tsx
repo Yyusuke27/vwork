@@ -10,8 +10,14 @@ const projectDate = [
 const EacProjectList = () => {
   return (
     <>
-      {projectDate.map((date) => {
-        return <EachProjectItem title={date.title} bgcolor={date.bgcolor} />;
+      {projectDate.map((date, index) => {
+        return (
+          <EachProjectItem
+            title={date.title}
+            bgcolor={date.bgcolor}
+            key={index}
+          />
+        );
       })}
     </>
   );

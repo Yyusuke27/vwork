@@ -60,8 +60,14 @@ const ProjectList = () => {
       <Grid container>
         <Grid item>
           <Grid container justify="flex-start">
-            {projectData.map((data) => {
-              return <ProjectItem name={data.title} bgcolor={data.bgcolor} />;
+            {projectData.map((data, index) => {
+              return (
+                <ProjectItem
+                  name={data.title}
+                  bgcolor={data.bgcolor}
+                  key={index}
+                />
+              );
             })}
           </Grid>
         </Grid>
