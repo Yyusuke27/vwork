@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import Grid from "@material-ui/core/Grid";
@@ -12,6 +12,10 @@ import FormControl from "@material-ui/core/FormControl";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import InputBase from "@material-ui/core/InputBase";
 import Color from "../../../shared/util/color";
+import Drawer from "@material-ui/core/Drawer";
+import Backdrop from "@material-ui/core/Backdrop";
+
+const drawerWidth = "55%";
 
 const BootstrapInput = withStyles((theme: Theme) =>
   createStyles({
@@ -60,6 +64,17 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 150,
       fontSize: 15,
     },
+    drawer: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
+    drawerPaper: {
+      width: drawerWidth,
+    },
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+    },
   })
 );
 
@@ -68,6 +83,13 @@ const TaskAddButton = () => {
   const [text, setText] = React.useState("");
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setText(event.target.value as string);
+  };
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleDrawerOpen = () => {
+    setOpen(true);
   };
 
   return (
@@ -84,6 +106,7 @@ const TaskAddButton = () => {
             color="secondary"
             className={classes.button}
             startIcon={<AddIcon />}
+            onClick={handleDrawerOpen}
           >
             タスクを追加
           </Button>
@@ -103,6 +126,17 @@ const TaskAddButton = () => {
           </FormControl>
         </Grid>
       </Grid>
+      <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
+        <Drawer
+          className={classes.drawer}
+          variant="persistent"
+          anchor="right"
+          open={open}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        ></Drawer>
+      </Backdrop>
     </>
   );
 };
