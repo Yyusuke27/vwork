@@ -15,7 +15,6 @@ const defaultProps = {
 
 const useStyles = makeStyles({
   root: {
-    // minWidth: 275,
     borderRadius: 10,
     backgroundColor: Color.VWORK_LIGHT_BLUE,
     height: 185,

@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
+// import Logo from "../../../../public/images/auth/logo192.png";
 import IconButton from "@material-ui/core/IconButton";
+import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -12,7 +14,7 @@ import MessageIcon from "@material-ui/icons/Message";
 import Drawer from "@material-ui/core/Drawer";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { NavLink } from "react-router-dom";
-import MyProject from "./MyProject";
+import MyProject from "../../../Dashboard/Project/pages/MyProject";
 import Container from "@material-ui/core/Container";
 import Color from "../../util/color";
 import AppContext from "../../../AppContext";
@@ -52,6 +54,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     drawerPaper: {
       width: drawerWidth,
+      backgroundColor: Color.VWORK_BLACK,
+      color: Color.VWORK_WHITE,
     },
     drawerHeader: {
       display: "flex",
@@ -60,6 +64,12 @@ const useStyles = makeStyles((theme: Theme) =>
       // necessary for content to be below app bar
       ...theme.mixins.toolbar,
       justifyContent: "flex-end",
+    },
+    iconstyle: {
+      color: Color.VWORK_WHITE,
+    },
+    title: {
+      fontWeight: 900,
     },
   })
 );
@@ -81,32 +91,52 @@ const SideBar = () => {
             paper: classes.drawerPaper,
           }}
         >
-          <div className={classes.drawerHeader}>
-            <IconButton onClick={handleDrawerClose}>
-              <MenuIcon style={{ fontSize: 40, color: Color.VWORK_GRAY }} />
-            </IconButton>
-          </div>
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+          >
+            <Grid item>
+              <Grid
+                container
+                direction="row"
+                alignItems="center"
+                className={classes.title}
+              >
+                <Grid item>{/*<img src={Logo} alt="logo" />*/}</Grid>
+                <Grid item>VWORK</Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <div className={classes.drawerHeader}>
+                <IconButton onClick={handleDrawerClose}>
+                  <MenuIcon style={{ fontSize: 40, color: Color.VWORK_GRAY }} />
+                </IconButton>
+              </div>
+            </Grid>
+          </Grid>
           <List>
             <ListItem button component={NavLink} to="/" exact>
-              <ListItemIcon>
+              <ListItemIcon className={classes.iconstyle}>
                 <HomeIcon />
               </ListItemIcon>
               <ListItemText primary="ホーム" />
             </ListItem>
             <ListItem button component={NavLink} to="/my_task" exact>
-              <ListItemIcon>
+              <ListItemIcon className={classes.iconstyle}>
                 <CheckCircleOutlineIcon />
               </ListItemIcon>
               <ListItemText primary="マイタスク" />
             </ListItem>
             <ListItem button component={NavLink} to="/kintai_manage" exact>
-              <ListItemIcon>
+              <ListItemIcon className={classes.iconstyle}>
                 <QueryBuilderIcon />
               </ListItemIcon>
               <ListItemText primary="勤怠管理" />
             </ListItem>
             <ListItem button>
-              <ListItemIcon>
+              <ListItemIcon className={classes.iconstyle}>
                 <MessageIcon />
               </ListItemIcon>
               <ListItemText primary="フィードバック" />
