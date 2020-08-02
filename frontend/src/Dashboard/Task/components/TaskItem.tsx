@@ -78,10 +78,6 @@ const TaskItem: FC<TaskItemProps> = ({
     setOpen(true);
   };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
   return (
     <>
       <Card className={classes.root}>
@@ -147,12 +143,7 @@ const TaskItem: FC<TaskItemProps> = ({
           classes={{
             paper: classes.drawerPaper,
           }}
-        >
-          <div
-            className={classes.drawerHeader}
-            onClick={handleDrawerClose}
-          ></div>
-        </Drawer>
+        ></Drawer>
       </Backdrop>
     </>
   );
