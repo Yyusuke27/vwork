@@ -92,7 +92,11 @@ const AttendanceItem = () => {
                   <Grid item style={{ marginRight: 20 }}>
                     <CheckCircleIcon />
                   </Grid>
-                  <Grid item style={{ fontSize: 20 }}>
+                  <Grid
+                    item
+                    style={{ fontSize: 20 }}
+                    onClick={handleDrawerOpen}
+                  >
                     2件のタスクに対応
                   </Grid>
                 </Grid>
