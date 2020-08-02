@@ -1,4 +1,5 @@
 import React, { FC, useState } from "react";
+import Grid from "@material-ui/core/Grid";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Avatar from "@material-ui/core/Avatar";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -60,7 +61,29 @@ const TaskMemberItem: FC<TaskMemberItemProps> = ({ name = "", icon = "" }) => {
           classes={{
             paper: classes.drawerPaper,
           }}
-        ></Drawer>
+        >
+          <Grid
+            container
+            direction="column"
+            alignItems="center"
+            style={{ marginTop: "20%" }}
+          >
+            <Grid item style={{ width: "60%" }}>
+              <Grid
+                container
+                direction="row"
+                justify="space-between"
+                alignItems="center"
+              >
+                <Grid item style={{ fontSize: 100 }}>
+                  <Avatar>{icon}</Avatar>
+                </Grid>
+                <Grid item>{icon}</Grid>
+              </Grid>
+            </Grid>
+            <Grid item></Grid>
+          </Grid>
+        </Drawer>
       </Backdrop>
     </>
   );

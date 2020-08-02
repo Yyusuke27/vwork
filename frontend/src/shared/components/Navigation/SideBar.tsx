@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-// import Logo from "../../../../public/images/auth/logo192.png";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
@@ -101,11 +100,20 @@ const SideBar = () => {
               <Grid
                 container
                 direction="row"
+                justify="center"
                 alignItems="center"
                 className={classes.title}
+                style={{ marginLeft: "10%" }}
               >
-                <Grid item>{/*<img src={Logo} alt="logo" />*/}</Grid>
-                <Grid item>VWORK</Grid>
+                <Grid item style={{ fontSize: 30 }}>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/images/logo192.png`}
+                    style={{ height: 25 }}
+                  />
+                </Grid>
+                <Grid item style={{ fontSize: 30 }}>
+                  VWORK
+                </Grid>
               </Grid>
             </Grid>
             <Grid item>
