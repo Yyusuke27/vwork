@@ -109,6 +109,7 @@ const SideBar = () => {
                   <img
                     src={`${process.env.PUBLIC_URL}/images/logo192.png`}
                     style={{ height: 25 }}
+                    alt=""
                   />
                 </Grid>
                 <Grid item style={{ fontSize: 30 }}>
