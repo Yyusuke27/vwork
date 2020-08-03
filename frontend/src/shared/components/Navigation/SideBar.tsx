@@ -9,7 +9,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import HomeIcon from "@material-ui/icons/Home";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
-import MessageIcon from "@material-ui/icons/Message";
+import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import Drawer from "@material-ui/core/Drawer";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { NavLink } from "react-router-dom";
@@ -146,9 +146,9 @@ const SideBar = () => {
             </ListItem>
             <ListItem button>
               <ListItemIcon className={classes.iconstyle}>
-                <MessageIcon />
+                <NotificationsNoneIcon />
               </ListItemIcon>
-              <ListItemText primary="フィードバック" />
+              <ListItemText primary="受信ボックス" />
             </ListItem>
           </List>
           <MyProject />
