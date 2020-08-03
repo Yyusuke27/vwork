@@ -2,8 +2,12 @@ const express = require("express");
 const colors = require("colors");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
+const connectDB = require("./config/db");
 
 dotenv.config({ path: "./config/config.env" });
+
+// データベース接続
+connectDB();
 
 const app = express();
 
