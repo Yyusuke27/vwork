@@ -217,6 +217,9 @@ const CheckAttendanceArea = () => {
                 </Grid>
               </Grid>
             </Grid>
+            <Grid item style={{ marginTop: "3%", fontSize: 30 }}>
+              X件のタスクを追加済
+            </Grid>
             <Grid item>
               <Grid container direction="column" style={{ marginTop: "10%" }}>
                 <Grid item style={{ marginBottom: "1%" }}>

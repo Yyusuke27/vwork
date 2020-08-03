@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
       minWidth: 275,
       borderRadius: 10,
       height: 80,
+      marginTop: 10,
       marginBottom: 15,
       cursor: "pointer",
     },
