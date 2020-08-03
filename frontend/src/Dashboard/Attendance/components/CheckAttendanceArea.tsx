@@ -4,14 +4,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import Color from "../../../shared/util/color";
-
-const defaultProps = {
-  m: 1,
-  style: { width: "20rem" },
-};
+import Dialog from "@material-ui/core/Dialog";
+import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
+import clsx from "clsx";
+import Slide from "@material-ui/core/Slide";
+import { TransitionProps } from "@material-ui/core/transitions";
+import TextField from "@material-ui/core/TextField";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import CloseIcon from "@material-ui/icons/Close";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({
   root: {
@@ -24,18 +28,65 @@ const useStyles = makeStyles({
   title: {
     fontSize: 18,
   },
-
+  maintitle: {
+    m: 1,
+    width: "20rem",
+    fontSize: 18,
+  },
   color: {
     backgroundColor: Color.VWORK_RED,
   },
+  button: {
+    cursor: "pointer",
+  },
+  appBar: {
+    position: "relative",
+    backgroundColor: Color.VWORK_WHITE,
+  },
+  dialogText: {
+    fontSize: 20,
+  },
+  dialogStyle: {
+    marginTop: "5%",
+  },
+  additionalButton: {
+    backgroundColor: Color.VWORK_BLUE,
+    color: Color.VWORK_WHITE,
+    borderRadius: 10,
+    width: 100,
+    fontSize: 20,
+  },
+  takinButton: {
+    backgroundColor: Color.VWORK_RED,
+    color: Color.VWORK_WHITE,
+    borderRadius: 10,
+    width: 150,
+    fontSize: 20,
+  },
+});
+
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & { children?: React.ReactElement },
+  ref: React.Ref<unknown>
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const CheckAttendanceArea = () => {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <>
-      <Box borderBottom={1} {...defaultProps} className={classes.title}>
+      <Box borderBottom={1} className={classes.maintitle}>
         勤怠管理
       </Box>
       <Card className={classes.root}>
@@ -88,13 +139,72 @@ const CheckAttendanceArea = () => {
               </Button>
             </Box>
             <Box p={1}>
-              <Button size="small" variant="contained">
+              <Button
+                size="small"
+                variant="contained"
+                onClick={handleClickOpen}
+                className={classes.button}
+              >
                 退社
               </Button>
             </Box>
           </Box>
         </CardActions>
       </Card>
+      <Dialog fullScreen open={open} TransitionComponent={Transition}>
+        <Grid
+          container
+          direction="column"
+          className={clsx(classes.dialogText, classes.dialogStyle)}
+        >
+          <Container maxWidth="md">
+            <Grid item>
+              <IconButton
+                edge="start"
+                color="inherit"
+                onClick={handleClose}
+                aria-label="close"
+              >
+                <CloseIcon />
+              </IconButton>
+            </Grid>
+            <Grid item>勤務お疲れさまでした</Grid>
+            <Grid item style={{ marginTop: "5%" }}>
+              <Grid container direction="column">
+                <Grid item>今日行ったタスクの確認をして下さい。</Grid>
+                <Grid item style={{ marginTop: "1%" }}>
+                  <Button className={classes.additionalButton}>追加</Button>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Grid container direction="column" style={{ marginTop: "10%" }}>
+                <Grid item style={{ marginBottom: "1%" }}>
+                  今日の振り返り
+                </Grid>
+                <Grid item>
+                  <TextField
+                    multiline
+                    rows={4}
+                    variant="outlined"
+                    style={{ width: 800 }}
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Grid
+                container
+                direction="row"
+                justify="flex-end"
+                style={{ marginTop: "10%" }}
+              >
+                <Button className={classes.takinButton}>退勤する</Button>
+              </Grid>
+            </Grid>
+          </Container>
+        </Grid>
+      </Dialog>
     </>
   );
 };
