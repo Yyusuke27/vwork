@@ -1,6 +1,6 @@
 import React from "react";
 import Box from "@material-ui/core/Box";
-import { makeStyles } from "@material-ui/core/styles";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -16,54 +16,80 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Button from "@material-ui/core/Button";
+import Drawer from "@material-ui/core/Drawer";
+import Backdrop from "@material-ui/core/Backdrop";
+import TaskInTaikinList from "../../Task/components/TaskInTaikinList";
 
-const useStyles = makeStyles({
-  root: {
-    borderRadius: 10,
-    backgroundColor: Color.VWORK_LIGHT_BLUE,
-    height: 185,
-    marginTop: 25,
-  },
+const drawerWidth = "55%";
 
-  title: {
-    fontSize: 18,
-  },
-  maintitle: {
-    m: 1,
-    width: "20rem",
-    fontSize: 18,
-  },
-  color: {
-    backgroundColor: Color.VWORK_RED,
-  },
-  button: {
-    cursor: "pointer",
-  },
-  appBar: {
-    position: "relative",
-    backgroundColor: Color.VWORK_WHITE,
-  },
-  dialogText: {
-    fontSize: 20,
-  },
-  dialogStyle: {
-    marginTop: "5%",
-  },
-  additionalButton: {
-    backgroundColor: Color.VWORK_BLUE,
-    color: Color.VWORK_WHITE,
-    borderRadius: 10,
-    width: 100,
-    fontSize: 20,
-  },
-  takinButton: {
-    backgroundColor: Color.VWORK_RED,
-    color: Color.VWORK_WHITE,
-    borderRadius: 10,
-    width: 150,
-    fontSize: 20,
-  },
-});
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      borderRadius: 10,
+      backgroundColor: Color.VWORK_LIGHT_BLUE,
+      height: 185,
+      marginTop: 25,
+    },
+
+    title: {
+      fontSize: 18,
+    },
+    maintitle: {
+      m: 1,
+      width: "20rem",
+      fontSize: 18,
+    },
+    color: {
+      backgroundColor: Color.VWORK_RED,
+    },
+    button: {
+      cursor: "pointer",
+    },
+    appBar: {
+      position: "relative",
+      backgroundColor: Color.VWORK_WHITE,
+    },
+    dialogText: {
+      fontSize: 20,
+    },
+    dialogStyle: {
+      marginTop: "5%",
+    },
+    additionalButton: {
+      backgroundColor: Color.VWORK_BLUE,
+      color: Color.VWORK_WHITE,
+      borderRadius: 10,
+      width: 100,
+      fontSize: 20,
+    },
+    takinButton: {
+      backgroundColor: Color.VWORK_RED,
+      color: Color.VWORK_WHITE,
+      borderRadius: 10,
+      width: 150,
+      fontSize: 20,
+    },
+    drawer: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
+    drawerPaper: {
+      width: drawerWidth,
+    },
+    drawerHeader: {
+      display: "flex",
+      alignItems: "center",
+      padding: theme.spacing(0, 1),
+      // necessary for content to be below app bar
+      ...theme.mixins.toolbar,
+      justifyContent: "flex-end",
+    },
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+    },
+  })
+);
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement },
@@ -82,6 +108,15 @@ const CheckAttendanceArea = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const [openDrawer, setOpenDrawer] = React.useState(false);
+
+  const handleDrawerClose = () => {
+    setOpenDrawer(false);
+  };
+  const handleDrawerOpen = () => {
+    setOpenDrawer(true);
   };
 
   return (
@@ -173,7 +208,12 @@ const CheckAttendanceArea = () => {
               <Grid container direction="column">
                 <Grid item>今日行ったタスクの確認をして下さい。</Grid>
                 <Grid item style={{ marginTop: "1%" }}>
-                  <Button className={classes.additionalButton}>追加</Button>
+                  <Button
+                    className={classes.additionalButton}
+                    onClick={handleDrawerOpen}
+                  >
+                    追加
+                  </Button>
                 </Grid>
               </Grid>
             </Grid>
@@ -204,6 +244,33 @@ const CheckAttendanceArea = () => {
             </Grid>
           </Container>
         </Grid>
+        <Backdrop className={classes.backdrop} open={openDrawer}>
+          <Drawer
+            className={classes.drawer}
+            variant="persistent"
+            anchor="right"
+            open={openDrawer}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          >
+            <Grid container direction="column">
+              <Grid item>
+                <IconButton
+                  edge="start"
+                  color="inherit"
+                  onClick={handleDrawerClose}
+                  aria-label="close"
+                >
+                  <CloseIcon />
+                </IconButton>
+              </Grid>
+              <Grid item>
+                <TaskInTaikinList />
+              </Grid>
+            </Grid>
+          </Drawer>
+        </Backdrop>
       </Dialog>
     </>
   );
