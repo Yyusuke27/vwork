@@ -9,7 +9,6 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Backdrop from "@material-ui/core/Backdrop";
 import { Box } from "@material-ui/core";
-import TaskInProjectItem from "./TaskInProjectItem";
 import TaskInProjectList from "./TaskInProjectList";
 
 const drawerWidth = "55%";

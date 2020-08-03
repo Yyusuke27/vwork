@@ -2,13 +2,9 @@ import React, { FC } from "react";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
+
 import Typography from "@material-ui/core/Typography";
-import Color from "../../../shared/util/color";
 import Grid from "@material-ui/core/Grid";
-import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import Avatar from "@material-ui/core/Avatar";
