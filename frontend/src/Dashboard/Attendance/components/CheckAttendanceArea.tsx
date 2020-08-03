@@ -19,6 +19,7 @@ import Button from "@material-ui/core/Button";
 import Drawer from "@material-ui/core/Drawer";
 import Backdrop from "@material-ui/core/Backdrop";
 import TaskInTaikinList from "../../Task/components/TaskInTaikinList";
+import TaskTodayList from "../../Task/components/TaskTodayList";
 
 const drawerWidth = "55%";
 
@@ -117,6 +118,15 @@ const CheckAttendanceArea = () => {
   };
   const handleDrawerOpen = () => {
     setOpenDrawer(true);
+  };
+
+  const [drawer, setDrawer] = React.useState(false);
+
+  const drawerClose = () => {
+    setDrawer(false);
+  };
+  const drawerOpen = () => {
+    setDrawer(true);
   };
 
   return (
@@ -242,7 +252,9 @@ const CheckAttendanceArea = () => {
                 justify="flex-end"
                 style={{ marginTop: "10%" }}
               >
-                <Button className={classes.takinButton}>退勤する</Button>
+                <Button className={classes.takinButton} onClick={drawerOpen}>
+                  退勤する
+                </Button>
               </Grid>
             </Grid>
           </Container>
@@ -270,6 +282,33 @@ const CheckAttendanceArea = () => {
               </Grid>
               <Grid item>
                 <TaskInTaikinList />
+              </Grid>
+            </Grid>
+          </Drawer>
+        </Backdrop>
+        <Backdrop className={classes.backdrop} open={drawer}>
+          <Drawer
+            className={classes.drawer}
+            variant="persistent"
+            anchor="right"
+            open={drawer}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          >
+            <Grid container direction="column">
+              <Grid item>
+                <IconButton
+                  edge="start"
+                  color="inherit"
+                  onClick={drawerClose}
+                  aria-label="close"
+                >
+                  <CloseIcon />
+                </IconButton>
+              </Grid>
+              <Grid item>
+                <TaskTodayList />
               </Grid>
             </Grid>
           </Drawer>
