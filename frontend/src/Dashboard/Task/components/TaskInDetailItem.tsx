@@ -8,6 +8,8 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Drawer from "@material-ui/core/Drawer";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Color from "../../../shared/util/color";
+import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
+import TextField from "@material-ui/core/TextField";
 
 const drawerWidth = "55%";
 
@@ -68,36 +70,71 @@ const TaskInDetailItem: FC<TaskInDetailItemProps> = ({ title = "" }) => {
   };
   return (
     <>
-      <Card className={classes.root}>
-        <CardActionArea onClick={handleDrawerOpen}>
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="center"
-            style={{ height: 80, margin: "auto" }}
-          >
-            <Grid item>
+      <Grid container direction="column">
+        <Grid item>
+          <Card className={classes.root}>
+            <CardActionArea onClick={handleDrawerOpen}>
               <Grid
                 container
                 direction="row"
+                justify="space-between"
                 alignItems="center"
-                style={{ width: 200 }}
+                style={{ height: 80, margin: "auto" }}
               >
-                <Grid item style={{ marginLeft: "5%", marginRight: "4%" }}>
-                  <CheckCircleIcon />
-                </Grid>
                 <Grid item>
-                  <Typography className={classes.title}>{title}</Typography>
+                  <Grid
+                    container
+                    direction="row"
+                    alignItems="center"
+                    style={{ width: 200 }}
+                  >
+                    <Grid item style={{ marginLeft: "5%", marginRight: "4%" }}>
+                      <CheckCircleIcon />
+                    </Grid>
+                    <Grid item>
+                      <Typography className={classes.title}>{title}</Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid
+                  item
+                  style={{ marginRight: "5%", color: Color.VWORK_BLUE }}
+                >
+                  <Typography>プロジェクト名</Typography>
+                </Grid>
+              </Grid>
+            </CardActionArea>
+          </Card>
+        </Grid>
+        <Grid item>
+          <Grid
+            container
+            direction="column"
+            justify="flex-start"
+            style={{ marginTop: 25 }}
+          >
+            <Grid item>
+              <Grid container direction="row">
+                <Grid item>
+                  <ChatBubbleIcon style={{ marginRight: 20 }} />
+                </Grid>
+                <Grid item className={classes.title}>
+                  振り返り
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item style={{ marginRight: "5%", color: Color.VWORK_BLUE }}>
-              <Typography>プロジェクト名</Typography>
+            <Grid item style={{ marginTop: "1%" }}>
+              <TextField
+                id="outlined-multiline-static"
+                multiline
+                rows={4}
+                variant="outlined"
+                style={{ width: "100%" }}
+              />
             </Grid>
           </Grid>
-        </CardActionArea>
-      </Card>
+        </Grid>
+      </Grid>
       <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
         <Drawer
           className={classes.drawer}

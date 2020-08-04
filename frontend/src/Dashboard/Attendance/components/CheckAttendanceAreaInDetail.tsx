@@ -99,13 +99,13 @@ const CheckAttendanceAreaInDetail = () => {
                 justify="space-between"
                 className={classes.title}
               >
-                <Grid item style={{ marginTop: "3%", marginLeft: "3%" }}>
+                <Grid item style={{ marginTop: "4.5%", marginLeft: "3%" }}>
                   出社:{" "}
                 </Grid>
-                <Grid item style={{ marginTop: "3%", marginLeft: "3%" }}>
+                <Grid item style={{ marginTop: "4.5%", marginLeft: "3%" }}>
                   休憩:{" "}
                 </Grid>
-                <Grid item style={{ marginTop: "3%", marginLeft: "3%" }}>
+                <Grid item style={{ marginTop: "4.5%", marginLeft: "3%" }}>
                   退社:{" "}
                 </Grid>
               </Grid>
