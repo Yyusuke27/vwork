@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: Color.VWORK_WHITE,
       fontSize: 30,
       marginRight: 80,
-      marginBottom: 60,
+      marginBottom: 50,
       width: 200,
       borderRadius: 15,
     },

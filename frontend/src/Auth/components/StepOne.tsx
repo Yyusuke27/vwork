@@ -2,57 +2,77 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Color from "../../shared/util/color";
 import { Link } from "react-router-dom";
+import Stepper from "@material-ui/core/Stepper";
+import Step from "@material-ui/core/Step";
+import StepLabel from "@material-ui/core/StepLabel";
+import StepTwo from "../components/StepTwo";
+import StepThree from "../components/StepThree";
+import StepFour from "../components/StepFour";
+import { Route, Switch } from "react-router-dom";
 
 import "../pages/Regist.css";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    title: {
-      fontSize: 100,
+    root: {
+      width: "100%",
     },
     button: {
       backgroundColor: Color.VWORK_RED,
       color: Color.VWORK_WHITE,
       fontSize: 30,
       marginRight: 80,
-      marginBottom: 60,
+      marginTop: "130%",
       width: 200,
       borderRadius: 15,
-    },
-    style: {
-      marginTop: "40%",
-      marginRight: "10%",
     },
   })
 );
 
+function getSteps() {
+  return ["基本設定", "個人設定", "メンバー招待", "プロジェクト設定"];
+}
+
 const StepOne = () => {
   const classes = useStyles();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const steps = getSteps();
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
 
   return (
     <div>
       <Dialog open keepMounted maxWidth="xl">
-        <DialogTitle id="alert-dialog-slide-title">
-          <h1>
-            <span style={{ fontSize: 50, color: Color.VWORK_RED }}>VWORK</span>
-            へようこそ
-          </h1>
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-            <p>これからVWORKを活用するための設定をして頂きます。</p>
-            <p>NEXTを押して次へ進んで下さい。</p>
-          </DialogContentText>
-        </DialogContent>
+        <div className={classes.root}>
+          <Stepper activeStep={activeStep} alternativeLabel>
+            {steps.map((label) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+        </div>
+        <Switch>
+          <Route exact path="/auth/regist/step2">
+            <StepTwo />
+          </Route>
+          <Route exact path="/auth/regist/step3">
+            <StepThree />
+          </Route>
+          <Route exact path="/auth/regist/step4">
+            <StepFour />
+          </Route>
+        </Switch>
         <DialogActions>
           <Link to="/auth/regist/step1" style={{ textDecoration: "none" }}>
-            <Button className={classes.button}>NEXT</Button>
+            <Button className={classes.button} onClick={handleNext}>
+              NEXT
+            </Button>
           </Link>
         </DialogActions>
       </Dialog>
