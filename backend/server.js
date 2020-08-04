@@ -3,6 +3,7 @@ const colors = require("colors");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const connectDB = require("./config/db");
+const errorHandler = require("./middleware/error");
 
 dotenv.config({ path: "./config/config.env" });
 
@@ -27,7 +28,7 @@ if (process.env.NODE_ENV === "development") {
 app.use("/api/v1/workspaces", workspaces);
 app.use("/api/v1/auth", auth);
 
-// TODO: errorハンドラーを追加する
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
@@ -37,3 +38,9 @@ const server = app.listen(
     `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
   )
 );
+
+// ハンドルされなかったpromise rejectionsをハンドル
+process.on("unhandledRejection", (err, promise) => {
+  console.log(`Error: ${err.message}`.red);
+  server.close(() => process.exit(1));
+});
