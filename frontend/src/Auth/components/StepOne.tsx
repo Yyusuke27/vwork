@@ -16,13 +16,14 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       fontSize: 100,
     },
-    dialog: {
-      maxHeight: "100%",
-      height: 600,
-    },
     button: {
       backgroundColor: Color.VWORK_RED,
       color: Color.VWORK_WHITE,
+      fontSize: 30,
+      marginRight: 80,
+      marginBottom: 60,
+      width: 200,
+      borderRadius: 15,
     },
     style: {
       marginTop: "40%",
@@ -36,7 +37,7 @@ const StepOne = () => {
 
   return (
     <div>
-      <Dialog open keepMounted fullWidth>
+      <Dialog open keepMounted maxWidth="xl">
         <DialogTitle id="alert-dialog-slide-title">
           <h1>
             <span style={{ fontSize: 50, color: Color.VWORK_RED }}>VWORK</span>
