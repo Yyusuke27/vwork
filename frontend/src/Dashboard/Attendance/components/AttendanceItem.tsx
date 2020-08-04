@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
-import Card from "@material-ui/core/Card";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
 import clsx from "clsx";
 import CardActionArea from "@material-ui/core/CardActionArea";
-
 import Container from "@material-ui/core/Container";
+import Card from "@material-ui/core/Card";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
 import Drawer from "@material-ui/core/Drawer";
 import Backdrop from "@material-ui/core/Backdrop";
 
@@ -73,9 +72,15 @@ const AttendanceItem = () => {
                       alignItems="center"
                       className={clsx(classes.title, classes.space)}
                     >
-                      <Grid item>出社: 09:15</Grid>
-                      <Grid item>休憩: 12:05~13:00</Grid>
-                      <Grid item>退社: 18:55</Grid>
+                      <Grid item style={{ marginRight: 80 }}>
+                        出社: 09:15
+                      </Grid>
+                      <Grid item style={{ marginRight: 80 }}>
+                        休憩: 12:05~13:00
+                      </Grid>
+                      <Grid item style={{ marginRight: 80 }}>
+                        退社: 18:55
+                      </Grid>
                     </Grid>
                   </Grid>
                   <Grid item>DatePickerと連動</Grid>
