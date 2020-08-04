@@ -11,6 +11,7 @@ connectDB();
 
 // Routeファイル
 const workspaces = require("./routes/workspaces");
+const auth = require("./routes/auth");
 
 const app = express();
 
@@ -24,6 +25,7 @@ if (process.env.NODE_ENV === "development") {
 
 // route設定
 app.use("/api/v1/workspaces", workspaces);
+app.use("/api/v1/auth", auth);
 
 // TODO: errorハンドラーを追加する
 
