@@ -5,7 +5,6 @@ import Grid from "@material-ui/core/Grid";
 import ProjectItem from "./ProjectItem";
 import Color from "../../../shared/util/color";
 import clsx from "clsx";
-import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import AddIcon from "@material-ui/icons/Add";
 
@@ -35,6 +34,7 @@ const useStyles = makeStyles({
     borderStyle: "dotted",
     borderRadius: 8,
     height: 150,
+    cursor: "pointer",
   },
 });
 
@@ -85,9 +85,7 @@ const ProjectList = () => {
                 alignItems="center"
                 className={clsx(classes.iconArea, classes.contentWidth)}
               >
-                <IconButton aria-label="add">
-                  <AddIcon style={{ fontSize: 100 }} />
-                </IconButton>
+                <AddIcon style={{ fontSize: 100 }} />
               </Grid>
               <Grid item className={classes.contentWidth}>
                 <Box textAlign="center">
