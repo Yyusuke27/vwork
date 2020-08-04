@@ -1,4 +1,5 @@
 import React from "react";
+import StepOne from "../components/StepOne";
 import { Route, Switch } from "react-router-dom";
 
 import SignUp from "./SignUp";
@@ -18,6 +19,9 @@ const Auth = () => {
         </Route>
         <Route exact path="/auth/regist">
           <Regist />
+        </Route>{" "}
+        <Route exact path="/auth/regist/step1">
+          <StepOne />
         </Route>
       </Switch>
     </div>

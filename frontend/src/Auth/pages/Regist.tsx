@@ -9,6 +9,12 @@ import Slide from "@material-ui/core/Slide";
 import { TransitionProps } from "@material-ui/core/transitions";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Color from "../../shared/util/color";
+import ListItem from "@material-ui/core/ListItem";
+import { NavLink } from "react-router-dom";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import HomeIcon from "@material-ui/icons/Home";
+import ListItemText from "@material-ui/core/ListItemText";
+import List from "@material-ui/core/List";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: Color.VWORK_RED,
       color: Color.VWORK_WHITE,
       marginTop: "30%",
-      marginRight: "5%",
+      marginLeft: "80%",
       marginBottom: "5%",
       width: 30,
     },
@@ -71,7 +77,9 @@ const Regist = () => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button className={classes.button}>NEXT</Button>
+          <ListItem button component={NavLink} to="/auth/regist/step1" exact>
+            <Button className={classes.button}>NEXT</Button>
+          </ListItem>
         </DialogActions>
       </Dialog>
     </div>
