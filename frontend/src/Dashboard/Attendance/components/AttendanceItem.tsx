@@ -5,11 +5,14 @@ import Grid from "@material-ui/core/Grid";
 import clsx from "clsx";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Container from "@material-ui/core/Container";
+import CloseIcon from "@material-ui/icons/Close";
+import IconButton from "@material-ui/core/IconButton";
 import Card from "@material-ui/core/Card";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Drawer from "@material-ui/core/Drawer";
 import Backdrop from "@material-ui/core/Backdrop";
+import CheckAttendanceAreaInDetail from "./CheckAttendanceAreaInDetail";
 
 const drawerWidth = "55%";
 
@@ -131,7 +134,7 @@ const AttendanceItem = () => {
           </Container>
         </CardActionArea>
       </Card>
-      <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
+      <Backdrop className={classes.backdrop} open={open}>
         <Drawer
           className={classes.drawer}
           variant="persistent"
@@ -140,7 +143,20 @@ const AttendanceItem = () => {
           classes={{
             paper: classes.drawerPaper,
           }}
-        ></Drawer>
+        >
+          <Grid container direction="column">
+            <Container maxWidth="md">
+              <Grid item>
+                <IconButton>
+                  <CloseIcon onClick={handleClose} />
+                </IconButton>
+              </Grid>
+              <Grid item>
+                <CheckAttendanceAreaInDetail />
+              </Grid>
+            </Container>
+          </Grid>
+        </Drawer>
       </Backdrop>
     </>
   );
