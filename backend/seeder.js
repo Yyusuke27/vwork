@@ -7,6 +7,8 @@ dotenv.config({ path: "./config/config.env" });
 
 // Load models
 const Workspace = require("./models/Workspace");
+const Project = require("./models/Project");
+const User = require("./models/User");
 
 // DBに接続
 mongoose.connect(process.env.MONGO_URI, {
@@ -20,11 +22,19 @@ mongoose.connect(process.env.MONGO_URI, {
 const workspaces = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/workspaces.json`, "utf-8")
 );
+const projects = JSON.parse(
+  fs.readFileSync(`${__dirname}/_data/projects.json`, "utf-8")
+);
+const users = JSON.parse(
+  fs.readFileSync(`${__dirname}/_data/users.json`, "utf-8")
+);
 
 // DBにデータをインポート
 const importData = async () => {
   try {
     await Workspace.create(workspaces);
+    await Project.create(projects);
+    await User.create(users);
 
     console.log("Data Imported...".green.inverse);
     process.exit();
@@ -37,6 +47,8 @@ const importData = async () => {
 const deleteData = async () => {
   try {
     await Workspace.deleteMany();
+    await Project.deleteMany();
+    await User.deleteMany();
 
     console.log("Data Destroyed".red.inverse);
     process.exit();
