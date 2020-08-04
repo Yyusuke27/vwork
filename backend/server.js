@@ -13,7 +13,7 @@ connectDB();
 // Routeファイル
 const auth = require("./routes/auth");
 const workspaces = require("./routes/workspaces");
-const projects = require("./routes/project");
+const projects = require("./routes/projects");
 
 const app = express();
 

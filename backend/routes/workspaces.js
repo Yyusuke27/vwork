@@ -7,7 +7,7 @@ const {
   deleteWorkspace,
 } = require("../controllers/workspaces");
 
-const projectRouter = require("./project");
+const projectRouter = require("./projects");
 
 const router = express.Router();
 
