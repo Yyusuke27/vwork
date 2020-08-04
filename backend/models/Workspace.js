@@ -10,21 +10,35 @@ const WorkspaceSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    member: [
+    owners: [
       {
-        user: String,
-        role: {
-          type: String,
-          enum: ["normal", "owner"],
-        },
+        type: mongoose.Schema.ObjectId,
+        required: true,
+      },
+    ],
+    members: [
+      {
+        type: mongoose.Schema.ObjectId,
+        required: true,
       },
     ],
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
 
+// virtual設定
+WorkspaceSchema.virtual("projects", {
+  ref: "Project",
+  localField: "_id",
+  foreignField: "workspace",
+  justOne: false,
+});
+
 // TODO: userと関連付ける
+// TODO: 削除時にProjectとそれ以下のデータ全て消えるようする
 
 module.exports = mongoose.model("Workspace", WorkspaceSchema);
