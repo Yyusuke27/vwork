@@ -11,8 +11,9 @@ dotenv.config({ path: "./config/config.env" });
 connectDB();
 
 // Routeファイル
-const workspaces = require("./routes/workspaces");
 const auth = require("./routes/auth");
+const workspaces = require("./routes/workspaces");
+const projects = require("./routes/project");
 
 const app = express();
 
@@ -25,8 +26,9 @@ if (process.env.NODE_ENV === "development") {
 }
 
 // route設定
-app.use("/api/v1/workspaces", workspaces);
 app.use("/api/v1/auth", auth);
+app.use("/api/v1/workspaces", workspaces);
+app.use("/api/v1/projects", projects);
 
 app.use(errorHandler);
 

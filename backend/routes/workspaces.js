@@ -7,7 +7,12 @@ const {
   deleteWorkspace,
 } = require("../controllers/workspaces");
 
+const projectRouter = require("./project");
+
 const router = express.Router();
+
+// 他のルーターに再度ルート
+router.use("/:workspaceId/projects", projectRouter);
 
 router.route("/").get(getWorkspaces).post(createWorkspace);
 
