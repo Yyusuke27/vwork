@@ -8,9 +8,9 @@ import { Link } from "react-router-dom";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
-import StepTwo from "../components/StepTwo";
-import StepThree from "../components/StepThree";
-import StepFour from "../components/StepFour";
+import StepTwo from "./StepTwo";
+import StepThree from "./StepThree";
+import StepFour from "./StepFour";
 import { Route, Switch } from "react-router-dom";
 
 import "../pages/Regist.css";
