@@ -10,6 +10,7 @@ import ProjectMemberItem from "./ProjectMemberItem";
 import Drawer from "@material-ui/core/Drawer";
 import Backdrop from "@material-ui/core/Backdrop";
 import Container from "@material-ui/core/Container";
+import AddMemberItem from "./AddMemberItem";
 
 const drawerWidth = "55%";
 
@@ -37,7 +38,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     drawertitle: {
       fontSize: 25,
-      width: "100%",
+      width: "85%",
+      marginTop: "8%",
+      marginBottom: "4%",
     },
   })
 );
@@ -101,6 +104,7 @@ const ProjectMemberList = () => {
             <Box borderBottom={1} className={classes.drawertitle}>
               メンバー
             </Box>
+            <AddMemberItem />
           </Container>
         </Drawer>
       </Backdrop>
