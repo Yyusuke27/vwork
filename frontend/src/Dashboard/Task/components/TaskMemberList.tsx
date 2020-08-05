@@ -9,14 +9,17 @@ import ListItem from "@material-ui/core/ListItem";
 import TaskMemberItem from "./TaskMemberItem";
 import Drawer from "@material-ui/core/Drawer";
 import Backdrop from "@material-ui/core/Backdrop";
+import Container from "@material-ui/core/Container";
 
 const drawerWidth = "55%";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
-      fontSize: 18,
-      width: "20%",
+      fontSize: 23,
+      width: 300,
+      marginTop: "15%",
+      marginBottom: "2%",
     },
     icon: {
       fontSize: 45,
@@ -32,13 +35,12 @@ const useStyles = makeStyles((theme: Theme) =>
       zIndex: theme.zIndex.drawer + 1,
       color: "#fff",
     },
+    drawertitle: {
+      fontSize: 25,
+      width: "100%",
+    },
   })
 );
-
-const defaultProps = {
-  // m: 1,
-  style: { width: "20rem" },
-};
 
 const programDate = [
   { name: "SHOGO YUNOKI", icon: "S" },
@@ -57,13 +59,7 @@ const TaskMemberList = () => {
   };
   return (
     <>
-      <Box
-        borderBottom={1}
-        {...defaultProps}
-        className={classes.title}
-        mt={10}
-        mb={3}
-      >
+      <Box borderBottom={1} className={classes.title}>
         メンバー
       </Box>
       <Grid container direction="column" justify="flex-start">
@@ -96,7 +92,18 @@ const TaskMemberList = () => {
           classes={{
             paper: classes.drawerPaper,
           }}
-        ></Drawer>
+        >
+          <Container maxWidth="md">
+            <Box
+              borderBottom={1}
+              className={classes.drawertitle}
+              mt={10}
+              mb={3}
+            >
+              メンバー
+            </Box>
+          </Container>
+        </Drawer>
       </Backdrop>
     </>
   );

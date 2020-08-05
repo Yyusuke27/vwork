@@ -14,7 +14,7 @@ const EachProject = () => {
         <AddButtonInProject />
         <Grid container direction="row" justify="space-between">
           <Grid item style={{ width: "70%" }}>
-            <TaskList title="タイトル一覧" />
+            <TaskList title="タスク一覧" />
           </Grid>
           <Grid item>
             <TaskMemberList />
