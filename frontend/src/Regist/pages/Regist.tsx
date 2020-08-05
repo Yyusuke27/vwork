@@ -6,7 +6,7 @@ const Regist = () => {
   return (
     <>
       <Switch>
-        <Route exact path="/auth/regist/welcome">
+        <Route exact path="/regist/welcome">
           <Welcome />
         </Route>
       </Switch>

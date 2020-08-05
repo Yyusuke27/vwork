@@ -8,6 +8,7 @@ import Auth from "./Auth/pages/Auth";
 import { theme } from "./shared/util/theme";
 
 import "./App.css";
+import Regist from "./Regist/pages/Regist";
 
 const App = () => {
   return (
@@ -16,6 +17,9 @@ const App = () => {
         <Switch>
           <Route path="/auth">
             <Auth />
+          </Route>
+          <Route path="/regist">
+            <Regist />
           </Route>
           <Route path="/">
             <Dashboard />
