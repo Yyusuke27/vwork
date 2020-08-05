@@ -41,11 +41,9 @@ exports.getProject = asyncHandler(async (req, res, next) => {
   }
 
   // ユーザーがプロジェクトのメンバーではなかったら表示しない
-  const memberInProject = project.members.find(
-    (member) => member.toString() === req.user.id
-  );
+  const isMemberInProject = project.members.includes(req.user.id);
 
-  if (!memberInProject) {
+  if (!isMemberInProject) {
     return next(
       new ErrorResponse(
         `ID:${req.params.id}のプロジェクトのメンバーではありません`
@@ -73,10 +71,8 @@ exports.createProject = asyncHandler(async (req, res, next) => {
   }
 
   // ユーザーがworkspaceのメンバーか確認
-  const userInProject = workspace.members.find(
-    (member) => member.toString() === req.user.id
-  );
-  if (!userInProject) {
+  const isUserInProject = workspace.members.includes(req.user.id);
+  if (!isUserInProject) {
     return next(
       new ErrorResponse(
         `ユーザーID:${req.user.id} は workspace${workspace._id}にプロジェクトを追加する権限がありません`,
@@ -115,16 +111,12 @@ exports.updateProject = asyncHandler(async (req, res, next) => {
   }
 
   // ユーザーがprojectのメンバーか確認
-  const userInProject = project.members.find(
-    (member) => member.toString() === req.user.id
-  );
+  const isUserInProject = project.members.includes(req.user.id);
   // ユーザーがprojectのオーナーが確認
-  const ownerInProject = project.owners.find(
-    (owner) => owner.toString() === req.user.id
-  );
+  const isOwnerInProject = project.owners.includes(req.user.id);
   // ユーザーがprojectのメンバーprojectのメンバーでなく、
   // projectのroleがowner or admin userでなかったら更新させない
-  if (!userInProject && !ownerInProject && req.user.role !== "admin") {
+  if (!isUserInProject && !isOwnerInProject && req.user.role !== "admin") {
     return next(
       new ErrorResponse(
         `ユーザーID:${req.user.id} は project${req.params.id}を更新できません`,
@@ -133,7 +125,7 @@ exports.updateProject = asyncHandler(async (req, res, next) => {
     );
   }
 
-  project = await Project.findOneAndUpdate(req.params.id, req.body, {
+  project = await Project.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
   });
@@ -158,14 +150,10 @@ exports.deleteProject = asyncHandler(async (req, res, next) => {
 
   // TODO: Project内のroleがowner or admin userのみ削除可能にする
   // ユーザーがprojectのメンバーか確認
-  const userInProject = project.members.find(
-    (member) => member.toString() === req.user.id
-  );
+  const isUserInProject = project.members.includes(req.user.id);
   // ユーザーがprojectのオーナーが確認
-  const ownerInProject = project.owners.find(
-    (owner) => owner.toString() === req.user.id
-  );
-  if (!userInProject && !ownerInProject && req.user.role !== "admin") {
+  const isOwnerInProject = project.owners.includes(req.user.id);
+  if (!isUserInProject && !isOwnerInProject && req.user.role !== "admin") {
     return next(
       new ErrorResponse(
         `ユーザーID:${req.user.id} は project${req.params.id}を削除できません`,
@@ -180,6 +168,20 @@ exports.deleteProject = asyncHandler(async (req, res, next) => {
     success: true,
     data: {},
   });
+});
+
+// @desc Get members
+// @route GET /api/v1/projects/members
+// @access Public
+exports.getMembers = asyncHandler(async (req, res, next) => {
+  // TODO: Project内のメンバーを取得
+});
+
+// @desc Get members
+// @route GET /api/v1/projects/members/new
+// @access Public
+exports.getNewMembers = asyncHandler(async (req, res, next) => {
+  // TODO: Project外のメンバーを取得
 });
 
 // @desc Add member
