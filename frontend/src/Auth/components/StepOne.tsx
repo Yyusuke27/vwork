@@ -36,6 +36,21 @@ function getSteps() {
   return ["基本設定", "個人設定", "メンバー招待", "プロジェクト設定"];
 }
 
+function getStepContent(stepIndex: number) {
+  switch (stepIndex) {
+    case 0:
+      return;
+    case 1:
+      return "What is an ad group anyways?";
+    case 2:
+      return "This is the bit I really care about!";
+    case 3:
+      return "This is the bit I really care about!";
+    default:
+      return "Unknown stepIndex";
+  }
+}
+
 const StepOne = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
