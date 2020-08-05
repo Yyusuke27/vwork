@@ -13,6 +13,8 @@ import Container from "@material-ui/core/Container";
 import AddMemberList from "./AddMemberList";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
+import Button from "@material-ui/core/Button";
+import Color from "../../../shared/util/color";
 
 const drawerWidth = "55%";
 
@@ -46,6 +48,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     closeicon: {
       marginTop: "2%",
+    },
+    button: {
+      marginTop: "30%",
+      marginLeft: "30%",
+      backgroundColor: Color.VWORK_RED,
+      color: Color.VWORK_WHITE,
+      width: 300,
     },
   })
 );
@@ -113,6 +122,9 @@ const ProjectMemberList = () => {
               メンバー
             </Box>
             <AddMemberList />
+            <Button variant="contained" className={classes.button}>
+              招待
+            </Button>
           </Container>
         </Drawer>
       </Backdrop>
