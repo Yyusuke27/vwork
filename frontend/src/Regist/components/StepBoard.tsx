@@ -15,6 +15,7 @@ import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import StepFour from "./StepFour";
 import StepFinish from "./StepFinish";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -62,7 +63,7 @@ function getStepComponent(stepIndex: number) {
       return <StepThree />;
     case 3:
       return <StepFour />;
-    default:
+    case 4:
       return <StepFinish />;
   }
 }
@@ -98,15 +99,22 @@ const StepBoard = () => {
               {getStepComponent(activeStep)}
             </div>
           )}
-
           <DialogActions>
-            <Button
-              variant="contained"
-              className={classes.button}
-              onClick={handleNext}
-            >
-              NEXT
-            </Button>
+            {activeStep === steps.length ? (
+              <Link to="/" style={{ textDecoration: "none" }}>
+                <Button variant="contained" className={classes.button}>
+                  NEXT
+                </Button>
+              </Link>
+            ) : (
+              <Button
+                variant="contained"
+                className={classes.button}
+                onClick={handleNext}
+              >
+                NEXT
+              </Button>
+            )}
           </DialogActions>
         </Container>
       </Dialog>
