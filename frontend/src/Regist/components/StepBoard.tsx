@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Color from "../../shared/util/color";
@@ -32,9 +31,6 @@ const useStyles = makeStyles((theme: Theme) =>
       right: "15%",
       width: 200,
       borderRadius: 15,
-    },
-    dialog: {
-      position: "relative",
     },
     eachcomponent: {
       position: "absolute",
@@ -79,45 +75,43 @@ const StepBoard = () => {
 
   return (
     <div>
-      <Dialog open keepMounted maxWidth="xl" className={classes.dialog}>
-        <Container maxWidth="md">
-          <div className={classes.root}>
-            <Stepper activeStep={activeStep} alternativeLabel>
-              {steps.map((label) => (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
-                </Step>
-              ))}
-            </Stepper>
+      <Container maxWidth="md">
+        <div className={classes.root}>
+          <Stepper activeStep={activeStep} alternativeLabel>
+            {steps.map((label) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+        </div>
+        {activeStep === steps.length ? (
+          <div className={classes.finishcomponent}>
+            {getStepComponent(activeStep)}
           </div>
+        ) : (
+          <div className={classes.eachcomponent}>
+            {getStepComponent(activeStep)}
+          </div>
+        )}
+        <DialogActions>
           {activeStep === steps.length ? (
-            <div className={classes.finishcomponent}>
-              {getStepComponent(activeStep)}
-            </div>
-          ) : (
-            <div className={classes.eachcomponent}>
-              {getStepComponent(activeStep)}
-            </div>
-          )}
-          <DialogActions>
-            {activeStep === steps.length ? (
-              <Link to="/" style={{ textDecoration: "none" }}>
-                <Button variant="contained" className={classes.button}>
-                  NEXT
-                </Button>
-              </Link>
-            ) : (
-              <Button
-                variant="contained"
-                className={classes.button}
-                onClick={handleNext}
-              >
+            <Link to="/" style={{ textDecoration: "none" }}>
+              <Button variant="contained" className={classes.button}>
                 NEXT
               </Button>
-            )}
-          </DialogActions>
-        </Container>
-      </Dialog>
+            </Link>
+          ) : (
+            <Button
+              variant="contained"
+              className={classes.button}
+              onClick={handleNext}
+            >
+              NEXT
+            </Button>
+          )}
+        </DialogActions>
+      </Container>
     </div>
   );
 };

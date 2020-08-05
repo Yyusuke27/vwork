@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
@@ -43,29 +42,25 @@ const Welcome = () => {
 
   return (
     <div>
-      <Dialog open keepMounted maxWidth="xl" className={classes.dialog}>
-        <Container maxWidth="md">
-          <DialogTitle id="alert-dialog-slide-title">
-            <h1>
-              <span style={{ fontSize: 50, color: Color.VWORK_RED }}>
-                VWORK
-              </span>
-              へようこそ
-            </h1>
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-slide-description">
-              <p>これからVWORKを活用するための設定をして頂きます。</p>
-              <p>「NEXT」を押して次のステップへ進んで下さい。</p>
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Link to="/regist/step_board" style={{ textDecoration: "none" }}>
-              <Button className={classes.button}>NEXT</Button>
-            </Link>
-          </DialogActions>
-        </Container>
-      </Dialog>
+      <Container maxWidth="md">
+        <DialogTitle id="alert-dialog-slide-title">
+          <h1>
+            <span style={{ fontSize: 50, color: Color.VWORK_RED }}>VWORK</span>
+            へようこそ
+          </h1>
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            <p>これからVWORKを活用するための設定をして頂きます。</p>
+            <p>「NEXT」を押して次のステップへ進んで下さい。</p>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Link to="/regist/step_board" style={{ textDecoration: "none" }}>
+            <Button className={classes.button}>NEXT</Button>
+          </Link>
+        </DialogActions>
+      </Container>
     </div>
   );
 };
