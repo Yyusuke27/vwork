@@ -1,8 +1,9 @@
-import React from "react";
+import React, { FC, useState } from "react";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Radio from "@material-ui/core/Radio";
 import Avatar from "@material-ui/core/Avatar";
+// import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,9 +20,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const AddMemberItem = () => {
+interface AddMemberItemProps {
+  myname: string;
+}
+
+const AddMemberItem: FC<AddMemberItemProps> = ({ myname = "" }) => {
   const classes = useStyles();
-  const [selectedValue, setSelectedValue] = React.useState("a");
+  const [selectedValue, setSelectedValue] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(event.target.value);
@@ -37,18 +42,17 @@ const AddMemberItem = () => {
       >
         <Grid item>
           <Radio
-            checked={selectedValue === "a"}
+            checked={selectedValue === ""}
             onChange={handleChange}
-            value="a"
             name="radio-button-demo"
             inputProps={{ "aria-label": "A" }}
           />
         </Grid>
         <Grid item>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+          <Avatar alt={myname} src="/static/images/avatar/1.jpg" />
         </Grid>
         <Grid item className={classes.name}>
-          Shogo Yunoki
+          {myname}
         </Grid>
       </Grid>
     </>

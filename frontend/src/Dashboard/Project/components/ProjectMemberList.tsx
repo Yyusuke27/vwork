@@ -10,7 +10,9 @@ import ProjectMemberItem from "./ProjectMemberItem";
 import Drawer from "@material-ui/core/Drawer";
 import Backdrop from "@material-ui/core/Backdrop";
 import Container from "@material-ui/core/Container";
-import AddMemberItem from "./AddMemberItem";
+import AddMemberList from "./AddMemberList";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 
 const drawerWidth = "55%";
 
@@ -41,6 +43,9 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "85%",
       marginTop: "8%",
       marginBottom: "4%",
+    },
+    closeicon: {
+      marginTop: "2%",
     },
   })
 );
@@ -90,7 +95,7 @@ const ProjectMemberList = () => {
           })}
         </Grid>
       </Grid>
-      <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
+      <Backdrop className={classes.backdrop} open={open}>
         <Drawer
           className={classes.drawer}
           variant="persistent"
@@ -101,10 +106,13 @@ const ProjectMemberList = () => {
           }}
         >
           <Container maxWidth="md">
+            <IconButton onClick={handleClose} className={classes.closeicon}>
+              <CloseIcon />
+            </IconButton>
             <Box borderBottom={1} className={classes.drawertitle}>
               メンバー
             </Box>
-            <AddMemberItem />
+            <AddMemberList />
           </Container>
         </Drawer>
       </Backdrop>
