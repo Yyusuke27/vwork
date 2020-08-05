@@ -1,6 +1,6 @@
 import React from "react";
 import AddButtonInProject from "../components/AddButtonInProject";
-import TaskMemberList from "../../Task/components/TaskMemberList";
+import ProjectMemberList from "../components/ProjectMemberList";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import TaskList from "../../Task/components/TaskList";
@@ -17,7 +17,7 @@ const EachProject = () => {
             <TaskList title="タスク一覧" />
           </Grid>
           <Grid item>
-            <TaskMemberList />
+            <ProjectMemberList />
           </Grid>
         </Grid>
       </Container>

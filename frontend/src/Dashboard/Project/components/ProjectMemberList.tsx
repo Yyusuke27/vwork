@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
-import TaskMemberItem from "./TaskMemberItem";
+import ProjectMemberItem from "./ProjectMemberItem";
 import Drawer from "@material-ui/core/Drawer";
 import Backdrop from "@material-ui/core/Backdrop";
 import Container from "@material-ui/core/Container";
@@ -48,7 +48,7 @@ const programDate = [
   { name: "IKUMI YUNOKI", icon: "I" },
 ];
 
-const TaskMemberList = () => {
+const ProjectMemberList = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const handleClose = () => {
@@ -78,7 +78,11 @@ const TaskMemberList = () => {
         <Grid item>
           {programDate.map((date, index) => {
             return (
-              <TaskMemberItem name={date.name} icon={date.icon} key={index} />
+              <ProjectMemberItem
+                name={date.name}
+                icon={date.icon}
+                key={index}
+              />
             );
           })}
         </Grid>
@@ -94,12 +98,7 @@ const TaskMemberList = () => {
           }}
         >
           <Container maxWidth="md">
-            <Box
-              borderBottom={1}
-              className={classes.drawertitle}
-              mt={10}
-              mb={3}
-            >
+            <Box borderBottom={1} className={classes.drawertitle}>
               メンバー
             </Box>
           </Container>
@@ -109,4 +108,4 @@ const TaskMemberList = () => {
   );
 };
 
-export default TaskMemberList;
+export default ProjectMemberList;

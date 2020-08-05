@@ -9,7 +9,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Backdrop from "@material-ui/core/Backdrop";
 import { Box } from "@material-ui/core";
-import TaskInProjectList from "./TaskInProjectList";
+import TaskInProjectList from "../../Task/components/TaskInProjectList";
 
 const drawerWidth = "55%";
 
@@ -45,7 +45,10 @@ interface TaskMemberItemProps {
   icon: string;
 }
 
-const TaskMemberItem: FC<TaskMemberItemProps> = ({ name = "", icon = "" }) => {
+const ProjectMemberItem: FC<TaskMemberItemProps> = ({
+  name = "",
+  icon = "",
+}) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const handleClose = () => {
@@ -113,4 +116,4 @@ const TaskMemberItem: FC<TaskMemberItemProps> = ({ name = "", icon = "" }) => {
   );
 };
 
-export default TaskMemberItem;
+export default ProjectMemberItem;
