@@ -10,7 +10,7 @@ import Color from "../../shared/util/color";
 import { Link } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 
-import "../pages/Regist.css";
+import "../pages/RegistInvitee.css";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,7 +60,10 @@ const Welcome = () => {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Link to="/regist/step_board" style={{ textDecoration: "none" }}>
+            <Link
+              to="/regist_invitee/step_board"
+              style={{ textDecoration: "none" }}
+            >
               <Button className={classes.button}>NEXT</Button>
             </Link>
           </DialogActions>
