@@ -2,7 +2,8 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Welcome from "../components/Welcome";
 import StepOne from "../components/StepOne";
-import StepTwo from "../components/SteoTwo";
+import StepTwo from "../components/StepTwo";
+import StepThree from "../components/StepThree";
 
 const RegistInvitee = () => {
   return (
@@ -16,6 +17,9 @@ const RegistInvitee = () => {
         </Route>
         <Route exact path="/regist_invitee/step_two">
           <StepTwo />
+        </Route>
+        <Route exact path="/regist_invitee/step_three">
+          <StepThree />
         </Route>
       </Switch>
     </>

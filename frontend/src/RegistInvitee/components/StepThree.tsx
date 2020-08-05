@@ -2,8 +2,6 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Color from "../../shared/util/color";
@@ -15,7 +13,9 @@ import "../pages/RegistInvitee.css";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
-      fontSize: 100,
+      position: "absolute",
+      top: "35%",
+      left: "20%",
     },
     button: {
       backgroundColor: Color.VWORK_RED,
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const StepTwo = () => {
+const StepThree = () => {
   const classes = useStyles();
 
   return (
@@ -46,15 +46,15 @@ const StepTwo = () => {
       <Dialog open keepMounted maxWidth="xl" className={classes.dialog}>
         <Container maxWidth="md">
           <DialogTitle id="alert-dialog-slide-title">
-            <h1 style={{ fontSize: 40, color: Color.VWORK_BLACK }}>
-              プロフィール設定
+            <h1 className={classes.title}>
+              <span style={{ fontSize: 50, color: Color.VWORK_RED }}>
+                VWORK
+              </span>
+              の設定は完了しました。
             </h1>
           </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-slide-description"></DialogContentText>
-          </DialogContent>
           <DialogActions>
-            <Link to="/regist/step_board" style={{ textDecoration: "none" }}>
+            <Link to="/" style={{ textDecoration: "none" }}>
               <Button className={classes.button}>NEXT</Button>
             </Link>
           </DialogActions>
@@ -64,4 +64,4 @@ const StepTwo = () => {
   );
 };
 
-export default StepTwo;
+export default StepThree;
