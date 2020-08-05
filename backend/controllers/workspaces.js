@@ -4,12 +4,15 @@ const Workspace = require("../models/Workspace");
 
 // @desc Get all Workspaces or specific Workspaces
 // @route Get /api/v1/workspaces
-// @route Get /api/v1/user/:userId/workspaces
 // @access Public
 exports.getWorkspaces = asyncHandler(async (req, res, next) => {
-  // TODO: userに紐づけられたworkspaceのみ表示
-
-  const workspaces = await Workspace.find();
+  // admin user以外はuserに紐づけられたworkspaceのみ表示
+  let workspaces;
+  if (req.user.role === "admin") {
+    workspaces = await Workspace.find();
+  } else {
+    workspaces = await Workspace.find({ members: req.user.id });
+  }
 
   res.status(200).json({
     success: true,
@@ -30,6 +33,12 @@ exports.getWorkspace = asyncHandler(async (req, res, next) => {
     );
   }
 
+  // workspaceのメンバーにのみ表示
+  const isMemberInWorkspace = workspace.members.includes(req.user.id);
+  if (!isMemberInWorkspace) {
+    return next(new ErrorResponse(`ワークスペースへの権限がありません`), 404);
+  }
+
   res.status(200).json({
     success: true,
     data: workspace,
@@ -44,8 +53,6 @@ exports.createWorkspace = asyncHandler(async (req, res, next) => {
 
   const workspace = await Workspace.create(req.body);
 
-  console.log(workspace);
-
   res.status(201).json({
     success: true,
     data: workspace,
@@ -56,8 +63,6 @@ exports.createWorkspace = asyncHandler(async (req, res, next) => {
 // @route PUT /api/v1/workspaces/:id
 // @access Private
 exports.updateWorkspace = asyncHandler(async (req, res, next) => {
-  // TODO: workspace内のroleがowner or admin userのみ変更可能にする
-
   let workspace = await Workspace.findById(req.params.id);
 
   if (!workspace) {
@@ -66,7 +71,15 @@ exports.updateWorkspace = asyncHandler(async (req, res, next) => {
     );
   }
 
-  workspace = await Workspace.findOneAndUpdate(req.params.id, req.body, {
+  // workspace内のroleがowner or admin userのみ変更可能にする
+  const isOwnerInWorkspace = workspace.owners.includes(req.user.id);
+  const isAdminUser = req.user.role === "admin";
+
+  if (!isOwnerInWorkspace && !isAdminUser) {
+    return next(new ErrorResponse(`ワークスペースの編集権限がありません`));
+  }
+
+  workspace = await Workspace.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
   });
@@ -81,14 +94,20 @@ exports.updateWorkspace = asyncHandler(async (req, res, next) => {
 // @route DELETE /api/v1/workspaces/:id
 // @access Private
 exports.deleteWorkspace = asyncHandler(async (req, res, next) => {
-  // TODO: workspace内のroleがowner or admin userのみ削除可能にする
-
   const workspace = await Workspace.findById(req.params.id);
 
   if (!workspace) {
     return next(
       new ErrorResponse(`ID: ${req.params.id}のワークスペースはありません`, 404)
     );
+  }
+
+  // workspace内のroleがowner or admin userのみ削除可能にする
+  const isOwnerInWorkspace = workspace.owners.includes(req.user.id);
+  const isAdminUser = req.user.role === "admin";
+
+  if (!isOwnerInWorkspace && !isAdminUser) {
+    return next(new ErrorResponse(`ワークスペースの削除権限がありません`));
   }
 
   workspace.remove();
