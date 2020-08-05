@@ -14,6 +14,7 @@ connectDB();
 const auth = require("./routes/auth");
 const workspaces = require("./routes/workspaces");
 const projects = require("./routes/projects");
+const tasks = require("./routes/tasks");
 
 const app = express();
 
@@ -29,6 +30,7 @@ if (process.env.NODE_ENV === "development") {
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/workspaces", workspaces);
 app.use("/api/v1/projects", projects);
+app.use("/api/v1/tasks", tasks);
 
 app.use(errorHandler);
 

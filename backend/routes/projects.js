@@ -7,9 +7,14 @@ const {
   deleteProject,
 } = require("../controllers/projects");
 
+const { protect } = require("../middleware/auth");
+
+const taskRouter = require("./tasks");
+
 const router = express.Router({ mergeParams: true });
 
-const { protect, authorize } = require("../middleware/auth");
+// 他のルーターに再度ルート
+router.use("/:projectId/tasks", taskRouter);
 
 router.route("/").get(protect, getProjects).post(protect, createProject);
 
