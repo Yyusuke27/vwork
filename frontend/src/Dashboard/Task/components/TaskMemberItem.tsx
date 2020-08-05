@@ -57,7 +57,7 @@ const TaskMemberItem: FC<TaskMemberItemProps> = ({ name = "", icon = "" }) => {
 
   return (
     <>
-      <ListItem button style={{ paddingTop: 0 }} onClick={handleDrawerOpen}>
+      <ListItem button style={{ paddingLeft: 0 }} onClick={handleDrawerOpen}>
         <ListItemIcon>
           <Avatar className={classes.icon}>{icon}</Avatar>
         </ListItemIcon>

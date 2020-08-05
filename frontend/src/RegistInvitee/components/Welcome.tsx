@@ -61,7 +61,7 @@ const Welcome = () => {
           </DialogContent>
           <DialogActions>
             <Link
-              to="/regist_invitee/step_board"
+              to="/regist_invitee/step_one"
               style={{ textDecoration: "none" }}
             >
               <Button className={classes.button}>NEXT</Button>

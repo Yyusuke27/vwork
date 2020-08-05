@@ -1,27 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@material-ui/core/Box";
-import { makeStyles } from "@material-ui/core/styles";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import Grid from "@material-ui/core/Grid";
-
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
 import TaskMemberItem from "./TaskMemberItem";
+import Drawer from "@material-ui/core/Drawer";
+import Backdrop from "@material-ui/core/Backdrop";
+
+const drawerWidth = "55%";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    title: {
+      fontSize: 18,
+      width: "20%",
+    },
+    icon: {
+      fontSize: 45,
+    },
+    drawer: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
+    drawerPaper: {
+      width: drawerWidth,
+    },
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+    },
+  })
+);
 
 const defaultProps = {
-  m: 1,
+  // m: 1,
   style: { width: "20rem" },
 };
-
-const useStyles = makeStyles({
-  title: {
-    fontSize: 18,
-  },
-  icon: {
-    fontSize: 45,
-  },
-});
 
 const programDate = [
   { name: "SHOGO YUNOKI", icon: "S" },
@@ -31,6 +48,13 @@ const programDate = [
 
 const TaskMemberList = () => {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
   return (
     <>
       <Box
@@ -44,7 +68,11 @@ const TaskMemberList = () => {
       </Box>
       <Grid container direction="column" justify="flex-start">
         <Grid item>
-          <ListItem button style={{ paddingTop: 0 }}>
+          <ListItem
+            button
+            onClick={handleDrawerOpen}
+            style={{ paddingLeft: 0 }}
+          >
             <ListItemIcon>
               <AddCircleOutlineIcon className={classes.icon} />
             </ListItemIcon>
@@ -59,6 +87,17 @@ const TaskMemberList = () => {
           })}
         </Grid>
       </Grid>
+      <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
+        <Drawer
+          className={classes.drawer}
+          variant="persistent"
+          anchor="right"
+          open={open}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        ></Drawer>
+      </Backdrop>
     </>
   );
 };
