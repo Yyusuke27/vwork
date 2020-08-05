@@ -8,6 +8,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Color from "../../shared/util/color";
 import { Link } from "react-router-dom";
+import Container from "@material-ui/core/Container";
 
 import "../pages/Regist.css";
 
@@ -19,15 +20,20 @@ const useStyles = makeStyles((theme: Theme) =>
     button: {
       backgroundColor: Color.VWORK_RED,
       color: Color.VWORK_WHITE,
+      position: "absolute",
       fontSize: 30,
-      marginRight: 80,
-      marginBottom: 50,
+
       width: 200,
       borderRadius: 15,
+      right: "15%",
+      top: "78%",
     },
     style: {
       marginTop: "40%",
       marginRight: "10%",
+    },
+    dialog: {
+      position: "relative",
     },
   })
 );
@@ -37,24 +43,28 @@ const Welcome = () => {
 
   return (
     <div>
-      <Dialog open keepMounted maxWidth="xl">
-        <DialogTitle id="alert-dialog-slide-title">
-          <h1>
-            <span style={{ fontSize: 50, color: Color.VWORK_RED }}>VWORK</span>
-            へようこそ
-          </h1>
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-            <p>これからVWORKを活用するための設定をして頂きます。</p>
-            <p>NEXTを押して次へ進んで下さい。</p>
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Link to="/auth/regist/step1" style={{ textDecoration: "none" }}>
-            <Button className={classes.button}>NEXT</Button>
-          </Link>
-        </DialogActions>
+      <Dialog open keepMounted maxWidth="xl" className={classes.dialog}>
+        <Container maxWidth="md">
+          <DialogTitle id="alert-dialog-slide-title">
+            <h1>
+              <span style={{ fontSize: 50, color: Color.VWORK_RED }}>
+                VWORK
+              </span>
+              へようこそ
+            </h1>
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              <p>これからVWORKを活用するための設定をして頂きます。</p>
+              <p>NEXTを押して次へ進んで下さい。</p>
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Link to="/regist/step_board" style={{ textDecoration: "none" }}>
+              <Button className={classes.button}>NEXT</Button>
+            </Link>
+          </DialogActions>
+        </Container>
       </Dialog>
     </div>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 
 const StepThree = () => {
-  return <></>;
+  return <>Hello</>;
 };
 
 export default StepThree;
