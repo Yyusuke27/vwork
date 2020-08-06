@@ -14,6 +14,7 @@ import Container from "@material-ui/core/Container";
 import AppContext from "../../../AppContext";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import CloseIcon from "@material-ui/icons/Close";
 
 const drawerWidth = 240;
 
@@ -125,9 +126,12 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
         keepMounted
         open={Boolean(anchorEl)}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <IconButton onClick={handleClose}>
+          <CloseIcon />
+        </IconButton>
+        <MenuItem>タスク追加</MenuItem>
+        <MenuItem>プロジェクト追加</MenuItem>
+        <MenuItem>メンバー招待</MenuItem>
       </Menu>
     </div>
   );
