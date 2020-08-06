@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from "react";
+import React, { FC, useContext } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -12,12 +12,7 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import Avatar from "@material-ui/core/Avatar";
 import Container from "@material-ui/core/Container";
 import AppContext from "../../../AppContext";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import CloseIcon from "@material-ui/icons/Close";
-import Drawer from "@material-ui/core/Drawer";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
+import HeaderAddButton from "./HeaderAddButton";
 
 const drawerWidth = 240;
 const DrawerWith = "55%";
@@ -70,42 +65,15 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
   // @ts-ignore
   const { handleDrawerOpen, open } = useContext(AppContext);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const Open = Boolean(anchorEl);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const [openTask, setOpenTask] = useState(false);
-  const OpenTask = () => {
-    setOpenTask(true);
-  };
-  const CloseTask = () => {
-    setOpenTask(false);
-  };
-
-  const [openProject, setOpenProject] = useState(false);
-  const OpenProject = () => {
-    setOpenProject(true);
-  };
-  const CloseProject = () => {
-    setOpenProject(false);
-  };
-
-  const [openMember, setOpenMember] = useState(false);
-  const OpenMember = () => {
-    setOpenMember(true);
-  };
-  const CloseMember = () => {
-    setOpenMember(false);
-  };
-
+  // @ts-ignore
   return (
     <div className={classes.root}>
+      {/*<AppContext.Provider value={[anchorEl]}>*/}
       <Container>
         <AppBar
           style={{ backgroundColor: Color.VWORK_WHITE }}
@@ -163,66 +131,9 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
           </Toolbar>
         </AppBar>
       </Container>
-      <Menu
-        id="fade-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Open}
-        onClose={handleClose}
-        TransitionComponent={Fade}
-      >
-        <Backdrop
-          className={classes.backdrop}
-          open={openTask}
-          onClick={CloseTask}
-        >
-          <Drawer
-            className={classes.drawer}
-            variant="persistent"
-            anchor="right"
-            open={openTask}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          ></Drawer>
-        </Backdrop>
-        <IconButton onClick={handleClose}>
-          <CloseIcon />
-        </IconButton>
-        <MenuItem onClick={OpenTask}>タスク追加</MenuItem>
-        <Backdrop
-          className={classes.backdrop}
-          open={openProject}
-          onClick={CloseProject}
-        >
-          <Drawer
-            className={classes.drawer}
-            variant="persistent"
-            anchor="right"
-            open={openProject}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          ></Drawer>
-        </Backdrop>
-        <MenuItem onClick={OpenProject}>プロジェクト追加</MenuItem>
-        <Backdrop
-          className={classes.backdrop}
-          open={openMember}
-          onClick={CloseMember}
-        >
-          <Drawer
-            className={classes.drawer}
-            variant="persistent"
-            anchor="right"
-            open={openMember}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          ></Drawer>
-        </Backdrop>
-        <MenuItem onClick={OpenMember}>メンバー招待</MenuItem>
-      </Menu>
+
+      <HeaderAddButton />
+      {/*</AppContext.Provider>*/}
     </div>
   );
 };
