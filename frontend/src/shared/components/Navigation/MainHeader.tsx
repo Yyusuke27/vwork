@@ -12,6 +12,8 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import Avatar from "@material-ui/core/Avatar";
 import Container from "@material-ui/core/Container";
 import AppContext from "../../../AppContext";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 
 const drawerWidth = 240;
 
@@ -51,6 +53,15 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
   const classes = useStyles();
   // @ts-ignore
   const { handleDrawerOpen, open } = useContext(AppContext);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <div className={classes.root}>
@@ -95,7 +106,7 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
                   alignItems="center"
                 >
                   <Grid item>
-                    <IconButton aria-label="add">
+                    <IconButton aria-label="add" onClick={handleClick}>
                       <AddCircleOutlineIcon style={{ fontSize: 40 }} />
                     </IconButton>
                   </Grid>
@@ -108,6 +119,16 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
           </Toolbar>
         </AppBar>
       </Container>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+      >
+        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleClose}>Logout</MenuItem>
+      </Menu>
     </div>
   );
 };
