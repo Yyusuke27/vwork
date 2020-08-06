@@ -6,6 +6,8 @@ import Dialog from "@material-ui/core/Dialog";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import SideBarOfRegistration from "../../shared/components/Navigation/SideBarOfRegistration";
 
+import "./Regist.module.css";
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     dialog: {

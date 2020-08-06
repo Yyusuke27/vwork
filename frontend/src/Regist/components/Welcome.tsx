@@ -9,7 +9,7 @@ import Color from "../../shared/util/color";
 import { Link } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 
-import "../pages/Regist.css";
+import "../pages/Regist.module.css";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

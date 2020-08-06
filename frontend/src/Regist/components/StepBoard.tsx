@@ -8,7 +8,7 @@ import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Container from "@material-ui/core/Container";
 
-import "../pages/Regist.css";
+import "../pages/Regist.module.css";
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
