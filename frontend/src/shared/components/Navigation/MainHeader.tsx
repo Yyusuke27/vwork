@@ -85,12 +85,21 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
   const CloseTask = () => {
     setOpenTask(false);
   };
+
   const [openProject, setOpenProject] = useState(false);
   const OpenProject = () => {
     setOpenProject(true);
   };
   const CloseProject = () => {
     setOpenProject(false);
+  };
+
+  const [openMember, setOpenMember] = useState(false);
+  const OpenMember = () => {
+    setOpenMember(true);
+  };
+  const CloseMember = () => {
+    setOpenMember(false);
   };
 
   return (
@@ -194,7 +203,24 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
             ></Drawer>
           </Backdrop>
         </MenuItem>
-        <MenuItem>メンバー招待</MenuItem>
+        <MenuItem onClick={OpenMember}>
+          メンバー招待
+          <Backdrop
+            className={classes.backdrop}
+            open={openMember}
+            onClick={CloseMember}
+          >
+            <Drawer
+              className={classes.drawer}
+              variant="persistent"
+              anchor="right"
+              open={openMember}
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+            ></Drawer>
+          </Backdrop>
+        </MenuItem>
       </Menu>
     </div>
   );
