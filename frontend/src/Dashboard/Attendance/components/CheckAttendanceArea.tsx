@@ -202,6 +202,14 @@ const CheckAttendanceArea = () => {
       <Dialog fullScreen open={open} TransitionComponent={Transition}>
         <AppBar className={classes.appBar}>
           <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={handleClose}
+              aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>
             <img
               src={`${process.env.PUBLIC_URL}/images/logo192.png`}
               style={{ height: 25 }}
@@ -218,16 +226,6 @@ const CheckAttendanceArea = () => {
           className={clsx(classes.dialogText, classes.dialogStyle)}
         >
           <Container maxWidth="md">
-            <Grid item>
-              <IconButton
-                edge="start"
-                color="inherit"
-                onClick={handleClose}
-                aria-label="close"
-              >
-                <CloseIcon />
-              </IconButton>
-            </Grid>
             <Grid item>勤務お疲れさまでした</Grid>
             <Grid item style={{ marginTop: "5%" }}>
               <Grid container direction="column">

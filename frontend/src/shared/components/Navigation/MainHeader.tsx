@@ -1,4 +1,4 @@
-import React, { FC, useContext } from "react";
+import React, { FC, useContext, useState } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -12,7 +12,12 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import Avatar from "@material-ui/core/Avatar";
 import Container from "@material-ui/core/Container";
 import AppContext from "../../../AppContext";
-import HeaderAddButton from "./HeaderAddButton";
+import Menu from "@material-ui/core/Menu";
+import { bindMenu, usePopupState } from "material-ui-popup-state/hooks";
+import Backdrop from "@material-ui/core/Backdrop";
+import Drawer from "@material-ui/core/Drawer";
+import CloseIcon from "@material-ui/icons/Close";
+import MenuItem from "@material-ui/core/MenuItem";
 
 const drawerWidth = 240;
 const DrawerWith = "55%";
@@ -65,6 +70,34 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
   // @ts-ignore
   const { handleDrawerOpen, open } = useContext(AppContext);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const popupState = usePopupState({ variant: "popover", popupId: "demoMenu" });
+
+  const [openTask, setOpenTask] = useState(false);
+  const OpenTask = () => {
+    setOpenTask(true);
+  };
+  const CloseTask = () => {
+    setOpenTask(false);
+  };
+
+  const [openProject, setOpenProject] = useState(false);
+  const OpenProject = () => {
+    setOpenProject(true);
+  };
+  const CloseProject = () => {
+    setOpenProject(false);
+  };
+
+  const [openMember, setOpenMember] = useState(false);
+  const OpenMember = () => {
+    setOpenMember(true);
+  };
+  const CloseMember = () => {
+    setOpenMember(false);
+  };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -73,7 +106,6 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
   // @ts-ignore
   return (
     <div className={classes.root}>
-      {/*<AppContext.Provider value={[anchorEl]}>*/}
       <Container>
         <AppBar
           style={{ backgroundColor: Color.VWORK_WHITE }}
@@ -131,9 +163,69 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
           </Toolbar>
         </AppBar>
       </Container>
-
-      <HeaderAddButton />
-      {/*</AppContext.Provider>*/}
+      <Menu
+        {...bindMenu(popupState)}
+        getContentAnchorEl={null}
+        anchorOrigin={{ horizontal: "right", vertical: "top" }}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        // anchorPosition={{ right: 200, top: 1000 }}
+        id="simple-menu"
+        // anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+      >
+        <Backdrop
+          className={classes.backdrop}
+          open={openTask}
+          onClick={CloseTask}
+        >
+          <Drawer
+            className={classes.drawer}
+            variant="persistent"
+            anchor="right"
+            open={openTask}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          ></Drawer>
+        </Backdrop>
+        <IconButton onClick={handleClose}>
+          <CloseIcon />
+        </IconButton>
+        <MenuItem onClick={OpenTask}>タスク追加</MenuItem>
+        <Backdrop
+          className={classes.backdrop}
+          open={openProject}
+          onClick={CloseProject}
+        >
+          <Drawer
+            className={classes.drawer}
+            variant="persistent"
+            anchor="right"
+            open={openProject}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          ></Drawer>
+        </Backdrop>
+        <MenuItem onClick={OpenProject}>プロジェクト追加</MenuItem>
+        <Backdrop
+          className={classes.backdrop}
+          open={openMember}
+          onClick={CloseMember}
+        >
+          <Drawer
+            className={classes.drawer}
+            variant="persistent"
+            anchor="right"
+            open={openMember}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          ></Drawer>
+        </Backdrop>
+        <MenuItem onClick={OpenMember}>メンバー招待</MenuItem>
+      </Menu>
     </div>
   );
 };
