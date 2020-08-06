@@ -150,7 +150,10 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
                     </IconButton>
                   </Grid>
                   <Grid item>
-                    <Avatar />
+                    <Avatar
+                      alt="Shogo Yunoki"
+                      src="/static/images/avatar/1.jpg"
+                    />
                   </Grid>
                 </Grid>
               </Grid>
