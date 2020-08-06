@@ -17,6 +17,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import CloseIcon from "@material-ui/icons/Close";
 import Drawer from "@material-ui/core/Drawer";
 import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
 
 const drawerWidth = 240;
 const DrawerWith = "55%";
@@ -69,8 +70,9 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
   // @ts-ignore
   const { handleDrawerOpen, open } = useContext(AppContext);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const Open = Boolean(anchorEl);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -162,68 +164,64 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
         </AppBar>
       </Container>
       <Menu
-        id="simple-menu"
+        id="fade-menu"
         anchorEl={anchorEl}
         keepMounted
-        open={Boolean(anchorEl)}
+        open={Open}
+        onClose={handleClose}
+        TransitionComponent={Fade}
       >
+        <Backdrop
+          className={classes.backdrop}
+          open={openTask}
+          onClick={CloseTask}
+        >
+          <Drawer
+            className={classes.drawer}
+            variant="persistent"
+            anchor="right"
+            open={openTask}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          ></Drawer>
+        </Backdrop>
         <IconButton onClick={handleClose}>
           <CloseIcon />
         </IconButton>
-        <MenuItem onClick={OpenTask}>
-          タスク追加
-          <Backdrop
-            className={classes.backdrop}
-            open={openTask}
-            onClick={CloseTask}
-          >
-            <Drawer
-              className={classes.drawer}
-              variant="persistent"
-              anchor="right"
-              open={openTask}
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-            ></Drawer>
-          </Backdrop>
-        </MenuItem>
-        <MenuItem onClick={OpenProject}>
-          プロジェクト追加
-          <Backdrop
-            className={classes.backdrop}
+        <MenuItem onClick={OpenTask}>タスク追加</MenuItem>
+        <Backdrop
+          className={classes.backdrop}
+          open={openProject}
+          onClick={CloseProject}
+        >
+          <Drawer
+            className={classes.drawer}
+            variant="persistent"
+            anchor="right"
             open={openProject}
-            onClick={CloseProject}
-          >
-            <Drawer
-              className={classes.drawer}
-              variant="persistent"
-              anchor="right"
-              open={openProject}
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-            ></Drawer>
-          </Backdrop>
-        </MenuItem>
-        <MenuItem onClick={OpenMember}>
-          メンバー招待
-          <Backdrop
-            className={classes.backdrop}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          ></Drawer>
+        </Backdrop>
+        <MenuItem onClick={OpenProject}>プロジェクト追加</MenuItem>
+        <Backdrop
+          className={classes.backdrop}
+          open={openMember}
+          onClick={CloseMember}
+        >
+          <Drawer
+            className={classes.drawer}
+            variant="persistent"
+            anchor="right"
             open={openMember}
-            onClick={CloseMember}
-          >
-            <Drawer
-              className={classes.drawer}
-              variant="persistent"
-              anchor="right"
-              open={openMember}
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-            ></Drawer>
-          </Backdrop>
-        </MenuItem>
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          ></Drawer>
+        </Backdrop>
+        <MenuItem onClick={OpenMember}>メンバー招待</MenuItem>
       </Menu>
     </div>
   );
