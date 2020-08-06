@@ -32,12 +32,12 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 200,
       borderRadius: 15,
     },
-    eachcomponent: {
+    eachComponent: {
       position: "absolute",
       left: "17%",
       top: "20%",
     },
-    finishcomponent: {
+    finishComponent: {
       position: "absolute",
       left: "28%",
       top: "40%",
@@ -86,11 +86,11 @@ const StepBoard = () => {
           </Stepper>
         </div>
         {activeStep === steps.length ? (
-          <div className={classes.finishcomponent}>
+          <div className={classes.finishComponent}>
             {getStepComponent(activeStep)}
           </div>
         ) : (
-          <div className={classes.eachcomponent}>
+          <div className={classes.eachComponent}>
             {getStepComponent(activeStep)}
           </div>
         )}

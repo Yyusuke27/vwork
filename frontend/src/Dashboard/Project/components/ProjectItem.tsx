@@ -23,10 +23,10 @@ const useStyles = makeStyles({
 
 interface ProjectItemProps {
   name: string;
-  bgcolor: Color;
+  bgColor: Color;
 }
 
-const ProjectItem: FC<ProjectItemProps> = ({ name = "", bgcolor }) => {
+const ProjectItem: FC<ProjectItemProps> = ({ name = "", bgColor }) => {
   const classes = useStyles();
 
   return (
@@ -39,7 +39,7 @@ const ProjectItem: FC<ProjectItemProps> = ({ name = "", bgcolor }) => {
             justify="center"
             alignItems="center"
             className={clsx(classes.iconArea, classes.contentWidth)}
-            style={{ backgroundColor: bgcolor }}
+            style={{ backgroundColor: bgColor }}
           >
             <FormatListBulletedIcon className={classes.icon} />
           </Grid>

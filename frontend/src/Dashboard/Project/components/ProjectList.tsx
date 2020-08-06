@@ -8,14 +8,12 @@ import clsx from "clsx";
 import Typography from "@material-ui/core/Typography";
 import AddIcon from "@material-ui/icons/Add";
 
-const defaultProps = {
-  m: 1,
-  style: { width: "20rem" },
-};
-
 const useStyles = makeStyles({
   title: {
-    fontSize: 18,
+    fontSize: 23,
+    marginTop: "5%",
+    marginBottom: "2%",
+    width: "30%",
   },
   contentWidth: {
     width: 150,
@@ -30,7 +28,7 @@ const useStyles = makeStyles({
   icon: {
     fontSize: 55,
   },
-  iconstyle: {
+  iconStyle: {
     borderStyle: "dotted",
     borderRadius: 8,
     height: 150,
@@ -39,22 +37,16 @@ const useStyles = makeStyles({
 });
 
 const projectData = [
-  { title: "UI改修", bgcolor: Color.VWORK_BLUE },
-  { title: "WordPressテーマ開発", bgcolor: Color.VWORK_DARK_RED },
-  { title: "SEO対策", bgcolor: Color.VWORK_RED },
+  { title: "UI改修", bgColor: Color.VWORK_BLUE },
+  { title: "WordPressテーマ開発", bgColor: Color.VWORK_DARK_RED },
+  { title: "SEO対策", bgColor: Color.VWORK_RED },
 ];
 
 const ProjectList = () => {
   const classes = useStyles();
   return (
     <>
-      <Box
-        borderBottom={1}
-        {...defaultProps}
-        className={classes.title}
-        mt={10}
-        mb={3}
-      >
+      <Box borderBottom={1} className={classes.title}>
         参加しているプロジェクト
       </Box>
       <Grid container>
@@ -64,7 +56,7 @@ const ProjectList = () => {
               return (
                 <ProjectItem
                   name={data.title}
-                  bgcolor={data.bgcolor}
+                  bgColor={data.bgColor}
                   key={index}
                 />
               );
@@ -73,7 +65,7 @@ const ProjectList = () => {
         </Grid>
         <Grid item>
           <Box
-            className={clsx(classes.contentWidth, classes.iconstyle)}
+            className={clsx(classes.contentWidth, classes.iconStyle)}
             mr={3}
             mb={3}
           >

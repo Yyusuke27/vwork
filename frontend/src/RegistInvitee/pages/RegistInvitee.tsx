@@ -6,6 +6,7 @@ import StepTwo from "../components/StepTwo";
 import StepThree from "../components/StepThree";
 import Dialog from "@material-ui/core/Dialog";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import SideBarOfRegistration from "../../shared/components/Navigation/SideBarOfRegistration";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,6 +20,7 @@ const RegistInvitee = () => {
   const classes = useStyles();
   return (
     <>
+      <SideBarOfRegistration />
       <Dialog open keepMounted maxWidth="xl" className={classes.dialog}>
         <Switch>
           <Route exact path="/regist_invitee/welcome">

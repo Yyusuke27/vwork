@@ -8,8 +8,6 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Color from "../../../shared/util/color";
 import TaskInDetailList from "../../Task/components/TaskInDetailItem";
 
-const drawerWidth = "55%";
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -23,63 +21,6 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       fontSize: 20,
       // fontWeight:
-    },
-    maintitle: {
-      m: 1,
-      width: "20rem",
-      fontSize: 18,
-    },
-    dialogtitle: {
-      fontSize: 30,
-    },
-    color: {
-      backgroundColor: Color.VWORK_RED,
-    },
-    button: {
-      cursor: "pointer",
-    },
-    appBar: {
-      position: "relative",
-      backgroundColor: Color.VWORK_BLACK,
-    },
-    dialogText: {
-      fontSize: 20,
-    },
-    dialogStyle: {
-      marginTop: "5%",
-    },
-    additionalButton: {
-      backgroundColor: Color.VWORK_BLUE,
-      color: Color.VWORK_WHITE,
-      borderRadius: 10,
-      width: 100,
-      fontSize: 20,
-    },
-    takinButton: {
-      backgroundColor: Color.VWORK_RED,
-      color: Color.VWORK_WHITE,
-      borderRadius: 10,
-      width: 150,
-      fontSize: 20,
-    },
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-    drawerPaper: {
-      width: drawerWidth,
-    },
-    drawerHeader: {
-      display: "flex",
-      alignItems: "center",
-      padding: theme.spacing(0, 1),
-      // necessary for content to be below app bar
-      ...theme.mixins.toolbar,
-      justifyContent: "flex-end",
-    },
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: "#fff",
     },
   })
 );

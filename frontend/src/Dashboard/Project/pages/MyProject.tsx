@@ -19,8 +19,12 @@ const useStyles = makeStyles({
     fontSize: 15,
     marginTop: 70,
   },
-  iconstyle: {
+  iconStyle: {
     color: Color.VWORK_WHITE,
+    padding: 0,
+  },
+  icon: {
+    borderRadius: 10,
   },
 });
 
@@ -39,8 +43,8 @@ const MyProject = () => {
             <Typography>マイプロジェクト</Typography>
           </Grid>
           <Grid item>
-            <IconButton style={{ padding: 0 }} className={classes.iconstyle}>
-              <AddIcon style={{ borderRadius: 10 }} />
+            <IconButton className={classes.iconStyle}>
+              <AddIcon className={classes.icon} />
             </IconButton>
           </Grid>
         </Grid>

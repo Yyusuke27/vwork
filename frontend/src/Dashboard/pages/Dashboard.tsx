@@ -74,7 +74,7 @@ const Dashboard = () => {
             <Route path="/my_task" exact>
               <MyTask />
             </Route>
-            <Route path="/kintai_manage" exact>
+            <Route path="/work_manage" exact>
               <MyAttendance />
             </Route>
             <Route path="/my_project" exact>

@@ -1,13 +1,11 @@
 import React, { FC } from "react";
 import Box from "@material-ui/core/Box";
-
 import {
   createStyles,
   makeStyles,
   Theme,
   withStyles,
 } from "@material-ui/core/styles";
-
 import TaskItem from "./TaskItem";
 import Grid from "@material-ui/core/Grid";
 import FormControl from "@material-ui/core/FormControl";
@@ -93,13 +91,9 @@ const TaskList: FC<TaskListProps> = ({ title = "", iconType = "" }) => {
         alignItems="center"
         style={{ marginTop: "5%" }}
       >
-        <Grid item>
+        <Grid item style={{ width: "30%" }}>
           {title ? (
-            <Box
-              borderBottom={1}
-              className={classes.title}
-              style={{ width: 400 }}
-            >
+            <Box borderBottom={1} className={classes.title}>
               {title}
             </Box>
           ) : (

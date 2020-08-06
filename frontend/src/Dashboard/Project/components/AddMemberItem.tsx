@@ -6,7 +6,7 @@ import Avatar from "@material-ui/core/Avatar";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    comtainer: {
+    container: {
       marginBottom: "4%",
     },
     icon: {
@@ -20,10 +20,10 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface AddMemberItemProps {
-  myname: string;
+  myName: string;
 }
 
-const AddMemberItem: FC<AddMemberItemProps> = ({ myname = "" }) => {
+const AddMemberItem: FC<AddMemberItemProps> = ({ myName = "" }) => {
   const classes = useStyles();
   const [selectedValue, setSelectedValue] = useState("");
 
@@ -37,7 +37,7 @@ const AddMemberItem: FC<AddMemberItemProps> = ({ myname = "" }) => {
         container
         direction="row"
         alignItems="center"
-        className={classes.comtainer}
+        className={classes.container}
       >
         <Grid item>
           <Radio
@@ -48,10 +48,10 @@ const AddMemberItem: FC<AddMemberItemProps> = ({ myname = "" }) => {
           />
         </Grid>
         <Grid item>
-          <Avatar alt={myname} src="/static/images/avatar/1.jpg" />
+          <Avatar alt={myName} src="/static/images/avatar/1.jpg" />
         </Grid>
         <Grid item className={classes.name}>
-          {myname}
+          {myName}
         </Grid>
       </Grid>
     </>

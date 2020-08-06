@@ -9,10 +9,10 @@ import { NavLink } from "react-router-dom";
 
 interface EachProjectItemProps {
   title: string;
-  bgcolor: Color;
+  bgColor: Color;
 }
 
-const EachProjectItem: FC<EachProjectItemProps> = ({ title = "", bgcolor }) => {
+const EachProjectItem: FC<EachProjectItemProps> = ({ title = "", bgColor }) => {
   // const classes = useStyles();
   return (
     <>
@@ -25,7 +25,7 @@ const EachProjectItem: FC<EachProjectItemProps> = ({ title = "", bgcolor }) => {
           exact
         >
           <ListItemIcon>
-            <Brightness1Icon style={{ color: bgcolor }} />
+            <Brightness1Icon style={{ color: bgColor }} />
           </ListItemIcon>
           <ListItemText primary={title} />
         </ListItem>

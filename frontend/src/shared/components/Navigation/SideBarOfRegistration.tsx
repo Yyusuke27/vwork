@@ -61,6 +61,7 @@ const SideBarOfRegistration = () => {
     <div className={classes.root}>
       <Container>
         <Drawer
+          open
           className={classes.drawer}
           variant="persistent"
           anchor="left"

@@ -123,7 +123,7 @@ const AttendanceItem = () => {
                     <TextField
                       id="outlined-multiline-static"
                       multiline
-                      rows={4}
+                      rows={5}
                       variant="outlined"
                       style={{ width: "100%" }}
                     />
@@ -146,9 +146,9 @@ const AttendanceItem = () => {
         >
           <Grid container direction="column">
             <Container maxWidth="md">
-              <Grid item>
+              <Grid item onClick={handleClose}>
                 <IconButton>
-                  <CloseIcon onClick={handleClose} />
+                  <CloseIcon />
                 </IconButton>
               </Grid>
               <Grid item>

@@ -2,16 +2,16 @@ import React from "react";
 import AddMemberItem from "./AddMemberItem";
 
 const memberdata = [
-  { myname: "Shogo Yunoki" },
-  { myname: "Shogo Yunoki" },
-  { myname: "Shogo Yunoki" },
+  { myName: "Shogo Yunoki" },
+  { myName: "Shogo Yunoki" },
+  { myName: "Shogo Yunoki" },
 ];
 
 const AddMemberList = () => {
   return (
     <>
       {memberdata.map((data, index) => {
-        return <AddMemberItem myname={data.myname} key={index} />;
+        return <AddMemberItem myName={data.myName} key={index} />;
       })}
     </>
   );

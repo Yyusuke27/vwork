@@ -18,7 +18,7 @@ const drawerWidth = "55%";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      minWidth: 275,
+      width: "100%",
       borderRadius: 10,
       height: 80,
       marginBottom: 15,

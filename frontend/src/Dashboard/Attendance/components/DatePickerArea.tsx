@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
-  boxstyle: {
+  boxStyle: {
     height: 25,
     textAlign: "center",
     fontSize: 20,
@@ -33,7 +33,7 @@ const DatePickerArea = () => {
           onChange={() => setDate(date)}
           onCalendarClose={handleCalendarClose}
           onCalendarOpen={handleCalendarOpen}
-          className={classes.boxstyle}
+          className={classes.boxStyle}
         />
       </Grid>
     </Grid>

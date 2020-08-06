@@ -3,8 +3,8 @@ import EachProjectItem from "./EachProjectItem";
 import Color from "../../util/color";
 
 const projectDate = [
-  { title: "UI改修", bgcolor: Color.VWORK_BLUE },
-  { title: "WordPressテーマ開発", bgcolor: Color.VWORK_DARK_RED },
+  { title: "UI改修", bgColor: Color.VWORK_BLUE },
+  { title: "WordPress", bgColor: Color.VWORK_DARK_RED },
 ];
 
 const EacProjectList = () => {
@@ -14,7 +14,7 @@ const EacProjectList = () => {
         return (
           <EachProjectItem
             title={date.title}
-            bgcolor={date.bgcolor}
+            bgColor={date.bgColor}
             key={index}
           />
         );

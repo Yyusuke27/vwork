@@ -32,17 +32,19 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 185,
       marginTop: 25,
     },
-
+    appBar: {
+      position: "relative",
+      backgroundColor: Color.VWORK_BLACK,
+    },
     title: {
       fontSize: 18,
-      // fontWeight:
     },
-    maintitle: {
+    mainTitle: {
       m: 1,
-      width: "20rem",
-      fontSize: 18,
+      width: "30%",
+      fontSize: 23,
     },
-    dialogtitle: {
+    dialogTitle: {
       fontSize: 30,
     },
     color: {
@@ -50,10 +52,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     button: {
       cursor: "pointer",
-    },
-    appBar: {
-      position: "relative",
-      backgroundColor: Color.VWORK_BLACK,
     },
     dialogText: {
       fontSize: 20,
@@ -68,7 +66,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 100,
       fontSize: 20,
     },
-    takinButton: {
+    out: {
       backgroundColor: Color.VWORK_RED,
       color: Color.VWORK_WHITE,
       borderRadius: 10,
@@ -136,7 +134,7 @@ const CheckAttendanceArea = () => {
 
   return (
     <>
-      <Box borderBottom={1} className={classes.maintitle}>
+      <Box borderBottom={1} className={classes.mainTitle}>
         勤怠管理
       </Box>
       <Card className={classes.root}>
@@ -174,7 +172,7 @@ const CheckAttendanceArea = () => {
             p={1}
             style={{ width: "100%" }}
           >
-            <Box p={1}>
+            <Box>
               <Button
                 size="small"
                 variant="contained"
@@ -183,12 +181,12 @@ const CheckAttendanceArea = () => {
                 出社
               </Button>
             </Box>
-            <Box p={1}>
+            <Box>
               <Button size="small" variant="contained">
                 休憩
               </Button>
             </Box>
-            <Box p={1}>
+            <Box>
               <Button
                 size="small"
                 variant="contained"
@@ -209,7 +207,7 @@ const CheckAttendanceArea = () => {
               style={{ height: 25 }}
               alt=""
             />
-            <Typography variant="h6" className={classes.dialogtitle}>
+            <Typography variant="h6" className={classes.dialogTitle}>
               VWORK
             </Typography>
           </Toolbar>
@@ -273,7 +271,7 @@ const CheckAttendanceArea = () => {
                 justify="flex-end"
                 style={{ marginTop: "10%" }}
               >
-                <Button className={classes.takinButton}>退勤する</Button>
+                <Button className={classes.out}>退勤する</Button>
               </Grid>
             </Grid>
           </Container>

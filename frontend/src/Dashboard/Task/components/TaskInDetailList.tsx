@@ -3,7 +3,7 @@ import TaskInDetailItem from "./TaskInDetailItem";
 
 const taskDate = [{ title: "UI画面の実装" }];
 
-const TaskInDetaiList = () => {
+const TaskInDetailList = () => {
   return (
     <>
       {taskDate.map((date, index) => {
@@ -13,4 +13,4 @@ const TaskInDetaiList = () => {
   );
 };
 
-export default TaskInDetaiList;
+export default TaskInDetailList;

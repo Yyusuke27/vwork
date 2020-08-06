@@ -40,13 +40,13 @@ const useStyles = makeStyles((theme: Theme) =>
       zIndex: theme.zIndex.drawer + 1,
       color: "#fff",
     },
-    drawertitle: {
+    drawerTitle: {
       fontSize: 25,
       width: "85%",
       marginTop: "8%",
       marginBottom: "4%",
     },
-    closeicon: {
+    closeIcon: {
       marginTop: "2%",
     },
     button: {
@@ -60,9 +60,9 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const programDate = [
-  { name: "SHOGO YUNOKI", icon: "S" },
-  { name: "YUSUKE YUNOKI", icon: "Y" },
-  { name: "IKUMI YUNOKI", icon: "I" },
+  { name: "柚木将吾", icon: "S" },
+  { name: "柚木祐輔", icon: "Y" },
+  { name: "柚木郁美", icon: "I" },
 ];
 
 const ProjectMemberList = () => {
@@ -115,10 +115,10 @@ const ProjectMemberList = () => {
           }}
         >
           <Container maxWidth="md">
-            <IconButton onClick={handleClose} className={classes.closeicon}>
+            <IconButton onClick={handleClose} className={classes.closeIcon}>
               <CloseIcon />
             </IconButton>
-            <Box borderBottom={1} className={classes.drawertitle}>
+            <Box borderBottom={1} className={classes.drawerTitle}>
               メンバー
             </Box>
             <AddMemberList />

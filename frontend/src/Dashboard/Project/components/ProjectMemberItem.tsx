@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundImage: `url(${process.env.PUBLIC_URL}/images/logo192.png)`,
       backgroundSize: "cover",
       marginRight: 200,
+      borderRadius: "50%",
     },
   })
 );
@@ -87,12 +88,12 @@ const ProjectMemberItem: FC<TaskMemberItemProps> = ({
               <Grid item>
                 <Grid container direction="row" justify="space-between">
                   <Grid xs={6} item>
-                    <Box borderRadius="50%" className={classes.box}></Box>
+                    <Box className={classes.box}></Box>
                   </Grid>
                   <Grid xs={6} item style={{ fontSize: 20 }}>
                     <dl>
                       <dt>氏名</dt>
-                      <dd>SHOGO YUNOKI</dd>
+                      <dd>柚木将吾</dd>
                     </dl>
                     <dl>
                       <dt>メールアドレス</dt>

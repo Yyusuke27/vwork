@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme: Theme) =>
       ...theme.mixins.toolbar,
       justifyContent: "flex-end",
     },
-    iconstyle: {
+    icon: {
       color: Color.VWORK_WHITE,
     },
     title: {
@@ -127,25 +127,25 @@ const SideBar = () => {
           </Grid>
           <List>
             <ListItem button component={NavLink} to="/" exact>
-              <ListItemIcon className={classes.iconstyle}>
+              <ListItemIcon className={classes.icon}>
                 <HomeIcon />
               </ListItemIcon>
               <ListItemText primary="ホーム" />
             </ListItem>
             <ListItem button component={NavLink} to="/my_task" exact>
-              <ListItemIcon className={classes.iconstyle}>
+              <ListItemIcon className={classes.icon}>
                 <CheckCircleOutlineIcon />
               </ListItemIcon>
               <ListItemText primary="マイタスク" />
             </ListItem>
-            <ListItem button component={NavLink} to="/kintai_manage" exact>
-              <ListItemIcon className={classes.iconstyle}>
+            <ListItem button component={NavLink} to="/work_manage" exact>
+              <ListItemIcon className={classes.icon}>
                 <QueryBuilderIcon />
               </ListItemIcon>
               <ListItemText primary="勤怠管理" />
             </ListItem>
             <ListItem button>
-              <ListItemIcon className={classes.iconstyle}>
+              <ListItemIcon className={classes.icon}>
                 <NotificationsNoneIcon />
               </ListItemIcon>
               <ListItemText primary="受信ボックス" />
