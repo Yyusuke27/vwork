@@ -34,6 +34,10 @@ const useStyles = makeStyles((theme: Theme) =>
     color: {
       color: Color.VWORK_RED,
     },
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+    },
     drawer: {
       width: drawerWidth,
       flexShrink: 0,
@@ -48,10 +52,6 @@ const useStyles = makeStyles((theme: Theme) =>
       // necessary for content to be below app bar
       ...theme.mixins.toolbar,
       justifyContent: "flex-end",
-    },
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: "#fff",
     },
   })
 );

@@ -1,4 +1,4 @@
-import React, { FC, useContext } from "react";
+import React, { FC, useContext, useState } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -15,8 +15,11 @@ import AppContext from "../../../AppContext";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import CloseIcon from "@material-ui/icons/Close";
+import Drawer from "@material-ui/core/Drawer";
+import Backdrop from "@material-ui/core/Backdrop";
 
 const drawerWidth = 240;
+const DrawerWith = "55%";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,6 +46,17 @@ const useStyles = makeStyles((theme: Theme) =>
     hide: {
       display: "none",
     },
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+    },
+    drawer: {
+      width: DrawerWith,
+      flexShrink: 0,
+    },
+    drawerPaper: {
+      width: DrawerWith,
+    },
   })
 );
 
@@ -62,6 +76,21 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const [openTask, setOpenTask] = useState(false);
+  const OpenTask = () => {
+    setOpenTask(true);
+  };
+  const CloseTask = () => {
+    setOpenTask(false);
+  };
+  const [openProject, setOpenProject] = useState(false);
+  const OpenProject = () => {
+    setOpenProject(true);
+  };
+  const CloseProject = () => {
+    setOpenProject(false);
   };
 
   return (
@@ -129,8 +158,42 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
         <IconButton onClick={handleClose}>
           <CloseIcon />
         </IconButton>
-        <MenuItem>タスク追加</MenuItem>
-        <MenuItem>プロジェクト追加</MenuItem>
+        <MenuItem onClick={OpenTask}>
+          タスク追加
+          <Backdrop
+            className={classes.backdrop}
+            open={openTask}
+            onClick={CloseTask}
+          >
+            <Drawer
+              className={classes.drawer}
+              variant="persistent"
+              anchor="right"
+              open={openTask}
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+            ></Drawer>
+          </Backdrop>
+        </MenuItem>
+        <MenuItem onClick={OpenProject}>
+          プロジェクト追加
+          <Backdrop
+            className={classes.backdrop}
+            open={openProject}
+            onClick={CloseProject}
+          >
+            <Drawer
+              className={classes.drawer}
+              variant="persistent"
+              anchor="right"
+              open={openProject}
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+            ></Drawer>
+          </Backdrop>
+        </MenuItem>
         <MenuItem>メンバー招待</MenuItem>
       </Menu>
     </div>
