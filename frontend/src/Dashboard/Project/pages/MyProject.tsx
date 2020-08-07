@@ -11,26 +11,16 @@ import AppContext from "../../../AppContext";
 import Drawer from "@material-ui/core/Drawer";
 import Backdrop from "@material-ui/core/Backdrop";
 
-const defaultProps = {
-  m: 2,
-  style: { width: "13rem" },
-  borderColor: "text.primary",
-};
-
 const DrawerWith = "50%";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
       fontSize: 15,
-      marginTop: 70,
-    },
-    iconStyle: {
-      color: Color.VWORK_WHITE,
-      padding: 0,
-    },
-    icon: {
-      borderRadius: 10,
+      marginTop: "40%",
+      marginLeft: "5%",
+      marginBottom: "5%",
+      width: 190,
     },
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
@@ -43,6 +33,13 @@ const useStyles = makeStyles((theme: Theme) =>
     drawerPaper: {
       width: DrawerWith,
     },
+    iconStyle: {
+      color: Color.VWORK_WHITE,
+      padding: 0,
+    },
+    icon: {
+      borderRadius: 10,
+    },
   })
 );
 
@@ -52,7 +49,7 @@ const MyProject = () => {
   const { OpenTask, CloseTask, openTask } = useContext(AppContext);
   return (
     <>
-      <Box borderBottom={1} {...defaultProps} className={classes.title}>
+      <Box borderBottom={1} className={classes.title}>
         <Grid
           container
           direction="row"

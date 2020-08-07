@@ -13,9 +13,10 @@ import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import Drawer from "@material-ui/core/Drawer";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { NavLink } from "react-router-dom";
-import MyProject from "../../../Dashboard/Project/pages/MyProject";
 import Container from "@material-ui/core/Container";
 import Color from "../../util/color";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
 
 const drawerWidth = 240;
 
@@ -45,11 +46,18 @@ const useStyles = makeStyles((theme: Theme) =>
       ...theme.mixins.toolbar,
       justifyContent: "flex-end",
     },
-    iconstyle: {
+    iconStyle: {
       color: Color.VWORK_WHITE,
     },
     title: {
       fontWeight: 900,
+    },
+    projectTitle: {
+      fontSize: 15,
+      marginTop: "40%",
+      marginLeft: "5%",
+      marginBottom: "5%",
+      width: 190,
     },
   })
 );
@@ -106,31 +114,33 @@ const SideBarOfRegistration = () => {
           </Grid>
           <List>
             <ListItem button component={NavLink} to="/" exact>
-              <ListItemIcon className={classes.iconstyle}>
+              <ListItemIcon className={classes.iconStyle}>
                 <HomeIcon />
               </ListItemIcon>
               <ListItemText primary="ホーム" />
             </ListItem>
             <ListItem button component={NavLink} to="/my_task" exact>
-              <ListItemIcon className={classes.iconstyle}>
+              <ListItemIcon className={classes.iconStyle}>
                 <CheckCircleOutlineIcon />
               </ListItemIcon>
               <ListItemText primary="マイタスク" />
             </ListItem>
             <ListItem button component={NavLink} to="/kintai_manage" exact>
-              <ListItemIcon className={classes.iconstyle}>
+              <ListItemIcon className={classes.iconStyle}>
                 <QueryBuilderIcon />
               </ListItemIcon>
               <ListItemText primary="勤怠管理" />
             </ListItem>
             <ListItem button>
-              <ListItemIcon className={classes.iconstyle}>
+              <ListItemIcon className={classes.iconStyle}>
                 <NotificationsNoneIcon />
               </ListItemIcon>
               <ListItemText primary="受信ボックス" />
             </ListItem>
           </List>
-          <MyProject />
+          <Box borderBottom={1} className={classes.projectTitle}>
+            <Typography>マイプロジェクト</Typography>
+          </Box>
         </Drawer>
       </Container>
     </div>
