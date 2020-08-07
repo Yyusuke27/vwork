@@ -42,10 +42,20 @@ const useStyles = makeStyles((theme: Theme) =>
       }),
     },
     menuButton: {
-      marginRight: 36,
+      marginRight: "2%",
     },
     hide: {
       display: "none",
+    },
+    menuIcon: {
+      fontSize: 40,
+      color: Color.VWORK_GRAY,
+    },
+    title: {
+      color: Color.VWORK_GRAY,
+    },
+    addIcon: {
+      fontSize: 40,
     },
     icon: {
       paddingLeft: 0,
@@ -173,7 +183,7 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
               edge="start"
               className={clsx(classes.menuButton, open && classes.hide)}
             >
-              <MenuIcon style={{ fontSize: 40, color: Color.VWORK_GRAY }} />
+              <MenuIcon className={classes.menuIcon} />
             </IconButton>
             <Grid
               container
@@ -182,11 +192,7 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
               alignItems="center"
             >
               <Grid item>
-                <Typography
-                  variant="h6"
-                  style={{ color: Color.VWORK_GRAY }}
-                  noWrap
-                >
+                <Typography variant="h6" className={classes.title} noWrap>
                   {title}
                 </Typography>
               </Grid>
@@ -199,7 +205,7 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
                 >
                   <Grid item>
                     <IconButton aria-label="add" onClick={handleClick}>
-                      <AddCircleOutlineIcon style={{ fontSize: 40 }} />
+                      <AddCircleOutlineIcon className={classes.addIcon} />
                     </IconButton>
                   </Grid>
                   <Grid item>
