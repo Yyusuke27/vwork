@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import clsx from "clsx";
 import AppContext from "../../AppContext";
@@ -54,10 +54,26 @@ const Dashboard = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const [openTask, setOpenTask] = useState(false);
+  const OpenTask = () => {
+    setOpenTask(true);
+  };
+  const CloseTask = () => {
+    setOpenTask(false);
+  };
+
   return (
     <div className={classes.root}>
       <AppContext.Provider
-        value={{ handleDrawerOpen, handleDrawerClose, open }}
+        value={{
+          handleDrawerOpen,
+          handleDrawerClose,
+          open,
+          OpenTask,
+          CloseTask,
+          openTask,
+        }}
       >
         <MainNavigation />
         <CssBaseline />

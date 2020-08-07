@@ -67,21 +67,15 @@ interface MainHeaderProps {
 const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
   const classes = useStyles();
   // @ts-ignore
-  const { handleDrawerOpen, open } = useContext(AppContext);
+  const { handleDrawerOpen, open, OpenTask, CloseTask, openTask } = useContext(
+    AppContext
+  );
   const [menu, setMenu] = React.useState<null | HTMLElement>(null);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setMenu(event.currentTarget);
   };
   const handleClose = () => {
     setMenu(null);
-  };
-
-  const [openTask, setOpenTask] = useState(false);
-  const OpenTask = () => {
-    setOpenTask(true);
-  };
-  const CloseTask = () => {
-    setOpenTask(false);
   };
 
   const [openProject, setOpenProject] = useState(false);
