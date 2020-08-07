@@ -1,4 +1,5 @@
 import React, { FC, useContext, useState } from "react";
+import { withStyles } from "@material-ui/core/styles";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -12,7 +13,7 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import Avatar from "@material-ui/core/Avatar";
 import Container from "@material-ui/core/Container";
 import AppContext from "../../../AppContext";
-import Menu from "@material-ui/core/Menu";
+import Menu, { MenuProps } from "@material-ui/core/Menu";
 import Backdrop from "@material-ui/core/Backdrop";
 import Drawer from "@material-ui/core/Drawer";
 import CloseIcon from "@material-ui/icons/Close";
@@ -46,6 +47,9 @@ const useStyles = makeStyles((theme: Theme) =>
     hide: {
       display: "none",
     },
+    icon: {
+      paddingLeft: 0,
+    },
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
       color: "#fff",
@@ -59,6 +63,33 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
+
+const StyledMenu = withStyles({
+  paper: {
+    border: "1px solid #d3d4d5",
+  },
+})((props: MenuProps) => (
+  <Menu
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: "bottom",
+      horizontal: "center",
+    }}
+    transformOrigin={{
+      vertical: "top",
+      horizontal: "center",
+    }}
+    {...props}
+  />
+));
+
+const StyledMenuItem = withStyles((theme) => ({
+  root: {
+    display: "flex-direction",
+    direction: "revert",
+  },
+}))(MenuItem);
 
 interface MainHeaderProps {
   title: string;
@@ -181,10 +212,15 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
           </Toolbar>
         </AppBar>
       </Container>
-      <Menu id="simple-menu" anchorEl={menu} keepMounted open={Boolean(menu)}>
-        <IconButton onClick={handleClose}>
-          <CloseIcon />
-        </IconButton>
+      <StyledMenu
+        id="customized-menu"
+        anchorEl={menu}
+        keepMounted
+        open={Boolean(menu)}
+      >
+        <StyledMenuItem>
+          <CloseIcon onClick={handleClose} className={classes.icon} />
+        </StyledMenuItem>
         <Backdrop
           className={classes.backdrop}
           open={openTask}
@@ -200,7 +236,7 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
             }}
           ></Drawer>
         </Backdrop>
-        <MenuItem onClick={OpenTask}>タスク追加</MenuItem>
+        <StyledMenuItem onClick={OpenTask}>タスク追加</StyledMenuItem>
         <Backdrop
           className={classes.backdrop}
           open={openProject}
@@ -216,7 +252,7 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
             }}
           ></Drawer>
         </Backdrop>
-        <MenuItem onClick={OpenProject}>プロジェクト追加</MenuItem>
+        <StyledMenuItem onClick={OpenProject}>プロジェクト追加</StyledMenuItem>
         <Backdrop
           className={classes.backdrop}
           open={openMember}
@@ -232,17 +268,17 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
             }}
           ></Drawer>
         </Backdrop>
-        <MenuItem onClick={OpenMember}>メンバー招待</MenuItem>
-      </Menu>
-      <Menu
-        id="simple-menu"
+        <StyledMenuItem onClick={OpenMember}>メンバー招待</StyledMenuItem>
+      </StyledMenu>
+      <StyledMenu
+        id="customized-menu"
         anchorEl={AvaterMenu}
         keepMounted
         open={Boolean(AvaterMenu)}
       >
-        <IconButton onClick={HandleClose}>
-          <CloseIcon />
-        </IconButton>
+        <StyledMenuItem>
+          <CloseIcon onClick={HandleClose} className={classes.icon} />
+        </StyledMenuItem>
         <Backdrop
           className={classes.backdrop}
           open={openProfile}
@@ -258,10 +294,10 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
             }}
           ></Drawer>
         </Backdrop>
-        <MenuItem onClick={OpenProfile}>プロフィール設定</MenuItem>
-        <MenuItem>他のworkspace</MenuItem>
-        <MenuItem>ログアウト</MenuItem>
-      </Menu>
+        <StyledMenuItem onClick={OpenProfile}>プロフィール設定</StyledMenuItem>
+        <StyledMenuItem>他のworkspace</StyledMenuItem>
+        <StyledMenuItem>ログアウト</StyledMenuItem>
+      </StyledMenu>
     </div>
   );
 };
