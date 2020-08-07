@@ -26,32 +26,32 @@ const drawerWidth = "55%";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    mainTitle: {
+      width: "30%",
+      fontSize: 23,
+    },
     root: {
       borderRadius: 10,
       backgroundColor: Color.VWORK_LIGHT_BLUE,
-      height: 185,
       marginTop: 25,
+    },
+    title: {
+      fontSize: 18,
+    },
+    timeArea: {
+      width: "40%",
+      fontSize: 18,
+      marginTop: "1%",
+    },
+    color: {
+      backgroundColor: Color.VWORK_RED,
     },
     appBar: {
       position: "relative",
       backgroundColor: Color.VWORK_BLACK,
     },
-    title: {
-      fontSize: 18,
-    },
-    mainTitle: {
-      m: 1,
-      width: "30%",
-      fontSize: 23,
-    },
     dialogTitle: {
       fontSize: 30,
-    },
-    color: {
-      backgroundColor: Color.VWORK_RED,
-    },
-    button: {
-      cursor: "pointer",
     },
     dialogText: {
       fontSize: 20,
@@ -63,8 +63,22 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: Color.VWORK_BLUE,
       color: Color.VWORK_WHITE,
       borderRadius: 10,
-      width: 100,
+      width: "10%",
       fontSize: 20,
+    },
+    addedTask: {
+      marginTop: "3%",
+      fontSize: 30,
+      cursor: "pointer",
+    },
+    textFieldArea: {
+      marginTop: "10%",
+    },
+    todayUpdate: {
+      marginBottom: "1%",
+    },
+    textField: {
+      width: "85%",
     },
     out: {
       backgroundColor: Color.VWORK_RED,
@@ -146,33 +160,20 @@ const CheckAttendanceArea = () => {
           >
             2020年8月10日
           </Typography>
-          <Box
-            display="flex"
-            flexDirection="row"
-            p={1}
-            m={1}
-            className={classes.title}
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            className={classes.timeArea}
           >
-            <Box p={0} mr={15}>
-              出社：
-            </Box>
-            <Box p={0} mr={15}>
-              休憩：
-            </Box>
-            <Box p={0} mr={15}>
-              退社：
-            </Box>
-          </Box>
+            <Grid item>出社：</Grid>
+            <Grid item>休憩：</Grid>
+            <Grid item>退社：</Grid>
+          </Grid>
         </CardContent>
         <CardActions>
-          <Box
-            display="flex"
-            justifyContent="flex-end"
-            m={1}
-            p={1}
-            style={{ width: "100%" }}
-          >
-            <Box>
+          <Grid container direction="row" justify="flex-end">
+            <Grid item style={{ marginRight: "1%" }}>
               <Button
                 size="small"
                 variant="contained"
@@ -180,23 +181,22 @@ const CheckAttendanceArea = () => {
               >
                 出社
               </Button>
-            </Box>
-            <Box>
+            </Grid>
+            <Grid item style={{ marginRight: "1%" }}>
               <Button size="small" variant="contained">
                 休憩
               </Button>
-            </Box>
-            <Box>
+            </Grid>
+            <Grid item style={{ marginRight: "1%" }}>
               <Button
                 size="small"
                 variant="contained"
                 onClick={handleClickOpen}
-                className={classes.button}
               >
                 退社
               </Button>
-            </Box>
-          </Box>
+            </Grid>
+          </Grid>
         </CardActions>
       </Card>
       <Dialog fullScreen open={open} TransitionComponent={Transition}>
@@ -213,7 +213,7 @@ const CheckAttendanceArea = () => {
             <img
               src={`${process.env.PUBLIC_URL}/images/logo192.png`}
               style={{ height: 25 }}
-              alt=""
+              alt="icon"
             />
             <Typography variant="h6" className={classes.dialogTitle}>
               VWORK
@@ -225,7 +225,7 @@ const CheckAttendanceArea = () => {
           direction="column"
           className={clsx(classes.dialogText, classes.dialogStyle)}
         >
-          <Container maxWidth="md">
+          <Container maxWidth="lg">
             <Grid item>勤務お疲れさまでした</Grid>
             <Grid item style={{ marginTop: "5%" }}>
               <Grid container direction="column">
@@ -240,24 +240,24 @@ const CheckAttendanceArea = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid
-              item
-              style={{ marginTop: "3%", fontSize: 30, cursor: "pointer" }}
-              onClick={drawerOpen}
-            >
+            <Grid item className={classes.addedTask} onClick={drawerOpen}>
               X件のタスクを追加済
             </Grid>
             <Grid item>
-              <Grid container direction="column" style={{ marginTop: "10%" }}>
-                <Grid item style={{ marginBottom: "1%" }}>
+              <Grid
+                container
+                direction="column"
+                className={classes.textFieldArea}
+              >
+                <Grid item className={classes.todayUpdate}>
                   今日の振り返り
                 </Grid>
                 <Grid item>
                   <TextField
                     multiline
-                    rows={4}
+                    rows={8}
                     variant="outlined"
-                    style={{ width: 800 }}
+                    className={classes.textField}
                   />
                 </Grid>
               </Grid>
