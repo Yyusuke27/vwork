@@ -86,8 +86,12 @@ const StyledMenu = withStyles({
 
 const StyledMenuItem = withStyles((theme) => ({
   root: {
-    display: "flex-direction",
-    direction: "revert",
+    "&:focus": {
+      backgroundColor: Color.VWORK_WHITE,
+      "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
+        color: Color.VWORK_WHITE,
+      },
+    },
   },
 }))(MenuItem);
 
