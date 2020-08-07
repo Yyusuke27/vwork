@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Box from "@material-ui/core/Box";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -7,6 +7,9 @@ import AddIcon from "@material-ui/icons/Add";
 import Typography from "@material-ui/core/Typography";
 import EacProjectList from "../../../shared/components/Navigation/EachProjectList";
 import Color from "../../../shared/util/color";
+import AppContext from "../../../AppContext";
+import Drawer from "@material-ui/core/Drawer";
+import Backdrop from "@material-ui/core/Backdrop";
 
 const defaultProps = {
   m: 2,
@@ -45,6 +48,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const MyProject = () => {
   const classes = useStyles();
+  // @ts-ignore
+  const { OpenTask, CloseTask, openTask } = useContext(AppContext);
   return (
     <>
       <Box borderBottom={1} {...defaultProps} className={classes.title}>
@@ -57,8 +62,23 @@ const MyProject = () => {
           <Grid item>
             <Typography>マイプロジェクト</Typography>
           </Grid>
+          <Backdrop
+            className={classes.backdrop}
+            open={openTask}
+            onClick={CloseTask}
+          >
+            <Drawer
+              className={classes.drawer}
+              variant="persistent"
+              anchor="right"
+              open={openTask}
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+            ></Drawer>
+          </Backdrop>
           <Grid item>
-            <IconButton className={classes.iconStyle}>
+            <IconButton className={classes.iconStyle} onClick={OpenTask}>
               <AddIcon className={classes.icon} />
             </IconButton>
           </Grid>
