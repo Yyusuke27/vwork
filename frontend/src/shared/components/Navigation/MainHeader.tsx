@@ -13,14 +13,13 @@ import Avatar from "@material-ui/core/Avatar";
 import Container from "@material-ui/core/Container";
 import AppContext from "../../../AppContext";
 import Menu from "@material-ui/core/Menu";
-import { bindMenu, usePopupState } from "material-ui-popup-state/hooks";
 import Backdrop from "@material-ui/core/Backdrop";
 import Drawer from "@material-ui/core/Drawer";
 import CloseIcon from "@material-ui/icons/Close";
 import MenuItem from "@material-ui/core/MenuItem";
 
 const drawerWidth = 240;
-const DrawerWith = "55%";
+const DrawerWith = "50%";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -69,11 +68,13 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
   const classes = useStyles();
   // @ts-ignore
   const { handleDrawerOpen, open } = useContext(AppContext);
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const handleClose = () => {
-    setAnchorEl(null);
+  const [menu, setMenu] = React.useState<null | HTMLElement>(null);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setMenu(event.currentTarget);
   };
-  const popupState = usePopupState({ variant: "popover", popupId: "demoMenu" });
+  const handleClose = () => {
+    setMenu(null);
+  };
 
   const [openTask, setOpenTask] = useState(false);
   const OpenTask = () => {
@@ -99,11 +100,24 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
     setOpenMember(false);
   };
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
+  const [AvaterMenu, setAvaterMenu] = React.useState<null | HTMLElement>(null);
+
+  const HandleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAvaterMenu(event.currentTarget);
   };
 
-  // @ts-ignore
+  const HandleClose = () => {
+    setAvaterMenu(null);
+  };
+
+  const [openProfile, setOpenProfile] = useState(false);
+  const OpenProfile = () => {
+    setOpenProfile(true);
+  };
+  const CloseProfile = () => {
+    setOpenProfile(false);
+  };
+
   return (
     <div className={classes.root}>
       <Container>
@@ -152,10 +166,12 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
                     </IconButton>
                   </Grid>
                   <Grid item>
-                    <Avatar
-                      alt="Shogo Yunoki"
-                      src="/static/images/avatar/1.jpg"
-                    />
+                    <IconButton onClick={HandleClick}>
+                      <Avatar
+                        alt="Shogo Yunoki"
+                        src="/static/images/avatar/1.jpg"
+                      />
+                    </IconButton>
                   </Grid>
                 </Grid>
               </Grid>
@@ -163,17 +179,10 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
           </Toolbar>
         </AppBar>
       </Container>
-      <Menu
-        {...bindMenu(popupState)}
-        getContentAnchorEl={null}
-        anchorOrigin={{ horizontal: "right", vertical: "top" }}
-        transformOrigin={{ horizontal: "right", vertical: "top" }}
-        // anchorPosition={{ right: 200, top: 1000 }}
-        id="simple-menu"
-        // anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-      >
+      <Menu id="simple-menu" anchorEl={menu} keepMounted open={Boolean(menu)}>
+        <IconButton onClick={handleClose}>
+          <CloseIcon />
+        </IconButton>
         <Backdrop
           className={classes.backdrop}
           open={openTask}
@@ -189,9 +198,6 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
             }}
           ></Drawer>
         </Backdrop>
-        <IconButton onClick={handleClose}>
-          <CloseIcon />
-        </IconButton>
         <MenuItem onClick={OpenTask}>タスク追加</MenuItem>
         <Backdrop
           className={classes.backdrop}
@@ -225,6 +231,34 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
           ></Drawer>
         </Backdrop>
         <MenuItem onClick={OpenMember}>メンバー招待</MenuItem>
+      </Menu>
+      <Menu
+        id="simple-menu"
+        anchorEl={AvaterMenu}
+        keepMounted
+        open={Boolean(AvaterMenu)}
+      >
+        <IconButton onClick={HandleClose}>
+          <CloseIcon />
+        </IconButton>
+        <Backdrop
+          className={classes.backdrop}
+          open={openProfile}
+          onClick={CloseProfile}
+        >
+          <Drawer
+            className={classes.drawer}
+            variant="persistent"
+            anchor="right"
+            open={openProfile}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          ></Drawer>
+        </Backdrop>
+        <MenuItem onClick={OpenProfile}>プロフィール設定</MenuItem>
+        <MenuItem>他のworkspace</MenuItem>
+        <MenuItem>ログアウト</MenuItem>
       </Menu>
     </div>
   );
