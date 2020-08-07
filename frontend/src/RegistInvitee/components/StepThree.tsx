@@ -6,8 +6,9 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Color from "../../shared/util/color";
 import { Link } from "react-router-dom";
 import Container from "@material-ui/core/Container";
+import Typography from "@material-ui/core/Typography";
 
-import "../pages/RegistInvitee.module.css";
+import "../pages/RegistInvitee.css";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,10 +42,10 @@ const StepThree = () => {
     <div>
       <Container maxWidth="md">
         <DialogTitle id="alert-dialog-slide-title">
-          <h1 className={classes.title}>
+          <Typography className={classes.title}>
             <span style={{ fontSize: 50, color: Color.VWORK_RED }}>VWORK</span>
             の設定は完了しました。
-          </h1>
+          </Typography>
         </DialogTitle>
         <DialogActions>
           <Link to="/" style={{ textDecoration: "none" }}>

@@ -8,8 +8,9 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Color from "../../shared/util/color";
 import { Link } from "react-router-dom";
 import Container from "@material-ui/core/Container";
+import Typography from "@material-ui/core/Typography";
 
-import "../pages/RegistInvitee.module.css";
+import "../pages/RegistInvitee.css";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,15 +18,15 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: 100,
     },
     button: {
-      backgroundColor: Color.VWORK_RED,
-      color: Color.VWORK_WHITE,
       position: "absolute",
       fontSize: 30,
 
       width: 200,
       borderRadius: 15,
-      right: "15%",
-      top: "78%",
+      right: "0%",
+      bottom: "0%",
+      marginBottom: 40,
+      marginRight: 80,
     },
     style: {
       marginTop: "40%",
@@ -44,15 +45,19 @@ const Welcome = () => {
     <div>
       <Container maxWidth="md">
         <DialogTitle id="alert-dialog-slide-title">
-          <h1>
-            <span style={{ fontSize: 50, color: Color.VWORK_RED }}>VWORK</span>
+          <Typography variant="h2">
+            <span style={{ color: Color.VWORK_RED }}>VWORK</span>
             へようこそ
-          </h1>
+          </Typography>
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            <p>これからVWORKを活用するための設定をして頂きます。</p>
-            <p>「NEXT」を押して次のステップへ進んで下さい。</p>
+            <Typography variant="h5">
+              これからVWORKを活用するための設定をして頂きます。
+            </Typography>
+            <Typography variant="h5">
+              「NEXT」を押して次のステップへ進んで下さい。
+            </Typography>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -60,7 +65,13 @@ const Welcome = () => {
             to="/regist_invitee/step_one"
             style={{ textDecoration: "none" }}
           >
-            <Button className={classes.button}>NEXT</Button>
+            <Button
+              variant="contained"
+              className={classes.button}
+              color="primary"
+            >
+              NEXT
+            </Button>
           </Link>
         </DialogActions>
       </Container>

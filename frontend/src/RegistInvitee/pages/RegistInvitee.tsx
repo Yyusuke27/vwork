@@ -5,25 +5,15 @@ import StepOne from "../components/StepOne";
 import StepTwo from "../components/StepTwo";
 import StepThree from "../components/StepThree";
 import Dialog from "@material-ui/core/Dialog";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import SideBarOfRegistration from "../../shared/components/Navigation/SideBarOfRegistration";
 
-import "./RegistInvitee.module.css";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    dialog: {
-      position: "relative",
-    },
-  })
-);
+import "./RegistInvitee.css";
 
 const RegistInvitee = () => {
-  const classes = useStyles();
   return (
     <>
       <SideBarOfRegistration />
-      <Dialog open keepMounted maxWidth="xl" className={classes.dialog}>
+      <Dialog open keepMounted maxWidth="xl" className="registDialog">
         <Switch>
           <Route exact path="/regist_invitee/welcome">
             <Welcome />

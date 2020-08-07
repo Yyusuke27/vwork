@@ -3,25 +3,15 @@ import { Route, Switch } from "react-router-dom";
 import Welcome from "../components/Welcome";
 import StepBoard from "../components/StepBoard";
 import Dialog from "@material-ui/core/Dialog";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import SideBarOfRegistration from "../../shared/components/Navigation/SideBarOfRegistration";
 
-import "./Regist.module.css";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    dialog: {
-      position: "relative",
-    },
-  })
-);
+import "./Regist.css";
 
 const Regist = () => {
-  const classes = useStyles();
   return (
     <>
       <SideBarOfRegistration />
-      <Dialog open keepMounted maxWidth="xl" className={classes.dialog}>
+      <Dialog open keepMounted maxWidth="xl" className="registDialog">
         <Switch>
           <Route exact path="/regist/welcome">
             <Welcome />

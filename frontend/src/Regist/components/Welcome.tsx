@@ -8,8 +8,9 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Color from "../../shared/util/color";
 import { Link } from "react-router-dom";
 import Container from "@material-ui/core/Container";
+import Typography from "@material-ui/core/Typography";
 
-import "../pages/Regist.module.css";
+import "../pages/Regist.css";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,15 +39,19 @@ const Welcome = () => {
     <div>
       <Container maxWidth="md">
         <DialogTitle id="alert-dialog-slide-title">
-          <h1>
+          <Typography>
             <span className={classes.span}>VWORK</span>
             へようこそ
-          </h1>
+          </Typography>
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            <p>これからVWORKを活用するための設定をして頂きます。</p>
-            <p>「NEXT」を押して次のステップへ進んで下さい。</p>
+            <Typography>
+              これからVWORKを活用するための設定をして頂きます。
+            </Typography>
+            <Typography>
+              「NEXT」を押して次のステップへ進んで下さい。
+            </Typography>
           </DialogContentText>
         </DialogContent>
         <DialogActions>

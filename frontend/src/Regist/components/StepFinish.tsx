@@ -1,13 +1,14 @@
 import React from "react";
 import Color from "../../shared/util/color";
+import Typography from "@material-ui/core/Typography";
 
 const StepFinish = () => {
   return (
     <>
-      <h1>
+      <Typography>
         <span style={{ fontSize: 40, color: Color.VWORK_RED }}>VWORK</span>
         の設定は完了しました。
-      </h1>
+      </Typography>
     </>
   );
 };
