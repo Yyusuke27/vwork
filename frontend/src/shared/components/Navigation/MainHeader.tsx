@@ -112,6 +112,14 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
     setOpenProfile(false);
   };
 
+  // const [openWorkSpace, setOpenworkSpace] = useState(false);
+  // const OpenWorkSpace = () => {
+  //   setOpenProfile(true);
+  // };
+  // const CloseWorkSpace = () => {
+  //   setOpenProfile(false);
+  // };
+
   return (
     <div className={classes.root}>
       <Container>

@@ -13,8 +13,9 @@ import "../pages/Regist.module.css";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    title: {
-      fontSize: 100,
+    span: {
+      fontSize: 50,
+      color: Color.VWORK_RED,
     },
     button: {
       backgroundColor: Color.VWORK_RED,
@@ -27,13 +28,6 @@ const useStyles = makeStyles((theme: Theme) =>
       right: "15%",
       top: "78%",
     },
-    style: {
-      marginTop: "40%",
-      marginRight: "10%",
-    },
-    dialog: {
-      position: "relative",
-    },
   })
 );
 
@@ -45,7 +39,7 @@ const Welcome = () => {
       <Container maxWidth="md">
         <DialogTitle id="alert-dialog-slide-title">
           <h1>
-            <span style={{ fontSize: 50, color: Color.VWORK_RED }}>VWORK</span>
+            <span className={classes.span}>VWORK</span>
             へようこそ
           </h1>
         </DialogTitle>
