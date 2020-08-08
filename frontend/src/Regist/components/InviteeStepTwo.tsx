@@ -42,7 +42,7 @@ const InviteeStepTwo = () => {
       </DialogContent>
       <DialogActions>
         <Link
-          to="/regist_invitee/step_three"
+          to="/regist/regist_invitee/step_three"
           style={{ textDecoration: "none" }}
         >
           <Button

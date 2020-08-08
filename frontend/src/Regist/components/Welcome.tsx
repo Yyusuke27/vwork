@@ -57,7 +57,10 @@ const Welcome = () => {
         </Box>
       </DialogContent>
       <DialogActions>
-        <Link to="/regist/step_board" style={{ textDecoration: "none" }}>
+        <Link
+          to="/regist/regist_user/step_board"
+          style={{ textDecoration: "none" }}
+        >
           <Button
             variant="contained"
             className={classes.button}

@@ -41,7 +41,10 @@ const InviteeStepOne = () => {
         <DialogContentText id="alert-dialog-slide-description"></DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Link to="/regist_invitee/step_two" style={{ textDecoration: "none" }}>
+        <Link
+          to="/regist/regist_invitee/step_two"
+          style={{ textDecoration: "none" }}
+        >
           <Button
             variant="contained"
             className={classes.button}

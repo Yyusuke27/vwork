@@ -64,7 +64,10 @@ const InviteeWelcome = () => {
         </Box>
       </DialogContent>
       <DialogActions>
-        <Link to="/regist_invitee/step_one" style={{ textDecoration: "none" }}>
+        <Link
+          to="/regist/regist_invitee/step_one"
+          style={{ textDecoration: "none" }}
+        >
           <Button
             variant="contained"
             className={classes.button}
