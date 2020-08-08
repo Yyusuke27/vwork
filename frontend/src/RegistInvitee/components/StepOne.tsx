@@ -17,15 +17,15 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: 100,
     },
     button: {
-      backgroundColor: Color.VWORK_RED,
-      color: Color.VWORK_WHITE,
       position: "absolute",
       fontSize: 30,
 
       width: 200,
       borderRadius: 15,
-      right: "15%",
-      top: "78%",
+      right: "0%",
+      bottom: "0%",
+      marginBottom: 40,
+      marginRight: 80,
     },
     style: {
       marginTop: "40%",
@@ -51,7 +51,13 @@ const StepOne = () => {
             to="/regist_invitee/step_two"
             style={{ textDecoration: "none" }}
           >
-            <Button className={classes.button}>NEXT</Button>
+            <Button
+              variant="contained"
+              className={classes.button}
+              color="primary"
+            >
+              NEXT
+            </Button>
           </Link>
         </DialogActions>
       </Container>
