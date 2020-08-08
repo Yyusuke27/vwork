@@ -6,20 +6,23 @@ import Dialog from "@material-ui/core/Dialog";
 import SideBarOfRegistration from "../../shared/components/Navigation/SideBarOfRegistration";
 
 import "./Regist.css";
+import Container from "@material-ui/core/Container";
 
 const Regist = () => {
   return (
     <>
       <SideBarOfRegistration />
       <Dialog open keepMounted maxWidth="xl" className="registDialog">
-        <Switch>
-          <Route exact path="/regist/welcome">
-            <Welcome />
-          </Route>
-          <Route exact path="/regist/step_board">
-            <StepBoard />
-          </Route>
-        </Switch>
+        <Container maxWidth="md">
+          <Switch>
+            <Route exact path="/regist/welcome">
+              <Welcome />
+            </Route>
+            <Route exact path="/regist/step_board">
+              <StepBoard />
+            </Route>
+          </Switch>
+        </Container>
       </Dialog>
     </>
   );

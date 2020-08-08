@@ -6,7 +6,6 @@ import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Container from "@material-ui/core/Container";
-
 import "../pages/Regist.css";
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
@@ -75,50 +74,48 @@ const StepBoard = () => {
   };
 
   return (
-    <div>
-      <Container maxWidth="md">
-        <div className={classes.root}>
-          <Stepper activeStep={activeStep} alternativeLabel>
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
+    <>
+      <div className={classes.root}>
+        <Stepper activeStep={activeStep} alternativeLabel>
+          {steps.map((label) => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+      </div>
+      {activeStep === steps.length ? (
+        <div className={classes.finishComponent}>
+          {getStepComponent(activeStep)}
         </div>
+      ) : (
+        <div className={classes.eachComponent}>
+          {getStepComponent(activeStep)}
+        </div>
+      )}
+      <DialogActions>
         {activeStep === steps.length ? (
-          <div className={classes.finishComponent}>
-            {getStepComponent(activeStep)}
-          </div>
-        ) : (
-          <div className={classes.eachComponent}>
-            {getStepComponent(activeStep)}
-          </div>
-        )}
-        <DialogActions>
-          {activeStep === steps.length ? (
-            <Link to="/" style={{ textDecoration: "none" }}>
-              <Button
-                variant="contained"
-                className={classes.button}
-                color="primary"
-              >
-                NEXT
-              </Button>
-            </Link>
-          ) : (
+          <Link to="/" style={{ textDecoration: "none" }}>
             <Button
               variant="contained"
               className={classes.button}
               color="primary"
-              onClick={handleNext}
             >
               NEXT
             </Button>
-          )}
-        </DialogActions>
-      </Container>
-    </div>
+          </Link>
+        ) : (
+          <Button
+            variant="contained"
+            className={classes.button}
+            color="primary"
+            onClick={handleNext}
+          >
+            NEXT
+          </Button>
+        )}
+      </DialogActions>
+    </>
   );
 };
 

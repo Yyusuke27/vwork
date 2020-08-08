@@ -36,41 +36,39 @@ const Welcome = () => {
   const classes = useStyles();
 
   return (
-    <div>
-      <Container maxWidth="md">
-        <DialogTitle id="alert-dialog-slide-title">
-          <Box mt={5}>
-            <Typography variant="h2">
-              <span className={classes.span}>VWORK</span>
-              へようこそ
+    <>
+      <DialogTitle id="alert-dialog-slide-title">
+        <Box mt={5}>
+          <Typography variant="h2">
+            <span className={classes.span}>VWORK</span>
+            へようこそ
+          </Typography>
+        </Box>
+      </DialogTitle>
+      <DialogContent>
+        <Box mt={2}>
+          <DialogContentText id="alert-dialog-slide-description">
+            <Typography variant="h5">
+              これからVWORKを活用するための設定をして頂きます。
             </Typography>
-          </Box>
-        </DialogTitle>
-        <DialogContent>
-          <Box mt={2}>
-            <DialogContentText id="alert-dialog-slide-description">
-              <Typography variant="h5">
-                これからVWORKを活用するための設定をして頂きます。
-              </Typography>
-              <Typography variant="h5">
-                「NEXT」を押して次のステップへ進んで下さい。
-              </Typography>
-            </DialogContentText>
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Link to="/regist/step_board" style={{ textDecoration: "none" }}>
-            <Button
-              variant="contained"
-              className={classes.button}
-              color="primary"
-            >
-              NEXT
-            </Button>
-          </Link>
-        </DialogActions>
-      </Container>
-    </div>
+            <Typography variant="h5">
+              「NEXT」を押して次のステップへ進んで下さい。
+            </Typography>
+          </DialogContentText>
+        </Box>
+      </DialogContent>
+      <DialogActions>
+        <Link to="/regist/step_board" style={{ textDecoration: "none" }}>
+          <Button
+            variant="contained"
+            className={classes.button}
+            color="primary"
+          >
+            NEXT
+          </Button>
+        </Link>
+      </DialogActions>
+    </>
   );
 };
 
