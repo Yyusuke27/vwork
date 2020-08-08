@@ -2,7 +2,6 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import DialogActions from "@material-ui/core/DialogActions";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import Color from "../../shared/util/color";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
@@ -22,25 +21,25 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%",
     },
     button: {
-      backgroundColor: Color.VWORK_RED,
-      color: Color.VWORK_WHITE,
+      position: "absolute",
       fontSize: 30,
 
-      position: "absolute",
-      top: "80%",
-      right: "15%",
       width: 200,
       borderRadius: 15,
-    },
-    eachComponent: {
-      position: "absolute",
-      left: "17%",
-      top: "20%",
+      right: "0%",
+      bottom: "0%",
+      marginBottom: 40,
+      marginRight: 80,
     },
     finishComponent: {
       position: "absolute",
       left: "28%",
       top: "40%",
+    },
+    eachComponent: {
+      position: "absolute",
+      left: "17%",
+      top: "20%",
     },
   })
 );
@@ -97,7 +96,11 @@ const StepBoard = () => {
         <DialogActions>
           {activeStep === steps.length ? (
             <Link to="/" style={{ textDecoration: "none" }}>
-              <Button variant="contained" className={classes.button}>
+              <Button
+                variant="contained"
+                className={classes.button}
+                color="primary"
+              >
                 NEXT
               </Button>
             </Link>
@@ -105,6 +108,7 @@ const StepBoard = () => {
             <Button
               variant="contained"
               className={classes.button}
+              color="primary"
               onClick={handleNext}
             >
               NEXT

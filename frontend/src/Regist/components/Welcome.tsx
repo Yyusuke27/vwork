@@ -19,15 +19,15 @@ const useStyles = makeStyles((theme: Theme) =>
       color: Color.VWORK_RED,
     },
     button: {
-      backgroundColor: Color.VWORK_RED,
-      color: Color.VWORK_WHITE,
       position: "absolute",
       fontSize: 30,
 
       width: 200,
       borderRadius: 15,
-      right: "15%",
-      top: "78%",
+      right: "0%",
+      bottom: "0%",
+      marginBottom: 40,
+      marginRight: 80,
     },
   })
 );
@@ -56,7 +56,13 @@ const Welcome = () => {
         </DialogContent>
         <DialogActions>
           <Link to="/regist/step_board" style={{ textDecoration: "none" }}>
-            <Button className={classes.button}>NEXT</Button>
+            <Button
+              variant="contained"
+              className={classes.button}
+              color="primary"
+            >
+              NEXT
+            </Button>
           </Link>
         </DialogActions>
       </Container>
