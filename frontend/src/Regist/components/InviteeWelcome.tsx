@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Welcome = () => {
+const InviteeWelcome = () => {
   const classes = useStyles();
 
   return (
@@ -84,4 +84,4 @@ const Welcome = () => {
   );
 };
 
-export default Welcome;
+export default InviteeWelcome;

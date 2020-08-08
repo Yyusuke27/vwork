@@ -9,7 +9,7 @@ import { theme } from "./shared/util/theme";
 
 import "./App.css";
 import Regist from "./Regist/pages/Regist";
-import RegistInvitee from "./RegistInvitee/pages/RegistInvitee";
+import RegistInvitee from "./Regist/pages/RegistInvitee";
 import Admin from "./Admin/pages/Admin";
 
 const App = () => {

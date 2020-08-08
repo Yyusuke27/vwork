@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const StepOne = () => {
+const InviteeStepOne = () => {
   const classes = useStyles();
 
   return (
@@ -61,4 +61,4 @@ const StepOne = () => {
   );
 };
 
-export default StepOne;
+export default InviteeStepOne;

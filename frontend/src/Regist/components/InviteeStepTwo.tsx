@@ -1,9 +1,10 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import Color from "../../shared/util/color";
 import { Link } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
@@ -13,9 +14,6 @@ import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    title: {
-      position: "absolute",
-    },
     button: {
       position: "absolute",
       fontSize: 30,
@@ -30,22 +28,25 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const StepThree = () => {
+const InviteeStepTwo = () => {
   const classes = useStyles();
 
   return (
     <div>
       <Container maxWidth="md">
         <DialogTitle id="alert-dialog-slide-title">
-          <Box mt={25} ml={10}>
-            <Typography variant="h3" className={classes.title}>
-              <span style={{ color: Color.VWORK_RED }}>VWORK</span>
-              の設定は完了しました。
-            </Typography>
+          <Box mt={5}>
+            <Typography variant="h3">プロフィール設定</Typography>
           </Box>
         </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description"></DialogContentText>
+        </DialogContent>
         <DialogActions>
-          <Link to="/" style={{ textDecoration: "none" }}>
+          <Link
+            to="/regist_invitee/step_three"
+            style={{ textDecoration: "none" }}
+          >
             <Button
               variant="contained"
               className={classes.button}
@@ -60,4 +61,4 @@ const StepThree = () => {
   );
 };
 
-export default StepThree;
+export default InviteeStepTwo;

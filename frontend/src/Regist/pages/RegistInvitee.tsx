@@ -1,9 +1,9 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Welcome from "../components/Welcome";
-import StepOne from "../components/StepOne";
-import StepTwo from "../components/StepTwo";
-import StepThree from "../components/StepThree";
+import InviteeWelcome from "../components/InviteeWelcome";
+import InviteeStepOne from "../components/InviteeStepOne";
+import InviteeStepTwo from "../components/InviteeStepTwo";
+import InviteeStepThree from "../components/InviteeStepThree";
 import Dialog from "@material-ui/core/Dialog";
 import SideBarOfRegistration from "../../shared/components/Navigation/SideBarOfRegistration";
 
@@ -16,16 +16,16 @@ const RegistInvitee = () => {
       <Dialog open keepMounted maxWidth="xl" className="registDialog">
         <Switch>
           <Route exact path="/regist_invitee/welcome">
-            <Welcome />
+            <InviteeWelcome />
           </Route>
           <Route exact path="/regist_invitee/step_one">
-            <StepOne />
+            <InviteeStepOne />
           </Route>
           <Route exact path="/regist_invitee/step_two">
-            <StepTwo />
+            <InviteeStepTwo />
           </Route>
           <Route exact path="/regist_invitee/step_three">
-            <StepThree />
+            <InviteeStepThree />
           </Route>
         </Switch>
       </Dialog>
