@@ -33,8 +33,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     finishComponent: {
       position: "absolute",
-      left: "28%",
-      top: "40%",
+      left: "0%",
+      top: "0%",
+      marginTop: 250,
+      marginLeft: 200,
     },
     eachComponent: {
       position: "absolute",
