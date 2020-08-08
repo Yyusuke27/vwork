@@ -8,7 +8,7 @@ import Auth from "./Auth/pages/Auth";
 import { theme } from "./shared/util/theme";
 
 import "./App.css";
-import Regist from "./Regist/pages/Regist";
+import RegistUser from "./Regist/pages/RegistUser";
 import RegistInvitee from "./Regist/pages/RegistInvitee";
 import Admin from "./Admin/pages/Admin";
 
@@ -21,7 +21,7 @@ const App = () => {
             <Auth />
           </Route>
           <Route path="/regist">
-            <Regist />
+            <RegistUser />
           </Route>
           <Route path="/regist_invitee">
             <RegistInvitee />

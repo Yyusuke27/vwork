@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 
-import "../pages/Regist.css";
+import "../pages/RegistUser.css";
 import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>

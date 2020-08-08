@@ -5,10 +5,10 @@ import StepBoard from "../components/StepBoard";
 import Dialog from "@material-ui/core/Dialog";
 import SideBarOfRegistration from "../../shared/components/Navigation/SideBarOfRegistration";
 
-import "./Regist.css";
+import "./RegistUser.css";
 import Container from "@material-ui/core/Container";
 
-const Regist = () => {
+const RegistUser = () => {
   return (
     <>
       <SideBarOfRegistration />
@@ -28,4 +28,4 @@ const Regist = () => {
   );
 };
 
-export default Regist;
+export default RegistUser;
