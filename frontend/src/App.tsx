@@ -10,6 +10,7 @@ import { theme } from "./shared/util/theme";
 import "./App.css";
 import Regist from "./Regist/pages/Regist";
 import RegistInvitee from "./RegistInvitee/pages/RegistInvitee";
+import Admin from "./Admin/pages/Admin";
 
 const App = () => {
   return (
@@ -24,6 +25,9 @@ const App = () => {
           </Route>
           <Route path="/regist_invitee">
             <RegistInvitee />
+          </Route>
+          <Route path="/admin">
+            <Admin />
           </Route>
           <Route path="/">
             <Dashboard />
