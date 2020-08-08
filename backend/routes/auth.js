@@ -9,6 +9,6 @@ router.post("/signup", signup);
 
 router.post("/login", login);
 
-router.get("/current_user", protect, currentUser);
+router.get("/current", protect, currentUser);
 
 module.exports = router;

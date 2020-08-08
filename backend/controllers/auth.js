@@ -71,7 +71,7 @@ const sendTokenResponse = (user, statusCode, res) => {
 };
 
 // @desc 現在ログイン中のユーザーを取得
-// @route POST /api/v1/auth/current_user
+// @route POST /api/v1/auth/current
 // @access Private
 exports.currentUser = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user.id);
