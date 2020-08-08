@@ -24,8 +24,6 @@ InviteSchema.methods.getInvitationToken = function (workspaceId) {
     .digest("hex");
   this.invitationExpire = Date.now() + 10 * 60 * 1000;
 
-  console.log(this);
-
   return inviteToken;
 };
 
