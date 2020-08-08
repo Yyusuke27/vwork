@@ -38,8 +38,8 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: 900,
     },
     mainTitle: {
-      paddingLeft: 5,
-      fontSize: 28,
+      paddingLeft: 3,
+      fontSize: 30,
     },
     drawerHeader: {
       display: "flex",
@@ -115,7 +115,7 @@ const SideBarOfAdmin: FC<SideBarOfAdminProps> = ({
               <div className={classes.drawerHeader}>
                 <IconButton
                   onClick={handleDrawerClose}
-                  style={{ paddingLeft: 0 }}
+                  style={{ paddingLeft: 0, paddingRight: 10 }}
                 >
                   <MenuIcon className={classes.menuIcon} />
                 </IconButton>
