@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     mainTitle: {
       paddingLeft: 5,
-      fontSize: 30,
+      fontSize: 28,
     },
     drawerHeader: {
       display: "flex",
@@ -72,7 +72,7 @@ const SideBarOfAdmin: FC<SideBarOfAdminProps> = ({
 
   return (
     <div className={classes.root}>
-      <Container maxWidth="lg">
+      <Container maxWidth="md">
         <Drawer
           className={classes.drawer}
           variant="persistent"
@@ -113,7 +113,10 @@ const SideBarOfAdmin: FC<SideBarOfAdminProps> = ({
             </Grid>
             <Grid item>
               <div className={classes.drawerHeader}>
-                <IconButton onClick={handleDrawerClose} style={{ padding: 0 }}>
+                <IconButton
+                  onClick={handleDrawerClose}
+                  style={{ paddingLeft: 0 }}
+                >
                   <MenuIcon className={classes.menuIcon} />
                 </IconButton>
               </div>
