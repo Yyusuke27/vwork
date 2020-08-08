@@ -10,6 +10,7 @@ const Workspace = require("./models/Workspace");
 const Project = require("./models/Project");
 const User = require("./models/User");
 const Task = require("./models/Task");
+const Attendance = require("./models/Attendance");
 
 // DBに接続
 mongoose.connect(process.env.MONGO_URI, {
@@ -32,6 +33,9 @@ const users = JSON.parse(
 const tasks = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/tasks.json`, "utf-8")
 );
+const attendances = JSON.parse(
+  fs.readFileSync(`${__dirname}/_data/attendances.json`, "utf-8")
+);
 
 // DBにデータをインポート
 const importData = async () => {
@@ -40,6 +44,7 @@ const importData = async () => {
     await Project.create(projects);
     await User.create(users);
     await Task.create(tasks);
+    await Attendance.create(attendances);
 
     console.log("Data Imported...".green.inverse);
     process.exit();
@@ -55,6 +60,7 @@ const deleteData = async () => {
     await Project.deleteMany();
     await User.deleteMany();
     await Task.deleteMany();
+    await Attendance.deleteMany();
 
     console.log("Data Destroyed".red.inverse);
     process.exit();
