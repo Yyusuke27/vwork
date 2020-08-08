@@ -11,11 +11,11 @@ import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 
 import "../pages/Regist.css";
+import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     span: {
-      fontSize: 50,
       color: Color.VWORK_RED,
     },
     button: {
@@ -39,20 +39,24 @@ const Welcome = () => {
     <div>
       <Container maxWidth="md">
         <DialogTitle id="alert-dialog-slide-title">
-          <Typography>
-            <span className={classes.span}>VWORK</span>
-            へようこそ
-          </Typography>
+          <Box mt={5}>
+            <Typography variant="h2">
+              <span className={classes.span}>VWORK</span>
+              へようこそ
+            </Typography>
+          </Box>
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-            <Typography>
-              これからVWORKを活用するための設定をして頂きます。
-            </Typography>
-            <Typography>
-              「NEXT」を押して次のステップへ進んで下さい。
-            </Typography>
-          </DialogContentText>
+          <Box mt={2}>
+            <DialogContentText id="alert-dialog-slide-description">
+              <Typography variant="h5">
+                これからVWORKを活用するための設定をして頂きます。
+              </Typography>
+              <Typography variant="h5">
+                「NEXT」を押して次のステップへ進んで下さい。
+              </Typography>
+            </DialogContentText>
+          </Box>
         </DialogContent>
         <DialogActions>
           <Link to="/regist/step_board" style={{ textDecoration: "none" }}>
