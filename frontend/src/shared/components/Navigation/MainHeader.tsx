@@ -2,6 +2,7 @@ import React, { FC, useContext, useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
+import Dialog from "@material-ui/core/Dialog";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -11,13 +12,16 @@ import Color from "../../../shared/util/color";
 import Grid from "@material-ui/core/Grid";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import Avatar from "@material-ui/core/Avatar";
-import Container from "@material-ui/core/Container";
 import AppContext from "../../../AppContext";
 import Menu, { MenuProps } from "@material-ui/core/Menu";
 import Backdrop from "@material-ui/core/Backdrop";
 import Drawer from "@material-ui/core/Drawer";
 import CloseIcon from "@material-ui/icons/Close";
 import MenuItem from "@material-ui/core/MenuItem";
+import Container from "@material-ui/core/Container";
+import Slide from "@material-ui/core/Slide";
+import { TransitionProps } from "@material-ui/core/transitions";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 const drawerWidth = 240;
 const DrawerWith = "50%";
@@ -72,6 +76,9 @@ const useStyles = makeStyles((theme: Theme) =>
     drawerPaper: {
       width: DrawerWith,
     },
+    workSpaceIcon: {
+      marginTop: 10,
+    },
   })
 );
 
@@ -109,6 +116,13 @@ const StyledMenuItem = withStyles((theme) => ({
 interface MainHeaderProps {
   title: string;
 }
+
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & { children?: React.ReactElement },
+  ref: React.Ref<unknown>
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
   const classes = useStyles();
@@ -158,13 +172,13 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
     setOpenProfile(false);
   };
 
-  // const [openWorkSpace, setOpenworkSpace] = useState(false);
-  // const OpenWorkSpace = () => {
-  //   setOpenProfile(true);
-  // };
-  // const CloseWorkSpace = () => {
-  //   setOpenProfile(false);
-  // };
+  const [openWorkSpace, setOpenworkSpace] = useState(false);
+  const OpenWorkSpace = () => {
+    setOpenworkSpace(true);
+  };
+  const CloseWorkSpace = () => {
+    setOpenworkSpace(false);
+  };
 
   return (
     <div className={classes.root}>
@@ -306,7 +320,22 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
           ></Drawer>
         </Backdrop>
         <StyledMenuItem onClick={OpenProfile}>プロフィール設定</StyledMenuItem>
-        <StyledMenuItem>他のworkspace</StyledMenuItem>
+        <Dialog
+          open={openWorkSpace}
+          keepMounted
+          maxWidth="xl"
+          className="registDialog"
+          TransitionComponent={Transition}
+        >
+          <Container maxWidth="lg">
+            <CloseIcon
+              onClick={CloseWorkSpace}
+              className={classes.workSpaceIcon}
+            />
+            <DialogTitle id="alert-dialog-slide-title"></DialogTitle>
+          </Container>
+        </Dialog>
+        <StyledMenuItem onClick={OpenWorkSpace}>他のworkspace</StyledMenuItem>
         <StyledMenuItem>ログアウト</StyledMenuItem>
       </StyledMenu>
     </div>
