@@ -14,6 +14,8 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { NavLink } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Color from "../../util/color";
+import "../../../App.css";
+import Box from "@material-ui/core/Box";
 
 const drawerWidth = 240;
 
@@ -34,10 +36,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       fontWeight: 900,
-      fontSize: 30,
     },
-    img: {
-      height: 25,
+    mainTitle: {
+      paddingLeft: 5,
+      fontSize: 30,
     },
     drawerHeader: {
       display: "flex",
@@ -70,7 +72,7 @@ const SideBarOfAdmin: FC<SideBarOfAdminProps> = ({
 
   return (
     <div className={classes.root}>
-      <Container>
+      <Container maxWidth="lg">
         <Drawer
           className={classes.drawer}
           variant="persistent"
@@ -87,27 +89,31 @@ const SideBarOfAdmin: FC<SideBarOfAdminProps> = ({
             alignItems="center"
           >
             <Grid item>
-              <Grid
-                container
-                direction="row"
-                justify="center"
-                alignItems="center"
-                className={classes.title}
-                style={{ marginLeft: "10%" }}
-              >
-                <Grid item>
-                  <img
-                    src={`${process.env.PUBLIC_URL}/images/logo192.png`}
-                    className={classes.img}
-                    alt="アイコン"
-                  />
+              <Box ml={2}>
+                <Grid
+                  container
+                  direction="row"
+                  justify="center"
+                  alignItems="center"
+                  className={classes.title}
+                >
+                  <Grid item>
+                    <img
+                      src={`${process.env.PUBLIC_URL}/images/logo192.png`}
+                      style={{ height: 25 }}
+                      className="imgstyle"
+                      alt="アイコン"
+                    />
+                  </Grid>
+                  <Grid item className={classes.mainTitle}>
+                    VWORK
+                  </Grid>
                 </Grid>
-                <Grid item>VWORK</Grid>
-              </Grid>
+              </Box>
             </Grid>
             <Grid item>
               <div className={classes.drawerHeader}>
-                <IconButton onClick={handleDrawerClose}>
+                <IconButton onClick={handleDrawerClose} style={{ padding: 0 }}>
                   <MenuIcon className={classes.menuIcon} />
                 </IconButton>
               </div>

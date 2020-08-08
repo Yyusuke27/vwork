@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     dialogTitle: {
       fontSize: 30,
-      paddingLeft: 10,
+      paddingLeft: 2,
     },
     dialogText: {
       fontSize: 20,

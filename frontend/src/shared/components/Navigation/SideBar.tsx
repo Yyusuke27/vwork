@@ -17,6 +17,8 @@ import MyProject from "../../../Dashboard/Project/pages/MyProject";
 import Container from "@material-ui/core/Container";
 import Color from "../../util/color";
 import AppContext from "../../../AppContext";
+import Box from "@material-ui/core/Box";
+import "../../../App.css";
 
 const drawerWidth = 240;
 
@@ -25,36 +27,22 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       display: "flex",
     },
-    hide: {
-      display: "none",
-    },
     drawer: {
       width: drawerWidth,
       flexShrink: 0,
       color: Color.VWORK_BLACK,
     },
-    drawerOpen: {
-      width: drawerWidth,
-      transition: theme.transitions.create("width", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    },
-    drawerClose: {
-      transition: theme.transitions.create("width", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      overflowX: "hidden",
-      width: theme.spacing(7) + 1,
-      [theme.breakpoints.up("sm")]: {
-        width: theme.spacing(9) + 1,
-      },
-    },
     drawerPaper: {
       width: drawerWidth,
       backgroundColor: Color.VWORK_BLACK,
       color: Color.VWORK_WHITE,
+    },
+    title: {
+      fontWeight: 900,
+    },
+    mainTitle: {
+      fontSize: 30,
+      paddingLeft: 2,
     },
     drawerHeader: {
       display: "flex",
@@ -64,11 +52,12 @@ const useStyles = makeStyles((theme: Theme) =>
       ...theme.mixins.toolbar,
       justifyContent: "flex-end",
     },
+    menuIcon: {
+      fontSize: 40,
+      color: Color.VWORK_GRAY,
+    },
     icon: {
       color: Color.VWORK_WHITE,
-    },
-    title: {
-      fontWeight: 900,
     },
   })
 );
@@ -97,30 +86,32 @@ const SideBar = () => {
             alignItems="center"
           >
             <Grid item>
-              <Grid
-                container
-                direction="row"
-                justify="center"
-                alignItems="center"
-                className={classes.title}
-                style={{ marginLeft: "10%" }}
-              >
-                <Grid item style={{ fontSize: 30 }}>
-                  <img
-                    src={`${process.env.PUBLIC_URL}/images/logo192.png`}
-                    style={{ height: 25 }}
-                    alt=""
-                  />
+              <Box ml={2}>
+                <Grid
+                  container
+                  direction="row"
+                  justify="center"
+                  alignItems="center"
+                  className={classes.title}
+                >
+                  <Grid item>
+                    <img
+                      src={`${process.env.PUBLIC_URL}/images/logo192.png`}
+                      style={{ height: 25 }}
+                      className="imgstyle"
+                      alt="icon"
+                    />
+                  </Grid>
+                  <Grid item className={classes.mainTitle}>
+                    VWORK
+                  </Grid>
                 </Grid>
-                <Grid item style={{ fontSize: 30 }}>
-                  VWORK
-                </Grid>
-              </Grid>
+              </Box>
             </Grid>
             <Grid item>
               <div className={classes.drawerHeader}>
                 <IconButton onClick={handleDrawerClose}>
-                  <MenuIcon style={{ fontSize: 40, color: Color.VWORK_GRAY }} />
+                  <MenuIcon className={classes.menuIcon} />
                 </IconButton>
               </div>
             </Grid>
