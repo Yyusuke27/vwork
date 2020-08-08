@@ -43,9 +43,6 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: 18,
       marginTop: "1%",
     },
-    color: {
-      backgroundColor: Color.VWORK_RED,
-    },
     appBar: {
       position: "relative",
       backgroundColor: Color.VWORK_BLACK,
@@ -60,8 +57,6 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: "5%",
     },
     additionalButton: {
-      backgroundColor: Color.VWORK_BLUE,
-      color: Color.VWORK_WHITE,
       borderRadius: 10,
       width: "10%",
       fontSize: 20,
@@ -81,8 +76,6 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "85%",
     },
     out: {
-      backgroundColor: Color.VWORK_RED,
-      color: Color.VWORK_WHITE,
       borderRadius: 10,
       width: 150,
       fontSize: 20,
@@ -174,11 +167,7 @@ const CheckAttendanceArea = () => {
         <CardActions>
           <Grid container direction="row" justify="flex-end">
             <Grid item style={{ marginRight: "1%" }}>
-              <Button
-                size="small"
-                variant="contained"
-                className={classes.color}
-              >
+              <Button size="small" variant="contained" color="primary">
                 出社
               </Button>
             </Grid>
@@ -234,6 +223,8 @@ const CheckAttendanceArea = () => {
                   <Button
                     className={classes.additionalButton}
                     onClick={handleDrawerOpen}
+                    variant="contained"
+                    color="secondary"
                   >
                     追加
                   </Button>
@@ -269,7 +260,13 @@ const CheckAttendanceArea = () => {
                 justify="flex-end"
                 style={{ marginTop: "10%" }}
               >
-                <Button className={classes.out}>退勤する</Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.out}
+                >
+                  退勤する
+                </Button>
               </Grid>
             </Grid>
           </Container>
