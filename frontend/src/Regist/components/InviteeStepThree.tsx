@@ -5,7 +5,6 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Color from "../../shared/util/color";
 import { Link } from "react-router-dom";
-import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 
 import "../pages/RegistInvitee.css";
@@ -34,29 +33,27 @@ const InviteeStepThree = () => {
   const classes = useStyles();
 
   return (
-    <div>
-      <Container maxWidth="md">
-        <DialogTitle id="alert-dialog-slide-title">
-          <Box mt={25} ml={10}>
-            <Typography variant="h3" className={classes.title}>
-              <span style={{ color: Color.VWORK_RED }}>VWORK</span>
-              の設定は完了しました。
-            </Typography>
-          </Box>
-        </DialogTitle>
-        <DialogActions>
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <Button
-              variant="contained"
-              className={classes.button}
-              color="primary"
-            >
-              NEXT
-            </Button>
-          </Link>
-        </DialogActions>
-      </Container>
-    </div>
+    <>
+      <DialogTitle id="alert-dialog-slide-title">
+        <Box mt={25} ml={10}>
+          <Typography variant="h3" className={classes.title}>
+            <span style={{ color: Color.VWORK_RED }}>VWORK</span>
+            の設定は完了しました。
+          </Typography>
+        </Box>
+      </DialogTitle>
+      <DialogActions>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <Button
+            variant="contained"
+            className={classes.button}
+            color="primary"
+          >
+            NEXT
+          </Button>
+        </Link>
+      </DialogActions>
+    </>
   );
 };
 

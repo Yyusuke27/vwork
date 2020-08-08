@@ -8,26 +8,29 @@ import Dialog from "@material-ui/core/Dialog";
 import SideBarOfRegistration from "../../shared/components/Navigation/SideBarOfRegistration";
 
 import "./RegistInvitee.css";
+import Container from "@material-ui/core/Container";
 
 const RegistInvitee = () => {
   return (
     <>
       <SideBarOfRegistration />
       <Dialog open keepMounted maxWidth="xl" className="registDialog">
-        <Switch>
-          <Route exact path="/regist_invitee/welcome">
-            <InviteeWelcome />
-          </Route>
-          <Route exact path="/regist_invitee/step_one">
-            <InviteeStepOne />
-          </Route>
-          <Route exact path="/regist_invitee/step_two">
-            <InviteeStepTwo />
-          </Route>
-          <Route exact path="/regist_invitee/step_three">
-            <InviteeStepThree />
-          </Route>
-        </Switch>
+        <Container maxWidth="md">
+          <Switch>
+            <Route exact path="/regist_invitee/welcome">
+              <InviteeWelcome />
+            </Route>
+            <Route exact path="/regist_invitee/step_one">
+              <InviteeStepOne />
+            </Route>
+            <Route exact path="/regist_invitee/step_two">
+              <InviteeStepTwo />
+            </Route>
+            <Route exact path="/regist_invitee/step_three">
+              <InviteeStepThree />
+            </Route>
+          </Switch>
+        </Container>
       </Dialog>
     </>
   );

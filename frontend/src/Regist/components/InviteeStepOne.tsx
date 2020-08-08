@@ -6,7 +6,6 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
-import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 
 import "../pages/RegistInvitee.css";
@@ -32,32 +31,27 @@ const InviteeStepOne = () => {
   const classes = useStyles();
 
   return (
-    <div>
-      <Container maxWidth="md">
-        <DialogTitle id="alert-dialog-slide-title">
-          <Box mt={5}>
-            <Typography variant="h3">基本設定</Typography>
-          </Box>
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description"></DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Link
-            to="/regist_invitee/step_two"
-            style={{ textDecoration: "none" }}
+    <>
+      <DialogTitle id="alert-dialog-slide-title">
+        <Box mt={5}>
+          <Typography variant="h3">基本設定</Typography>
+        </Box>
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-slide-description"></DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Link to="/regist_invitee/step_two" style={{ textDecoration: "none" }}>
+          <Button
+            variant="contained"
+            className={classes.button}
+            color="primary"
           >
-            <Button
-              variant="contained"
-              className={classes.button}
-              color="primary"
-            >
-              NEXT
-            </Button>
-          </Link>
-        </DialogActions>
-      </Container>
-    </div>
+            NEXT
+          </Button>
+        </Link>
+      </DialogActions>
+    </>
   );
 };
 
