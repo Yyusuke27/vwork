@@ -5,10 +5,7 @@ const jwt = require("jsonwebtoken");
 
 const UserSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: [true, "名前を入力してください"],
-    },
+    name: String,
     email: {
       type: String,
       required: [true, "メールアドレスを入力してください"],
@@ -17,6 +14,10 @@ const UserSchema = new mongoose.Schema(
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
         "有効なメールアドレスを入力してください",
       ],
+    },
+    registration: {
+      type: Boolean,
+      default: false,
     },
     active: {
       type: Boolean,
@@ -35,16 +36,13 @@ const UserSchema = new mongoose.Schema(
     },
     resetPasswordToken: String,
     resetPasswordExpire: Date,
-    invitations: [
-      {
-        workspace: String,
-        invitationToken: String,
-        invitationExpire: Date,
-      },
-    ],
+    positions: [mongoose.Schema.ObjectId],
+    invitations: [mongoose.Schema.ObjectId],
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
 
@@ -85,6 +83,11 @@ UserSchema.methods.getResetPasswordToken = function () {
   return resetToken;
 };
 
-// TODO: 招待されたときのTokenの設定
+UserSchema.virtual("userprofiles", {
+  ref: "UserProfile",
+  localField: "_id",
+  foreignField: "user",
+  justOne: false,
+});
 
 module.exports = mongoose.model("User", UserSchema);

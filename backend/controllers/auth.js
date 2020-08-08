@@ -160,3 +160,5 @@ const sendTokenResponse = (user, statusCode, res) => {
     token,
   });
 };
+
+exports.sendTokenResponse = sendTokenResponse;

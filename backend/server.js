@@ -16,6 +16,7 @@ const workspaces = require("./routes/workspaces");
 const projects = require("./routes/projects");
 const tasks = require("./routes/tasks");
 const attendances = require("./routes/attendances");
+const registration = require("./routes/registration");
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use("/api/v1/workspaces", workspaces);
 app.use("/api/v1/projects", projects);
 app.use("/api/v1/tasks", tasks);
 app.use("/api/v1/attendances", attendances);
+app.use("/api/v1/registration", registration);
 
 app.use(errorHandler);
 
