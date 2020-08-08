@@ -10,7 +10,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
-import clsx from "clsx";
 import Slide from "@material-ui/core/Slide";
 import { TransitionProps } from "@material-ui/core/transitions";
 import TextField from "@material-ui/core/TextField";
@@ -21,6 +20,7 @@ import Button from "@material-ui/core/Button";
 import Drawer from "@material-ui/core/Drawer";
 import Backdrop from "@material-ui/core/Backdrop";
 import TaskList from "../../Task/components/TaskList";
+import "../../../App.css";
 
 const drawerWidth = "55%";
 
@@ -41,20 +41,18 @@ const useStyles = makeStyles((theme: Theme) =>
     timeArea: {
       width: "40%",
       fontSize: 18,
-      marginTop: "1%",
     },
     appBar: {
       position: "relative",
       backgroundColor: Color.VWORK_BLACK,
+      boxShadow: "none",
     },
     dialogTitle: {
       fontSize: 30,
+      paddingLeft: 10,
     },
     dialogText: {
       fontSize: 20,
-    },
-    dialogStyle: {
-      marginTop: "5%",
     },
     additionalButton: {
       borderRadius: 10,
@@ -62,15 +60,11 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: 20,
     },
     addedTask: {
-      marginTop: "3%",
       fontSize: 30,
       cursor: "pointer",
     },
-    textFieldArea: {
-      marginTop: "10%",
-    },
     todayUpdate: {
-      marginBottom: "1%",
+      marginBottom: 10,
     },
     textField: {
       width: "85%",
@@ -166,25 +160,31 @@ const CheckAttendanceArea = () => {
         </CardContent>
         <CardActions>
           <Grid container direction="row" justify="flex-end">
-            <Grid item style={{ marginRight: "1%" }}>
-              <Button size="small" variant="contained" color="primary">
-                出社
-              </Button>
-            </Grid>
-            <Grid item style={{ marginRight: "1%" }}>
-              <Button size="small" variant="contained">
-                休憩
-              </Button>
-            </Grid>
-            <Grid item style={{ marginRight: "1%" }}>
-              <Button
-                size="small"
-                variant="contained"
-                onClick={handleClickOpen}
-              >
-                退社
-              </Button>
-            </Grid>
+            <Box mr={1}>
+              <Grid item>
+                <Button size="small" variant="contained" color="primary">
+                  出社
+                </Button>
+              </Grid>
+            </Box>
+            <Box mr={1}>
+              <Grid item>
+                <Button size="small" variant="contained">
+                  休憩
+                </Button>
+              </Grid>
+            </Box>
+            <Box mr={1}>
+              <Grid item>
+                <Button
+                  size="small"
+                  variant="contained"
+                  onClick={handleClickOpen}
+                >
+                  退社
+                </Button>
+              </Grid>
+            </Box>
           </Grid>
         </CardActions>
       </Card>
@@ -202,6 +202,7 @@ const CheckAttendanceArea = () => {
             <img
               src={`${process.env.PUBLIC_URL}/images/logo192.png`}
               style={{ height: 25 }}
+              className="imgstyle"
               alt="icon"
             />
             <Typography variant="h6" className={classes.dialogTitle}>
@@ -209,68 +210,67 @@ const CheckAttendanceArea = () => {
             </Typography>
           </Toolbar>
         </AppBar>
-        <Grid
-          container
-          direction="column"
-          className={clsx(classes.dialogText, classes.dialogStyle)}
-        >
-          <Container maxWidth="lg">
-            <Grid item>勤務お疲れさまでした</Grid>
-            <Grid item style={{ marginTop: "5%" }}>
-              <Grid container direction="column">
-                <Grid item>今日行ったタスクの確認をして下さい。</Grid>
-                <Grid item style={{ marginTop: "1%" }}>
-                  <Button
-                    className={classes.additionalButton}
-                    onClick={handleDrawerOpen}
-                    variant="contained"
-                    color="secondary"
-                  >
-                    追加
-                  </Button>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item className={classes.addedTask} onClick={drawerOpen}>
-              X件のタスクを追加済
-            </Grid>
-            <Grid item>
-              <Grid
-                container
-                direction="column"
-                className={classes.textFieldArea}
-              >
-                <Grid item className={classes.todayUpdate}>
-                  今日の振り返り
-                </Grid>
+        <Box mt={10}>
+          <Grid container direction="column" className={classes.dialogText}>
+            <Container maxWidth="lg">
+              <Grid item>勤務お疲れさまでした</Grid>
+              <Box mt={7}>
                 <Grid item>
-                  <TextField
-                    multiline
-                    rows={8}
-                    variant="outlined"
-                    className={classes.textField}
-                  />
+                  <Grid container direction="column">
+                    <Grid item>今日行ったタスクの確認をして下さい。</Grid>
+                    <Box mt={3}>
+                      <Grid item>
+                        <Button
+                          className={classes.additionalButton}
+                          onClick={handleDrawerOpen}
+                          variant="contained"
+                          color="secondary"
+                        >
+                          追加
+                        </Button>
+                      </Grid>
+                    </Box>
+                  </Grid>
                 </Grid>
+              </Box>
+              <Box mt={3}>
+                <Grid item className={classes.addedTask} onClick={drawerOpen}>
+                  X件のタスクを追加済
+                </Grid>
+              </Box>
+              <Grid item>
+                <Box mt={12}>
+                  <Grid container direction="column">
+                    <Grid item className={classes.todayUpdate}>
+                      今日の振り返り
+                    </Grid>
+                    <Grid item>
+                      <TextField
+                        multiline
+                        rows={8}
+                        variant="outlined"
+                        className={classes.textField}
+                      />
+                    </Grid>
+                  </Grid>
+                </Box>
               </Grid>
-            </Grid>
-            <Grid item>
-              <Grid
-                container
-                direction="row"
-                justify="flex-end"
-                style={{ marginTop: "10%" }}
-              >
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.out}
-                >
-                  退勤する
-                </Button>
+              <Grid item>
+                <Box mt={10} mr={4}>
+                  <Grid container direction="row" justify="flex-end">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      className={classes.out}
+                    >
+                      退勤する
+                    </Button>
+                  </Grid>
+                </Box>
               </Grid>
-            </Grid>
-          </Container>
-        </Grid>
+            </Container>
+          </Grid>
+        </Box>
         <Backdrop className={classes.backdrop} open={openDrawer}>
           <Drawer
             className={classes.drawer}
