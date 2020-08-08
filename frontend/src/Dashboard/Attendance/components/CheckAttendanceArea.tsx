@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@material-ui/core/Box";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -103,8 +103,16 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+enum AttendanceStep {
+  NotYet,
+  Attended,
+  RestIn,
+  Finished,
+}
+
 const CheckAttendanceArea = () => {
   const classes = useStyles();
+
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -131,6 +139,11 @@ const CheckAttendanceArea = () => {
   };
   const drawerOpen = () => {
     setDrawer(true);
+  };
+  const [step, setStep] = useState(AttendanceStep.NotYet);
+
+  const notYetClicked = () => {
+    setStep(AttendanceStep.Attended);
   };
 
   return (
@@ -162,27 +175,39 @@ const CheckAttendanceArea = () => {
           <Grid container direction="row" justify="flex-end">
             <Box mr={1}>
               <Grid item>
-                <Button size="small" variant="contained" color="primary">
-                  出社
-                </Button>
+                {step === AttendanceStep.NotYet && (
+                  <Button
+                    size="small"
+                    variant="contained"
+                    color="primary"
+                    onClick={notYetClicked}
+                  >
+                    出社
+                  </Button>
+                )}
               </Grid>
             </Box>
             <Box mr={1}>
               <Grid item>
-                <Button size="small" variant="contained">
-                  休憩
-                </Button>
+                {step === AttendanceStep.Attended || (
+                  <Button size="small" variant="contained" disabled={true}>
+                    休憩
+                  </Button>
+                )}
               </Grid>
             </Box>
             <Box mr={1}>
               <Grid item>
-                <Button
-                  size="small"
-                  variant="contained"
-                  onClick={handleClickOpen}
-                >
-                  退社
-                </Button>
+                {step === AttendanceStep.Finished || (
+                  <Button
+                    size="small"
+                    variant="contained"
+                    onClick={handleClickOpen}
+                    disabled={true}
+                  >
+                    退社
+                  </Button>
+                )}
               </Grid>
             </Box>
           </Grid>
