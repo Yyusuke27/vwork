@@ -6,6 +6,7 @@ const {
   createTask,
   updateTask,
   deleteTask,
+  getNearDeadlineTasks,
 } = require("../controllers/tasks");
 
 const router = express.Router({ mergeParams: true });
@@ -13,6 +14,8 @@ const router = express.Router({ mergeParams: true });
 const { protect } = require("../middleware/auth");
 
 router.route("/").get(protect, getTasks).post(protect, createTask);
+
+router.route("/near_deadline").get(protect, getNearDeadlineTasks);
 
 router
   .route("/:id")

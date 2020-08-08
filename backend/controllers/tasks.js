@@ -1,9 +1,10 @@
+const moment = require("moment");
+
 const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
 const Task = require("../models/Task");
 const Workspace = require("../models/Workspace");
 const Project = require("../models/Project");
-const User = require("../models/User");
 
 // @desc Get all tasks or specific tasks
 // @route Get /api/v1/tasks
@@ -166,13 +167,11 @@ exports.updateTask = asyncHandler(async (req, res, next) => {
   if (!isTaskUser && !isProjectMember && !isAdmin) {
     return next(new ErrorResponse(`タスクの編集権限がありません`));
   }
-  console.log(req.params.id);
+
   const updateTask = await Task.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
   });
-
-  console.log(updateTask);
 
   res.status(200).json({
     success: true,
@@ -204,5 +203,24 @@ exports.deleteTask = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     data: {},
+  });
+});
+
+// @desc Get near deadline tasks
+// @route Get /api/v1/workspaces/:workspaceId/tasks/near_deadline
+// @access Public
+exports.getNearDeadlineTasks = asyncHandler(async (req, res, next) => {
+  // 期限が近い(3日以内)タスクを取得
+  const nearDeadlineDate = moment().add(3, "days").utcOffset("+09:00");
+  const tasks = await Task.find({
+    user: req.user.id,
+    workspace: req.params.workspaceId,
+    endDateAt: { $lte: nearDeadlineDate },
+  });
+
+  res.status(200).json({
+    success: true,
+    count: tasks.length,
+    data: tasks,
   });
 });
