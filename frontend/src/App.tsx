@@ -20,7 +20,7 @@ const App = () => {
           <Route path="/auth">
             <Auth />
           </Route>
-          <Route path="/regist">
+          <Route path="/regist_user">
             <RegistUser />
           </Route>
           <Route path="/regist_invitee">

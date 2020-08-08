@@ -15,10 +15,10 @@ const RegistUser = () => {
       <Dialog open keepMounted maxWidth="xl" className="registDialog">
         <Container maxWidth="md">
           <Switch>
-            <Route exact path="/regist/welcome">
+            <Route exact path="/regist_user/welcome">
               <Welcome />
             </Route>
-            <Route exact path="/regist/step_board">
+            <Route exact path="/regist_user/step_board">
               <StepBoard />
             </Route>
           </Switch>

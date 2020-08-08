@@ -5,7 +5,6 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
-import Container from "@material-ui/core/Container";
 import "../pages/RegistUser.css";
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";

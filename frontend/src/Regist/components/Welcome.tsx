@@ -7,7 +7,6 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Color from "../../shared/util/color";
 import { Link } from "react-router-dom";
-import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 
 import "../pages/RegistUser.css";

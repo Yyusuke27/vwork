@@ -1,7 +1,6 @@
 import React from "react";
 import Color from "../../shared/util/color";
 import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
 
 const StepFinish = () => {
   return (
