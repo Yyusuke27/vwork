@@ -5,6 +5,9 @@ const {
   createProject,
   updateProject,
   deleteProject,
+  getMembers,
+  getNewMembers,
+  addMemeber,
 } = require("../controllers/projects");
 
 const { protect } = require("../middleware/auth");
@@ -17,6 +20,12 @@ const router = express.Router({ mergeParams: true });
 router.use("/:projectId/tasks", taskRouter);
 
 router.route("/").get(protect, getProjects).post(protect, createProject);
+
+router.route("/:projectId/members/new").get(protect, getNewMembers);
+router
+  .route("/:projectId/members")
+  .get(protect, getMembers)
+  .put(protect, addMemeber);
 
 router
   .route("/:id")

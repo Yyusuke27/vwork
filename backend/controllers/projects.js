@@ -171,23 +171,79 @@ exports.deleteProject = asyncHandler(async (req, res, next) => {
 });
 
 // @desc Get members
-// @route GET /api/v1/projects/members
+// @route GET /api/v1/projects/:projectId/members
 // @access Public
 exports.getMembers = asyncHandler(async (req, res, next) => {
-  // TODO: Project内のメンバーを取得
+  // Project内のメンバーを取得
+  const project = await Project.findById(req.params.projectId);
+  if (!project) {
+    return next(new ErrorResponse("プロジェクトが存在しません", 404));
+  }
+
+  const isMemberInProject = project.members.includes(req.user.id);
+  if (!isMemberInProject) {
+    return next(new ErrorResponse("プロジェクトの閲覧権限がありません"));
+  }
+
+  const members = await User.find({ _id: { $in: project.members } });
+
+  res.status(200).json({
+    success: true,
+    count: members.length,
+    data: members,
+  });
 });
 
 // @desc Get members
-// @route GET /api/v1/projects/members/new
+// @route GET /api/v1/projects/:projectId/members/new
 // @access Public
 exports.getNewMembers = asyncHandler(async (req, res, next) => {
-  // TODO: Project外のメンバーを取得
+  // Project外のメンバーを取得
+  const project = await Project.findById(req.params.projectId);
+  if (!project) {
+    return next(new ErrorResponse("プロジェクトが存在しません", 404));
+  }
+
+  const isMemberInProject = project.members.includes(req.user.id);
+  if (!isMemberInProject) {
+    return next(new ErrorResponse("プロジェクトの閲覧権限がありません"));
+  }
+
+  const members = await User.find({ _id: { $nin: project.members } });
+
+  res.status(200).json({
+    success: true,
+    count: members.length,
+    data: members,
+  });
 });
 
 // @desc Add member
-// @route POST /api/v1/projects/members
+// @route POST /api/v1/projects/:projectId/members
 // @access Private
 exports.addMemeber = asyncHandler(async (req, res, next) => {
-  // TODO: Project内のメンバーであればユーザーを追加できる。
-  // TODO: Workspace内のユーザー一覧の中から追加したいユーザーを選択する
+  // Project内のメンバーであればユーザーを追加できる。
+  // req.bodyのmembersはarray
+  const project = await Project.findById(req.params.projectId);
+  if (!project) {
+    return next(new ErrorResponse("プロジェクトが存在しません", 404));
+  }
+
+  const isMemberInProject = project.members.includes(req.user.id);
+  if (!isMemberInProject) {
+    return next(new ErrorResponse("プロジェクトの閲覧権限がありません"));
+  }
+
+  const updateProject = await project.update(
+    { $push: { members: { $each: req.body.members } } },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  res.status(200).json({
+    success: true,
+    data: updateProject,
+  });
 });
