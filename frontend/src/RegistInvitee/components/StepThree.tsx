@@ -9,13 +9,12 @@ import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 
 import "../pages/RegistInvitee.css";
+import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
       position: "absolute",
-      top: "35%",
-      left: "20%",
     },
     button: {
       position: "absolute",
@@ -28,10 +27,6 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: 40,
       marginRight: 80,
     },
-    style: {
-      marginTop: "40%",
-      marginRight: "10%",
-    },
   })
 );
 
@@ -42,10 +37,12 @@ const StepThree = () => {
     <div>
       <Container maxWidth="md">
         <DialogTitle id="alert-dialog-slide-title">
-          <Typography className={classes.title}>
-            <span style={{ fontSize: 50, color: Color.VWORK_RED }}>VWORK</span>
-            の設定は完了しました。
-          </Typography>
+          <Box mt={25} ml={10}>
+            <Typography variant="h3" className={classes.title}>
+              <span style={{ color: Color.VWORK_RED }}>VWORK</span>
+              の設定は完了しました。
+            </Typography>
+          </Box>
         </DialogTitle>
         <DialogActions>
           <Link to="/" style={{ textDecoration: "none" }}>

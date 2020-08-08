@@ -5,17 +5,15 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import Color from "../../shared/util/color";
 import { Link } from "react-router-dom";
 import Container from "@material-ui/core/Container";
+import Typography from "@material-ui/core/Typography";
 
 import "../pages/RegistInvitee.css";
+import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    title: {
-      fontSize: 100,
-    },
     button: {
       position: "absolute",
       fontSize: 30,
@@ -27,10 +25,6 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: 40,
       marginRight: 80,
     },
-    style: {
-      marginTop: "40%",
-      marginRight: "10%",
-    },
   })
 );
 
@@ -41,7 +35,9 @@ const StepOne = () => {
     <div>
       <Container maxWidth="md">
         <DialogTitle id="alert-dialog-slide-title">
-          <h1 style={{ fontSize: 40, color: Color.VWORK_BLACK }}>基本設定</h1>
+          <Box mt={5}>
+            <Typography variant="h3">基本設定</Typography>
+          </Box>
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description"></DialogContentText>
