@@ -2,7 +2,6 @@ import React, { FC, useContext, useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
-import Dialog from "@material-ui/core/Dialog";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -16,12 +15,9 @@ import AppContext from "../../../AppContext";
 import Menu, { MenuProps } from "@material-ui/core/Menu";
 import Backdrop from "@material-ui/core/Backdrop";
 import Drawer from "@material-ui/core/Drawer";
-import CloseIcon from "@material-ui/icons/Close";
 import MenuItem from "@material-ui/core/MenuItem";
 import Container from "@material-ui/core/Container";
-import Slide from "@material-ui/core/Slide";
-import { TransitionProps } from "@material-ui/core/transitions";
-import DialogTitle from "@material-ui/core/DialogTitle";
+import { useHistory } from "react-router-dom";
 
 const drawerWidth = 240;
 const DrawerWith = "50%";
@@ -117,13 +113,6 @@ interface MainHeaderProps {
   title: string;
 }
 
-const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & { children?: React.ReactElement },
-  ref: React.Ref<unknown>
-) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
-
 const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
   const classes = useStyles();
   // @ts-ignore
@@ -172,12 +161,10 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
     setOpenProfile(false);
   };
 
-  const [openWorkSpace, setOpenworkSpace] = useState(false);
-  const OpenWorkSpace = () => {
-    setOpenworkSpace(true);
-  };
-  const CloseWorkSpace = () => {
-    setOpenworkSpace(false);
+  const history = useHistory();
+  const pageChangeHandler = () => {
+    history.push("/work_spaces");
+    history.go(0);
   };
 
   return (
@@ -323,22 +310,9 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
           ></Drawer>
         </Backdrop>
         <StyledMenuItem onClick={OpenProfile}>プロフィール設定</StyledMenuItem>
-        <Dialog
-          open={openWorkSpace}
-          keepMounted
-          maxWidth="xl"
-          className="registDialog"
-          TransitionComponent={Transition}
-        >
-          <Container maxWidth="lg">
-            <CloseIcon
-              onClick={CloseWorkSpace}
-              className={classes.workSpaceIcon}
-            />
-            <DialogTitle id="alert-dialog-slide-title"></DialogTitle>
-          </Container>
-        </Dialog>
-        <StyledMenuItem onClick={OpenWorkSpace}>他のworkspace</StyledMenuItem>
+        <StyledMenuItem onClick={pageChangeHandler}>
+          他のworkspace
+        </StyledMenuItem>
         <StyledMenuItem>ログアウト</StyledMenuItem>
       </StyledMenu>
     </div>
