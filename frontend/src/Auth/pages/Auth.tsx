@@ -5,7 +5,6 @@ import SignUp from "./SignUp";
 import Login from "./Login";
 
 const Auth = () => {
-  console.log("this is auth");
   return (
     <div>
       <Switch>
