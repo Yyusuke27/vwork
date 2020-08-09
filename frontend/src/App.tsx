@@ -23,7 +23,7 @@ const App = () => {
           <Route path="/admin">
             <Admin />
           </Route>
-          <Route path="/work_spaces">
+          <Route path="/workspaces">
             <WorkSpaces />
           </Route>
           <Route path="/">

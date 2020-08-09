@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: 15,
       cursor: "pointer",
     },
-
     title: {
       fontSize: 20,
     },

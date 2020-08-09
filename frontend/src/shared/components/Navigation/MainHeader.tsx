@@ -163,7 +163,7 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
 
   const history = useHistory();
   const pageChangeHandler = () => {
-    history.push("/work_spaces");
+    history.push("/workspaces");
     history.go(0);
   };
 
