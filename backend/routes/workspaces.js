@@ -5,6 +5,8 @@ const {
   createWorkspace,
   updateWorkspace,
   deleteWorkspace,
+  getMembers,
+  inviteNewMembers,
 } = require("../controllers/workspaces");
 
 const { protect } = require("../middleware/auth");
@@ -22,6 +24,11 @@ router.use("/:workspaceId/attendances", attendanceRouter);
 router.use("/:workspaceId/users/:userId/attendances", attendanceRouter);
 
 router.route("/").get(protect, getWorkspaces).post(protect, createWorkspace);
+
+router
+  .route("/:id/members")
+  .get(protect, getMembers)
+  .post(protect, inviteNewMembers);
 
 router
   .route("/:id")
