@@ -7,6 +7,7 @@ import { theme } from "./shared/util/theme";
 import "./App.css";
 import Admin from "./Admin/pages/Admin";
 import Regist from "./Regist/pages/Regist";
+import WorkSpaces from "./WorkSpaces/pages/WorkSpaces";
 
 const App = () => {
   return (
@@ -21,6 +22,9 @@ const App = () => {
           </Route>
           <Route path="/admin">
             <Admin />
+          </Route>
+          <Route path="/work_spaces">
+            <WorkSpaces />
           </Route>
           <Route path="/">
             <Dashboard />
