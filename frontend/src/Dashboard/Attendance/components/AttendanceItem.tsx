@@ -13,6 +13,7 @@ import TextField from "@material-ui/core/TextField";
 import Drawer from "@material-ui/core/Drawer";
 import Backdrop from "@material-ui/core/Backdrop";
 import CheckAttendanceAreaInDetail from "./CheckAttendanceAreaInDetail";
+import { Box } from "@material-ui/core";
 
 const drawerWidth = "55%";
 
@@ -24,12 +25,18 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 300,
       marginTop: 25,
     },
-
     title: {
       fontSize: 18,
     },
     space: {
       marginTop: 20,
+    },
+    task: {
+      fontSize: 20,
+    },
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
     },
     drawer: {
       width: drawerWidth,
@@ -37,10 +44,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     drawerPaper: {
       width: drawerWidth,
-    },
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: "#fff",
     },
   })
 );
@@ -67,22 +70,23 @@ const AttendanceItem = () => {
                   justify="space-between"
                   alignItems="center"
                 >
-                  <Grid item>
+                  <Grid item style={{ width: "90%" }}>
                     <Grid
                       container
                       direction="row"
-                      justify="space-around"
+                      // justify="space-around"
                       alignItems="center"
                       className={clsx(classes.title, classes.space)}
                     >
-                      <Grid item style={{ marginRight: 80 }}>
-                        出社: 09:15
+                      <Grid item style={{ width: "20%" }}>
+                        <span style={{ fontWeight: 600 }}>出社</span>: 09:15
                       </Grid>
-                      <Grid item style={{ marginRight: 80 }}>
-                        休憩: 12:05~13:00
+                      <Grid item style={{ width: "20%" }}>
+                        <span style={{ fontWeight: 600 }}>休憩</span>:
+                        12:05~13:00
                       </Grid>
-                      <Grid item style={{ marginRight: 80 }}>
-                        退社: 18:55
+                      <Grid item style={{ width: "20%" }}>
+                        <span style={{ fontWeight: 600 }}>退社</span>: 18:55
                       </Grid>
                     </Grid>
                   </Grid>
@@ -95,14 +99,15 @@ const AttendanceItem = () => {
                   direction="row"
                   justify="flex-start"
                   alignItems="center"
-                  style={{ marginTop: 40 }}
                 >
-                  <Grid item style={{ marginRight: 20 }}>
-                    <CheckCircleIcon />
-                  </Grid>
+                  <Box mr={3}>
+                    <Grid item>
+                      <CheckCircleIcon />
+                    </Grid>
+                  </Box>
                   <Grid
                     item
-                    style={{ fontSize: 20 }}
+                    className={classes.task}
                     onClick={handleDrawerOpen}
                   >
                     2件のタスクに対応
@@ -110,25 +115,22 @@ const AttendanceItem = () => {
                 </Grid>
               </Grid>
               <Grid item>
-                <Grid
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  style={{ marginTop: 25 }}
-                >
-                  <Grid item>
-                    <ChatBubbleIcon style={{ marginRight: 20 }} />
+                <Box mt={3}>
+                  <Grid container direction="row" justify="flex-start">
+                    <Grid item>
+                      <ChatBubbleIcon style={{ marginRight: 10 }} />
+                    </Grid>
+                    <Grid item style={{ width: "90%" }}>
+                      <TextField
+                        id="outlined-multiline-static"
+                        multiline
+                        rows={5}
+                        variant="outlined"
+                        style={{ width: "100%" }}
+                      />
+                    </Grid>
                   </Grid>
-                  <Grid item style={{ width: "93%" }}>
-                    <TextField
-                      id="outlined-multiline-static"
-                      multiline
-                      rows={5}
-                      variant="outlined"
-                      style={{ width: "100%" }}
-                    />
-                  </Grid>
-                </Grid>
+                </Box>
               </Grid>
             </Grid>
           </Container>
