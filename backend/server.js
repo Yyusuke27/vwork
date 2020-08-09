@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const connectDB = require("./config/db");
 const errorHandler = require("./middleware/error");
+const cors = require("cors");
 
 dotenv.config({ path: "./config/config.env" });
 
@@ -19,6 +20,15 @@ const attendances = require("./routes/attendances");
 const registration = require("./routes/registration");
 
 const app = express();
+
+// Setting CORS
+// TODO: deploy時に修正
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    optionsSuccessStatus: 200,
+  })
+);
 
 // Body parser
 app.use(express.json());
