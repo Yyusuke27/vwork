@@ -103,13 +103,6 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-enum AttendanceStep {
-  NotYet,
-  Attended,
-  RestIn,
-  Finished,
-}
-
 const CheckAttendanceArea = () => {
   const classes = useStyles();
 
@@ -140,10 +133,37 @@ const CheckAttendanceArea = () => {
   const drawerOpen = () => {
     setDrawer(true);
   };
-  const [step, setStep] = useState(AttendanceStep.NotYet);
+  const [step, setStep] = useState({
+    attended: false,
+    restStart: true,
+    restEnd: true,
+    finished: true,
+  });
 
-  const notYetClicked = () => {
-    setStep(AttendanceStep.Attended);
+  const attendedClicked = () => {
+    setStep({
+      ...step,
+      attended: true,
+      restStart: false,
+      finished: false,
+    });
+  };
+
+  const restStartedClicked = () => {
+    setStep({
+      ...step,
+      restStart: true,
+      restEnd: false,
+      finished: false,
+    });
+  };
+
+  const restEndClicked = () => {
+    setStep({
+      ...step,
+      restEnd: true,
+      finished: false,
+    });
   };
 
   return (
@@ -175,44 +195,53 @@ const CheckAttendanceArea = () => {
           <Grid container direction="row" justify="flex-end">
             <Box mr={1}>
               <Grid item>
-                {step === AttendanceStep.NotYet && (
-                  <Button
-                    size="small"
-                    variant="contained"
-                    color="primary"
-                    onClick={notYetClicked}
-                    disabled={step !== AttendanceStep.NotYet}
-                  >
-                    出社
-                  </Button>
-                )}
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="primary"
+                  disabled={step.attended}
+                  onClick={attendedClicked}
+                >
+                  出社
+                </Button>
               </Grid>
             </Box>
             <Box mr={1}>
               <Grid item>
-                {step === AttendanceStep.Attended && (
+                {step.restStart === false || step.restEnd === true ? (
                   <Button
                     size="small"
                     variant="contained"
-                    disabled={step !== AttendanceStep.Attended}
+                    disabled={step.restStart}
+                    color="primary"
+                    onClick={restStartedClicked}
                   >
                     休憩
                   </Button>
+                ) : (
+                  <Button
+                    size="small"
+                    variant="contained"
+                    disabled={step.restEnd}
+                    color="secondary"
+                    onClick={restEndClicked}
+                  >
+                    休憩終了
+                  </Button>
                 )}
               </Grid>
             </Box>
             <Box mr={1}>
               <Grid item>
-                {step === AttendanceStep.Finished || (
-                  <Button
-                    size="small"
-                    variant="contained"
-                    onClick={handleClickOpen}
-                    disabled={true}
-                  >
-                    退社
-                  </Button>
-                )}
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="primary"
+                  onClick={handleClickOpen}
+                  disabled={step.finished}
+                >
+                  退社
+                </Button>
               </Grid>
             </Box>
           </Grid>
