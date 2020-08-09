@@ -142,6 +142,7 @@ exports.getInviteeUserInfo = asyncHandler(async (req, res, next) => {
 // @route POST /api/v1/registration/invitee
 // @access Private
 exports.registInvitee = asyncHandler(async (req, res, next) => {
+  // TODO: workspaceのメンバーに追加する処理が必要
   // 招待者の登録作業
   const inviteUser = {
     name: req.body.user.name,
@@ -162,10 +163,23 @@ exports.registInvitee = asyncHandler(async (req, res, next) => {
     runValidators: true,
   });
 
+  user.password = req.body.user.password;
+  await user.save();
+
   let profile = await UserProfile.findOne({
     user: user._id,
     workspace: invite.workspace,
   });
+
+  // workspaceのメンバーに追加
+  await Workspace.findByIdAndUpdate(
+    invite.workspace,
+    { $push: { members: user._id } },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
 
   if (!profile) {
     profile = await UserProfile.create({
@@ -178,7 +192,13 @@ exports.registInvitee = asyncHandler(async (req, res, next) => {
     await profile.save();
   }
 
-  sendTokenResponse(user, 200, res);
+  const workspaces = await Workspace.find({ members: user._id });
+  let workspaceCount = 0;
+  if (workspaces) {
+    workspaceCount = workspaces.length;
+  }
+
+  sendTokenResponse(user, 200, res, workspaceCount);
 });
 
 const makeTokenHash = (token) => {
