@@ -21,6 +21,7 @@ import Drawer from "@material-ui/core/Drawer";
 import Backdrop from "@material-ui/core/Backdrop";
 import TaskList from "../../Task/components/TaskList";
 import "../../../App.css";
+import { useHistory } from "react-router-dom";
 
 const drawerWidth = "55%";
 
@@ -110,6 +111,10 @@ const CheckAttendanceArea = () => {
 
   const handleClickOpen = () => {
     setOpen(true);
+    setStep({
+      ...step,
+      finished: true,
+    });
   };
 
   const handleClose = () => {
@@ -164,6 +169,12 @@ const CheckAttendanceArea = () => {
       restEnd: true,
       finished: false,
     });
+  };
+
+  const history = useHistory();
+  const pageChangeHandler = () => {
+    history.push("/");
+    history.go(0);
   };
 
   return (
@@ -321,6 +332,7 @@ const CheckAttendanceArea = () => {
                       variant="contained"
                       color="primary"
                       className={classes.out}
+                      onClick={pageChangeHandler}
                     >
                       退勤する
                     </Button>
