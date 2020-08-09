@@ -6,6 +6,8 @@ const Invite = require("../models/Invite");
 const User = require("../models/User");
 const sendEmail = require("../utils/sendEmail");
 
+//　TODO: 招待中でまだ未登録のユーザーを登録未完了ユーザーとして表示したい
+
 // @desc Get all Workspaces or specific Workspaces
 // @route Get /api/v1/workspaces
 // @access Public
