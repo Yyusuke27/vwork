@@ -17,7 +17,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Drawer from "@material-ui/core/Drawer";
 import MenuItem from "@material-ui/core/MenuItem";
 import Container from "@material-ui/core/Container";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 const DrawerWith = "50%";
@@ -159,12 +159,6 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
   };
   const CloseProfile = () => {
     setOpenProfile(false);
-  };
-
-  const history = useHistory();
-  const pageChangeHandler = () => {
-    history.push("/workspaces");
-    history.go(0);
   };
 
   return (
@@ -310,9 +304,12 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
           ></Drawer>
         </Backdrop>
         <StyledMenuItem onClick={OpenProfile}>プロフィール設定</StyledMenuItem>
-        <StyledMenuItem onClick={pageChangeHandler}>
-          他のworkspace
-        </StyledMenuItem>
+        <Link
+          to="/workspaces"
+          style={{ textDecoration: "none", color: Color.VWORK_BLACK }}
+        >
+          <StyledMenuItem>他のworkspace </StyledMenuItem>
+        </Link>
         <StyledMenuItem>ログアウト</StyledMenuItem>
       </StyledMenu>
     </div>
