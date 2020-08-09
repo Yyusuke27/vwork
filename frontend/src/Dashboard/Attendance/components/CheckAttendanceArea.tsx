@@ -106,15 +106,17 @@ const Transition = React.forwardRef(function Transition(
 
 const CheckAttendanceArea = () => {
   const classes = useStyles();
-
+  const moment = require("moment");
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
     setStep({
       ...step,
+      restEnd: true,
       finished: true,
     });
+    setFinishedTime(moment().format("HH:mm"));
   };
 
   const handleClose = () => {
@@ -152,6 +154,7 @@ const CheckAttendanceArea = () => {
       restStart: false,
       finished: false,
     });
+    setAttendedTime(moment().format("HH:mm"));
   };
 
   const restStartedClicked = () => {
@@ -161,6 +164,7 @@ const CheckAttendanceArea = () => {
       restEnd: false,
       finished: false,
     });
+    setRestInTime(moment().format("HH:mm"));
   };
 
   const restEndClicked = () => {
@@ -169,7 +173,16 @@ const CheckAttendanceArea = () => {
       restEnd: true,
       finished: false,
     });
+    setRestOutTime(moment().format("HH:mm"));
   };
+
+  const [attendedTime, setAttendedTime] = useState();
+
+  const [restInTime, setRestInTime] = useState();
+
+  const [restOutTime, setRestOutTime] = useState();
+
+  const [finishedTime, setFinishedTime] = useState();
 
   const history = useHistory();
   const pageChangeHandler = () => {
@@ -197,9 +210,24 @@ const CheckAttendanceArea = () => {
             justify="space-between"
             className={classes.timeArea}
           >
-            <Grid item>出社：</Grid>
-            <Grid item>休憩：</Grid>
-            <Grid item>退社：</Grid>
+            <Grid item>
+              <span style={{ fontWeight: 600 }}>出社</span>：{attendedTime}
+            </Grid>
+            <Grid>
+              {step.attended === false ? (
+                <Grid item>
+                  <span style={{ fontWeight: 600 }}>休憩</span>：
+                </Grid>
+              ) : (
+                <Grid item>
+                  <span style={{ fontWeight: 600 }}>休憩</span>：{restInTime} ~
+                  {restOutTime}
+                </Grid>
+              )}
+            </Grid>
+            <Grid item>
+              <span style={{ fontWeight: 600 }}>退社</span>：{finishedTime}
+            </Grid>
           </Grid>
         </CardContent>
         <CardActions>
