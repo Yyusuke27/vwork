@@ -219,12 +219,19 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
                   alignItems="center"
                 >
                   <Grid item>
-                    <IconButton aria-label="add" onClick={handleClick}>
+                    <IconButton
+                      aria-label="add"
+                      onClick={handleClick}
+                      style={{ padding: 0, paddingRight: 10 }}
+                    >
                       <AddCircleOutlineIcon className={classes.addIcon} />
                     </IconButton>
                   </Grid>
                   <Grid item>
-                    <IconButton onClick={HandleClick}>
+                    <IconButton
+                      onClick={HandleClick}
+                      style={{ padding: 0, paddingRight: 10 }}
+                    >
                       <Avatar
                         alt="Shogo Yunoki"
                         src="/static/images/avatar/1.jpg"
