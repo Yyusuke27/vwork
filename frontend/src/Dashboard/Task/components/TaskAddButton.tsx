@@ -84,6 +84,7 @@ const TaskAddButton = () => {
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setText(event.target.value as string);
   };
+
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
@@ -93,7 +94,7 @@ const TaskAddButton = () => {
   };
 
   return (
-    <>
+    <div>
       <Grid
         container
         direction="row"
@@ -137,7 +138,7 @@ const TaskAddButton = () => {
           }}
         ></Drawer>
       </Backdrop>
-    </>
+    </div>
   );
 };
 
