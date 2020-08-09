@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: 18,
     },
     timeArea: {
-      width: "40%",
+      width: "100%",
       fontSize: 18,
     },
     appBar: {
@@ -207,13 +207,13 @@ const CheckAttendanceArea = () => {
           <Grid
             container
             direction="row"
-            justify="space-between"
+            // justify="space-between"
             className={classes.timeArea}
           >
-            <Grid item>
+            <Grid item style={{ width: "20%" }}>
               <span style={{ fontWeight: 600 }}>出社</span>：{attendedTime}
             </Grid>
-            <Grid>
+            <Grid item style={{ width: "20%" }}>
               {step.attended === false ? (
                 <Grid item>
                   <span style={{ fontWeight: 600 }}>休憩</span>：
@@ -225,7 +225,7 @@ const CheckAttendanceArea = () => {
                 </Grid>
               )}
             </Grid>
-            <Grid item>
+            <Grid item style={{ width: "20%" }}>
               <span style={{ fontWeight: 600 }}>退社</span>：{finishedTime}
             </Grid>
           </Grid>
