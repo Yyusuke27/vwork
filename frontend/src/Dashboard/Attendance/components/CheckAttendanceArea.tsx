@@ -181,6 +181,7 @@ const CheckAttendanceArea = () => {
                     variant="contained"
                     color="primary"
                     onClick={notYetClicked}
+                    disabled={step !== AttendanceStep.NotYet}
                   >
                     出社
                   </Button>
@@ -189,8 +190,12 @@ const CheckAttendanceArea = () => {
             </Box>
             <Box mr={1}>
               <Grid item>
-                {step === AttendanceStep.Attended || (
-                  <Button size="small" variant="contained" disabled={true}>
+                {step === AttendanceStep.Attended && (
+                  <Button
+                    size="small"
+                    variant="contained"
+                    disabled={step !== AttendanceStep.Attended}
+                  >
                     休憩
                   </Button>
                 )}
