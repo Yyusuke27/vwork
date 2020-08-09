@@ -1,4 +1,12 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+
+import { Form, Field, Formik } from "formik";
+import { TextField } from "formik-material-ui";
+import * as Yup from "yup";
+
+import Color from "../../shared/util/color";
+import FormArea from "../components/FormArea";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Link from "@material-ui/core/Link";
@@ -6,12 +14,9 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import { Form, Field, Formik } from "formik";
-import { TextField } from "formik-material-ui";
-import * as Yup from "yup";
 
-import Color from "../../shared/util/color";
-import FormArea from "../components/FormArea";
+import { fetchAsyncLogin } from "../authSlice";
+import { toggleLoading } from "../../appSlice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,6 +67,8 @@ const useStyles = makeStyles((theme) => ({
 const Login = () => {
   const classes = useStyles();
 
+  const dispatch = useDispatch();
+
   return (
     <div>
       <Grid container component="main" className={classes.root}>
@@ -79,7 +86,7 @@ const Login = () => {
           square
           className={classes.formArea}
         >
-          <FormArea buttonPath="signup" buttonText="会員登録">
+          <FormArea buttonPath="/auth/signup" buttonText="会員登録">
             <Typography component="h1" variant="h5">
               ログイン
             </Typography>
@@ -91,8 +98,10 @@ const Login = () => {
                   .required("emailは必須です。"),
                 password: Yup.string().required("パスワードは必須です。"),
               })}
-              onSubmit={(values) => {
-                console.log(values);
+              onSubmit={async (value) => {
+                dispatch(toggleLoading(true));
+                await dispatch(fetchAsyncLogin(value));
+                dispatch(toggleLoading(false));
               }}
             >
               <Form className={classes.form}>

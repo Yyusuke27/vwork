@@ -1,13 +1,19 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+
+import { Form, Field, Formik } from "formik";
+import { TextField } from "formik-material-ui";
+import * as Yup from "yup";
+
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import { Form, Field, Formik } from "formik";
-import { TextField } from "formik-material-ui";
-import * as Yup from "yup";
+
+import { fetchAsyncSignup } from "../authSlice";
+import { toggleLoading } from "../../appSlice";
 
 import Color from "../../shared/util/color";
 import FormArea from "../components/FormArea";
@@ -61,6 +67,8 @@ const useStyles = makeStyles((theme) => ({
 const Signup = () => {
   const classes = useStyles();
 
+  const dispatch = useDispatch();
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -77,7 +85,7 @@ const Signup = () => {
         square
         className={classes.formArea}
       >
-        <FormArea buttonPath="login" buttonText="ログイン">
+        <FormArea buttonPath="/auth/login" buttonText="ログイン">
           <Typography component="h1" variant="h5">
             会員登録
           </Typography>
@@ -89,8 +97,10 @@ const Signup = () => {
                 .required("emailは必須です。"),
               password: Yup.string().required("パスワードは必須です。"),
             })}
-            onSubmit={(values) => {
-              console.log(values);
+            onSubmit={async (value) => {
+              dispatch(toggleLoading(true));
+              await dispatch(fetchAsyncSignup(value));
+              dispatch(toggleLoading(false));
             }}
           >
             <Form className={classes.form}>

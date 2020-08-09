@@ -5,6 +5,7 @@ import SignUp from "./SignUp";
 import Login from "./Login";
 
 const Auth = () => {
+  // TODO: ログイン済だったら/workspaces or /にリダイレクト
   return (
     <div>
       <Switch>
