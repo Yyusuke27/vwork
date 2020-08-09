@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: Color.VWORK_GRAY,
     },
     addIcon: {
-      fontSize: 40,
+      fontSize: 45,
     },
     icon: {
       paddingLeft: 0,
@@ -92,7 +92,7 @@ const StyledMenu = withStyles({
     getContentAnchorEl={null}
     anchorOrigin={{
       vertical: "bottom",
-      horizontal: "center",
+      horizontal: "left",
     }}
     transformOrigin={{
       vertical: "top",
@@ -249,10 +249,8 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
         anchorEl={menu}
         keepMounted
         open={Boolean(menu)}
+        onClick={handleClose}
       >
-        <StyledMenuItem>
-          <CloseIcon onClick={handleClose} className={classes.icon} />
-        </StyledMenuItem>
         <Backdrop
           className={classes.backdrop}
           open={openTask}
@@ -307,10 +305,8 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
         anchorEl={AvaterMenu}
         keepMounted
         open={Boolean(AvaterMenu)}
+        onClick={HandleClose}
       >
-        <StyledMenuItem>
-          <CloseIcon onClick={HandleClose} className={classes.icon} />
-        </StyledMenuItem>
         <Backdrop
           className={classes.backdrop}
           open={openProfile}
