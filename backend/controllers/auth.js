@@ -2,6 +2,7 @@ const crypto = require("crypto");
 const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
 const User = require("../models/User");
+const Workspace = require("../models/Workspace");
 
 const sendEmail = require("../utils/sendEmail");
 
@@ -20,7 +21,7 @@ exports.signup = asyncHandler(async (req, res, next) => {
     password,
   });
 
-  sendTokenResponse(user, 200, res);
+  sendTokenResponse(user, 200, res, 0);
 });
 
 // @desc ログイン
@@ -50,14 +51,22 @@ exports.login = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("認証情報が間違っています", 401));
   }
 
-  sendTokenResponse(user, 200, res);
+  const workspaces = await Workspace.find({ members: user._id });
+  let workspaceCount = 0;
+  if (workspaces) {
+    workspaceCount = workspaces.length;
+  }
+
+  sendTokenResponse(user, 200, res, workspaceCount);
 });
 
 // @desc 現在ログイン中のユーザーを取得
 // @route POST /api/v1/auth/current
 // @access Private
 exports.currentUser = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.user.id);
+  const user = await User.findById(req.user.id).select(
+    "name email role registration"
+  );
 
   res.status(200).json({
     success: true,
@@ -136,11 +145,17 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
 
   await user.save();
 
-  sendTokenResponse(user, 200, res);
+  const workspaces = await Workspace.find({ members: user._id });
+  let workspaceCount = 0;
+  if (workspaces) {
+    workspaceCount = workspaces.length;
+  }
+
+  sendTokenResponse(user, 200, res, workspaceCount);
 });
 
 // トークンを取得,cookieを作成、レスポンスを返す
-const sendTokenResponse = (user, statusCode, res) => {
+const sendTokenResponse = (user, statusCode, res, workspaceCount) => {
   // トークン生成
   const token = user.getSignedJwtToken();
 
@@ -158,6 +173,7 @@ const sendTokenResponse = (user, statusCode, res) => {
   res.status(statusCode).cookie("token", token, options).json({
     success: true,
     token,
+    workspaceCount,
   });
 };
 
