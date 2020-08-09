@@ -6,8 +6,6 @@ const Workspace = require("../models/Workspace");
 
 const moment = require("moment");
 
-// TODO: virtualsを使えばもっと簡潔にかけるかも
-
 // @desc Get all attendances or user attendances
 // @route Get /api/v1/attendances
 // @route Get /api/v1/workspaces/:workspaceId/attendances
@@ -113,6 +111,30 @@ exports.updateAttendance = asyncHandler(async (req, res, next) => {
       runValidators: true,
     }
   );
+
+  // 出勤したらuserのactiveをtrueにする
+  if (updateAttendance.isModified("startedAt")) {
+    await User.findByIdAndUpdate(
+      updateAttendance.user,
+      { active: true },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+  }
+
+  // 退勤したらuserのactiveをfalseにする
+  if (updateAttendance.isModified("endedAt")) {
+    await User.findByIdAndUpdate(
+      updateAttendance.user,
+      { active: false },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+  }
 
   res.status(200).json({
     success: true,
