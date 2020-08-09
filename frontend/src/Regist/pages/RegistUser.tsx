@@ -8,7 +8,7 @@ const RegistUser = () => {
   return (
     <>
       <Switch>
-        <Route path="/regist/regist_user/welcome">
+        <Route path="gis">
           <Welcome />
         </Route>
         <Route path="/regist/regist_user/step_board">

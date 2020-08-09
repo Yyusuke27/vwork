@@ -11,7 +11,7 @@ import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import StepFour from "./StepFour";
 import StepFinish from "./StepFinish";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -67,9 +67,13 @@ const StepBoard = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
-
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+  const history = useHistory();
+  const pageChangeHandler = () => {
+    history.push("/");
+    history.go(0);
   };
 
   return (
@@ -94,15 +98,14 @@ const StepBoard = () => {
       )}
       <DialogActions>
         {activeStep === steps.length ? (
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <Button
-              variant="contained"
-              className={classes.button}
-              color="primary"
-            >
-              NEXT
-            </Button>
-          </Link>
+          <Button
+            variant="contained"
+            className={classes.button}
+            color="primary"
+            onClick={pageChangeHandler}
+          >
+            NEXT
+          </Button>
         ) : (
           <Button
             variant="contained"

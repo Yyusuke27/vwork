@@ -4,7 +4,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Color from "../../shared/util/color";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 
 import "../pages/RegistInvitee.css";
@@ -31,9 +31,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const InviteeStepThree = () => {
   const classes = useStyles();
-
+  const history = useHistory();
+  const pageChangeHandler = () => {
+    history.push("/");
+    history.go(0);
+  };
   return (
-    <>
+    <div>
       <DialogTitle id="alert-dialog-slide-title">
         <Box mt={25} ml={10}>
           <Typography variant="h3" className={classes.title}>
@@ -43,17 +47,16 @@ const InviteeStepThree = () => {
         </Box>
       </DialogTitle>
       <DialogActions>
-        <Link to="/" style={{ textDecoration: "none" }}>
-          <Button
-            variant="contained"
-            className={classes.button}
-            color="primary"
-          >
-            NEXT
-          </Button>
-        </Link>
+        <Button
+          variant="contained"
+          className={classes.button}
+          color="primary"
+          onClick={pageChangeHandler}
+        >
+          NEXT
+        </Button>
       </DialogActions>
-    </>
+    </div>
   );
 };
 
