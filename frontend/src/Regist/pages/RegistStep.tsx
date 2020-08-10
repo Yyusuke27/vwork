@@ -7,8 +7,6 @@ import StepFour from "../components/StepFour";
 import StepFinish from "../components/StepFinish";
 import { Switch, Route } from "react-router-dom";
 
-import "../pages/RegistUser.css";
-
 const RegistStep = () => {
   return (
     <>

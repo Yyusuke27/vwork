@@ -6,6 +6,8 @@ import Container from "@material-ui/core/Container";
 import RegistUser from "./RegistUser";
 import RegistInvitee from "./RegistInvitee";
 
+import "./Regist.css";
+
 const Regist = () => {
   return (
     <>

@@ -7,7 +7,6 @@ import Color from "../../shared/util/color";
 import { useHistory } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 
-import "../pages/RegistInvitee.css";
 import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>

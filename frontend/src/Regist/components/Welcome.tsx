@@ -9,7 +9,6 @@ import Color from "../../shared/util/color";
 import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 
-import "../pages/RegistUser.css";
 import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>

@@ -4,7 +4,6 @@ import InviteeWelcome from "../components/InviteeWelcome";
 import InviteeStepOne from "../components/InviteeStepOne";
 import InviteeStepTwo from "../components/InviteeStepTwo";
 import InviteeStepThree from "../components/InviteeStepThree";
-import "./RegistInvitee.css";
 
 const RegistInvitee = () => {
   return (
