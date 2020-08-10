@@ -9,6 +9,8 @@ const Invite = require("../models/Invite");
 const sendEmail = require("../utils/sendEmail");
 const { sendTokenResponse } = require("./auth");
 
+// TODO: registrationがtrueだったら"/"に飛ばす
+
 // @desc registration signup user
 // @route POST /api/v1/registration
 // @access Private
@@ -74,9 +76,8 @@ exports.regist = asyncHandler(async (req, res, next) => {
 
     //メール送信
     // TODO: invitee registのURLをReactページのURLに指定する
-    const inviteeRegistUrl = `${req.protocol}://${req.get(
-      "host"
-    )}/regist/invitee/${inviteToken}`;
+    // TODO: 本番の時はhostを変える
+    const inviteeRegistUrl = `${req.protocol}://localhost:3000/regist/invitee/welcome/?${inviteToken}`;
 
     const message = `招待からの登録はこちらから \n\n ${inviteeRegistUrl}`;
     const html = `<a href="${inviteeRegistUrl}">${invitation.name}さん：招待からの登録はこちらから</a>`;
