@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import clsx from "clsx";
 import AppContext from "../../AppContext";
 
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Home from "./Home";
 import MyTask from "../Task/pages/MyTask";
 import MyAttendance from "../Attendance/pages/MyAttendance";
 import EachProject from "../Project/pages/EachProject";
 import MainNavigation from "../../shared/components/Navigation/MainNavigation";
+
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+
+import { fetchAsyncCurrentUser } from "../../Auth/authSlice";
+import { useDispatch } from "react-redux";
+import { toggleLoading } from "../../appSlice";
 
 const drawerWidth = 240;
 
@@ -47,6 +52,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Dashboard = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(toggleLoading(true));
+    dispatch(fetchAsyncCurrentUser());
+    dispatch(toggleLoading(false));
+  }, [dispatch]);
+
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
     setOpen(true);

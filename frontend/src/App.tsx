@@ -20,7 +20,7 @@ import { selectLoader } from "./appSlice";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
+      zIndex: theme.zIndex.drawer + 1500,
       color: "#fff",
     },
   })
@@ -31,9 +31,13 @@ const App = () => {
   const loading = useSelector(selectLoader);
   return (
     <MuiThemeProvider theme={theme}>
-      <Backdrop className={classes.backdrop} open={loading}>
-        <CircularProgress color="primary" />
-      </Backdrop>
+      {loading ? (
+        <Backdrop className={classes.backdrop} open>
+          <CircularProgress color="primary" />
+        </Backdrop>
+      ) : (
+        ""
+      )}
       <Router>
         <Switch>
           <Route path="/auth">

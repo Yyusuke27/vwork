@@ -32,6 +32,7 @@ export const fetchAsyncSignup = createAsyncThunk(
 export const fetchAsyncCurrentUser = createAsyncThunk(
   "auth/current",
   async () => {
+    // これを各データの処理まえに呼び出す
     const res = await axios.get(`${apiUrl}api/v1/auth/current`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -42,53 +43,68 @@ export const fetchAsyncCurrentUser = createAsyncThunk(
 );
 
 interface AuthState {
-  token: string;
+  token: number | string;
   user: {
-    id: string;
     name: string;
     email: string;
     registration: boolean;
     role: string;
   };
+  workspaceCount: number;
+  workspace: string;
 }
 
 const initialState: AuthState = {
   token: "",
   user: {
-    id: "",
     name: "",
     email: "",
     registration: false,
     role: "",
   },
+  workspaceCount: 0,
+  workspace: "",
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    setWorkspace(state, action) {
+      state.workspace = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncLogin.fulfilled, (state, action) => {
-      state.token = action.payload.token;
       localStorage.setItem("token", action.payload.token);
       if (action.payload.token) {
         console.log("login success");
-        // action.payload.workspaceCount > 1
-        //   ? (window.location.href = "/workspaces")
-        //   : (window.location.href = "/");
+        action.payload.workspaceCount > 1
+          ? (window.location.href = "/workspaces")
+          : (window.location.href = "/");
       }
     });
     builder.addCase(fetchAsyncCurrentUser.fulfilled, (state, action) => {
-      state.user = action.payload.data.user;
+      state.token = localStorage.token;
+      state.user = action.payload.data;
+      state.workspaceCount = localStorage.wc;
+
+      const path = window.location.pathname;
+      if (path === "/auth/login" || path === "/auth/signup") {
+        window.location.href = "/";
+      }
+    });
+    builder.addCase(fetchAsyncCurrentUser.rejected, (state, action) => {
+      const path = window.location.pathname;
+      if (path !== "/auth/login" && path !== "/auth/signup") {
+        window.location.href = "/auth/login";
+      }
     });
     builder.addCase(fetchAsyncSignup.fulfilled, (state, action) => {
-      state.token = action.payload.token;
       localStorage.setItem("token", action.payload.token);
       if (action.payload.token) {
-        console.log("Registration success");
-        // action.payload.workspaceCount > 1
-        //   ? (window.location.href = "/workspaces")
-        //   : (window.location.href = "/");
+        console.log("welcom");
+        window.location.href = "/regist/welcome";
       }
     });
   },
