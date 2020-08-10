@@ -1,5 +1,6 @@
 .registDialog .MuiDialog-paper{
     height: 60% !important;
     width: 60% !important;
-    position: relative;
+    position: relative !important;
+    overflow: hidden !important;
 }

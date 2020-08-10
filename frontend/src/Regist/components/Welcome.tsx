@@ -54,7 +54,7 @@ const Welcome = () => {
         </Box>
       </DialogContent>
       <DialogActions>
-        <Link to="/regist/step" style={{ textDecoration: "none" }}>
+        <Link to="/regist/step/1">
           <Button
             variant="contained"
             className={classes.button}

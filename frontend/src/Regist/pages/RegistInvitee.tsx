@@ -10,16 +10,16 @@ const RegistInvitee = () => {
   return (
     <>
       <Switch>
-        <Route path="/regist/regist_invitee/welcome">
+        <Route path="/regist/invitee/welcome">
           <InviteeWelcome />
         </Route>
-        <Route path="/regist/regist_invitee/step_one">
+        <Route path="/regist/invitee/step_one">
           <InviteeStepOne />
         </Route>
-        <Route path="/regist/regist_invitee/step_two">
+        <Route path="/regist/invitee/step_two">
           <InviteeStepTwo />
         </Route>
-        <Route path="/regist/regist_invitee/step_three">
+        <Route path="/regist/invitee/step_three">
           <InviteeStepThree />
         </Route>
       </Switch>

@@ -14,10 +14,10 @@ const Regist = () => {
         <Container maxWidth="md">
           <Router>
             <Switch>
-              <Route path="/regist/regist_user">
+              <Route path="/regist">
                 <RegistUser />
               </Route>
-              <Route path="/regist/regist_invitee">
+              <Route path="/regist/invitee">
                 <RegistInvitee />
               </Route>
             </Switch>
