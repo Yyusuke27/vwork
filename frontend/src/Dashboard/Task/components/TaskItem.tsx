@@ -1,5 +1,4 @@
-import React, { FC, useState } from "react";
-import Backdrop from "@material-ui/core/Backdrop";
+import React, { FC, useContext } from "react";
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -10,9 +9,9 @@ import Typography from "@material-ui/core/Typography";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import Avatar from "@material-ui/core/Avatar";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import Drawer from "@material-ui/core/Drawer";
+import AppContext from "../../../AppContext";
 
-const drawerWidth = "55%";
+const drawerWidth = "50%";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -57,18 +56,12 @@ const TaskItem: FC<TaskItemProps> = ({
   iconType = "",
 }) => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+  const { handleOpenHandler } = useContext(AppContext);
 
   return (
     <>
       <Card className={classes.root}>
-        <CardActionArea onClick={handleDrawerOpen}>
+        <CardActionArea onClick={handleOpenHandler}>
           <Grid
             container
             direction="row"
@@ -121,17 +114,6 @@ const TaskItem: FC<TaskItemProps> = ({
           </Grid>
         </CardActionArea>
       </Card>
-      <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
-        <Drawer
-          className={classes.drawer}
-          variant="persistent"
-          anchor="right"
-          open={open}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        ></Drawer>
-      </Backdrop>
     </>
   );
 };

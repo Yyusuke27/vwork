@@ -22,6 +22,9 @@ interface AppContextInterface {
   OpenProfile: () => void;
   CloseProfile: () => void;
   openProfile: boolean;
+  handleOpenHandler: () => void;
+  handleCloseHandler: () => void;
+  openDrawer: boolean;
 }
 
 const AppContext = createContext<AppContextInterface | any>(null);

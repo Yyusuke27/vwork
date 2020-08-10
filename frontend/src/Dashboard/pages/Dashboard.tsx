@@ -2,16 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import clsx from "clsx";
 import AppContext from "../../AppContext";
-
 import Home from "./Home";
 import MyTask from "../Task/pages/MyTask";
 import MyAttendance from "../Attendance/pages/MyAttendance";
 import EachProject from "../Project/pages/EachProject";
 import MainNavigation from "../../shared/components/Navigation/MainNavigation";
-
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-
 import { fetchAsyncCurrentUser } from "../../Auth/authSlice";
 import { useDispatch } from "react-redux";
 import { toggleLoading } from "../../appSlice";
@@ -19,6 +16,7 @@ import NewTaskDrawer from "../Task/components/NewTaskDrawer";
 import NewProjectDrawer from "../Project/components/NewProjectDrawer";
 import NewProjectMemberDrawer from "../Project/components/NewProjectMemberDrawer";
 import NewProfileDrawer from "../Project/components/NewProfileDrawer";
+import NewTaskCardClickedDrawer from "../Task/components/NewTaskCardClickedDrawer";
 
 const drawerWidth = 240;
 
@@ -63,6 +61,7 @@ const Dashboard = () => {
     dispatch(toggleLoading(false));
   }, [dispatch]);
 
+  // メニューアイコンをクリックした時の処理
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -125,6 +124,15 @@ const Dashboard = () => {
     setOpenProfile(false);
   };
 
+  // タスク関連のカードをクリックした時に表示されるドロワーを出すための処理
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const handleOpenHandler = () => {
+    setOpenDrawer(true);
+  };
+  const handleCloseHandler = () => {
+    setOpenDrawer(false);
+  };
+
   return (
     <div className={classes.root}>
       <AppContext.Provider
@@ -150,6 +158,9 @@ const Dashboard = () => {
           OpenProfile,
           CloseProfile,
           openProfile,
+          handleOpenHandler,
+          handleCloseHandler,
+          openDrawer,
         }}
       >
         <MainNavigation />
@@ -164,6 +175,7 @@ const Dashboard = () => {
           <NewProjectDrawer />
           <NewProjectMemberDrawer />
           <NewProfileDrawer />
+          <NewTaskCardClickedDrawer />
           <Switch>
             <Route path="/" exact>
               <Home />
