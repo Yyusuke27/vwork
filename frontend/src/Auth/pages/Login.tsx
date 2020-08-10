@@ -96,7 +96,9 @@ const Login = () => {
                 email: Yup.string()
                   .email("有効なメールアドレスを入力してください。")
                   .required("emailは必須です。"),
-                password: Yup.string().required("パスワードは必須です。"),
+                password: Yup.string()
+                  .min(6, "6字以上入力してください")
+                  .required("パスワードは必須です。"),
               })}
               onSubmit={async (value) => {
                 dispatch(toggleLoading(true));
