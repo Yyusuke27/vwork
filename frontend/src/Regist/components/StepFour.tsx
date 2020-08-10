@@ -68,6 +68,7 @@ const StepFour = () => {
         initialValues={{ name: "", description: "" }}
         validationSchema={Yup.object().shape({
           name: Yup.string().required("プロジェクト名は必須です。"),
+          description: Yup.string().required("プロジェクト詳細は必須です。"),
         })}
         onSubmit={async (value) => {
           // TODO: workspaceが空だったら最初からやり直し

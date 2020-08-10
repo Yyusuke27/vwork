@@ -1,4 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+
+import { fetchAsyncInvitation } from "../registSlice";
+
 import Button from "@material-ui/core/Button";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -6,10 +11,11 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Color from "../../shared/util/color";
-import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
-
 import { Box } from "@material-ui/core";
+import { toggleLoading } from "../../appSlice";
+
+// TODO: signup画面にリダイレクトされる
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,6 +46,17 @@ const useStyles = makeStyles((theme: Theme) =>
 const InviteeWelcome = () => {
   const classes = useStyles();
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    localStorage.clear();
+    const query = window.location.search.slice(1);
+    localStorage.setItem("Itoken", query);
+    dispatch(toggleLoading(true));
+    dispatch(fetchAsyncInvitation(query));
+    dispatch(toggleLoading(false));
+  }, [dispatch]);
+
   return (
     <>
       <DialogTitle id="alert-dialog-slide-title">
@@ -53,20 +70,14 @@ const InviteeWelcome = () => {
       <DialogContent>
         <Box mt={2}>
           <DialogContentText id="alert-dialog-slide-description">
-            <Typography variant="h5">
-              これからVWORKを活用するための設定をして頂きます。
-            </Typography>
-            <Typography variant="h5">
-              「NEXT」を押して次のステップへ進んで下さい。
-            </Typography>
+            これからVWORKを活用するための設定をして頂きます。
+            <br />
+            「NEXT」を押して次のステップへ進んで下さい。
           </DialogContentText>
         </Box>
       </DialogContent>
       <DialogActions>
-        <Link
-          to="/regist/regist_invitee/step_one"
-          style={{ textDecoration: "none" }}
-        >
+        <Link to="/regist/invitee/step1" style={{ textDecoration: "none" }}>
           <Button
             variant="contained"
             className={classes.button}

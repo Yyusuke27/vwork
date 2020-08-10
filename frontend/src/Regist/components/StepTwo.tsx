@@ -60,6 +60,7 @@ const StepTwo = () => {
         initialValues={{ name: "", position: "" }}
         validationSchema={Yup.object().shape({
           name: Yup.string().required("氏名は必須です。"),
+          position: Yup.string().required("役職・担当は必須です。"),
         })}
         onSubmit={(value) => {
           // TODO: workspaceが空だったら最初からやり直し

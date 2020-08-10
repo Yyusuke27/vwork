@@ -4,6 +4,7 @@ import { RootState } from "../store";
 
 const apiUrl = "http://localhost:5000/";
 const token = localStorage.token;
+const inviteeToken = localStorage.Itoken;
 
 interface RegistType {
   workspace: {
@@ -23,6 +24,16 @@ interface RegistType {
   }[];
 }
 
+interface RegistInviteeType {
+  token: string;
+  user: {
+    name: string;
+    email: string;
+    position: string;
+    password: string;
+  };
+}
+
 export const fetchAsyncRegistUser = createAsyncThunk(
   "regist/user",
   async (regist: RegistType) => {
@@ -38,13 +49,30 @@ export const fetchAsyncRegistUser = createAsyncThunk(
 
 export const fetchAsyncInvitation = createAsyncThunk(
   "regist/invitation",
-  async () => {
-    // これを各データの処理まえに呼び出す
-    const res = await axios.get(`${apiUrl}api/v1/auth/current`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  async (queryToken: string) => {
+    console.log(queryToken);
+    if (!queryToken) {
+      queryToken = inviteeToken;
+    }
+    const res = await axios.get(
+      `${apiUrl}api/v1/registration/invitee/${queryToken}`
+    );
+    return res.data;
+  }
+);
+
+export const fetchAsyncRegistInvitee = createAsyncThunk(
+  "regist/invitee",
+  async (regist: RegistInviteeType) => {
+    const res = await axios.post(
+      `${apiUrl}api/v1/registration/invitee/`,
+      regist,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     return res.data;
   }
 );
@@ -69,6 +97,7 @@ interface RegistState {
   };
   invite: {
     token: string;
+    workspace: string;
     user: {
       name: string;
       email: string;
@@ -95,6 +124,7 @@ const initialState: RegistState = {
   },
   invite: {
     token: "",
+    workspace: "",
     user: {
       name: "",
       email: "",
@@ -120,13 +150,33 @@ const registSlice = createSlice({
     editInvitations(state, action) {
       state.regist.invitations = action.payload;
     },
+    editInviteToken(state, action) {
+      state.invite.token = action.payload;
+    },
+    editInviteUser(state, action) {
+      state.invite.user = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncRegistUser.fulfilled, (state, action) => {
-      window.location.href = "/regist/step/5";
+      window.location.href = "/";
     });
     builder.addCase(fetchAsyncRegistUser.rejected, (state, action) => {
       window.location.href = "/regist/step/1";
+    });
+    builder.addCase(fetchAsyncInvitation.fulfilled, (state, action) => {
+      state.invite.workspace = action.payload.workspace;
+      state.invite.user = action.payload.data;
+    });
+    builder.addCase(fetchAsyncInvitation.rejected, (state, action) => {
+      window.location.href = "/auth/signup";
+    });
+    builder.addCase(fetchAsyncRegistInvitee.fulfilled, (state, action) => {
+      localStorage.setItem("token", action.payload.token);
+      window.location.href = "/";
+    });
+    builder.addCase(fetchAsyncRegistInvitee.rejected, (state, action) => {
+      window.location.href = "/regist/invitee/step1";
     });
   },
 });
@@ -136,8 +186,15 @@ export const {
   editInvitations,
   editProject,
   editUser,
+  editInviteToken,
+  editInviteUser,
 } = registSlice.actions;
 
 export const selectRegist = (state: RootState) => state.regist.regist;
+export const selectInviteUser = (state: RootState) => state.regist.invite.user;
+export const selectInviteUserMail = (state: RootState) =>
+  state.regist.invite.user.email;
+export const selectInviteUserName = (state: RootState) =>
+  state.regist.invite.user.name;
 
 export default registSlice.reducer;
