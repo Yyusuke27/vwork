@@ -42,9 +42,6 @@ const useStyles = makeStyles((theme: Theme) =>
         duration: theme.transitions.duration.enteringScreen,
       }),
     },
-    menuButton: {
-      marginRight: "2%",
-    },
     hide: {
       display: "none",
     },
@@ -127,6 +124,16 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
     setMenu(null);
   };
 
+  const [AvaterMenu, setAvaterMenu] = React.useState<null | HTMLElement>(null);
+
+  const HandleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAvaterMenu(event.currentTarget);
+  };
+
+  const HandleClose = () => {
+    setAvaterMenu(null);
+  };
+
   const [openProject, setOpenProject] = useState(false);
   const OpenProject = () => {
     setOpenProject(true);
@@ -141,16 +148,6 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
   };
   const CloseMember = () => {
     setOpenMember(false);
-  };
-
-  const [AvaterMenu, setAvaterMenu] = React.useState<null | HTMLElement>(null);
-
-  const HandleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAvaterMenu(event.currentTarget);
-  };
-
-  const HandleClose = () => {
-    setAvaterMenu(null);
   };
 
   const [openProfile, setOpenProfile] = useState(false);
@@ -177,7 +174,7 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
               aria-label="open drawer"
               onClick={handleDrawerOpen}
               edge="start"
-              className={clsx(classes.menuButton, open && classes.hide)}
+              className={open && classes.hide}
             >
               <MenuIcon className={classes.menuIcon} />
             </IconButton>
