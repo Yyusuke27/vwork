@@ -15,6 +15,10 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { fetchAsyncCurrentUser } from "../../Auth/authSlice";
 import { useDispatch } from "react-redux";
 import { toggleLoading } from "../../appSlice";
+import NewTaskDrawer from "../Task/components/NewTaskDrawer";
+import NewProjectDrawer from "../Project/components/NewProjectDrawer";
+import NewProjectMemberDrawer from "../Project/components/NewProjectMemberDrawer";
+import NewProfileDrawer from "../Project/components/NewProfileDrawer";
 
 const drawerWidth = 240;
 
@@ -67,12 +71,58 @@ const Dashboard = () => {
     setOpen(false);
   };
 
+  // アドアイコンをクリックした時の処理
+  const [menu, setMenu] = React.useState<null | HTMLElement>(null);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setMenu(event.currentTarget);
+  };
+  const handleClose = () => {
+    setMenu(null);
+  };
+
+  // アバターアイコンをクリックした時の処理
+  const [AvatarMenu, setAvatarMenu] = React.useState<null | HTMLElement>(null);
+  const HandleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAvatarMenu(event.currentTarget);
+  };
+  const HandleClose = () => {
+    setAvatarMenu(null);
+  };
+
+  // タスク追加をクリックした時の処理
   const [openTask, setOpenTask] = useState(false);
   const OpenTask = () => {
     setOpenTask(true);
   };
   const CloseTask = () => {
     setOpenTask(false);
+  };
+
+  // プロジェクト追加をクリックした時の処理
+  const [openProject, setOpenProject] = useState(false);
+  const OpenProject = () => {
+    setOpenProject(true);
+  };
+  const CloseProject = () => {
+    setOpenProject(false);
+  };
+
+  // メンバー招待をクリックした時の処理
+  const [openMember, setOpenMember] = useState(false);
+  const OpenMember = () => {
+    setOpenMember(true);
+  };
+  const CloseMember = () => {
+    setOpenMember(false);
+  };
+
+  // プロフィール設定をクリックした時の処理
+  const [openProfile, setOpenProfile] = useState(false);
+  const OpenProfile = () => {
+    setOpenProfile(true);
+  };
+  const CloseProfile = () => {
+    setOpenProfile(false);
   };
 
   return (
@@ -82,9 +132,24 @@ const Dashboard = () => {
           handleDrawerOpen,
           handleDrawerClose,
           open,
+          handleClick,
+          handleClose,
+          menu,
+          HandleClick,
+          HandleClose,
+          AvatarMenu,
           OpenTask,
           CloseTask,
           openTask,
+          OpenProject,
+          CloseProject,
+          openProject,
+          OpenMember,
+          CloseMember,
+          openMember,
+          OpenProfile,
+          CloseProfile,
+          openProfile,
         }}
       >
         <MainNavigation />
@@ -95,6 +160,10 @@ const Dashboard = () => {
           })}
         >
           <div className={classes.drawerHeader} />
+          <NewTaskDrawer />
+          <NewProjectDrawer />
+          <NewProjectMemberDrawer />
+          <NewProfileDrawer />
           <Switch>
             <Route path="/" exact>
               <Home />

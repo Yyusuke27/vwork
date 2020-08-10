@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const MyProject = () => {
   const classes = useStyles();
   // @ts-ignore
-  const { OpenTask, CloseTask, openTask } = useContext(AppContext);
+  const { OpenProject } = useContext(AppContext);
   return (
     <>
       <Box borderBottom={1} mt={10} ml={2} mb={2} className={classes.title}>
@@ -56,23 +56,8 @@ const MyProject = () => {
           <Grid item>
             <Typography>マイプロジェクト</Typography>
           </Grid>
-          <Backdrop
-            className={classes.backdrop}
-            open={openTask}
-            onClick={CloseTask}
-          >
-            <Drawer
-              className={classes.drawer}
-              variant="persistent"
-              anchor="right"
-              open={openTask}
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-            ></Drawer>
-          </Backdrop>
           <Grid item>
-            <IconButton className={classes.iconStyle} onClick={OpenTask}>
+            <IconButton className={classes.iconStyle} onClick={OpenProject}>
               <AddIcon className={classes.icon} />
             </IconButton>
           </Grid>

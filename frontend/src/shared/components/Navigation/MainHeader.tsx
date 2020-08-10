@@ -113,50 +113,20 @@ interface MainHeaderProps {
 const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
   const classes = useStyles();
   // @ts-ignore
-  const { handleDrawerOpen, open, OpenTask, CloseTask, openTask } = useContext(
-    AppContext
-  );
-  const [menu, setMenu] = React.useState<null | HTMLElement>(null);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setMenu(event.currentTarget);
-  };
-  const handleClose = () => {
-    setMenu(null);
-  };
-
-  const [AvaterMenu, setAvaterMenu] = React.useState<null | HTMLElement>(null);
-
-  const HandleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAvaterMenu(event.currentTarget);
-  };
-
-  const HandleClose = () => {
-    setAvaterMenu(null);
-  };
-
-  const [openProject, setOpenProject] = useState(false);
-  const OpenProject = () => {
-    setOpenProject(true);
-  };
-  const CloseProject = () => {
-    setOpenProject(false);
-  };
-
-  const [openMember, setOpenMember] = useState(false);
-  const OpenMember = () => {
-    setOpenMember(true);
-  };
-  const CloseMember = () => {
-    setOpenMember(false);
-  };
-
-  const [openProfile, setOpenProfile] = useState(false);
-  const OpenProfile = () => {
-    setOpenProfile(true);
-  };
-  const CloseProfile = () => {
-    setOpenProfile(false);
-  };
+  const {
+    open,
+    handleDrawerOpen,
+    handleClick,
+    HandleClick,
+    handleClose,
+    menu,
+    OpenTask,
+    OpenProject,
+    OpenMember,
+    AvatarMenu,
+    HandleClose,
+    OpenProfile,
+  } = useContext(AppContext);
 
   return (
     <div className={classes.root}>
@@ -174,7 +144,7 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
               aria-label="open drawer"
               onClick={handleDrawerOpen}
               edge="start"
-              className={open && classes.hide}
+              className={clsx(open && classes.hide)}
             >
               <MenuIcon className={classes.menuIcon} />
             </IconButton>
@@ -229,77 +199,19 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
         open={Boolean(menu)}
         onClick={handleClose}
       >
-        <Backdrop
-          className={classes.backdrop}
-          open={openTask}
-          onClick={CloseTask}
-        >
-          <Drawer
-            className={classes.drawer}
-            variant="persistent"
-            anchor="right"
-            open={openTask}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          ></Drawer>
-        </Backdrop>
         <StyledMenuItem onClick={OpenTask}>タスク追加</StyledMenuItem>
-        <Backdrop
-          className={classes.backdrop}
-          open={openProject}
-          onClick={CloseProject}
-        >
-          <Drawer
-            className={classes.drawer}
-            variant="persistent"
-            anchor="right"
-            open={openProject}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          ></Drawer>
-        </Backdrop>
+
         <StyledMenuItem onClick={OpenProject}>プロジェクト追加</StyledMenuItem>
-        <Backdrop
-          className={classes.backdrop}
-          open={openMember}
-          onClick={CloseMember}
-        >
-          <Drawer
-            className={classes.drawer}
-            variant="persistent"
-            anchor="right"
-            open={openMember}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          ></Drawer>
-        </Backdrop>
+
         <StyledMenuItem onClick={OpenMember}>メンバー招待</StyledMenuItem>
       </StyledMenu>
       <StyledMenu
         id="customized-menu"
-        anchorEl={AvaterMenu}
+        anchorEl={AvatarMenu}
         keepMounted
-        open={Boolean(AvaterMenu)}
+        open={Boolean(AvatarMenu)}
         onClick={HandleClose}
       >
-        <Backdrop
-          className={classes.backdrop}
-          open={openProfile}
-          onClick={CloseProfile}
-        >
-          <Drawer
-            className={classes.drawer}
-            variant="persistent"
-            anchor="right"
-            open={openProfile}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          ></Drawer>
-        </Backdrop>
         <StyledMenuItem onClick={OpenProfile}>プロフィール設定</StyledMenuItem>
         <Link
           to="/workspaces"
