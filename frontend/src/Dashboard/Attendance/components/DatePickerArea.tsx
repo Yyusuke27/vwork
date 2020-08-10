@@ -3,6 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles({
   boxStyle: {
@@ -20,23 +21,21 @@ const DatePickerArea = () => {
   const handleCalendarOpen = () => console.log("Calendar opened");
 
   return (
-    <Grid
-      container
-      direction="row"
-      justify="flex-end"
-      alignItems="center"
-      style={{ marginTop: 100 }}
-    >
-      <Grid item>
-        <DatePicker
-          selected={date}
-          onChange={() => setDate(date)}
-          onCalendarClose={handleCalendarClose}
-          onCalendarOpen={handleCalendarOpen}
-          className={classes.boxStyle}
-        />
-      </Grid>
-    </Grid>
+    <>
+      <Box mt={15}>
+        <Grid container direction="row" justify="flex-end" alignItems="center">
+          <Grid item>
+            <DatePicker
+              selected={date}
+              onChange={() => setDate(date)}
+              onCalendarClose={handleCalendarClose}
+              onCalendarOpen={handleCalendarOpen}
+              className={classes.boxStyle}
+            />
+          </Grid>
+        </Grid>
+      </Box>
+    </>
   );
 };
 

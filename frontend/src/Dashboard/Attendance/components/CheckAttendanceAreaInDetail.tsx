@@ -2,11 +2,11 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-
 import Card from "@material-ui/core/Card";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Color from "../../../shared/util/color";
 import TaskInDetailList from "../../Task/components/TaskInDetailItem";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,10 +17,8 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: 25,
       width: "60%",
     },
-
     title: {
       fontSize: 20,
-      // fontWeight:
     },
   })
 );
@@ -30,42 +28,50 @@ const CheckAttendanceAreaInDetail = () => {
   return (
     <>
       <Container maxWidth="md">
-        <Grid container direction="column" style={{ marginTop: "7%" }}>
-          <Grid item>DatePickerと連動</Grid>
-          <Grid item>
-            <Card className={classes.root}>
-              <Grid
-                container
-                direction="column"
-                justify="space-between"
-                className={classes.title}
-              >
-                <Grid item style={{ marginTop: "4.5%", marginLeft: "3%" }}>
-                  出社:{" "}
+        <Box mt={6}>
+          <Grid container direction="column">
+            <Grid item>DatePickerと連動</Grid>
+            <Grid item>
+              <Card className={classes.root}>
+                <Grid
+                  container
+                  direction="column"
+                  justify="space-between"
+                  className={classes.title}
+                >
+                  <Box mt={3} ml={3}>
+                    <Grid item>出社:</Grid>
+                  </Box>
+                  <Box mt={3} ml={3}>
+                    <Grid item>休憩:</Grid>
+                  </Box>
+                  <Box mt={3} ml={3}>
+                    <Grid item>退社:</Grid>
+                  </Box>
                 </Grid>
-                <Grid item style={{ marginTop: "4.5%", marginLeft: "3%" }}>
-                  休憩:{" "}
-                </Grid>
-                <Grid item style={{ marginTop: "4.5%", marginLeft: "3%" }}>
-                  退社:{" "}
-                </Grid>
-              </Grid>
-            </Card>
-          </Grid>
-          <Grid item style={{ marginTop: "5%" }}>
-            <Grid container>
-              <Grid item style={{ marginRight: "2%" }}>
-                <CheckCircleIcon />
-              </Grid>
-              <Grid item className={classes.title}>
-                対応タスク
-              </Grid>
+              </Card>
             </Grid>
+            <Box mt={10}>
+              <Grid item>
+                <Grid container direction="row" alignItems="center">
+                  <Box mr={2}>
+                    <Grid item>
+                      <CheckCircleIcon />
+                    </Grid>
+                  </Box>
+                  <Grid item className={classes.title}>
+                    対応タスク
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Box>
+            <Box mt={3}>
+              <Grid item>
+                <TaskInDetailList title="UI画面の実装" />
+              </Grid>
+            </Box>
           </Grid>
-          <Grid item>
-            <TaskInDetailList title="UI画面の実装" />
-          </Grid>
-        </Grid>
+        </Box>
       </Container>
     </>
   );

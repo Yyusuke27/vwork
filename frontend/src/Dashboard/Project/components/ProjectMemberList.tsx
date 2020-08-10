@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     closeIcon: {
       marginTop: "2%",
+      padding: 0,
     },
     button: {
       marginTop: "30%",

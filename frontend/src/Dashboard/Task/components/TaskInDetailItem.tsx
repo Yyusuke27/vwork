@@ -10,6 +10,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Color from "../../../shared/util/color";
 import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
 import TextField from "@material-ui/core/TextField";
+import { Box } from "@material-ui/core";
 
 const drawerWidth = "55%";
 
@@ -27,11 +28,15 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       fontSize: 20,
     },
-    pos: {
-      marginBottom: 12,
+    projectName: {
+      color: Color.VWORK_BLUE,
     },
     color: {
       color: Color.VWORK_RED,
+    },
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
     },
     drawer: {
       width: drawerWidth,
@@ -39,18 +44,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     drawerPaper: {
       width: drawerWidth,
-    },
-    drawerHeader: {
-      display: "flex",
-      alignItems: "center",
-      padding: theme.spacing(0, 1),
-      // necessary for content to be below app bar
-      ...theme.mixins.toolbar,
-      justifyContent: "flex-end",
-    },
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: "#fff",
     },
   })
 );
@@ -88,50 +81,52 @@ const TaskInDetailItem: FC<TaskInDetailItemProps> = ({ title = "" }) => {
                     alignItems="center"
                     style={{ width: 200 }}
                   >
-                    <Grid item style={{ marginLeft: "5%", marginRight: "4%" }}>
-                      <CheckCircleIcon />
-                    </Grid>
+                    <Box ml={1} mr={2}>
+                      <Grid item>
+                        <CheckCircleIcon />
+                      </Grid>
+                    </Box>
                     <Grid item>
                       <Typography className={classes.title}>{title}</Typography>
                     </Grid>
                   </Grid>
                 </Grid>
-                <Grid
-                  item
-                  style={{ marginRight: "5%", color: Color.VWORK_BLUE }}
-                >
-                  <Typography>プロジェクト名</Typography>
-                </Grid>
+                <Box mr={3}>
+                  <Grid item className={classes.projectName}>
+                    <Typography>プロジェクト名</Typography>
+                  </Grid>
+                </Box>
               </Grid>
             </CardActionArea>
           </Card>
         </Grid>
         <Grid item>
-          <Grid
-            container
-            direction="column"
-            justify="flex-start"
-            style={{ marginTop: 25 }}
-          >
-            <Grid item>
-              <Grid container direction="row">
-                <Grid item>
-                  <ChatBubbleIcon style={{ marginRight: 20 }} />
-                </Grid>
-                <Grid item className={classes.title}>
-                  振り返り
+          <Grid container direction="column" justify="flex-start">
+            <Box mt={5}>
+              <Grid item>
+                <Grid container direction="row">
+                  <Box mr={2}>
+                    <Grid item>
+                      <ChatBubbleIcon />
+                    </Grid>
+                  </Box>
+                  <Grid item className={classes.title}>
+                    振り返り
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-            <Grid item style={{ marginTop: "1%" }}>
-              <TextField
-                id="outlined-multiline-static"
-                multiline
-                rows={4}
-                variant="outlined"
-                style={{ width: "100%" }}
-              />
-            </Grid>
+            </Box>
+            <Box mt={1}>
+              <Grid item>
+                <TextField
+                  id="outlined-multiline-static"
+                  multiline
+                  rows={4}
+                  variant="outlined"
+                  style={{ width: "100%" }}
+                />
+              </Grid>
+            </Box>
           </Grid>
         </Grid>
       </Grid>

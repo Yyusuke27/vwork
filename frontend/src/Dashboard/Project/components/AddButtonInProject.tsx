@@ -6,19 +6,20 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Color from "../../../shared/util/color";
 import Drawer from "@material-ui/core/Drawer";
 import Backdrop from "@material-ui/core/Backdrop";
+import { Box } from "@material-ui/core";
 
 const drawerWidth = "55%";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    margin: {
-      margin: theme.spacing(1),
-    },
     button: {
       backgroundColor: Color.VWORK_DARK_BLUE,
       width: 150,
       fontSize: 15,
-      marginTop: 35,
+    },
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
     },
     drawer: {
       width: drawerWidth,
@@ -26,10 +27,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     drawerPaper: {
       width: drawerWidth,
-    },
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: "#fff",
     },
   })
 );
@@ -53,15 +50,17 @@ const AddButtonInProject = () => {
         alignItems="center"
       >
         <Grid item>
-          <Button
-            variant="contained"
-            color="secondary"
-            className={classes.button}
-            startIcon={<AddIcon />}
-            onClick={handleDrawerOpen}
-          >
-            タスクを追加
-          </Button>
+          <Box mt={7}>
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.button}
+              startIcon={<AddIcon />}
+              onClick={handleDrawerOpen}
+            >
+              タスクを追加
+            </Button>
+          </Box>
         </Grid>
       </Grid>
       <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
