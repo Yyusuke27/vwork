@@ -93,6 +93,11 @@ const authSlice = createSlice({
       if (path === "/auth/login" || path === "/auth/signup") {
         window.location.href = "/";
       }
+
+      //　登録済のユーザーは登録ステップの画面にランディングできない
+      if (state.user.registration && path.includes("/regist")) {
+        window.location.href = "/";
+      }
     });
     builder.addCase(fetchAsyncCurrentUser.rejected, (state, action) => {
       const path = window.location.pathname;
@@ -112,5 +117,7 @@ const authSlice = createSlice({
 
 export const selectUser = (state: RootState) => state.auth.user;
 export const selectToken = (state: RootState) => state.auth.token;
+export const selectUserRegistration = (state: RootState) =>
+  state.auth.user.registration;
 
 export default authSlice.reducer;
