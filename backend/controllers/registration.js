@@ -14,6 +14,7 @@ const { sendTokenResponse } = require("./auth");
 // @access Private
 exports.regist = asyncHandler(async (req, res, next) => {
   // TODO: profileとinviteをuserと紐付ける virtualで行けるか？
+  // TODO: lastAccessWorkspaceにworkspaceをいれる
   const newWorkspace = {
     ...req.body.workspace,
     active: true,
@@ -24,6 +25,7 @@ exports.regist = asyncHandler(async (req, res, next) => {
 
   const newUser = {
     name: req.body.user.name,
+    lastAccessWorkspace: workspace._id,
     registration: true,
   };
   const updatedUser = await User.findByIdAndUpdate(req.user.id, newUser, {
@@ -144,11 +146,6 @@ exports.getInviteeUserInfo = asyncHandler(async (req, res, next) => {
 exports.registInvitee = asyncHandler(async (req, res, next) => {
   // TODO: workspaceのメンバーに追加する処理が必要
   // 招待者の登録作業
-  const inviteUser = {
-    name: req.body.user.name,
-    email: req.body.user.email,
-    registration: true,
-  };
 
   const invitationToken = makeTokenHash(req.body.token);
 
@@ -157,6 +154,13 @@ exports.registInvitee = asyncHandler(async (req, res, next) => {
   if (!invite) {
     return next(new ErrorResponse("無効なトークンです", 400));
   }
+
+  const inviteUser = {
+    name: req.body.user.name,
+    email: req.body.user.email,
+    lastAccessWorkspace: invite.workspace,
+    registration: true,
+  };
 
   const user = await User.findByIdAndUpdate(invite.user, inviteUser, {
     new: true,

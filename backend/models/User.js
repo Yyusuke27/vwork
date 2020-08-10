@@ -34,6 +34,7 @@ const UserSchema = new mongoose.Schema(
       minlength: 6,
       select: false,
     },
+    lastAccessWorkspace: mongoose.Schema.ObjectId,
     resetPasswordToken: String,
     resetPasswordExpire: Date,
     positions: [mongoose.Schema.ObjectId],

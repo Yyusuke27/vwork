@@ -213,3 +213,8 @@ exports.inviteNewMembers = asyncHandler(async (req, res, next) => {
     data: "招待が完了しました",
   });
 });
+
+// @desc select workspace
+// @route POST /api/v1/workspaces/:workspaceId/select
+// @access Private
+// TODO: lastAccessWorkspaceをupdateする

@@ -65,7 +65,7 @@ exports.login = asyncHandler(async (req, res, next) => {
 // @access Private
 exports.currentUser = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user.id).select(
-    "name email role registration"
+    "name email role registration lastAccessWorkspace"
   );
 
   res.status(200).json({
