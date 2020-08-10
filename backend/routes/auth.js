@@ -3,6 +3,7 @@ const {
   signup,
   login,
   currentUser,
+  logout,
   forgotPassword,
   resetPassword,
 } = require("../controllers/auth");
@@ -16,6 +17,8 @@ router.post("/signup", signup);
 router.post("/login", login);
 
 router.get("/current", protect, currentUser);
+
+router.get("/logout", logout);
 
 router.post("/forgotpassword", forgotPassword);
 
