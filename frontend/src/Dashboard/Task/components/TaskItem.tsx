@@ -11,8 +11,6 @@ import Avatar from "@material-ui/core/Avatar";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import AppContext from "../../../AppContext";
 
-const drawerWidth = "50%";
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -27,17 +25,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       fontSize: 20,
-    },
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: "#fff",
-    },
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-    drawerPaper: {
-      width: drawerWidth,
     },
   })
 );

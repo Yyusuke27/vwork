@@ -17,6 +17,7 @@ import NewProjectDrawer from "../Project/components/NewProjectDrawer";
 import NewProjectMemberDrawer from "../Project/components/NewProjectMemberDrawer";
 import NewProfileDrawer from "../Project/components/NewProfileDrawer";
 import NewTaskCardClickedDrawer from "../Task/components/NewTaskCardClickedDrawer";
+import NewTaskAddDrawer from "../Task/components/NewTaskAddDrawer";
 
 const drawerWidth = 240;
 
@@ -133,6 +134,15 @@ const Dashboard = () => {
     setOpenDrawer(false);
   };
 
+  // ダッシュボードのタスクを追加ボタンをクリックした時の処理
+  const [addButton, setAddButton] = useState(false);
+  const handleOpenAddButton = () => {
+    setAddButton(true);
+  };
+  const handleCloseAddButton = () => {
+    setAddButton(false);
+  };
+
   return (
     <div className={classes.root}>
       <AppContext.Provider
@@ -161,6 +171,9 @@ const Dashboard = () => {
           handleOpenHandler,
           handleCloseHandler,
           openDrawer,
+          handleOpenAddButton,
+          handleCloseAddButton,
+          addButton,
         }}
       >
         <MainNavigation />
@@ -176,6 +189,7 @@ const Dashboard = () => {
           <NewProjectMemberDrawer />
           <NewProfileDrawer />
           <NewTaskCardClickedDrawer />
+          <NewTaskAddDrawer />
           <Switch>
             <Route path="/" exact>
               <Home />
