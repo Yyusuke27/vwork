@@ -11,7 +11,7 @@ const UserSchema = new mongoose.Schema(
       required: [true, "メールアドレスを入力してください"],
       unique: true,
       match: [
-        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+        /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
         "有効なメールアドレスを入力してください",
       ],
     },

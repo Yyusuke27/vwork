@@ -63,7 +63,7 @@ function getStepComponent(stepIndex: number) {
   }
 }
 
-const StepBoard = () => {
+const RegistStep = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
@@ -121,4 +121,4 @@ const StepBoard = () => {
   );
 };
 
-export default StepBoard;
+export default RegistStep;

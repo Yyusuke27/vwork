@@ -38,7 +38,7 @@ const Welcome = () => {
     <>
       <DialogTitle id="alert-dialog-slide-title">
         <Box mt={5}>
-          <Typography variant="h2">
+          <Typography variant="h2" component="h2">
             <span className={classes.span}>VWORK</span>
             へようこそ
           </Typography>
@@ -47,20 +47,14 @@ const Welcome = () => {
       <DialogContent>
         <Box mt={2}>
           <DialogContentText id="alert-dialog-slide-description">
-            <Typography variant="h5">
-              これからVWORKを活用するための設定をして頂きます。
-            </Typography>
-            <Typography variant="h5">
-              「NEXT」を押して次のステップへ進んで下さい。
-            </Typography>
+            これからVWORKを活用するための設定をして頂きます。
+            <br />
+            「NEXT」を押して次のステップへ進んで下さい。
           </DialogContentText>
         </Box>
       </DialogContent>
       <DialogActions>
-        <Link
-          to="/regist/regist_user/step_board"
-          style={{ textDecoration: "none" }}
-        >
+        <Link to="/regist/step" style={{ textDecoration: "none" }}>
           <Button
             variant="contained"
             className={classes.button}
