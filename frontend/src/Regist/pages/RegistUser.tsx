@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import Welcome from "../components/Welcome";
 import RegistStep from "./RegistStep";
-import "./RegistUser.css";
 import { useDispatch } from "react-redux";
 import { toggleLoading } from "../../appSlice";
 import { fetchAsyncCurrentUser } from "../../Auth/authSlice";
