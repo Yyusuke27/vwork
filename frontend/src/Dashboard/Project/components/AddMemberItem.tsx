@@ -1,20 +1,17 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import Radio from "@material-ui/core/Radio";
+import Checkbox from "@material-ui/core/Checkbox";
 import Avatar from "@material-ui/core/Avatar";
+import { Box } from "@material-ui/core";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
+import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    container: {
-      marginBottom: "4%",
-    },
-    icon: {
-      marginRight: "2%",
-    },
     name: {
       fontSize: 20,
-      paddingLeft: "2%",
     },
   })
 );
@@ -25,35 +22,33 @@ interface AddMemberItemProps {
 
 const AddMemberItem: FC<AddMemberItemProps> = ({ myName = "" }) => {
   const classes = useStyles();
-  const [selectedValue, setSelectedValue] = useState("");
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedValue(event.target.value);
-  };
 
   return (
     <>
-      <Grid
-        container
-        direction="row"
-        alignItems="center"
-        className={classes.container}
-      >
-        <Grid item>
-          <Radio
-            checked={selectedValue === ""}
-            onChange={handleChange}
-            name="radio-button-demo"
-            inputProps={{ "aria-label": "A" }}
-          />
+      <Box mb={4}>
+        <Grid container direction="row" alignItems="center">
+          <Grid item>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  icon={<RadioButtonUncheckedIcon />}
+                  checkedIcon={<RadioButtonCheckedIcon />}
+                  name="radio"
+                />
+              }
+              label=""
+            />
+          </Grid>
+          <Grid item>
+            <Avatar alt={myName} src="/static/images/avatar/1.jpg" />
+          </Grid>
+          <Box ml={2}>
+            <Grid item className={classes.name}>
+              {myName}
+            </Grid>
+          </Box>
         </Grid>
-        <Grid item>
-          <Avatar alt={myName} src="/static/images/avatar/1.jpg" />
-        </Grid>
-        <Grid item className={classes.name}>
-          {myName}
-        </Grid>
-      </Grid>
+      </Box>
     </>
   );
 };
