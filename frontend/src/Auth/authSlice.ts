@@ -112,6 +112,10 @@ const authSlice = createSlice({
         window.location.href = "/regist/welcome";
       }
     });
+    builder.addCase(fetchAsyncSignup.rejected, (state, action) => {
+      // TODO: エラーをユーザーに表示
+      console.log(action.error);
+    });
   },
 });
 
