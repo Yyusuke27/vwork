@@ -13,8 +13,6 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import Avatar from "@material-ui/core/Avatar";
 import AppContext from "../../../AppContext";
 import Menu, { MenuProps } from "@material-ui/core/Menu";
-import Backdrop from "@material-ui/core/Backdrop";
-import Drawer from "@material-ui/core/Drawer";
 import MenuItem from "@material-ui/core/MenuItem";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
@@ -57,20 +55,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     icon: {
       paddingLeft: 0,
-    },
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: "#fff",
-    },
-    drawer: {
-      width: DrawerWith,
-      flexShrink: 0,
-    },
-    drawerPaper: {
-      width: DrawerWith,
-    },
-    workSpaceIcon: {
-      marginTop: 10,
     },
   })
 );
