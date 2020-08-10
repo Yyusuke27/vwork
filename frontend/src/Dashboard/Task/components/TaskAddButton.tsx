@@ -56,13 +56,17 @@ const BootstrapInput = withStyles((theme: Theme) =>
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    margin: {
-      margin: theme.spacing(1),
-    },
     button: {
       backgroundColor: Color.VWORK_DARK_BLUE,
       width: 150,
       fontSize: 15,
+    },
+    margin: {
+      margin: theme.spacing(1),
+    },
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
     },
     drawer: {
       width: drawerWidth,
@@ -70,10 +74,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     drawerPaper: {
       width: drawerWidth,
-    },
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: "#fff",
     },
   })
 );

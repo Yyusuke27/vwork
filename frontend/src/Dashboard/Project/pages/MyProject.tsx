@@ -17,9 +17,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
       fontSize: 15,
-      marginTop: "40%",
-      marginLeft: "5%",
-      marginBottom: "5%",
       width: 190,
     },
     backdrop: {
@@ -49,7 +46,7 @@ const MyProject = () => {
   const { OpenTask, CloseTask, openTask } = useContext(AppContext);
   return (
     <>
-      <Box borderBottom={1} className={classes.title}>
+      <Box borderBottom={1} mt={10} ml={2} mb={2} className={classes.title}>
         <Grid
           container
           direction="row"

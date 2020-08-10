@@ -11,19 +11,10 @@ import AddIcon from "@material-ui/icons/Add";
 const useStyles = makeStyles({
   title: {
     fontSize: 23,
-    marginTop: "5%",
-    marginBottom: "2%",
     width: "30%",
   },
   contentWidth: {
     width: 150,
-  },
-  iconArea: {
-    height: 150,
-    borderRadius: 8,
-  },
-  boxstyle: {
-    borderStyle: "dotted",
   },
   icon: {
     fontSize: 55,
@@ -33,6 +24,10 @@ const useStyles = makeStyles({
     borderRadius: 8,
     height: 150,
     cursor: "pointer",
+  },
+  iconArea: {
+    height: 150,
+    borderRadius: 8,
   },
 });
 
@@ -46,7 +41,7 @@ const ProjectList = () => {
   const classes = useStyles();
   return (
     <>
-      <Box borderBottom={1} className={classes.title}>
+      <Box borderBottom={1} mt={7} mb={4} className={classes.title}>
         参加しているプロジェクト
       </Box>
       <Grid container>

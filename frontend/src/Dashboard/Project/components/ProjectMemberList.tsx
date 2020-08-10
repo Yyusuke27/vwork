@@ -22,11 +22,13 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       fontSize: 23,
       width: 300,
-      marginTop: "15%",
-      marginBottom: "2%",
     },
     icon: {
       fontSize: 45,
+    },
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
     },
     drawer: {
       width: drawerWidth,
@@ -35,23 +37,14 @@ const useStyles = makeStyles((theme: Theme) =>
     drawerPaper: {
       width: drawerWidth,
     },
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: "#fff",
+    closeIcon: {
+      padding: 0,
     },
     drawerTitle: {
       fontSize: 25,
       width: "85%",
-      marginTop: "8%",
-      marginBottom: "4%",
-    },
-    closeIcon: {
-      marginTop: "2%",
-      padding: 0,
     },
     button: {
-      marginTop: "30%",
-      marginLeft: "30%",
       width: 300,
     },
   })
@@ -74,7 +67,7 @@ const ProjectMemberList = () => {
   };
   return (
     <>
-      <Box borderBottom={1} className={classes.title}>
+      <Box borderBottom={1} mt={7} mb={2} className={classes.title}>
         メンバー
       </Box>
       <Grid container direction="column" justify="flex-start">
@@ -113,20 +106,29 @@ const ProjectMemberList = () => {
           }}
         >
           <Container maxWidth="md">
-            <IconButton onClick={handleClose} className={classes.closeIcon}>
-              <CloseIcon />
-            </IconButton>
-            <Box borderBottom={1} className={classes.drawerTitle}>
+            <Box mt={2}>
+              <IconButton onClick={handleClose} className={classes.closeIcon}>
+                <CloseIcon />
+              </IconButton>
+            </Box>
+            <Box
+              borderBottom={1}
+              mt={10}
+              mb={5}
+              className={classes.drawerTitle}
+            >
               メンバー
             </Box>
             <AddMemberList />
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-            >
-              招待
-            </Button>
+            <Box mt={40} ml={35}>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+              >
+                招待
+              </Button>
+            </Box>
           </Container>
         </Drawer>
       </Backdrop>

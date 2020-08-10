@@ -1,7 +1,6 @@
 import React, { FC, useState } from "react";
 import Backdrop from "@material-ui/core/Backdrop";
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
-
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
@@ -24,14 +23,11 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: 15,
       cursor: "pointer",
     },
-    title: {
-      fontSize: 20,
-    },
-    pos: {
-      marginBottom: 12,
-    },
     color: {
       color: Color.VWORK_RED,
+    },
+    title: {
+      fontSize: 20,
     },
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
@@ -43,14 +39,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     drawerPaper: {
       width: drawerWidth,
-    },
-    drawerHeader: {
-      display: "flex",
-      alignItems: "center",
-      padding: theme.spacing(0, 1),
-      // necessary for content to be below app bar
-      ...theme.mixins.toolbar,
-      justifyContent: "flex-end",
     },
   })
 );

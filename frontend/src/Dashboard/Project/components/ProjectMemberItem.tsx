@@ -18,16 +18,16 @@ const useStyles = makeStyles((theme: Theme) =>
     icon: {
       fontSize: 30,
     },
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+    },
     drawer: {
       width: drawerWidth,
       flexShrink: 0,
     },
     drawerPaper: {
       width: drawerWidth,
-    },
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: "#fff",
     },
     box: {
       border: 1,
@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundSize: "cover",
       marginRight: 200,
       borderRadius: "50%",
+    },
+    profile: {
+      fontSize: 20,
     },
   })
 );
@@ -77,40 +80,41 @@ const ProjectMemberItem: FC<TaskMemberItemProps> = ({
             paper: classes.drawerPaper,
           }}
         >
-          <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"
-            style={{ marginTop: "15%" }}
-          >
-            <Container maxWidth="md">
-              <Grid item>
-                <Grid container direction="row" justify="space-between">
-                  <Grid xs={6} item>
-                    <Box className={classes.box}></Box>
-                  </Grid>
-                  <Grid xs={6} item style={{ fontSize: 20 }}>
-                    <dl>
-                      <dt>氏名</dt>
-                      <dd>柚木将吾</dd>
-                    </dl>
-                    <dl>
-                      <dt>メールアドレス</dt>
-                      <dd>Shogo@gmail.com</dd>
-                    </dl>
-                    <dl>
-                      <dt>役職・担当</dt>
-                      <dd>エンジニア</dd>
-                    </dl>
+          <Box mt={13}>
+            <Grid
+              container
+              direction="column"
+              justify="center"
+              alignItems="center"
+            >
+              <Container maxWidth="md">
+                <Grid item>
+                  <Grid container direction="row" justify="space-between">
+                    <Grid xs={6} item>
+                      <Box className={classes.box}></Box>
+                    </Grid>
+                    <Grid xs={6} item className={classes.profile}>
+                      <dl>
+                        <dt>氏名</dt>
+                        <dd>柚木将吾</dd>
+                      </dl>
+                      <dl>
+                        <dt>メールアドレス</dt>
+                        <dd>Shogo@gmail.com</dd>
+                      </dl>
+                      <dl>
+                        <dt>役職・担当</dt>
+                        <dd>エンジニア</dd>
+                      </dl>
+                    </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
-              <Grid item>
-                <TaskInProjectList />
-              </Grid>
-            </Container>
-          </Grid>
+                <Grid item>
+                  <TaskInProjectList />
+                </Grid>
+              </Container>
+            </Grid>
+          </Box>
         </Drawer>
       </Backdrop>
     </>

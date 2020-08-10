@@ -9,15 +9,13 @@ import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import Avatar from "@material-ui/core/Avatar";
 
 const useStyles = makeStyles({
+  title: {
+    fontSize: 23,
+    width: "33%",
+  },
   root: {
     borderRadius: 10,
     height: 100,
-    marginTop: 25,
-  },
-
-  title: {
-    fontSize: 20,
-    marginTop: 40,
   },
   content: {
     fontSize: 20,
@@ -33,57 +31,61 @@ const TaskInProjectItem: FC<TaskInProjectItemProps> = ({ title = "" }) => {
 
   return (
     <>
-      <Box borderBottom={1} className={classes.title}>
+      <Box borderBottom={1} mt={10} className={classes.title}>
         プロジェクト内担当タスク
       </Box>
-      <Card className={classes.root}>
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="center"
-          style={{ height: 80, margin: "auto" }}
-        >
-          <Grid item>
-            <Grid
-              container
-              direction="row"
-              justify="flex-start"
-              alignItems="center"
-              style={{ width: 220, paddingLeft: 10 }}
-            >
-              <Grid item style={{ marginRight: 10 }}>
-                <CheckCircleIcon />
+      <Box mt={3}>
+        <Card className={classes.root}>
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+            style={{ height: 80, margin: "auto" }}
+          >
+            <Grid item>
+              <Grid
+                container
+                direction="row"
+                justify="flex-start"
+                alignItems="center"
+                style={{ width: 220, paddingLeft: 10 }}
+              >
+                <Box mr={2}>
+                  <Grid item>
+                    <CheckCircleIcon />
+                  </Grid>
+                </Box>
+                <Grid item>
+                  <Typography className={classes.content}>{title}</Typography>
+                </Grid>
               </Grid>
-              <Grid item>
-                <Typography className={classes.content}>{title}</Typography>
+            </Grid>
+            <Grid item>
+              <Grid
+                container
+                direction="row"
+                justify="space-between"
+                alignItems="center"
+                style={{ width: 280, paddingRight: 10 }}
+              >
+                <Grid item>
+                  <Typography>プログ</Typography>
+                </Grid>
+                <Grid item>
+                  <AccessTimeIcon />
+                </Grid>
+                <Grid item>
+                  <Typography>日付</Typography>
+                </Grid>
+                <Grid item>
+                  <Avatar>S</Avatar>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item>
-            <Grid
-              container
-              direction="row"
-              justify="space-between"
-              alignItems="center"
-              style={{ width: 280, paddingRight: 10 }}
-            >
-              <Grid item>
-                <Typography>プログ</Typography>
-              </Grid>
-              <Grid item>
-                <AccessTimeIcon />
-              </Grid>
-              <Grid item>
-                <Typography>日付</Typography>
-              </Grid>
-              <Grid item>
-                <Avatar>S</Avatar>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Card>
+        </Card>
+      </Box>
     </>
   );
 };

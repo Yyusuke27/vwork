@@ -14,12 +14,6 @@ import InputBase from "@material-ui/core/InputBase";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      minWidth: 275,
-      borderRadius: 10,
-      height: 80,
-    },
-
     title: {
       fontSize: 23,
     },
@@ -84,59 +78,57 @@ const TaskList: FC<TaskListProps> = ({ title = "", iconType = "" }) => {
 
   return (
     <>
-      <Grid
-        container
-        direction="row"
-        justify="space-between"
-        alignItems="center"
-        style={{ marginTop: "5%" }}
-      >
-        <Grid item style={{ width: "30%" }}>
-          {title ? (
-            <Box borderBottom={1} className={classes.title}>
-              {title}
-            </Box>
-          ) : (
-            ""
-          )}
+      <Box mt={7}>
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="center"
+        >
+          <Grid item style={{ width: "30%" }}>
+            {title ? (
+              <Box borderBottom={1} className={classes.title}>
+                {title}
+              </Box>
+            ) : (
+              ""
+            )}
+          </Grid>
+          <Grid item>
+            {title === "タスク" ? (
+              <FormControl className={classes.margin}>
+                <NativeSelect
+                  value={text}
+                  onChange={handleChange}
+                  input={<BootstrapInput />}
+                  style={{ width: 200 }}
+                >
+                  <option value={"未完了のタスク"}>未完了のタスク</option>
+                  <option value={"未完了のタスク"}>未完了のタスク</option>
+                  <option value={"未完了のタスク"}>未完了のタスク</option>
+                </NativeSelect>
+              </FormControl>
+            ) : (
+              ""
+            )}
+          </Grid>
         </Grid>
-        <Grid item>
-          {title === "タスク" ? (
-            <FormControl className={classes.margin}>
-              <NativeSelect
-                value={text}
-                onChange={handleChange}
-                input={<BootstrapInput />}
-                style={{ width: 200 }}
-              >
-                <option value={"未完了のタスク"}>未完了のタスク</option>
-                <option value={"未完了のタスク"}>未完了のタスク</option>
-                <option value={"未完了のタスク"}>未完了のタスク</option>
-              </NativeSelect>
-            </FormControl>
-          ) : (
-            ""
-          )}
-        </Grid>
-      </Grid>
-      <Grid
-        container
-        direction="column"
-        justify="flex-start"
-        style={{ marginTop: "2%" }}
-      >
-        {taskData.map((data, index) => {
-          return (
-            <TaskItem
-              title={data.title}
-              project={data.project}
-              data={data.data}
-              iconType={iconType}
-              key={index}
-            />
-          );
-        })}
-      </Grid>
+        <Box mt={2}>
+          <Grid container direction="column" justify="flex-start">
+            {taskData.map((data, index) => {
+              return (
+                <TaskItem
+                  title={data.title}
+                  project={data.project}
+                  data={data.data}
+                  iconType={iconType}
+                  key={index}
+                />
+              );
+            })}
+          </Grid>
+        </Box>
+      </Box>
     </>
   );
 };
