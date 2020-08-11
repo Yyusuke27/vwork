@@ -211,12 +211,35 @@ exports.deleteTask = asyncHandler(async (req, res, next) => {
 // @access Public
 exports.getNearDeadlineTasks = asyncHandler(async (req, res, next) => {
   // 期限が近い(3日以内)タスクを取得
-  const nearDeadlineDate = moment().add(3, "days").utcOffset("+09:00");
+  const nearDeadlineDate = moment().add(3, "days");
   const tasks = await Task.find({
     user: req.user.id,
     workspace: req.params.workspaceId,
     endDateAt: { $lte: nearDeadlineDate },
   });
+
+  res.status(200).json({
+    success: true,
+    count: tasks.length,
+    data: tasks,
+  });
+});
+
+// @desc Get recently added tasks
+// @route Get /api/v1/workspaces/:workspaceId/tasks/recent
+// @access Public
+exports.getRecentTasks = asyncHandler(async (req, res, next) => {
+  const oneWeekAgo = moment().subtract(1, "weeks");
+  // (1週間以内)updated_atタスクを取得
+  const tasks = await Task.find({
+    user: req.user.id,
+    workspace: req.params.workspaceId,
+    updatedAt: { $gte: oneWeekAgo },
+  })
+    .limit(5)
+    .sort({
+      updatedAt: -1,
+    });
 
   res.status(200).json({
     success: true,
