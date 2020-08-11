@@ -42,6 +42,11 @@ export const fetchAsyncCurrentUser = createAsyncThunk(
   }
 );
 
+export const fetchAsyncLogout = createAsyncThunk("auth/logout", async () => {
+  const res = await axios.get(`${apiUrl}api/v1/auth/logout`);
+  return res.data;
+});
+
 interface AuthState {
   token: number | string;
   user: {
@@ -115,6 +120,10 @@ const authSlice = createSlice({
     builder.addCase(fetchAsyncSignup.rejected, (state, action) => {
       // TODO: エラーをユーザーに表示
       console.log(action.error);
+    });
+    builder.addCase(fetchAsyncLogout.fulfilled, (state, action) => {
+      localStorage.clear();
+      window.location.href = "/auth/login";
     });
   },
 });

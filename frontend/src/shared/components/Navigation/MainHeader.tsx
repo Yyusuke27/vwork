@@ -16,6 +16,8 @@ import Menu, { MenuProps } from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { fetchAsyncLogout } from "../../../Auth/authSlice";
 
 const drawerWidth = 240;
 
@@ -111,6 +113,12 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
     OpenProfile,
   } = useContext(AppContext);
 
+  const dispatch = useDispatch();
+
+  const logoutHandler = async () => {
+    await dispatch(fetchAsyncLogout());
+  };
+
   return (
     <div className={classes.root}>
       <Container>
@@ -202,7 +210,7 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
         >
           <StyledMenuItem>他のworkspace </StyledMenuItem>
         </Link>
-        <StyledMenuItem>ログアウト</StyledMenuItem>
+        <StyledMenuItem onClick={logoutHandler}>ログアウト</StyledMenuItem>
       </StyledMenu>
     </div>
   );
