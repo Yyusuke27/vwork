@@ -43,45 +43,40 @@ const ProjectList = () => {
       <Box borderBottom={1} mt={7} mb={4} className={classes.title}>
         参加しているプロジェクト
       </Box>
-      <Grid container>
-        <Grid item>
-          <Grid container justify="flex-start">
-            {projectData.map((data, index) => {
-              return (
-                <ProjectItem
-                  name={data.name}
-                  bgColor={PROJECT_COLORS[data.color]}
-                  iconNum={data.icon}
-                  key={data._id}
-                />
-              );
-            })}
-          </Grid>
-        </Grid>
-        <Grid item>
-          <Box
-            className={clsx(classes.contentWidth, classes.iconStyle)}
-            mr={3}
-            mb={3}
-          >
-            <Grid container direction="column">
-              <Grid
-                item
-                container
-                justify="center"
-                alignItems="center"
-                className={clsx(classes.iconArea, classes.contentWidth)}
-              >
-                <AddIcon style={{ fontSize: 100 }} />
-              </Grid>
-              <Grid item className={classes.contentWidth}>
-                <Box textAlign="center">
-                  <Typography>プロジェクト作成</Typography>
-                </Box>
-              </Grid>
+
+      <Grid container justify="flex-start">
+        <Box
+          className={clsx(classes.contentWidth, classes.iconStyle)}
+          mr={3}
+          mb={3}
+        >
+          <Grid container direction="column">
+            <Grid
+              item
+              container
+              justify="center"
+              alignItems="center"
+              className={clsx(classes.iconArea, classes.contentWidth)}
+            >
+              <AddIcon style={{ fontSize: 100 }} />
             </Grid>
-          </Box>
-        </Grid>
+            <Grid item className={classes.contentWidth}>
+              <Box textAlign="center">
+                <Typography>プロジェクト作成</Typography>
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+        {projectData.map((data, index) => {
+          return (
+            <ProjectItem
+              name={data.name}
+              bgColor={PROJECT_COLORS[data.color]}
+              iconNum={data.icon}
+              key={data._id}
+            />
+          );
+        })}
       </Grid>
     </>
   );
