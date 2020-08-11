@@ -8,6 +8,8 @@ enum Color {
   VWORK_YELLOW = "#F5E21B",
   VWORK_GRAY = "#A7A7A7",
   VWORK_BLACK = "#424242",
+  VWORK_ORANGE = "#E8AA14",
+  VWORK_GREEN = "#6EEB83",
 }
 
 export default Color;

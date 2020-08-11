@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
-interface appState {
+interface dashboardState {
   owner: boolean;
   workspace: string;
 }
 
-const initialState: appState = {
+const initialState: dashboardState = {
   owner: false,
   workspace: "string",
 };

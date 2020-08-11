@@ -3,6 +3,7 @@ import authReducer from "./Auth/authSlice";
 import appReducer from "./appSlice";
 import dashboardReducer from "./Dashboard/dashboardSlice";
 import registReducer from "./Regist/registSlice";
+import projectReducer from "./Dashboard/Project/projectSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     app: appReducer,
     dashboard: dashboardReducer,
     regist: registReducer,
+    project: projectReducer,
   },
 });
 

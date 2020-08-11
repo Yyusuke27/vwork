@@ -7,6 +7,8 @@ import Color from "../../../shared/util/color";
 import clsx from "clsx";
 import Typography from "@material-ui/core/Typography";
 import AddIcon from "@material-ui/icons/Add";
+import { useSelector } from "react-redux";
+import { selectProjects } from "../projectSlice";
 
 const useStyles = makeStyles({
   title: {
@@ -31,14 +33,21 @@ const useStyles = makeStyles({
   },
 });
 
-const projectData = [
-  { title: "UI改修", bgColor: Color.VWORK_BLUE },
-  { title: "WordPressテーマ開発", bgColor: Color.VWORK_DARK_RED },
-  { title: "SEO対策", bgColor: Color.VWORK_RED },
-];
-
 const ProjectList = () => {
   const classes = useStyles();
+
+  const projectData = useSelector(selectProjects);
+
+  const PROJECT_COLORS = [
+    Color.VWORK_BLUE,
+    Color.VWORK_RED,
+    Color.VWORK_ORANGE,
+    Color.VWORK_GREEN,
+    Color.VWORK_DARK_BLUE,
+    Color.VWORK_DARK_RED,
+    Color.VWORK_YELLOW,
+  ];
+
   return (
     <>
       <Box borderBottom={1} mt={7} mb={4} className={classes.title}>
@@ -50,9 +59,10 @@ const ProjectList = () => {
             {projectData.map((data, index) => {
               return (
                 <ProjectItem
-                  name={data.title}
-                  bgColor={data.bgColor}
-                  key={index}
+                  name={data.name}
+                  bgColor={PROJECT_COLORS[data.color]}
+                  iconNum={data.icon}
+                  key={data._id}
                 />
               );
             })}
