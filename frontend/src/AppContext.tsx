@@ -37,6 +37,9 @@ interface AppContextInterface {
   handleAddedTaskTextOpen: () => void;
   handleAddedTaskTextClose: () => void;
   addedTaskText: boolean;
+  handleAddProjectMemberOpen: () => void;
+  handleAddProjectMemberClose: () => void;
+  addProjectMember: boolean;
 }
 
 const AppContext = createContext<AppContextInterface | any>(null);

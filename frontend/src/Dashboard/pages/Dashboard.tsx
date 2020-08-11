@@ -172,6 +172,15 @@ const Dashboard = () => {
   const handleAddedTaskTextClose = () => {
     setAddedTaskText(false);
   };
+
+  // プロジェクト管理画面のメンバー追加をクリックした後の処理
+  const [addProjectMember, setAddProjectMember] = useState(false);
+  const handleAddProjectMemberOpen = () => {
+    setAddProjectMember(true);
+  };
+  const handleAddProjectMemberClose = () => {
+    setAddProjectMember(false);
+  };
   return (
     <div className={classes.root}>
       <AppContext.Provider
@@ -212,6 +221,9 @@ const Dashboard = () => {
           handleAddedTaskTextOpen,
           handleAddedTaskTextClose,
           addedTaskText,
+          handleAddProjectMemberOpen,
+          handleAddProjectMemberClose,
+          addProjectMember,
         }}
       >
         <MainNavigation />
