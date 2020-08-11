@@ -107,6 +107,7 @@ const CheckAttendanceArea = () => {
     setOpen(true);
     setStep({
       ...step,
+      restStart: true,
       restEnd: true,
       finished: true,
     });
