@@ -8,8 +8,6 @@ import Typography from "@material-ui/core/Typography";
 import EacProjectList from "../../../shared/components/Navigation/EachProjectList";
 import Color from "../../../shared/util/color";
 import AppContext from "../../../AppContext";
-import Drawer from "@material-ui/core/Drawer";
-import Backdrop from "@material-ui/core/Backdrop";
 
 const DrawerWith = "50%";
 

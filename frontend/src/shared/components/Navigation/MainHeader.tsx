@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from "react";
+import React, { FC, useContext } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -18,7 +18,6 @@ import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
-const DrawerWith = "50%";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
