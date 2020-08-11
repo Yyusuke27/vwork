@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Box from "@material-ui/core/Box";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -22,8 +22,10 @@ import Backdrop from "@material-ui/core/Backdrop";
 import TaskList from "../../Task/components/TaskList";
 import "../../../App.css";
 import { useHistory } from "react-router-dom";
+import AppContext from "../../../AppContext";
+import NewTaskAddAfterWorkDrawer from "../../Task/components/NewTaskAddAfetrWorkDrawer";
 
-const drawerWidth = "55%";
+const drawerWidth = "50%";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -75,24 +77,16 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 150,
       fontSize: 20,
     },
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+    },
     drawer: {
       width: drawerWidth,
       flexShrink: 0,
     },
     drawerPaper: {
       width: drawerWidth,
-    },
-    drawerHeader: {
-      display: "flex",
-      alignItems: "center",
-      padding: theme.spacing(0, 1),
-      // necessary for content to be below app bar
-      ...theme.mixins.toolbar,
-      justifyContent: "flex-end",
-    },
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: "#fff",
     },
   })
 );
@@ -123,14 +117,7 @@ const CheckAttendanceArea = () => {
     setOpen(false);
   };
 
-  const [openDrawer, setOpenDrawer] = React.useState(false);
-
-  const handleDrawerClose = () => {
-    setOpenDrawer(false);
-  };
-  const handleDrawerOpen = () => {
-    setOpenDrawer(true);
-  };
+  const { handleAddTaskButtonAfterWorkOpen } = useContext(AppContext);
 
   const [drawer, setDrawer] = React.useState(false);
 
@@ -320,7 +307,7 @@ const CheckAttendanceArea = () => {
                       <Grid item>
                         <Button
                           className={classes.additionalButton}
-                          onClick={handleDrawerOpen}
+                          onClick={handleAddTaskButtonAfterWorkOpen}
                           variant="contained"
                           color="secondary"
                         >
@@ -370,35 +357,7 @@ const CheckAttendanceArea = () => {
             </Container>
           </Grid>
         </Box>
-        <Backdrop className={classes.backdrop} open={openDrawer}>
-          <Drawer
-            className={classes.drawer}
-            variant="persistent"
-            anchor="right"
-            open={openDrawer}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          >
-            <Container maxWidth="md">
-              <Grid container direction="column">
-                <Grid item>
-                  <IconButton
-                    edge="start"
-                    color="inherit"
-                    onClick={handleDrawerClose}
-                    aria-label="close"
-                  >
-                    <CloseIcon />
-                  </IconButton>
-                </Grid>
-                <Grid item>
-                  <TaskList title="タスク" />
-                </Grid>
-              </Grid>
-            </Container>
-          </Drawer>
-        </Backdrop>
+        <NewTaskAddAfterWorkDrawer />
         <Backdrop className={classes.backdrop} open={drawer}>
           <Drawer
             className={classes.drawer}

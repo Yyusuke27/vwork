@@ -153,6 +153,15 @@ const Dashboard = () => {
     setAttendanceCard(false);
   };
 
+  // ホーム画面の退社ボタンを押した後に表示される画面の追加ボタンをクリックした後の処理
+  const [addButtonAfterTask, setAddButtonAfterTask] = useState(false);
+
+  const handleAddTaskButtonAfterWorkOpen = () => {
+    setAddButtonAfterTask(true);
+  };
+  const handleAddTaskButtonAfterWorkClose = () => {
+    setAddButtonAfterTask(false);
+  };
   return (
     <div className={classes.root}>
       <AppContext.Provider
@@ -187,6 +196,9 @@ const Dashboard = () => {
           handleAttendanceCardOpen,
           handleAttendanceCardClose,
           attendanceCard,
+          handleAddTaskButtonAfterWorkOpen,
+          handleAddTaskButtonAfterWorkClose,
+          addButtonAfterTask,
         }}
       >
         <MainNavigation />
