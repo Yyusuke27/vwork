@@ -183,6 +183,15 @@ const Dashboard = () => {
   const handleAddProjectMemberClose = () => {
     setAddProjectMember(false);
   };
+
+  // プロジェクト管理画面のメンバーアイコンをクリックした後の処理
+  const [projectMember, setProjectMember] = useState(false);
+  const projectMemberDrawerOpen = () => {
+    setProjectMember(true);
+  };
+  const projectMemberDrawerClose = () => {
+    setProjectMember(false);
+  };
   return (
     <div className={classes.root}>
       <AppContext.Provider
@@ -226,6 +235,9 @@ const Dashboard = () => {
           handleAddProjectMemberOpen,
           handleAddProjectMemberClose,
           addProjectMember,
+          projectMemberDrawerOpen,
+          projectMemberDrawerClose,
+          projectMember,
         }}
       >
         <MainNavigation />

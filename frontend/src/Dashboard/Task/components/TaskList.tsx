@@ -85,7 +85,7 @@ const TaskList: FC<TaskListProps> = ({ title = "", iconType = "" }) => {
           justify="space-between"
           alignItems="center"
         >
-          <Grid item style={{ width: "30%" }}>
+          <Grid item style={{ width: "35%" }}>
             {title ? (
               <Box borderBottom={1} className={classes.title}>
                 {title}

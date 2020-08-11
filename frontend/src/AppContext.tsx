@@ -40,6 +40,9 @@ interface AppContextInterface {
   handleAddProjectMemberOpen: () => void;
   handleAddProjectMemberClose: () => void;
   addProjectMember: boolean;
+  projectMemberDrawerOpen: () => void;
+  projectMemberDrawerClose: () => void;
+  projectMember: boolean;
 }
 
 const AppContext = createContext<AppContextInterface | any>(null);
