@@ -54,6 +54,7 @@ interface AuthState {
     email: string;
     registration: boolean;
     role: string;
+    lastAccessWorkspace: string;
   };
   workspaceCount: number;
   workspace: string;
@@ -66,12 +67,13 @@ const initialState: AuthState = {
     email: "",
     registration: false,
     role: "",
+    lastAccessWorkspace: "",
   },
   workspaceCount: 0,
   workspace: "",
 };
 
-const authSlice = createSlice({
+export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
@@ -93,6 +95,10 @@ const authSlice = createSlice({
       state.token = localStorage.token;
       state.user = action.payload.data;
       state.workspaceCount = localStorage.wc;
+      localStorage.setItem(
+        "workspace",
+        action.payload.data.lastAccessWorkspace
+      );
 
       const path = window.location.pathname;
       if (path === "/auth/login" || path === "/auth/signup") {
@@ -130,6 +136,8 @@ const authSlice = createSlice({
 
 export const selectUser = (state: RootState) => state.auth.user;
 export const selectToken = (state: RootState) => state.auth.token;
+export const selectWorkspace = (state: RootState) =>
+  state.auth.user.lastAccessWorkspace;
 export const selectUserRegistration = (state: RootState) =>
   state.auth.user.registration;
 

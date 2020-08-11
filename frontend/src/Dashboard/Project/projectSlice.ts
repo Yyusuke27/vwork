@@ -7,12 +7,15 @@ const token = localStorage.token;
 
 export const fetchAsyncAllMyProjects = createAsyncThunk(
   "project/allMyProjects",
-  async () => {
-    const res = await axios.get(`${apiUrl}api/v1/projects`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  async (workspace: string) => {
+    const res = await axios.get(
+      `${apiUrl}api/v1/workspaces/${workspace}/projects`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return res.data;
   }
 );
@@ -38,6 +41,7 @@ const projectSlice = createSlice({
     builder.addCase(fetchAsyncAllMyProjects.fulfilled, (state, action) => {
       state.projects = action.payload.data;
     });
+    builder.addCase(fetchAsyncAllMyProjects.rejected, (state, action) => {});
   },
 });
 

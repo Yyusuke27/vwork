@@ -22,6 +22,7 @@ const dashboardSlice = createSlice({
 });
 
 export const { setWorkspace } = dashboardSlice.actions;
-export const selectWorkspace = (state: RootState) => state.dashboard.workspace;
+export const selectNowWorkspace = (state: RootState) =>
+  state.dashboard.workspace;
 
 export default dashboardSlice.reducer;

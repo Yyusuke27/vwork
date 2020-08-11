@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Route, Switch } from "react-router-dom";
 import clsx from "clsx";
 import AppContext from "../../AppContext";
@@ -9,9 +9,8 @@ import Project from "../Project/pages/Project";
 import MainNavigation from "../../shared/components/Navigation/MainNavigation";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { fetchAsyncCurrentUser } from "../../Auth/authSlice";
-import { useDispatch } from "react-redux";
-import { toggleLoading } from "../../appSlice";
+import { fetchAsyncCurrentUser, selectWorkspace } from "../../Auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 import NewTaskDrawer from "../Task/components/NewTaskDrawer";
 import NewProjectDrawer from "../Project/components/NewProjectDrawer";
 import NewProjectMemberDrawer from "../Project/components/NewProjectMemberDrawer";
@@ -58,12 +57,27 @@ const useStyles = makeStyles((theme: Theme) =>
 const Dashboard = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(toggleLoading(true));
-    dispatch(fetchAsyncCurrentUser());
-    dispatch(fetchAsyncAllMyProjects());
-    dispatch(toggleLoading(false));
+
+  const workspace = useSelector(selectWorkspace);
+
+  const fetchUser = useCallback(async () => {
+    await dispatch(fetchAsyncCurrentUser());
   }, [dispatch]);
+
+  const fetchProject = useCallback(async () => {
+    await dispatch(fetchAsyncAllMyProjects(workspace));
+  }, [dispatch, workspace]);
+
+  const mounted = useRef(false);
+
+  useEffect(() => {
+    if (mounted.current) {
+      fetchProject();
+    } else {
+      fetchUser();
+      mounted.current = true;
+    }
+  }, [fetchUser, fetchProject, workspace]);
 
   // メニューアイコンをクリックした時の処理
   const [open, setOpen] = React.useState(true);
