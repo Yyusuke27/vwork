@@ -18,6 +18,7 @@ import NewProjectMemberDrawer from "../Project/components/NewProjectMemberDrawer
 import NewProfileDrawer from "../Project/components/NewProfileDrawer";
 import NewTaskCardClickedDrawer from "../Task/components/NewTaskCardClickedDrawer";
 import NewTaskAddDrawer from "../Task/components/NewTaskAddDrawer";
+import NewAttendanceDrawer from "../Attendance/components/NewAttendanceDrawer";
 
 const drawerWidth = 240;
 
@@ -143,6 +144,15 @@ const Dashboard = () => {
     setAddButton(false);
   };
 
+  // 勤怠管理画面のAttendanceItemで表示されるカードをクリックした後の処理
+  const [attendanceCard, setAttendanceCard] = useState(false);
+  const handleAttendanceCardOpen = () => {
+    setAttendanceCard(true);
+  };
+  const handleAttendanceCardClose = () => {
+    setAttendanceCard(false);
+  };
+
   return (
     <div className={classes.root}>
       <AppContext.Provider
@@ -174,6 +184,9 @@ const Dashboard = () => {
           handleOpenAddButton,
           handleCloseAddButton,
           addButton,
+          handleAttendanceCardOpen,
+          handleAttendanceCardClose,
+          attendanceCard,
         }}
       >
         <MainNavigation />
@@ -190,6 +203,7 @@ const Dashboard = () => {
           <NewProfileDrawer />
           <NewTaskCardClickedDrawer />
           <NewTaskAddDrawer />
+          <NewAttendanceDrawer />
           <Switch>
             <Route path="/" exact>
               <Home />

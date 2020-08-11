@@ -1,21 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
 import Grid from "@material-ui/core/Grid";
 import clsx from "clsx";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Container from "@material-ui/core/Container";
-import CloseIcon from "@material-ui/icons/Close";
-import IconButton from "@material-ui/core/IconButton";
 import Card from "@material-ui/core/Card";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import Drawer from "@material-ui/core/Drawer";
-import Backdrop from "@material-ui/core/Backdrop";
-import CheckAttendanceAreaInDetail from "./CheckAttendanceAreaInDetail";
 import { Box } from "@material-ui/core";
-
-const drawerWidth = "55%";
+import AppContext from "../../../AppContext";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,33 +28,16 @@ const useStyles = makeStyles((theme: Theme) =>
     task: {
       fontSize: 20,
     },
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: "#fff",
-    },
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-    drawerPaper: {
-      width: drawerWidth,
-    },
   })
 );
 
 const AttendanceItem = () => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+  const { handleAttendanceCardOpen } = useContext(AppContext);
   return (
     <>
       <Card className={classes.root}>
-        <CardActionArea onClick={handleDrawerOpen}>
+        <CardActionArea onClick={handleAttendanceCardOpen}>
           <Container>
             <Grid container direction="column">
               <Grid item>
@@ -74,7 +51,6 @@ const AttendanceItem = () => {
                     <Grid
                       container
                       direction="row"
-                      // justify="space-around"
                       alignItems="center"
                       className={clsx(classes.title, classes.space)}
                     >
@@ -105,11 +81,7 @@ const AttendanceItem = () => {
                       <CheckCircleIcon />
                     </Grid>
                   </Box>
-                  <Grid
-                    item
-                    className={classes.task}
-                    onClick={handleDrawerOpen}
-                  >
+                  <Grid item className={classes.task}>
                     2件のタスクに対応
                   </Grid>
                 </Grid>
@@ -136,30 +108,6 @@ const AttendanceItem = () => {
           </Container>
         </CardActionArea>
       </Card>
-      <Backdrop className={classes.backdrop} open={open}>
-        <Drawer
-          className={classes.drawer}
-          variant="persistent"
-          anchor="right"
-          open={open}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          <Grid container direction="column">
-            <Container maxWidth="md">
-              <Grid item onClick={handleClose}>
-                <IconButton>
-                  <CloseIcon />
-                </IconButton>
-              </Grid>
-              <Grid item>
-                <CheckAttendanceAreaInDetail />
-              </Grid>
-            </Container>
-          </Grid>
-        </Drawer>
-      </Backdrop>
     </>
   );
 };

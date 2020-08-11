@@ -28,6 +28,9 @@ interface AppContextInterface {
   handleOpenAddButton: () => void;
   handleCloseAddButton: () => void;
   addButton: boolean;
+  handleAttendanceCardOpen: () => void;
+  handleAttendanceCardClose: () => void;
+  attendanceCard: boolean;
 }
 
 const AppContext = createContext<AppContextInterface | any>(null);
