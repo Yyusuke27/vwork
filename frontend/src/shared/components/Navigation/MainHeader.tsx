@@ -105,7 +105,7 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
     HandleClick,
     handleClose,
     menu,
-    OpenTask,
+    handleOpenAddButton,
     OpenProject,
     OpenMember,
     AvatarMenu,
@@ -190,7 +190,9 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
         open={Boolean(menu)}
         onClick={handleClose}
       >
-        <StyledMenuItem onClick={OpenTask}>タスク追加</StyledMenuItem>
+        <StyledMenuItem onClick={handleOpenAddButton}>
+          タスク追加
+        </StyledMenuItem>
 
         <StyledMenuItem onClick={OpenProject}>プロジェクト追加</StyledMenuItem>
 

@@ -10,9 +10,6 @@ interface AppContextInterface {
   HandleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   HandleClose: (event: React.MouseEvent<HTMLButtonElement>) => void;
   AvatarMenu: null;
-  OpenTask: () => void;
-  CloseTask: () => void;
-  openTask: boolean;
   OpenProject: () => void;
   CloseProject: () => void;
   openProject: boolean;

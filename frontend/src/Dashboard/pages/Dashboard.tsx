@@ -11,7 +11,6 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { fetchAsyncCurrentUser, selectWorkspace } from "../../Auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import NewTaskDrawer from "../Task/components/NewTaskDrawer";
 import NewProjectDrawer from "../Project/components/NewProjectDrawer";
 import NewProjectMemberDrawer from "../Project/components/NewProjectMemberDrawer";
 import NewProfileDrawer from "../Project/components/NewProfileDrawer";
@@ -106,14 +105,14 @@ const Dashboard = () => {
     setAvatarMenu(null);
   };
 
-  // タスク追加をクリックした時の処理
-  const [openTask, setOpenTask] = useState(false);
-  const OpenTask = () => {
-    setOpenTask(true);
-  };
-  const CloseTask = () => {
-    setOpenTask(false);
-  };
+  // // タスク追加をクリックした時の処理
+  // const [openTask, setOpenTask] = useState(false);
+  // const OpenTask = () => {
+  //   setOpenTask(true);
+  // };
+  // const CloseTask = () => {
+  //   setOpenTask(false);
+  // };
 
   // プロジェクト追加をクリックした時の処理
   const [openProject, setOpenProject] = useState(false);
@@ -219,9 +218,9 @@ const Dashboard = () => {
           HandleClick,
           HandleClose,
           AvatarMenu,
-          OpenTask,
-          CloseTask,
-          openTask,
+          // OpenTask,
+          // CloseTask,
+          // openTask,
           OpenProject,
           CloseProject,
           openProject,
@@ -262,7 +261,7 @@ const Dashboard = () => {
           })}
         >
           <div className={classes.drawerHeader} />
-          <NewTaskDrawer />
+          {/*<NewTaskDrawer />*/}
           <NewProjectDrawer />
           <NewProjectMemberDrawer />
           <NewProfileDrawer />
