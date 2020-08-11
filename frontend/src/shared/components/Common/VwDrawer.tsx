@@ -8,7 +8,7 @@ const DrawerWith = "50%";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
+      zIndex: theme.zIndex.drawer,
       color: "#fff",
     },
     drawer: {
@@ -32,19 +32,18 @@ const VwDrawer = (props: any) => {
         className={classes.backdrop}
         open={props.open}
         onClick={props.click}
+      />
+      <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="right"
+        open={props.open}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
       >
-        <Drawer
-          className={classes.drawer}
-          variant="persistent"
-          anchor="right"
-          open={props.open}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          {props.children}
-        </Drawer>
-      </Backdrop>
+        {props.children}
+      </Drawer>
     </>
   );
 };
