@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import AddIcon from "@material-ui/icons/Add";
 import Typography from "@material-ui/core/Typography";
-import EacProjectList from "../../../shared/components/Navigation/EachProjectList";
+import SideProjectList from "./SideProjectList";
 import Color from "../../../shared/util/color";
 import AppContext from "../../../AppContext";
 
@@ -61,7 +61,7 @@ const MyProject = () => {
           </Grid>
         </Grid>
       </Box>
-      <EacProjectList />
+      <SideProjectList />
     </>
   );
 };

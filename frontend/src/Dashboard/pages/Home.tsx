@@ -1,18 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import CheckAttendanceArea from "../Attendance/components/CheckAttendanceArea";
 import TaskList from "../Task/components/TaskList";
 import ProjectList from "../Project/components/ProjectList";
 import Container from "@material-ui/core/Container";
 import MainHeader from "../../shared/components/Navigation/MainHeader";
-import { useDispatch } from "react-redux";
-import { fetchAsyncAllMyProjects } from "../Project/projectSlice";
 
 const Home = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchAsyncAllMyProjects());
-  }, [dispatch]);
   return (
     <>
       <Container>

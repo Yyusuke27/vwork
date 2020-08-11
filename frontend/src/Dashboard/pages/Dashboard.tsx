@@ -5,7 +5,7 @@ import AppContext from "../../AppContext";
 import Home from "./Home";
 import MyTask from "../Task/pages/MyTask";
 import MyAttendance from "../Attendance/pages/MyAttendance";
-import EachProject from "../Project/pages/EachProject";
+import Project from "../Project/pages/Project";
 import MainNavigation from "../../shared/components/Navigation/MainNavigation";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -19,6 +19,7 @@ import NewProfileDrawer from "../Project/components/NewProfileDrawer";
 import NewTaskCardClickedDrawer from "../Task/components/NewTaskCardClickedDrawer";
 import NewTaskAddDrawer from "../Task/components/NewTaskAddDrawer";
 import NewAttendanceDrawer from "../Attendance/components/NewAttendanceDrawer";
+import { fetchAsyncAllMyProjects } from "../Project/projectSlice";
 
 const drawerWidth = 240;
 
@@ -60,6 +61,7 @@ const Dashboard = () => {
   useEffect(() => {
     dispatch(toggleLoading(true));
     dispatch(fetchAsyncCurrentUser());
+    dispatch(fetchAsyncAllMyProjects());
     dispatch(toggleLoading(false));
   }, [dispatch]);
 
@@ -252,7 +254,7 @@ const Dashboard = () => {
               <MyAttendance />
             </Route>
             <Route path="/my_project" exact>
-              <EachProject />
+              <Project />
             </Route>
           </Switch>
         </main>

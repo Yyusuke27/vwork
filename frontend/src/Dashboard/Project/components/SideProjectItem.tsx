@@ -4,16 +4,15 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import List from "@material-ui/core/List";
 import Brightness1Icon from "@material-ui/icons/Brightness1";
-import Color from "../../util/color";
+import Color from "../../../shared/util/color";
 import { NavLink } from "react-router-dom";
 
-interface EachProjectItemProps {
+interface SideProjectItemProps {
   title: string;
   bgColor: Color;
 }
 
-const EachProjectItem: FC<EachProjectItemProps> = ({ title = "", bgColor }) => {
-  // const classes = useStyles();
+const SideProjectItem: FC<SideProjectItemProps> = ({ title = "", bgColor }) => {
   return (
     <>
       <List style={{ padding: 0 }}>
@@ -34,4 +33,4 @@ const EachProjectItem: FC<EachProjectItemProps> = ({ title = "", bgColor }) => {
   );
 };
 
-export default EachProjectItem;
+export default SideProjectItem;

@@ -3,12 +3,12 @@ import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import ProjectItem from "./ProjectItem";
-import Color from "../../../shared/util/color";
 import clsx from "clsx";
 import Typography from "@material-ui/core/Typography";
 import AddIcon from "@material-ui/icons/Add";
 import { useSelector } from "react-redux";
 import { selectProjects } from "../projectSlice";
+import { PROJECT_COLORS } from "../../../shared/util/color";
 
 const useStyles = makeStyles({
   title: {
@@ -37,16 +37,6 @@ const ProjectList = () => {
   const classes = useStyles();
 
   const projectData = useSelector(selectProjects);
-
-  const PROJECT_COLORS = [
-    Color.VWORK_BLUE,
-    Color.VWORK_RED,
-    Color.VWORK_ORANGE,
-    Color.VWORK_GREEN,
-    Color.VWORK_DARK_BLUE,
-    Color.VWORK_DARK_RED,
-    Color.VWORK_YELLOW,
-  ];
 
   return (
     <>

@@ -13,7 +13,7 @@ import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import Drawer from "@material-ui/core/Drawer";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { NavLink } from "react-router-dom";
-import MyProject from "../../../Dashboard/Project/pages/MyProject";
+import MyProject from "../../../Dashboard/Project/components/MyProject";
 import Container from "@material-ui/core/Container";
 import Color from "../../util/color";
 import AppContext from "../../../AppContext";
@@ -64,6 +64,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const SideBar = () => {
   const classes = useStyles();
+
   // @ts-ignore
   const { handleDrawerClose, open } = useContext(AppContext);
 

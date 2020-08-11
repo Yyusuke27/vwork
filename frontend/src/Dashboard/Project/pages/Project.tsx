@@ -6,7 +6,7 @@ import Container from "@material-ui/core/Container";
 import TaskList from "../../Task/components/TaskList";
 import MainHeader from "../../../shared/components/Navigation/MainHeader";
 
-const EachProject = () => {
+const Project = () => {
   return (
     <>
       <Container maxWidth="xl">
@@ -25,4 +25,4 @@ const EachProject = () => {
   );
 };
 
-export default EachProject;
+export default Project;

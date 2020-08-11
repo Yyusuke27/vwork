@@ -12,4 +12,14 @@ enum Color {
   VWORK_GREEN = "#6EEB83",
 }
 
+export const PROJECT_COLORS = [
+  Color.VWORK_BLUE,
+  Color.VWORK_RED,
+  Color.VWORK_ORANGE,
+  Color.VWORK_GREEN,
+  Color.VWORK_DARK_BLUE,
+  Color.VWORK_DARK_RED,
+  Color.VWORK_YELLOW,
+];
+
 export default Color;
