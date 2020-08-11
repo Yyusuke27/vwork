@@ -11,7 +11,10 @@ const User = require("../models/User");
 exports.getProjects = asyncHandler(async (req, res, next) => {
   let projects;
   if (req.params.workspaceId) {
-    projects = await Project.find({ workspace: req.params.workspaceId });
+    projects = await Project.find({
+      members: req.user.id,
+      workspace: req.params.workspaceId,
+    });
   } else {
     if (req.user.role === "admin") {
       projects = await Project.find();
@@ -88,7 +91,17 @@ exports.createProject = asyncHandler(async (req, res, next) => {
   // オーナーをbodyに追加
   req.body.owners = [req.user.id];
 
-  const project = await Project.create(req.body);
+  // TODO: 色、アイコンはフロントで選べるようにする
+  const iconNum = Math.floor(Math.random() * 7);
+  const colorNum = Math.floor(Math.random() * 7);
+
+  const projectData = {
+    ...req.body,
+    icon: iconNum,
+    color: colorNum,
+  };
+
+  const project = await Project.create(projectData);
 
   console.log(project);
 
