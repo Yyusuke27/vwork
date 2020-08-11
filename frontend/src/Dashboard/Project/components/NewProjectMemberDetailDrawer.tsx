@@ -1,13 +1,17 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Box } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import VwDrawer from "../../../shared/components/Common/VwDrawer";
-import AppContext from "../../../AppContext";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import TaskList from "../../Task/components/TaskList";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectMemberIconClicked,
+  toggleMemberIconClicked,
+} from "../../../appSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,13 +35,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const NewProjectMemberDetailDrawer = () => {
   const classes = useStyles();
-  const { projectMember, projectMemberDrawerClose } = useContext(AppContext);
+  const dispatch = useDispatch();
+  const MemberIconClicked = useSelector(selectMemberIconClicked);
   return (
     <>
-      <VwDrawer open={projectMember}>
+      <VwDrawer open={MemberIconClicked}>
         <Box mt={2} ml={2}>
           <IconButton
-            onClick={projectMemberDrawerClose}
+            onClick={() => dispatch(toggleMemberIconClicked(false))}
             className={classes.closeIcon}
           >
             <CloseIcon />
@@ -72,7 +77,10 @@ const NewProjectMemberDetailDrawer = () => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item onClick={projectMemberDrawerClose}>
+              <Grid
+                item
+                onClick={() => dispatch(toggleMemberIconClicked(false))}
+              >
                 <TaskList title="プロジェクト内担当タスク" />
               </Grid>
             </Container>

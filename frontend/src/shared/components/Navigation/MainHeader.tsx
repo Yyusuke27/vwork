@@ -1,4 +1,4 @@
-import React, { FC, useContext } from "react";
+import React, { FC } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -11,13 +11,20 @@ import Color from "../../../shared/util/color";
 import Grid from "@material-ui/core/Grid";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import Avatar from "@material-ui/core/Avatar";
-import AppContext from "../../../AppContext";
 import Menu, { MenuProps } from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchAsyncLogout } from "../../../Auth/authSlice";
+import {
+  selectOpenMenu,
+  toggleOpenMenu,
+  toggleAddTaskButton,
+  toggleAddProjectButton,
+  toggleInviteMemberClicked,
+  toggleSetProfileClicked,
+} from "../../../appSlice";
 
 const drawerWidth = 240;
 
@@ -97,27 +104,34 @@ interface MainHeaderProps {
 
 const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
   const classes = useStyles();
-  // @ts-ignore
-  const {
-    open,
-    handleDrawerOpen,
-    handleClick,
-    HandleClick,
-    handleClose,
-    menu,
-    handleOpenAddButton,
-    OpenProject,
-    OpenMember,
-    AvatarMenu,
-    HandleClose,
-    OpenProfile,
-  } = useContext(AppContext);
 
   const dispatch = useDispatch();
 
   const logoutHandler = async () => {
     await dispatch(fetchAsyncLogout());
   };
+
+  // アドアイコンをクリックした時の処理
+  const [addIcon, setAddIcon] = React.useState<null | HTMLElement>(null);
+  const addIconClickedOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAddIcon(event.currentTarget);
+  };
+  const addIconClickedClose = () => {
+    setAddIcon(null);
+  };
+
+  // アバターアイコンをクリックした時の処理
+  const [AvatarIcon, setAvatarIcon] = React.useState<null | HTMLElement>(null);
+  const avatarIconClickedOpen = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    setAvatarIcon(event.currentTarget);
+  };
+  const avatarIconClickedClose = () => {
+    setAvatarIcon(null);
+  };
+
+  const openMenu = useSelector(selectOpenMenu);
 
   return (
     <div className={classes.root}>
@@ -126,16 +140,16 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
           style={{ backgroundColor: Color.VWORK_WHITE }}
           position="fixed"
           className={clsx(classes.appBar, {
-            [classes.appBarShift]: open,
+            [classes.appBarShift]: openMenu,
           })}
         >
           <Toolbar>
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={handleDrawerOpen}
+              onClick={() => dispatch(toggleOpenMenu(true))}
               edge="start"
-              className={clsx(open && classes.hide)}
+              className={clsx(openMenu && classes.hide)}
             >
               <MenuIcon className={classes.menuIcon} />
             </IconButton>
@@ -160,7 +174,7 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
                   <Grid item>
                     <IconButton
                       aria-label="add"
-                      onClick={handleClick}
+                      onClick={addIconClickedOpen}
                       style={{ padding: 0, paddingRight: 10 }}
                     >
                       <AddCircleOutlineIcon className={classes.addIcon} />
@@ -168,7 +182,7 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
                   </Grid>
                   <Grid item>
                     <IconButton
-                      onClick={HandleClick}
+                      onClick={avatarIconClickedOpen}
                       style={{ padding: 0, paddingRight: 10 }}
                     >
                       <Avatar
@@ -185,27 +199,35 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
       </Container>
       <StyledMenu
         id="customized-menu"
-        anchorEl={menu}
+        anchorEl={addIcon}
         keepMounted
-        open={Boolean(menu)}
-        onClick={handleClose}
+        open={Boolean(addIcon)}
+        onClick={addIconClickedClose}
       >
-        <StyledMenuItem onClick={handleOpenAddButton}>
+        <StyledMenuItem onClick={() => dispatch(toggleAddTaskButton(true))}>
           タスク追加
         </StyledMenuItem>
 
-        <StyledMenuItem onClick={OpenProject}>プロジェクト追加</StyledMenuItem>
+        <StyledMenuItem onClick={() => dispatch(toggleAddProjectButton(true))}>
+          プロジェクト追加
+        </StyledMenuItem>
 
-        <StyledMenuItem onClick={OpenMember}>メンバー招待</StyledMenuItem>
+        <StyledMenuItem
+          onClick={() => dispatch(toggleInviteMemberClicked(true))}
+        >
+          メンバー招待
+        </StyledMenuItem>
       </StyledMenu>
       <StyledMenu
         id="customized-menu"
-        anchorEl={AvatarMenu}
+        anchorEl={AvatarIcon}
         keepMounted
-        open={Boolean(AvatarMenu)}
-        onClick={HandleClose}
+        open={Boolean(AvatarIcon)}
+        onClick={avatarIconClickedClose}
       >
-        <StyledMenuItem onClick={OpenProfile}>プロフィール設定</StyledMenuItem>
+        <StyledMenuItem onClick={() => dispatch(toggleSetProfileClicked(true))}>
+          プロフィール設定
+        </StyledMenuItem>
         <Link
           to="/workspaces"
           style={{ textDecoration: "none", color: Color.VWORK_BLACK }}

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
@@ -16,9 +16,10 @@ import { NavLink } from "react-router-dom";
 import MyProject from "../../../Dashboard/Project/components/MyProject";
 import Container from "@material-ui/core/Container";
 import Color from "../../util/color";
-import AppContext from "../../../AppContext";
 import Box from "@material-ui/core/Box";
 import "../../../App.css";
+import { useDispatch, useSelector } from "react-redux";
+import { selectOpenMenu, toggleOpenMenu } from "../../../appSlice";
 
 const drawerWidth = 240;
 
@@ -65,8 +66,8 @@ const useStyles = makeStyles((theme: Theme) =>
 const SideBar = () => {
   const classes = useStyles();
 
-  // @ts-ignore
-  const { handleDrawerClose, open } = useContext(AppContext);
+  const dispatch = useDispatch();
+  const openMenu = useSelector(selectOpenMenu);
 
   return (
     <div className={classes.root}>
@@ -75,7 +76,7 @@ const SideBar = () => {
           className={classes.drawer}
           variant="persistent"
           anchor="left"
-          open={open}
+          open={openMenu}
           classes={{
             paper: classes.drawerPaper,
           }}
@@ -111,7 +112,7 @@ const SideBar = () => {
             </Grid>
             <Grid item>
               <div className={classes.drawerHeader}>
-                <IconButton onClick={handleDrawerClose}>
+                <IconButton onClick={() => dispatch(toggleOpenMenu(false))}>
                   <MenuIcon className={classes.menuIcon} />
                 </IconButton>
               </div>

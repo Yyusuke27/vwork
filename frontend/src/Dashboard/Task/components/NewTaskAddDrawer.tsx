@@ -1,12 +1,17 @@
-import React, { useContext } from "react";
-import AppContext from "../../../AppContext";
+import React from "react";
 import VwDrawer from "../../../shared/components/Common/VwDrawer";
+import { useSelector, useDispatch } from "react-redux";
+import { selectAddTaskButton, toggleAddTaskButton } from "../../../appSlice";
 
 const NewTaskAddDrawer = () => {
-  const { addButton, handleCloseAddButton } = useContext(AppContext);
+  const dispatch = useDispatch();
+  const taskAddButton = useSelector(selectAddTaskButton);
   return (
     <>
-      <VwDrawer open={addButton} click={handleCloseAddButton}></VwDrawer>
+      <VwDrawer
+        open={taskAddButton}
+        click={() => dispatch(toggleAddTaskButton(false))}
+      ></VwDrawer>
     </>
   );
 };

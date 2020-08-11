@@ -1,12 +1,21 @@
-import React, { useContext } from "react";
-import AppContext from "../../../AppContext";
+import React from "react";
 import VwDrawer from "../../../shared/components/Common/VwDrawer";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectAddProjectButton,
+  toggleAddProjectButton,
+} from "../../../appSlice";
 
 const NewProjectDrawer = () => {
-  const { openProject, CloseProject } = useContext(AppContext);
+  const dispatch = useDispatch();
+  const addProjectClicked = useSelector(selectAddProjectButton);
+
   return (
     <>
-      <VwDrawer open={openProject} click={CloseProject}></VwDrawer>
+      <VwDrawer
+        open={addProjectClicked}
+        click={() => dispatch(toggleAddProjectButton(false))}
+      ></VwDrawer>
     </>
   );
 };

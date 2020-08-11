@@ -1,12 +1,20 @@
-import React, { useContext } from "react";
+import React from "react";
 import VwDrawer from "../../../shared/components/Common/VwDrawer";
-import AppContext from "../../../AppContext";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectTaskCardClicked,
+  toggleTaskCardClicked,
+} from "../../../appSlice";
 
 const NewTaskCardClickedDrawer = () => {
-  const { openDrawer, handleCloseHandler } = useContext(AppContext);
+  const dispatch = useDispatch();
+  const taskCardClicked = useSelector(selectTaskCardClicked);
   return (
     <>
-      <VwDrawer open={openDrawer} click={handleCloseHandler}></VwDrawer>
+      <VwDrawer
+        open={taskCardClicked}
+        click={() => dispatch(toggleTaskCardClicked(false))}
+      ></VwDrawer>
     </>
   );
 };

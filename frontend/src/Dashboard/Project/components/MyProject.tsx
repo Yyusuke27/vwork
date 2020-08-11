@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import Box from "@material-ui/core/Box";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -7,7 +7,8 @@ import AddIcon from "@material-ui/icons/Add";
 import Typography from "@material-ui/core/Typography";
 import SideProjectList from "./SideProjectList";
 import Color from "../../../shared/util/color";
-import AppContext from "../../../AppContext";
+import { useDispatch } from "react-redux";
+import { toggleAddProjectButton } from "../../../appSlice";
 
 const DrawerWith = "50%";
 
@@ -40,8 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const MyProject = () => {
   const classes = useStyles();
-  // @ts-ignore
-  const { OpenProject } = useContext(AppContext);
+  const dispatch = useDispatch();
   return (
     <>
       <Box borderBottom={1} mt={10} ml={2} mb={2} className={classes.title}>
@@ -55,7 +55,10 @@ const MyProject = () => {
             <Typography>マイプロジェクト</Typography>
           </Grid>
           <Grid item>
-            <IconButton className={classes.iconStyle} onClick={OpenProject}>
+            <IconButton
+              className={classes.iconStyle}
+              onClick={() => dispatch(toggleAddProjectButton(true))}
+            >
               <AddIcon className={classes.icon} />
             </IconButton>
           </Grid>

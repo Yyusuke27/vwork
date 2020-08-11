@@ -1,4 +1,4 @@
-import React, { FC, useContext } from "react";
+import React, { FC } from "react";
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -9,7 +9,8 @@ import Typography from "@material-ui/core/Typography";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import Avatar from "@material-ui/core/Avatar";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import AppContext from "../../../AppContext";
+import { useDispatch } from "react-redux";
+import { toggleTaskCardClicked } from "../../../appSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,12 +44,12 @@ const TaskItem: FC<TaskItemProps> = ({
   iconType = "",
 }) => {
   const classes = useStyles();
-  const { handleOpenHandler } = useContext(AppContext);
+  const dispatch = useDispatch();
 
   return (
     <>
       <Card className={classes.root}>
-        <CardActionArea onClick={handleOpenHandler}>
+        <CardActionArea onClick={() => dispatch(toggleTaskCardClicked(true))}>
           <Grid
             container
             direction="row"

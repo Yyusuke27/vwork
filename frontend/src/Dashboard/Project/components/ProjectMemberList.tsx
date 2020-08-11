@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import Box from "@material-ui/core/Box";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
@@ -7,8 +7,9 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
 import ProjectMemberItem from "./ProjectMemberItem";
-import AppContext from "../../../AppContext";
 import NewAddProjectMemberDrawer from "./NewAddProjectMemberDrawer";
+import { useDispatch } from "react-redux";
+import { toggleAddMemberButton } from "../../../appSlice";
 
 const drawerWidth = "55%";
 
@@ -53,7 +54,7 @@ const programDate = [
 
 const ProjectMemberList = () => {
   const classes = useStyles();
-  const { handleAddProjectMemberOpen } = useContext(AppContext);
+  const dispatch = useDispatch();
   return (
     <>
       <Box borderBottom={1} mt={7} mb={2} className={classes.title}>
@@ -63,7 +64,7 @@ const ProjectMemberList = () => {
         <Grid item>
           <ListItem
             button
-            onClick={handleAddProjectMemberOpen}
+            onClick={() => dispatch(toggleAddMemberButton(true))}
             style={{ paddingLeft: 0 }}
           >
             <ListItemIcon>

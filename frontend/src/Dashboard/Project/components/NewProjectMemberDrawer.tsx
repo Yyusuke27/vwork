@@ -1,12 +1,19 @@
-import React, { useContext } from "react";
+import React from "react";
 import VwDrawer from "../../../shared/components/Common/VwDrawer";
-import AppContext from "../../../AppContext";
-
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectInviteMemberClicked,
+  toggleInviteMemberClicked,
+} from "../../../appSlice";
 const NewProjectMemberDrawer = () => {
-  const { openMember, CloseMember } = useContext(AppContext);
+  const dispatch = useDispatch();
+  const inviteMemberClicked = useSelector(selectInviteMemberClicked);
   return (
     <>
-      <VwDrawer open={openMember} click={CloseMember}></VwDrawer>
+      <VwDrawer
+        open={inviteMemberClicked}
+        click={() => dispatch(toggleInviteMemberClicked(false))}
+      ></VwDrawer>
     </>
   );
 };

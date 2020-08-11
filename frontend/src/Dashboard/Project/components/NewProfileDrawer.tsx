@@ -1,12 +1,20 @@
-import React, { useContext } from "react";
+import React from "react";
 import VwDrawer from "../../../shared/components/Common/VwDrawer";
-import AppContext from "../../../AppContext";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectSetProfileClicked,
+  toggleSetProfileClicked,
+} from "../../../appSlice";
 
 const NewProfileDrawer = () => {
-  const { openProfile, CloseProfile } = useContext(AppContext);
+  const dispatch = useDispatch();
+  const profileClicked = useSelector(selectSetProfileClicked);
   return (
     <>
-      <VwDrawer open={openProfile} click={CloseProfile}></VwDrawer>
+      <VwDrawer
+        open={profileClicked}
+        click={() => dispatch(toggleSetProfileClicked(false))}
+      ></VwDrawer>
     </>
   );
 };

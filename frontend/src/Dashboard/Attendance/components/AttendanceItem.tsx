@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
 import Grid from "@material-ui/core/Grid";
@@ -9,7 +9,8 @@ import Card from "@material-ui/core/Card";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import { Box } from "@material-ui/core";
-import AppContext from "../../../AppContext";
+import { useDispatch } from "react-redux";
+import { toggleKintaiCardClicked } from "../../../appSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,11 +34,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const AttendanceItem = () => {
   const classes = useStyles();
-  const { handleAttendanceCardOpen } = useContext(AppContext);
+  const dispatch = useDispatch();
   return (
     <>
       <Card className={classes.root}>
-        <CardActionArea onClick={handleAttendanceCardOpen}>
+        <CardActionArea onClick={() => dispatch(toggleKintaiCardClicked(true))}>
           <Container>
             <Grid container direction="column">
               <Grid item>

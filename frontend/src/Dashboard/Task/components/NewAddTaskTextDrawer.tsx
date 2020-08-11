@@ -1,14 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import TaskList from "./TaskList";
 import VwDrawer from "../../../shared/components/Common/VwDrawer";
-import AppContext from "../../../AppContext";
+import { useSelector, useDispatch } from "react-redux";
+import { selectAddedTaskText, toggleAddedTaskText } from "../../../appSlice";
 
 const NewAddTaskTextDrawer = () => {
-  const { addedTaskText, handleAddedTaskTextClose } = useContext(AppContext);
+  const dispatch = useDispatch();
+  const addedTaskText = useSelector(selectAddedTaskText);
   return (
     <>
       <VwDrawer open={addedTaskText}>
@@ -18,7 +20,7 @@ const NewAddTaskTextDrawer = () => {
               <IconButton
                 edge="start"
                 color="inherit"
-                onClick={handleAddedTaskTextClose}
+                onClick={() => dispatch(toggleAddedTaskText(false))}
                 aria-label="close"
               >
                 <CloseIcon />

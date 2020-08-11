@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import { Route, Switch } from "react-router-dom";
 import clsx from "clsx";
-import AppContext from "../../AppContext";
 import Home from "./Home";
 import MyTask from "../Task/pages/MyTask";
 import MyAttendance from "../Attendance/pages/MyAttendance";
@@ -18,6 +17,7 @@ import NewTaskCardClickedDrawer from "../Task/components/NewTaskCardClickedDrawe
 import NewTaskAddDrawer from "../Task/components/NewTaskAddDrawer";
 import NewAttendanceDrawer from "../Attendance/components/NewAttendanceDrawer";
 import { fetchAsyncAllMyProjects } from "../Project/projectSlice";
+import { selectOpenMenu } from "../../appSlice";
 
 const drawerWidth = 240;
 
@@ -78,212 +78,39 @@ const Dashboard = () => {
     }
   }, [fetchUser, fetchProject, workspace]);
 
-  // メニューアイコンをクリックした時の処理
-  const [open, setOpen] = React.useState(true);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  const openMenu = useSelector(selectOpenMenu);
 
-  // アドアイコンをクリックした時の処理
-  const [menu, setMenu] = React.useState<null | HTMLElement>(null);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setMenu(event.currentTarget);
-  };
-  const handleClose = () => {
-    setMenu(null);
-  };
-
-  // アバターアイコンをクリックした時の処理
-  const [AvatarMenu, setAvatarMenu] = React.useState<null | HTMLElement>(null);
-  const HandleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAvatarMenu(event.currentTarget);
-  };
-  const HandleClose = () => {
-    setAvatarMenu(null);
-  };
-
-  // // タスク追加をクリックした時の処理
-  // const [openTask, setOpenTask] = useState(false);
-  // const OpenTask = () => {
-  //   setOpenTask(true);
-  // };
-  // const CloseTask = () => {
-  //   setOpenTask(false);
-  // };
-
-  // プロジェクト追加をクリックした時の処理
-  const [openProject, setOpenProject] = useState(false);
-  const OpenProject = () => {
-    setOpenProject(true);
-  };
-  const CloseProject = () => {
-    setOpenProject(false);
-  };
-
-  // メンバー招待をクリックした時の処理
-  const [openMember, setOpenMember] = useState(false);
-  const OpenMember = () => {
-    setOpenMember(true);
-  };
-  const CloseMember = () => {
-    setOpenMember(false);
-  };
-
-  // プロフィール設定をクリックした時の処理
-  const [openProfile, setOpenProfile] = useState(false);
-  const OpenProfile = () => {
-    setOpenProfile(true);
-  };
-  const CloseProfile = () => {
-    setOpenProfile(false);
-  };
-
-  // タスク関連のカードをクリックした時に表示されるドロワーを出すための処理
-  const [openDrawer, setOpenDrawer] = useState(false);
-  const handleOpenHandler = () => {
-    setOpenDrawer(true);
-  };
-  const handleCloseHandler = () => {
-    setOpenDrawer(false);
-  };
-
-  // ダッシュボードのタスクを追加ボタンをクリックした時の処理
-  const [addButton, setAddButton] = useState(false);
-  const handleOpenAddButton = () => {
-    setAddButton(true);
-  };
-  const handleCloseAddButton = () => {
-    setAddButton(false);
-  };
-
-  // 勤怠管理画面のAttendanceItemで表示されるカードをクリックした後の処理
-  const [attendanceCard, setAttendanceCard] = useState(false);
-  const handleAttendanceCardOpen = () => {
-    setAttendanceCard(true);
-  };
-  const handleAttendanceCardClose = () => {
-    setAttendanceCard(false);
-  };
-
-  // ホーム画面の退社ボタンを押した後に表示される画面の追加ボタンをクリックした後の処理
-  const [addButtonAfterTask, setAddButtonAfterTask] = useState(false);
-
-  const handleAddTaskButtonAfterWorkOpen = () => {
-    setAddButtonAfterTask(true);
-  };
-  const handleAddTaskButtonAfterWorkClose = () => {
-    setAddButtonAfterTask(false);
-  };
-
-  // ホーム画面の退社ボタンを押した後に表示される画面の(X)件のタスクを追加済みエリアをクリックした時に表示されるエリアの処理
-  const [addedTaskText, setAddedTaskText] = useState(false);
-
-  const handleAddedTaskTextOpen = () => {
-    setAddedTaskText(true);
-  };
-  const handleAddedTaskTextClose = () => {
-    setAddedTaskText(false);
-  };
-
-  // プロジェクト管理画面のメンバー追加をクリックした後の処理
-  const [addProjectMember, setAddProjectMember] = useState(false);
-  const handleAddProjectMemberOpen = () => {
-    setAddProjectMember(true);
-  };
-  const handleAddProjectMemberClose = () => {
-    setAddProjectMember(false);
-  };
-
-  // プロジェクト管理画面のメンバーアイコンをクリックした後の処理
-  const [projectMember, setProjectMember] = useState(false);
-  const projectMemberDrawerOpen = () => {
-    setProjectMember(true);
-  };
-  const projectMemberDrawerClose = () => {
-    setProjectMember(false);
-  };
   return (
     <div className={classes.root}>
-      <AppContext.Provider
-        value={{
-          handleDrawerOpen,
-          handleDrawerClose,
-          open,
-          handleClick,
-          handleClose,
-          menu,
-          HandleClick,
-          HandleClose,
-          AvatarMenu,
-          // OpenTask,
-          // CloseTask,
-          // openTask,
-          OpenProject,
-          CloseProject,
-          openProject,
-          OpenMember,
-          CloseMember,
-          openMember,
-          OpenProfile,
-          CloseProfile,
-          openProfile,
-          handleOpenHandler,
-          handleCloseHandler,
-          openDrawer,
-          handleOpenAddButton,
-          handleCloseAddButton,
-          addButton,
-          handleAttendanceCardOpen,
-          handleAttendanceCardClose,
-          attendanceCard,
-          handleAddTaskButtonAfterWorkOpen,
-          handleAddTaskButtonAfterWorkClose,
-          addButtonAfterTask,
-          handleAddedTaskTextOpen,
-          handleAddedTaskTextClose,
-          addedTaskText,
-          handleAddProjectMemberOpen,
-          handleAddProjectMemberClose,
-          addProjectMember,
-          projectMemberDrawerOpen,
-          projectMemberDrawerClose,
-          projectMember,
-        }}
+      <MainNavigation />
+      <CssBaseline />
+      <main
+        className={clsx(classes.content, {
+          [classes.contentShift]: openMenu,
+        })}
       >
-        <MainNavigation />
-        <CssBaseline />
-        <main
-          className={clsx(classes.content, {
-            [classes.contentShift]: open,
-          })}
-        >
-          <div className={classes.drawerHeader} />
-          {/*<NewTaskDrawer />*/}
-          <NewProjectDrawer />
-          <NewProjectMemberDrawer />
-          <NewProfileDrawer />
-          <NewTaskCardClickedDrawer />
-          <NewTaskAddDrawer />
-          <NewAttendanceDrawer />
-          <Switch>
-            <Route path="/" exact>
-              <Home />
-            </Route>
-            <Route path="/my_task" exact>
-              <MyTask />
-            </Route>
-            <Route path="/work_manage" exact>
-              <MyAttendance />
-            </Route>
-            <Route path="/my_project" exact>
-              <Project />
-            </Route>
-          </Switch>
-        </main>
-      </AppContext.Provider>
+        <div className={classes.drawerHeader} />
+        <NewProjectDrawer />
+        <NewProjectMemberDrawer />
+        <NewProfileDrawer />
+        <NewTaskCardClickedDrawer />
+        <NewTaskAddDrawer />
+        <NewAttendanceDrawer />
+        <Switch>
+          <Route path="/" exact>
+            <Home />
+          </Route>
+          <Route path="/my_task" exact>
+            <MyTask />
+          </Route>
+          <Route path="/work_manage" exact>
+            <MyAttendance />
+          </Route>
+          <Route path="/my_project" exact>
+            <Project />
+          </Route>
+        </Switch>
+      </main>
     </div>
   );
 };

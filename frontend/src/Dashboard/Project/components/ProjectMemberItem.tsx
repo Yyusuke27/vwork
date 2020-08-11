@@ -1,11 +1,12 @@
-import React, { FC, useContext } from "react";
+import React, { FC } from "react";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Avatar from "@material-ui/core/Avatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import AppContext from "../../../AppContext";
 import NewProjectMemberDetailDrawer from "./NewProjectMemberDetailDrawer";
+import { useDispatch } from "react-redux";
+import { toggleMemberIconClicked } from "../../../appSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,13 +26,13 @@ const ProjectMemberItem: FC<TaskMemberItemProps> = ({
   icon = "",
 }) => {
   const classes = useStyles();
-  const { projectMemberDrawerOpen } = useContext(AppContext);
+  const dispatch = useDispatch();
   return (
     <>
       <ListItem
         button
         style={{ paddingLeft: 0 }}
-        onClick={projectMemberDrawerOpen}
+        onClick={() => dispatch(toggleMemberIconClicked(true))}
       >
         <ListItemIcon>
           <Avatar className={classes.icon}>{icon}</Avatar>

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import Grid from "@material-ui/core/Grid";
@@ -12,7 +12,8 @@ import FormControl from "@material-ui/core/FormControl";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import InputBase from "@material-ui/core/InputBase";
 import Color from "../../../shared/util/color";
-import AppContext from "../../../AppContext";
+import { useDispatch } from "react-redux";
+import { toggleAddTaskButton } from "../../../appSlice";
 
 const BootstrapInput = withStyles((theme: Theme) =>
   createStyles({
@@ -70,7 +71,7 @@ const TaskAddButton = () => {
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setText(event.target.value as string);
   };
-  const { handleOpenAddButton } = useContext(AppContext);
+  const dispatch = useDispatch();
   return (
     <div>
       <Grid
@@ -85,7 +86,7 @@ const TaskAddButton = () => {
             color="secondary"
             className={classes.button}
             startIcon={<AddIcon />}
-            onClick={handleOpenAddButton}
+            onClick={() => dispatch(toggleAddTaskButton(true))}
           >
             タスクを追加
           </Button>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import Box from "@material-ui/core/Box";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -19,9 +19,13 @@ import CloseIcon from "@material-ui/icons/Close";
 import Button from "@material-ui/core/Button";
 import "../../../App.css";
 import { useHistory } from "react-router-dom";
-import AppContext from "../../../AppContext";
 import NewTaskAddAfterWorkDrawer from "../../Task/components/NewTaskAddAfetrWorkDrawer";
 import NewAddTaskTextDrawer from "../../Task/components/NewAddTaskTextDrawer";
+import { useDispatch } from "react-redux";
+import {
+  toggleAddedTaskText,
+  toggleAddButtonAfterTask,
+} from "../../../appSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -103,10 +107,6 @@ const CheckAttendanceArea = () => {
     setOpen(false);
   };
 
-  const { handleAddTaskButtonAfterWorkOpen } = useContext(AppContext);
-
-  const { handleAddedTaskTextOpen } = useContext(AppContext);
-
   const [step, setStep] = useState({
     attended: false,
     restStart: true,
@@ -157,6 +157,8 @@ const CheckAttendanceArea = () => {
     history.go(0);
   };
 
+  const dispatch = useDispatch();
+
   return (
     <>
       <Box borderBottom={1} className={classes.mainTitle}>
@@ -171,12 +173,7 @@ const CheckAttendanceArea = () => {
           >
             2020年8月10日
           </Typography>
-          <Grid
-            container
-            direction="row"
-            // justify="space-between"
-            className={classes.timeArea}
-          >
+          <Grid container direction="row" className={classes.timeArea}>
             <Grid item style={{ width: "20%" }}>
               <span style={{ fontWeight: 600 }}>出社</span>：{attendedTime}
             </Grid>
@@ -287,7 +284,9 @@ const CheckAttendanceArea = () => {
                       <Grid item>
                         <Button
                           className={classes.additionalButton}
-                          onClick={handleAddTaskButtonAfterWorkOpen}
+                          onClick={() =>
+                            dispatch(toggleAddButtonAfterTask(true))
+                          }
                           variant="contained"
                           color="secondary"
                         >
@@ -302,7 +301,7 @@ const CheckAttendanceArea = () => {
                 <Grid
                   item
                   className={classes.addedTask}
-                  onClick={handleAddedTaskTextOpen}
+                  onClick={() => dispatch(toggleAddedTaskText(true))}
                 >
                   X件のタスクを追加済
                 </Grid>
