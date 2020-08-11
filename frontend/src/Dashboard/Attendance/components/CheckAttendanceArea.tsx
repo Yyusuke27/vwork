@@ -17,15 +17,11 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Button from "@material-ui/core/Button";
-import Drawer from "@material-ui/core/Drawer";
-import Backdrop from "@material-ui/core/Backdrop";
-import TaskList from "../../Task/components/TaskList";
 import "../../../App.css";
 import { useHistory } from "react-router-dom";
 import AppContext from "../../../AppContext";
 import NewTaskAddAfterWorkDrawer from "../../Task/components/NewTaskAddAfetrWorkDrawer";
-
-const drawerWidth = "50%";
+import NewAddTaskTextDrawer from "../../Task/components/NewAddTaskTextDrawer";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -77,17 +73,6 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 150,
       fontSize: 20,
     },
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: "#fff",
-    },
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-    drawerPaper: {
-      width: drawerWidth,
-    },
   })
 );
 
@@ -120,14 +105,8 @@ const CheckAttendanceArea = () => {
 
   const { handleAddTaskButtonAfterWorkOpen } = useContext(AppContext);
 
-  const [drawer, setDrawer] = React.useState(false);
+  const { handleAddedTaskTextOpen } = useContext(AppContext);
 
-  const drawerClose = () => {
-    setDrawer(false);
-  };
-  const drawerOpen = () => {
-    setDrawer(true);
-  };
   const [step, setStep] = useState({
     attended: false,
     restStart: true,
@@ -320,7 +299,11 @@ const CheckAttendanceArea = () => {
                 </Grid>
               </Box>
               <Box mt={3}>
-                <Grid item className={classes.addedTask} onClick={drawerOpen}>
+                <Grid
+                  item
+                  className={classes.addedTask}
+                  onClick={handleAddedTaskTextOpen}
+                >
                   X件のタスクを追加済
                 </Grid>
               </Box>
@@ -359,35 +342,7 @@ const CheckAttendanceArea = () => {
           </Grid>
         </Box>
         <NewTaskAddAfterWorkDrawer />
-        <Backdrop className={classes.backdrop} open={drawer}>
-          <Drawer
-            className={classes.drawer}
-            variant="persistent"
-            anchor="right"
-            open={drawer}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          >
-            <Container maxWidth="md">
-              <Grid container direction="column">
-                <Grid item>
-                  <IconButton
-                    edge="start"
-                    color="inherit"
-                    onClick={drawerClose}
-                    aria-label="close"
-                  >
-                    <CloseIcon />
-                  </IconButton>
-                </Grid>
-                <Grid item>
-                  <TaskList title="今日行ったタスク" />
-                </Grid>
-              </Grid>
-            </Container>
-          </Drawer>
-        </Backdrop>
+        <NewAddTaskTextDrawer />
       </Dialog>
     </>
   );

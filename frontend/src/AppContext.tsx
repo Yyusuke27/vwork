@@ -34,6 +34,9 @@ interface AppContextInterface {
   handleAddTaskButtonAfterWorkOpen: () => void;
   handleAddTaskButtonAfterWorkClose: () => void;
   addButtonAfterTask: boolean;
+  handleAddedTaskTextOpen: () => void;
+  handleAddedTaskTextClose: () => void;
+  addedTaskText: boolean;
 }
 
 const AppContext = createContext<AppContextInterface | any>(null);

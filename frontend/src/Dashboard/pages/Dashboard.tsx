@@ -162,6 +162,16 @@ const Dashboard = () => {
   const handleAddTaskButtonAfterWorkClose = () => {
     setAddButtonAfterTask(false);
   };
+
+  // ホーム画面の退社ボタンを押した後に表示される画面の(X)件のタスクを追加済みエリアをクリックした時に表示されるエリアの処理
+  const [addedTaskText, setAddedTaskText] = useState(false);
+
+  const handleAddedTaskTextOpen = () => {
+    setAddedTaskText(true);
+  };
+  const handleAddedTaskTextClose = () => {
+    setAddedTaskText(false);
+  };
   return (
     <div className={classes.root}>
       <AppContext.Provider
@@ -199,6 +209,9 @@ const Dashboard = () => {
           handleAddTaskButtonAfterWorkOpen,
           handleAddTaskButtonAfterWorkClose,
           addButtonAfterTask,
+          handleAddedTaskTextOpen,
+          handleAddedTaskTextClose,
+          addedTaskText,
         }}
       >
         <MainNavigation />
