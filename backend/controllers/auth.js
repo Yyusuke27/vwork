@@ -68,9 +68,14 @@ exports.currentUser = asyncHandler(async (req, res, next) => {
     "name email role registration lastAccessWorkspace"
   );
 
+  const workspace = await Workspace.findById(user.lastAccessWorkspace).select(
+    "name"
+  );
+
   res.status(200).json({
     success: true,
     data: user,
+    workspace,
   });
 });
 
