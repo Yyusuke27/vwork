@@ -6,9 +6,14 @@ const Task = require("../models/Task");
 const Workspace = require("../models/Workspace");
 const Project = require("../models/Project");
 
+// TODO: 今日やるデータを取得するAPIを作成←一覧のところのresでtodayとか作って値を渡す。新しくAPIは作らない。
+// TODO: Workspaceに紐づくタスク一覧から今日やるを除く
+// TODO: Workspaceに紐づくタスク一覧でクエリが飛んで来た時の処理
+
 // @desc Get all tasks or specific tasks
 // @route Get /api/v1/tasks
 // @route Get /api/v1/projects/:projectId/tasks
+// @route Get /api/v1/workspaces/:workspaceId/tasks
 // @access Public
 exports.getTasks = asyncHandler(async (req, res, next) => {
   let tasks;
@@ -21,12 +26,44 @@ exports.getTasks = asyncHandler(async (req, res, next) => {
       return next(new ErrorResponse("タスクの閲覧権限がありません"));
     }
     tasks = await Task.find({ project: req.params.projectId });
+  } else if (req.params.workspaceId) {
+    tasks = await Task.find({
+      user: req.user.id,
+      todaysTask: false,
+      workspace: req.params.workspaceId,
+    })
+      .populate({
+        path: "project",
+        select: "name",
+      })
+      .populate({
+        path: "user",
+        select: "name",
+      })
+      .sort({
+        updatedAt: -1,
+      });
+    todaysTasks = await Task.find({
+      user: req.user.id,
+      todaysTask: true,
+      workspace: req.params.workspaceId,
+    })
+      .populate({
+        path: "project",
+        select: "name",
+      })
+      .populate({
+        path: "user",
+        select: "name",
+      })
+      .sort({
+        updatedAt: -1,
+      });
   } else {
-    // TODO: admin以外でプロジェクトIdがなかったら自分のやつだけ表示
     if (req.user.role === "admin") {
       tasks = await Task.find();
     } else {
-      tasks = await Task.find({ user: req.user.id });
+      return next(new ErrorResponse("タスクの閲覧権限がありません"));
     }
   }
 
@@ -34,6 +71,8 @@ exports.getTasks = asyncHandler(async (req, res, next) => {
     success: true,
     count: tasks.length,
     data: tasks,
+    countTodaysTask: todaysTasks.length,
+    todaysTasks,
   });
 });
 
@@ -81,6 +120,7 @@ exports.getTask = asyncHandler(async (req, res, next) => {
 // @route POST /api/v1/workspaces/:workspaceId/tasks
 // @route POST /api/v1/projects/:projectId/tasks
 // @access Private
+// TODO: paramsにprojectsをつけるパターンはいらないかも
 exports.createTask = asyncHandler(async (req, res, next) => {
   // workspaceからの場合
   if (req.params.workspaceId) {

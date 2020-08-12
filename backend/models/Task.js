@@ -22,13 +22,15 @@ const TaskSchema = new mongoose.Schema(
       type: Number,
       enum: [0, 1, 2],
     },
-    project: mongoose.Schema.ObjectId,
+    todaysTask: Boolean,
+    project: { type: mongoose.Schema.ObjectId, null: true, ref: "Project" },
     workspace: {
       type: mongoose.Schema.ObjectId,
       required: true,
     },
     user: {
       type: mongoose.Schema.ObjectId,
+      ref: "User",
       required: true,
     },
   },
