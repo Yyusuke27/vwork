@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const NewAddTaskTextDrawer = () => {
+const AddedTaskTextAfterWorkDrawer = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const addedTaskText = useSelector(selectAddedTaskText);
@@ -41,4 +41,4 @@ const NewAddTaskTextDrawer = () => {
   );
 };
 
-export default NewAddTaskTextDrawer;
+export default AddedTaskTextAfterWorkDrawer;

@@ -9,7 +9,7 @@ import {
   toggleKintaiCardClicked,
 } from "../../../appSlice";
 
-const NewAttendanceDrawer = () => {
+const KintaiKardClickedDrawer = () => {
   const dispatch = useDispatch();
   const kintaiCardClicked = useSelector(selectKintaiCardClicked);
   return (
@@ -30,4 +30,4 @@ const NewAttendanceDrawer = () => {
   );
 };
 
-export default NewAttendanceDrawer;
+export default KintaiKardClickedDrawer;

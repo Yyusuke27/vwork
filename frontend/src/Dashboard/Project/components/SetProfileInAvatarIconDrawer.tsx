@@ -6,7 +6,7 @@ import {
   toggleSetProfileClicked,
 } from "../../../appSlice";
 
-const NewProfileDrawer = () => {
+const SetProfileInAvatarIconDrawer = () => {
   const dispatch = useDispatch();
   const profileClicked = useSelector(selectSetProfileClicked);
   return (
@@ -19,4 +19,4 @@ const NewProfileDrawer = () => {
   );
 };
 
-export default NewProfileDrawer;
+export default SetProfileInAvatarIconDrawer;

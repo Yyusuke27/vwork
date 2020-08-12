@@ -6,7 +6,7 @@ import {
   toggleTaskCardClicked,
 } from "../../../appSlice";
 
-const NewTaskCardClickedDrawer = () => {
+const TaskCardClickedDrawer = () => {
   const dispatch = useDispatch();
   const taskCardClicked = useSelector(selectTaskCardClicked);
   return (
@@ -19,4 +19,4 @@ const NewTaskCardClickedDrawer = () => {
   );
 };
 
-export default NewTaskCardClickedDrawer;
+export default TaskCardClickedDrawer;

@@ -11,11 +11,11 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { fetchAsyncCurrentUser, selectWorkspace } from "../../Auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import NewProjectDrawer from "../Project/components/NewProjectDrawer";
-import NewProjectMemberDrawer from "../Project/components/NewProjectMemberDrawer";
-import NewProfileDrawer from "../Project/components/NewProfileDrawer";
-import NewTaskCardClickedDrawer from "../Task/components/NewTaskCardClickedDrawer";
+import InviteMemberInAddIconDrawer from "../Project/components/InviteMemberInAddIconDrawer";
+import SetProfileInAvatarIconDrawer from "../Project/components/SetProfileInAvatarIconDrawer";
+import TaskCardClickedDrawer from "../Task/components/TaskCardClickedDrawer";
 import NewTaskAddDrawer from "../Task/components/NewTaskAddDrawer";
-import NewAttendanceDrawer from "../Attendance/components/NewAttendanceDrawer";
+import KintaiKardClickedDrawer from "../Attendance/components/KintaiKardClickedDrawer";
 import { fetchAsyncAllMyProjects } from "../Project/projectSlice";
 import {
   selectOpenMenu,
@@ -27,7 +27,7 @@ import {
   selectMemberIconClicked,
   selectKintaiCardClicked,
 } from "../../appSlice";
-import NewProjectMemberDetailDrawer from "../Project/components/NewProjectMemberDetailDrawer";
+import ProjectMemberClickedDrawer from "../Project/components/ProjectMemberClickedDrawer";
 
 const drawerWidth = 240;
 
@@ -108,12 +108,12 @@ const Dashboard = () => {
       >
         <div className={classes.drawerHeader} />
         {addProjectButton ? <NewProjectDrawer /> : ""}
-        {inviteMemberClicked ? <NewProjectMemberDrawer /> : ""}
-        {setProfileClicked ? <NewProfileDrawer /> : ""}
-        {taskCardClicked ? <NewTaskCardClickedDrawer /> : ""}
+        {inviteMemberClicked ? <InviteMemberInAddIconDrawer /> : ""}
+        {setProfileClicked ? <SetProfileInAvatarIconDrawer /> : ""}
+        {taskCardClicked ? <TaskCardClickedDrawer /> : ""}
         {addTaskButton ? <NewTaskAddDrawer /> : ""}
-        {memberIconClicked ? <NewProjectMemberDetailDrawer /> : ""}
-        {kintaiCardClicked ? <NewAttendanceDrawer /> : ""}
+        {memberIconClicked ? <ProjectMemberClickedDrawer /> : ""}
+        {kintaiCardClicked ? <KintaiKardClickedDrawer /> : ""}
         <Switch>
           <Route path="/" exact>
             <Home />

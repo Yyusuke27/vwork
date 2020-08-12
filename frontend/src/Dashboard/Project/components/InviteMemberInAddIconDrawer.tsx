@@ -5,7 +5,7 @@ import {
   selectInviteMemberClicked,
   toggleInviteMemberClicked,
 } from "../../../appSlice";
-const NewProjectMemberDrawer = () => {
+const InviteMemberInAddIconDrawer = () => {
   const dispatch = useDispatch();
   const inviteMemberClicked = useSelector(selectInviteMemberClicked);
   return (
@@ -18,4 +18,4 @@ const NewProjectMemberDrawer = () => {
   );
 };
 
-export default NewProjectMemberDrawer;
+export default InviteMemberInAddIconDrawer;

@@ -19,8 +19,8 @@ import CloseIcon from "@material-ui/icons/Close";
 import Button from "@material-ui/core/Button";
 import "../../../App.css";
 import { useHistory } from "react-router-dom";
-import NewTaskAddAfterWorkDrawer from "../../Task/components/NewTaskAddAfetrWorkDrawer";
-import NewAddTaskTextDrawer from "../../Task/components/NewAddTaskTextDrawer";
+import NewTaskAddAfterWorkDrawer from "../../Task/components/TaskAddButtonAfetrWorkDrawer";
+import AddedTaskTextAfterWorkDrawer from "../../Task/components/AddedTaskTextAfterWorkDrawer";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectAddButtonAfterTask,
@@ -346,7 +346,7 @@ const CheckAttendanceArea = () => {
         </Box>
         {addButtonAfterTask ? <NewTaskAddAfterWorkDrawer /> : ""}
 
-        {addedTaskText ? <NewAddTaskTextDrawer /> : ""}
+        {addedTaskText ? <AddedTaskTextAfterWorkDrawer /> : ""}
       </Dialog>
     </>
   );

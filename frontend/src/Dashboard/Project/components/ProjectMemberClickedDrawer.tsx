@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const NewProjectMemberDetailDrawer = () => {
+const ProjectMemberClickedDrawer = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const MemberIconClicked = useSelector(selectMemberIconClicked);
@@ -84,4 +84,4 @@ const NewProjectMemberDetailDrawer = () => {
   );
 };
 
-export default NewProjectMemberDetailDrawer;
+export default ProjectMemberClickedDrawer;
