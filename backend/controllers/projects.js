@@ -34,7 +34,7 @@ exports.getProjects = asyncHandler(async (req, res, next) => {
 // @route Get /api/v1/projects/:id
 // @access Public
 exports.getProject = asyncHandler(async (req, res, next) => {
-  const project = await Project.findById(req.params.id);
+  const project = await Project.findById(req.params.id).populate("tasks");
 
   if (!project) {
     return next(

@@ -44,7 +44,16 @@ const ProjectSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
+
+ProjectSchema.virtual("tasks", {
+  ref: "Task",
+  localField: "_id",
+  foreignField: "project",
+  justOne: true,
+});
 
 module.exports = mongoose.model("Project", ProjectSchema);
