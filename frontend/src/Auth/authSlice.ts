@@ -47,6 +47,26 @@ export const fetchAsyncLogout = createAsyncThunk("auth/logout", async () => {
   return res.data;
 });
 
+export const fetchAsyncUpdateUser = createAsyncThunk(
+  "auth/updateUser",
+  async (data: {
+    userId: string;
+    postData: { lastAccessWorkspace: string };
+  }) => {
+    const res = await axios.put(
+      `${apiUrl}api/v1/users/${data.userId}`,
+      data.postData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return res.data;
+  }
+);
+
 interface AuthState {
   token: number | string;
   user: {
@@ -147,6 +167,7 @@ export const authSlice = createSlice({
       localStorage.clear();
       window.location.href = "/auth/login";
     });
+    builder.addCase(fetchAsyncUpdateUser.fulfilled, (state, action) => {});
   },
 });
 

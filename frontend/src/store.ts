@@ -5,6 +5,7 @@ import dashboardReducer from "./Dashboard/dashboardSlice";
 import registReducer from "./Regist/registSlice";
 import projectReducer from "./Dashboard/Project/projectSlice";
 import taskReducer from "./Dashboard/Task/taskSlice";
+import workspaceReducer from "./WorkSpaces/workspaceSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     regist: registReducer,
     project: projectReducer,
     task: taskReducer,
+    workspace: workspaceReducer,
   },
 });
 

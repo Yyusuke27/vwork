@@ -1,9 +1,14 @@
-import React from "react";
+import React, { FC } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
+
+import { fetchAsyncUpdateUser, selectUser } from "../../Auth/authSlice";
+
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+import CardActionArea from "@material-ui/core/CardActionArea";
 import Card from "@material-ui/core/Card";
+import Typography from "@material-ui/core/Typography";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,27 +23,39 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: 20,
       paddingLeft: 10,
     },
+    cardActionArea: {
+      height: 80,
+    },
   })
 );
 
-const WorkSpaceItem = () => {
+interface WorkSpaceItemProps {
+  id: string;
+  name: string;
+}
+
+const WorkSpaceItem: FC<WorkSpaceItemProps> = ({ id, name }) => {
   const classes = useStyles();
+
+  const userData = useSelector(selectUser);
+  const dispatch = useDispatch();
+
+  const history = useHistory();
+
   return (
-    <>
-      <Grid
-        container
-        direction="row"
-        justify="space-between"
-        alignItems="center"
-        style={{ marginTop: "5%" }}
+    <Grid item xs={12} style={{ marginBottom: 10 }}>
+      <CardActionArea
+        className={classes.cardActionArea}
+        onClick={async () => {
+          await dispatch(
+            fetchAsyncUpdateUser({
+              userId: userData._id,
+              postData: { lastAccessWorkspace: id },
+            })
+          );
+          history.push("/");
+        }}
       >
-        <Grid item style={{ width: "30%" }}>
-          <Box borderBottom={1} className={classes.title}>
-            WORKSPACE一覧
-          </Box>
-        </Grid>
-      </Grid>
-      <Grid item style={{ marginTop: 20 }}>
         <Card className={classes.root}>
           <Grid
             container
@@ -48,12 +65,12 @@ const WorkSpaceItem = () => {
             style={{ height: 80, margin: "auto" }}
           >
             <Grid item>
-              <Typography className={classes.title}>UI画面の実装</Typography>
+              <Typography className={classes.title}>{name}</Typography>
             </Grid>
           </Grid>
         </Card>
-      </Grid>
-    </>
+      </CardActionArea>
+    </Grid>
   );
 };
 

@@ -1,16 +1,29 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
+import { useDispatch } from "react-redux";
+
+import SideBarOfWorkSpaces from "../../shared/components/Navigation/SideBarOfWorkSpaces";
+import WorkSpaceList from "../components/WorkSpaceList";
+import { fetchAsyncCurrentUser } from "../../Auth/authSlice";
+
 import Dialog from "@material-ui/core/Dialog";
 import Container from "@material-ui/core/Container";
-import SideBarOfWorkSpaces from "../../shared/components/Navigation/SideBarOfWorkSpaces";
-import WorkSpaceItem from "../components/WorkSpaceItem";
 
 const WorkSpaces = () => {
+  const dispatch = useDispatch();
+
+  const fetchUser = useCallback(async () => {
+    await dispatch(fetchAsyncCurrentUser());
+  }, [dispatch]);
+
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
   return (
     <>
       <SideBarOfWorkSpaces />
       <Dialog open keepMounted maxWidth="xl" className="registDialog">
         <Container maxWidth="md">
-          <WorkSpaceItem />
+          <WorkSpaceList />
         </Container>
       </Dialog>
     </>
