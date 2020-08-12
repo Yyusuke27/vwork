@@ -1,8 +1,6 @@
 import React, { FC } from "react";
-import { useSelector } from "react-redux";
 
 import TaskItem from "./TaskItem";
-import { selectProjects } from "../../Project/projectSlice";
 
 import Box from "@material-ui/core/Box";
 import {
@@ -100,13 +98,11 @@ const TaskList: FC<TaskListProps> = ({
         {
           name: "タスク",
           project: { name: "プロジェクト", _id: "12345" },
-          endDateAt: "日付",
+          endDateAt: "2020-10-10",
           _id: "12345",
           user: { name: "太郎", _id: "12345" },
         },
       ];
-
-  const projectState = useSelector(selectProjects);
 
   return (
     <>
