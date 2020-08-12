@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
       fontSize: 15,
-      width: 190,
     },
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
@@ -44,7 +43,7 @@ const MyProject = () => {
   const dispatch = useDispatch();
   return (
     <>
-      <Box borderBottom={1} mt={10} ml={2} mb={2} className={classes.title}>
+      <Box borderBottom={1} mt={10} mx={2} mb={2} className={classes.title}>
         <Grid
           container
           direction="row"
