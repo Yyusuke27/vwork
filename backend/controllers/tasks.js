@@ -256,7 +256,18 @@ exports.getNearDeadlineTasks = asyncHandler(async (req, res, next) => {
     user: req.user.id,
     workspace: req.params.workspaceId,
     endDateAt: { $lte: nearDeadlineDate },
-  });
+  })
+    .populate({
+      path: "project",
+      select: "name",
+    })
+    .populate({
+      path: "user",
+      select: "name",
+    })
+    .sort({
+      endDateAt: 1,
+    });
 
   res.status(200).json({
     success: true,
@@ -276,7 +287,15 @@ exports.getRecentTasks = asyncHandler(async (req, res, next) => {
     workspace: req.params.workspaceId,
     updatedAt: { $gte: oneWeekAgo },
   })
-    .limit(5)
+    .populate({
+      path: "project",
+      select: "name",
+    })
+    .populate({
+      path: "user",
+      select: "name",
+    })
+    .limit(3)
     .sort({
       updatedAt: -1,
     });
