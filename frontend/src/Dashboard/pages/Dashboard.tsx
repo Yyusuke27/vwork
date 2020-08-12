@@ -17,7 +17,16 @@ import NewTaskCardClickedDrawer from "../Task/components/NewTaskCardClickedDrawe
 import NewTaskAddDrawer from "../Task/components/NewTaskAddDrawer";
 import NewAttendanceDrawer from "../Attendance/components/NewAttendanceDrawer";
 import { fetchAsyncAllMyProjects } from "../Project/projectSlice";
-import { selectOpenMenu } from "../../appSlice";
+import {
+  selectOpenMenu,
+  selectAddProjectButton,
+  selectInviteMemberClicked,
+  selectSetProfileClicked,
+  selectTaskCardClicked,
+  selectAddTaskButton,
+  selectMemberIconClicked,
+  selectKintaiCardClicked,
+} from "../../appSlice";
 import NewProjectMemberDetailDrawer from "../Project/components/NewProjectMemberDetailDrawer";
 
 const drawerWidth = 240;
@@ -80,6 +89,13 @@ const Dashboard = () => {
   }, [fetchUser, fetchProject, workspace]);
 
   const openMenu = useSelector(selectOpenMenu);
+  const addProjectButton = useSelector(selectAddProjectButton);
+  const inviteMemberClicked = useSelector(selectInviteMemberClicked);
+  const setProfileClicked = useSelector(selectSetProfileClicked);
+  const taskCardClicked = useSelector(selectTaskCardClicked);
+  const addTaskButton = useSelector(selectAddTaskButton);
+  const memberIconClicked = useSelector(selectMemberIconClicked);
+  const kintaiCardClicked = useSelector(selectKintaiCardClicked);
 
   return (
     <div className={classes.root}>
@@ -91,13 +107,13 @@ const Dashboard = () => {
         })}
       >
         <div className={classes.drawerHeader} />
-        <NewProjectDrawer />
-        <NewProjectMemberDrawer />
-        <NewProfileDrawer />
-        <NewTaskCardClickedDrawer />
-        <NewTaskAddDrawer />
-        <NewProjectMemberDetailDrawer />
-        <NewAttendanceDrawer />
+        {addProjectButton ? <NewProjectDrawer /> : ""}
+        {inviteMemberClicked ? <NewProjectMemberDrawer /> : ""}
+        {setProfileClicked ? <NewProfileDrawer /> : ""}
+        {taskCardClicked ? <NewTaskCardClickedDrawer /> : ""}
+        {addTaskButton ? <NewTaskAddDrawer /> : ""}
+        {memberIconClicked ? <NewProjectMemberDetailDrawer /> : ""}
+        {kintaiCardClicked ? <NewAttendanceDrawer /> : ""}
         <Switch>
           <Route path="/" exact>
             <Home />

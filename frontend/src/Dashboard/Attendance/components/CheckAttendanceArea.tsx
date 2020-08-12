@@ -21,8 +21,10 @@ import "../../../App.css";
 import { useHistory } from "react-router-dom";
 import NewTaskAddAfterWorkDrawer from "../../Task/components/NewTaskAddAfetrWorkDrawer";
 import NewAddTaskTextDrawer from "../../Task/components/NewAddTaskTextDrawer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
+  selectAddButtonAfterTask,
+  selectAddedTaskText,
   toggleAddedTaskText,
   toggleAddButtonAfterTask,
 } from "../../../appSlice";
@@ -158,6 +160,8 @@ const CheckAttendanceArea = () => {
   };
 
   const dispatch = useDispatch();
+  const addButtonAfterTask = useSelector(selectAddButtonAfterTask);
+  const addedTaskText = useSelector(selectAddedTaskText);
 
   return (
     <>
@@ -340,8 +344,9 @@ const CheckAttendanceArea = () => {
             </Container>
           </Grid>
         </Box>
-        <NewTaskAddAfterWorkDrawer />
-        <NewAddTaskTextDrawer />
+        {addButtonAfterTask ? <NewTaskAddAfterWorkDrawer /> : ""}
+
+        {addedTaskText ? <NewAddTaskTextDrawer /> : ""}
       </Dialog>
     </>
   );

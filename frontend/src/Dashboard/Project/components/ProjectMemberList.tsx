@@ -8,10 +8,13 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
 import ProjectMemberItem from "./ProjectMemberItem";
 import NewAddProjectMemberDrawer from "./NewAddProjectMemberDrawer";
-import { useDispatch } from "react-redux";
-import { toggleAddMemberButton } from "../../../appSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectAddMemberButton,
+  toggleAddMemberButton,
+} from "../../../appSlice";
 
-const drawerWidth = "55%";
+const drawerWidth = "50%";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -55,6 +58,8 @@ const programDate = [
 const ProjectMemberList = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const addMemberButton = useSelector(selectAddMemberButton);
+
   return (
     <>
       <Box borderBottom={1} mt={7} mb={2} className={classes.title}>
@@ -85,7 +90,7 @@ const ProjectMemberList = () => {
           })}
         </Grid>
       </Grid>
-      <NewAddProjectMemberDrawer />
+      {addMemberButton ? <NewAddProjectMemberDrawer /> : ""}
     </>
   );
 };
