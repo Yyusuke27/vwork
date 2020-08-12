@@ -4,7 +4,6 @@ import Avatar from "@material-ui/core/Avatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import NewProjectMemberDetailDrawer from "./NewProjectMemberDetailDrawer";
 import { useDispatch } from "react-redux";
 import { toggleMemberIconClicked } from "../../../appSlice";
 
@@ -39,7 +38,6 @@ const ProjectMemberItem: FC<TaskMemberItemProps> = ({
         </ListItemIcon>
         <ListItemText primary={name} />
       </ListItem>
-      <NewProjectMemberDetailDrawer />
     </>
   );
 };

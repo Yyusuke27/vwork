@@ -18,6 +18,7 @@ import NewTaskAddDrawer from "../Task/components/NewTaskAddDrawer";
 import NewAttendanceDrawer from "../Attendance/components/NewAttendanceDrawer";
 import { fetchAsyncAllMyProjects } from "../Project/projectSlice";
 import { selectOpenMenu } from "../../appSlice";
+import NewProjectMemberDetailDrawer from "../Project/components/NewProjectMemberDetailDrawer";
 
 const drawerWidth = 240;
 
@@ -95,6 +96,7 @@ const Dashboard = () => {
         <NewProfileDrawer />
         <NewTaskCardClickedDrawer />
         <NewTaskAddDrawer />
+        <NewProjectMemberDetailDrawer />
         <NewAttendanceDrawer />
         <Switch>
           <Route path="/" exact>
