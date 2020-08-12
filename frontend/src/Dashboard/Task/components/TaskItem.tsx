@@ -78,7 +78,7 @@ const TaskItem: FC<TaskItemProps> = ({ iconType = "", data }) => {
             </Grid>
             <Grid item container xs alignItems="center">
               <Grid item>
-                {data.project.name ? (
+                {data.project && data.project.name ? (
                   <Chip
                     label={data.project.name}
                     variant="outlined"
