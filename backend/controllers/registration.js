@@ -40,7 +40,11 @@ exports.regist = asyncHandler(async (req, res, next) => {
     workspace: workspace._id,
     position: req.body.user.position,
   };
-  await UserProfile.create(newProfile);
+  const profile = await UserProfile.create(newProfile);
+
+  updatedUser.profiles.push(profile._id);
+
+  await updatedUser.save();
 
   const newProject = {
     ...req.body.project,
@@ -196,6 +200,9 @@ exports.registInvitee = asyncHandler(async (req, res, next) => {
     profile.position = req.body.user.position;
     await profile.save();
   }
+
+  user.profiles.push(profile._id);
+  await user.save();
 
   const workspaces = await Workspace.find({ members: user._id });
   let workspaceCount = 0;
