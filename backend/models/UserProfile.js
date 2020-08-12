@@ -2,8 +2,12 @@ const mongoose = require("mongoose");
 
 const UserProfileSchema = new mongoose.Schema(
   {
-    user: mongoose.Schema.ObjectId,
-    workspace: mongoose.Schema.ObjectId,
+    user: { type: mongoose.Schema.ObjectId, ref: "User", required: true },
+    workspace: {
+      type: mongoose.Schema.ObjectId,
+      ref: "Workspace",
+      required: true,
+    },
     position: String,
   },
   {

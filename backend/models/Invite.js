@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 
 const InviteSchema = new mongoose.Schema(
   {
-    user: mongoose.Schema.ObjectId,
-    workspace: mongoose.Schema.ObjectId,
+    user: { type: mongoose.Schema.ObjectId, ref: "User" },
+    workspace: { type: mongoose.Schema.ObjectId, ref: "Workspace" },
     invitationToken: String,
     invitationExpire: Date,
   },

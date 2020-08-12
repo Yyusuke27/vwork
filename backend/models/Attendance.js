@@ -4,11 +4,13 @@ const AttendanceSchema = new mongoose.Schema(
   {
     workspace: {
       type: mongoose.Schema.ObjectId,
+      ref: "Workspace",
       required: true,
     },
-    tasks: [mongoose.Schema.ObjectId],
+    tasks: [{ type: mongoose.Schema.ObjectId, ref: "Task" }],
     user: {
       type: mongoose.Schema.ObjectId,
+      ref: "User",
       required: true,
     },
     comment: String,

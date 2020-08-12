@@ -37,13 +37,11 @@ const UserSchema = new mongoose.Schema(
     lastAccessWorkspace: mongoose.Schema.ObjectId,
     resetPasswordToken: String,
     resetPasswordExpire: Date,
-    positions: [mongoose.Schema.ObjectId],
-    invitations: [mongoose.Schema.ObjectId],
+    profiles: [{ type: mongoose.Schema.ObjectId, ref: "UserProfile" }],
+    invitations: [{ type: mongoose.Schema.ObjectId, ref: "Invite" }],
   },
   {
     timestamps: true,
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
   }
 );
 
@@ -83,12 +81,5 @@ UserSchema.methods.getResetPasswordToken = function () {
 
   return resetToken;
 };
-
-UserSchema.virtual("userprofiles", {
-  ref: "UserProfile",
-  localField: "_id",
-  foreignField: "user",
-  justOne: false,
-});
 
 module.exports = mongoose.model("User", UserSchema);
