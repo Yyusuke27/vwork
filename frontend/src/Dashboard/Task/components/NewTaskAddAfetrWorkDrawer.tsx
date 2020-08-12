@@ -2,8 +2,6 @@ import React from "react";
 import VwDrawer from "../../../shared/components/Common/VwDrawer";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectAddButtonAfterTask,
@@ -26,19 +24,12 @@ const NewTaskAddAfterWorkDrawer = () => {
   const addButtonAfterTask = useSelector(selectAddButtonAfterTask);
   return (
     <>
-      <VwDrawer open={addButtonAfterTask}>
+      <VwDrawer
+        open={addButtonAfterTask}
+        click={() => dispatch(toggleAddButtonAfterTask(false))}
+      >
         <Container maxWidth="md">
           <Grid container direction="column">
-            <Grid item>
-              <IconButton
-                edge="start"
-                color="inherit"
-                onClick={() => dispatch(toggleAddButtonAfterTask(false))}
-                aria-label="close"
-              >
-                <CloseIcon />
-              </IconButton>
-            </Grid>
             <Box mt={5}>
               <Grid item style={{ width: "35%" }}>
                 <Box borderBottom={1} className={classes.title}>

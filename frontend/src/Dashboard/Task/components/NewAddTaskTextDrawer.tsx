@@ -1,8 +1,6 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
 import VwDrawer from "../../../shared/components/Common/VwDrawer";
 import { useSelector, useDispatch } from "react-redux";
 import { selectAddedTaskText, toggleAddedTaskText } from "../../../appSlice";
@@ -23,19 +21,12 @@ const NewAddTaskTextDrawer = () => {
   const addedTaskText = useSelector(selectAddedTaskText);
   return (
     <>
-      <VwDrawer open={addedTaskText}>
+      <VwDrawer
+        open={addedTaskText}
+        click={() => dispatch(toggleAddedTaskText(false))}
+      >
         <Container maxWidth="md">
           <Grid container direction="column">
-            <Grid item>
-              <IconButton
-                edge="start"
-                color="inherit"
-                onClick={() => dispatch(toggleAddedTaskText(false))}
-                aria-label="close"
-              >
-                <CloseIcon />
-              </IconButton>
-            </Grid>
             <Box mt={5}>
               <Grid item style={{ width: "35%" }}>
                 <Box borderBottom={1} className={classes.title}>
