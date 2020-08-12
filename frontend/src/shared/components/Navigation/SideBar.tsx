@@ -17,9 +17,11 @@ import MyProject from "../../../Dashboard/Project/components/MyProject";
 import Container from "@material-ui/core/Container";
 import Color from "../../util/color";
 import Box from "@material-ui/core/Box";
-import "../../../App.css";
 import { useDispatch, useSelector } from "react-redux";
 import { selectOpenMenu, toggleOpenMenu } from "../../../appSlice";
+
+import { selectWorkspaceName } from "../../../Auth/authSlice";
+import Typography from "@material-ui/core/Typography";
 
 const drawerWidth = 240;
 
@@ -68,6 +70,8 @@ const SideBar = () => {
 
   const dispatch = useDispatch();
   const openMenu = useSelector(selectOpenMenu);
+
+  const workspaceName = useSelector(selectWorkspaceName);
 
   return (
     <div className={classes.root}>
@@ -118,6 +122,9 @@ const SideBar = () => {
               </div>
             </Grid>
           </Grid>
+          <Box m={2} mb={0} borderBottom={1} fontWeight="fontWeightBold">
+            <Typography>{workspaceName.name}</Typography>
+          </Box>
           <List>
             <ListItem button component={NavLink} to="/" exact>
               <ListItemIcon className={classes.icon}>
@@ -125,7 +132,7 @@ const SideBar = () => {
               </ListItemIcon>
               <ListItemText primary="ホーム" />
             </ListItem>
-            <ListItem button component={NavLink} to="/my_task" exact>
+            <ListItem button component={NavLink} to="/mytask" exact>
               <ListItemIcon className={classes.icon}>
                 <CheckCircleOutlineIcon />
               </ListItemIcon>
