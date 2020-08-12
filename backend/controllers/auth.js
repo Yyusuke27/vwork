@@ -6,8 +6,6 @@ const Workspace = require("../models/Workspace");
 
 const sendEmail = require("../utils/sendEmail");
 
-// TODO: ユーザー情報のedit apiが必要
-
 // @desc 会員登録
 // @route POST /api/v1/auth/signup
 // @access Public

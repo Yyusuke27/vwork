@@ -182,8 +182,6 @@ exports.createTask = asyncHandler(async (req, res, next) => {
 exports.updateTask = asyncHandler(async (req, res, next) => {
   let task = await Task.findById(req.params.id);
 
-  console.log(task);
-
   if (!task) {
     return next(
       new ErrorResponse(`ID:${req.params.id}のタスクはありません`, 404)
