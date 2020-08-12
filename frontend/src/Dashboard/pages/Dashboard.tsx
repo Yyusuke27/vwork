@@ -28,6 +28,10 @@ import {
   selectKintaiCardClicked,
 } from "../../appSlice";
 import ProjectMemberClickedDrawer from "../Project/components/ProjectMemberClickedDrawer";
+import {
+  fetchAsyncNearDeadlineTasks,
+  fetchAsyncRecentTasks,
+} from "../Task/taskSlice";
 
 const drawerWidth = 240;
 
@@ -77,16 +81,32 @@ const Dashboard = () => {
     await dispatch(fetchAsyncAllMyProjects(workspace));
   }, [dispatch, workspace]);
 
+  const fetchNearDeadlineTasks = useCallback(async () => {
+    await dispatch(fetchAsyncNearDeadlineTasks(workspace));
+  }, [dispatch, workspace]);
+
+  const fetchRecentTasks = useCallback(async () => {
+    await dispatch(fetchAsyncRecentTasks(workspace));
+  }, [dispatch, workspace]);
+
   const mounted = useRef(false);
 
   useEffect(() => {
     if (mounted.current) {
       fetchProject();
+      fetchNearDeadlineTasks();
+      fetchRecentTasks();
     } else {
       fetchUser();
       mounted.current = true;
     }
-  }, [fetchUser, fetchProject, workspace]);
+  }, [
+    fetchUser,
+    fetchProject,
+    fetchNearDeadlineTasks,
+    fetchRecentTasks,
+    workspace,
+  ]);
 
   const openMenu = useSelector(selectOpenMenu);
   const addProjectButton = useSelector(selectAddProjectButton);

@@ -52,6 +52,37 @@ export const fetchAsyncTasks = createAsyncThunk(
   }
 );
 
+export const fetchAsyncRecentTasks = createAsyncThunk(
+  "task/getRecent",
+  async (workspace: string) => {
+    const res = await axios.get(
+      `${apiUrl}api/v1/workspaces/${workspace}/tasks/recent`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return res.data;
+  }
+);
+export const fetchAsyncNearDeadlineTasks = createAsyncThunk(
+  "task/getNearDeadline",
+  async (workspace: string) => {
+    const res = await axios.get(
+      `${apiUrl}api/v1/workspaces/${workspace}/tasks/near_deadline`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return res.data;
+  }
+);
+
 interface taskState {
   tasks: {
     _id: string;
@@ -72,6 +103,20 @@ interface taskState {
       user: { _id: string; name: string };
     }[];
   };
+  recentTasks: {
+    name: string;
+    project: { _id: string; name: string };
+    endDateAt: string;
+    _id: string;
+    user: { _id: string; name: string };
+  }[];
+  nearDeadlineTasks: {
+    name: string;
+    project: { _id: string; name: string };
+    endDateAt: string;
+    _id: string;
+    user: { _id: string; name: string };
+  }[];
 }
 
 const initialState: taskState = {
@@ -82,6 +127,8 @@ const initialState: taskState = {
     data: [],
     todaysTasks: [],
   },
+  recentTasks: [],
+  nearDeadlineTasks: [],
 };
 
 const taskSlice = createSlice({
@@ -89,16 +136,22 @@ const taskSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchAsyncAddTask.fulfilled, (state, action) => {
-      console.log("タスク追加完了");
-      console.log(action.payload);
-    });
+    builder.addCase(fetchAsyncAddTask.fulfilled, (state, action) => {});
     builder.addCase(fetchAsyncTasks.fulfilled, (state, action) => {
       state.tasks = action.payload;
+    });
+    builder.addCase(fetchAsyncRecentTasks.fulfilled, (state, action) => {
+      state.recentTasks = action.payload.data;
+    });
+    builder.addCase(fetchAsyncNearDeadlineTasks.fulfilled, (state, action) => {
+      state.nearDeadlineTasks = action.payload.data;
     });
   },
 });
 
 export const selectTasks = (state: RootState) => state.task.tasks;
+export const selectRecentTasks = (state: RootState) => state.task.recentTasks;
+export const selectNearDeadlineTasks = (state: RootState) =>
+  state.task.nearDeadlineTasks;
 
 export default taskSlice.reducer;
