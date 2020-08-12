@@ -1,12 +1,15 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import Card from "@material-ui/core/Card";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Color from "../../../shared/util/color";
-import TaskInDetailList from "../../Task/components/TaskInDetailItem";
 import Box from "@material-ui/core/Box";
+import { toggleKintaiCardClicked } from "../../../appSlice";
+import { useDispatch } from "react-redux";
+import TaskList from "../../Task/components/TaskList";
+import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
+import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,6 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const CheckAttendanceAreaInDetail = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   return (
     <>
       <Container maxWidth="md">
@@ -51,23 +55,43 @@ const CheckAttendanceAreaInDetail = () => {
                 </Grid>
               </Card>
             </Grid>
-            <Box mt={10}>
-              <Grid item>
-                <Grid container direction="row" alignItems="center">
-                  <Box mr={2}>
-                    <Grid item>
-                      <CheckCircleIcon />
-                    </Grid>
-                  </Box>
-                  <Grid item className={classes.title}>
-                    対応タスク
-                  </Grid>
-                </Grid>
+            <Box mt={3}>
+              <Grid
+                item
+                onClick={() => dispatch(toggleKintaiCardClicked(false))}
+              >
+                <TaskList title="対応タスク" />
               </Grid>
             </Box>
             <Box mt={3}>
               <Grid item>
-                <TaskInDetailList title="UI画面の実装" />
+                <Grid container direction="column" justify="flex-start">
+                  <Box mt={6}>
+                    <Grid item>
+                      <Grid container direction="row">
+                        <Box mr={2}>
+                          <Grid item>
+                            <ChatBubbleIcon />
+                          </Grid>
+                        </Box>
+                        <Grid item className={classes.title}>
+                          振り返り
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Box>
+                  <Box mt={1}>
+                    <Grid item>
+                      <TextField
+                        id="outlined-multiline-static"
+                        multiline
+                        rows={4}
+                        variant="outlined"
+                        style={{ width: "100%" }}
+                      />
+                    </Grid>
+                  </Box>
+                </Grid>
               </Grid>
             </Box>
           </Grid>
