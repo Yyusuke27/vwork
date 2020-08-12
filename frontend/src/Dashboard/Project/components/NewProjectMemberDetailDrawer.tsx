@@ -4,8 +4,6 @@ import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import VwDrawer from "../../../shared/components/Common/VwDrawer";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
 import TaskList from "../../Task/components/TaskList";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -39,15 +37,10 @@ const NewProjectMemberDetailDrawer = () => {
   const MemberIconClicked = useSelector(selectMemberIconClicked);
   return (
     <>
-      <VwDrawer open={MemberIconClicked}>
-        <Box mt={2} ml={2}>
-          <IconButton
-            onClick={() => dispatch(toggleMemberIconClicked(false))}
-            className={classes.closeIcon}
-          >
-            <CloseIcon />
-          </IconButton>
-        </Box>
+      <VwDrawer
+        open={MemberIconClicked}
+        click={() => dispatch(toggleMemberIconClicked(false))}
+      >
         <Box mt={13}>
           <Grid
             container
