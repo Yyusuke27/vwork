@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import Grid from "@material-ui/core/Grid";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Color from "../../../shared/util/color";
-import Drawer from "@material-ui/core/Drawer";
-import Backdrop from "@material-ui/core/Backdrop";
-import { Box } from "@material-ui/core";
-
-const drawerWidth = "55%";
+import { toggleAddTaskButton } from "../../../appSlice";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,30 +14,12 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 150,
       fontSize: 15,
     },
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: "#fff",
-    },
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-    drawerPaper: {
-      width: drawerWidth,
-    },
   })
 );
 
 const AddButtonInProject = () => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
+  const dispatch = useDispatch();
   return (
     <>
       <Grid
@@ -50,30 +29,17 @@ const AddButtonInProject = () => {
         alignItems="center"
       >
         <Grid item>
-          <Box mt={7}>
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.button}
-              startIcon={<AddIcon />}
-              onClick={handleDrawerOpen}
-            >
-              タスクを追加
-            </Button>
-          </Box>
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+            startIcon={<AddIcon />}
+            onClick={() => dispatch(toggleAddTaskButton(true))}
+          >
+            タスクを追加
+          </Button>
         </Grid>
       </Grid>
-      <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
-        <Drawer
-          className={classes.drawer}
-          variant="persistent"
-          anchor="right"
-          open={open}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        ></Drawer>
-      </Backdrop>
     </>
   );
 };

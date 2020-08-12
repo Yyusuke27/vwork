@@ -9,7 +9,7 @@ import MainHeader from "../../../shared/components/Navigation/MainHeader";
 const Project = () => {
   return (
     <>
-      <Container maxWidth="xl">
+      <Container>
         <MainHeader title="UI改修" />
         <AddButtonInProject />
         <Grid container direction="row" justify="space-between">
