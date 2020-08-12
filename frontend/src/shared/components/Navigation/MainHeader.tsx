@@ -137,7 +137,7 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
     <div className={classes.root}>
       <Container>
         <AppBar
-          style={{ backgroundColor: Color.VWORK_WHITE }}
+          style={{ backgroundColor: "#fafafa" }}
           position="fixed"
           className={clsx(classes.appBar, {
             [classes.appBarShift]: openMenu,
