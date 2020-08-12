@@ -10,6 +10,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import { fetchAsyncAddTask, fetchAsyncTasks } from "../taskSlice";
 
 const NewTaskAddDrawer = () => {
   const dispatch = useDispatch();
@@ -30,6 +31,26 @@ const NewTaskAddDrawer = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const submitFunction = async (
+    value: {
+      user: string;
+      name: string;
+      description: string;
+      startDateAt: string;
+      endDateAt: string;
+      state: number;
+      progress: number;
+      priority: number;
+      project: string | null;
+      todaysTask: boolean;
+    },
+    workspace: string
+  ) => {
+    await dispatch(fetchAsyncAddTask({ task: value, workspace }));
+    await dispatch(fetchAsyncTasks(workspace));
+    dispatch(toggleAddTaskButton(false));
   };
   return (
     <>
@@ -70,6 +91,7 @@ const NewTaskAddDrawer = () => {
               users={userData}
               projects={projectData}
               taskUser={user._id}
+              submitFunction={submitFunction}
             />
           </Container>
         </VwDrawer>

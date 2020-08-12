@@ -2,11 +2,9 @@ import React, { FC } from "react";
 import * as Yup from "yup";
 import { Field, Form, Formik } from "formik";
 import moment from "moment";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { selectWorkspace } from "../../../Auth/authSlice";
-import { fetchAsyncAddTask, fetchAsyncTasks } from "../taskSlice";
-import { toggleAddTaskButton } from "../../../appSlice";
 
 import { TextField, Select, CheckboxWithLabel } from "formik-material-ui";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -54,35 +52,67 @@ interface TaskFormProps {
   users: { name: string; id: string }[];
   taskUser?: string;
   projects: { id: string; name: string }[];
+  submitFunction: (
+    value: {
+      user: string;
+      name: string;
+      description: string;
+      startDateAt: string;
+      endDateAt: string;
+      state: number;
+      progress: number;
+      priority: number;
+      project: string | null;
+      todaysTask: boolean;
+    },
+    workspace: string
+  ) => Promise<void>;
 }
 
-const TaskForm: FC<TaskFormProps> = ({ users, projects, taskUser }) => {
+const TaskForm: FC<TaskFormProps> = ({
+  users,
+  projects,
+  taskUser,
+  submitFunction,
+}) => {
   const classes = useStyles();
   const workspace = useSelector(selectWorkspace);
-
-  const dispatch = useDispatch();
 
   const user = taskUser ? taskUser : "";
 
   const today = moment().toString();
   const tomorrow = moment().add(1, "days").toString();
 
-  // TODO: validationを追加する
+  interface TaskFormValues {
+    user: string;
+    name: string;
+    description: string;
+    startDateAt: string;
+    endDateAt: string;
+    state: number;
+    progress: number;
+    priority: number;
+    project: string | null;
+    todaysTask: boolean;
+  }
+
+  const initialValues: TaskFormValues = {
+    user: user,
+    name: "",
+    description: "",
+    startDateAt: today,
+    endDateAt: tomorrow,
+    state: 0,
+    progress: 0,
+    priority: 0,
+    project: "",
+    todaysTask: false,
+  };
+
   return (
     <div>
       <Formik
-        initialValues={{
-          user: user,
-          name: "",
-          description: "",
-          startDateAt: today,
-          endDateAt: tomorrow,
-          state: 0,
-          progress: 0,
-          priority: 0,
-          project: null,
-          todaysTask: false,
-        }}
+        initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string()
             .max(24, "24文字以内で入力してください")
@@ -90,9 +120,12 @@ const TaskForm: FC<TaskFormProps> = ({ users, projects, taskUser }) => {
         })}
         onSubmit={async (value, actions) => {
           actions.setSubmitting(false);
-          await dispatch(fetchAsyncAddTask({ task: value, workspace }));
-          await dispatch(fetchAsyncTasks(workspace));
-          dispatch(toggleAddTaskButton(false));
+
+          if (!value.project) {
+            value.project = null;
+          }
+
+          await submitFunction(value, workspace);
         }}
       >
         {(props) => (
