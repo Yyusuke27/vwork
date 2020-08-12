@@ -59,6 +59,8 @@ interface AuthState {
   };
   workspaceCount: number;
   workspace: { id: string; name: string };
+  errorMessage: string;
+  errorOpen: boolean;
 }
 
 const initialState: AuthState = {
@@ -73,14 +75,21 @@ const initialState: AuthState = {
   },
   workspaceCount: 0,
   workspace: { id: "", name: "" },
+  errorMessage: "",
+  errorOpen: false,
 };
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    setErrorOpen(state, action) {
+      state.errorOpen = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncLogin.fulfilled, (state, action) => {
+      state.errorMessage = "";
       localStorage.setItem("token", action.payload.token);
       if (action.payload.token) {
         console.log("login success");
@@ -89,7 +98,13 @@ export const authSlice = createSlice({
           : (window.location.href = "/");
       }
     });
+    builder.addCase(fetchAsyncLogin.rejected, (state, action) => {
+      let message = "認証情報が間違っています。";
+      state.errorMessage = message;
+      state.errorOpen = true;
+    });
     builder.addCase(fetchAsyncCurrentUser.fulfilled, (state, action) => {
+      state.errorMessage = "";
       state.token = localStorage.token;
       state.user = action.payload.data;
       state.workspace = action.payload.workspace;
@@ -116,6 +131,7 @@ export const authSlice = createSlice({
       }
     });
     builder.addCase(fetchAsyncSignup.fulfilled, (state, action) => {
+      state.errorMessage = "";
       localStorage.setItem("token", action.payload.token);
       if (action.payload.token) {
         console.log("welcom");
@@ -123,8 +139,9 @@ export const authSlice = createSlice({
       }
     });
     builder.addCase(fetchAsyncSignup.rejected, (state, action) => {
-      // TODO: エラーをユーザーに表示
-      console.log(action.error);
+      let message = "登録に失敗しました。";
+      state.errorMessage = message;
+      state.errorOpen = true;
     });
     builder.addCase(fetchAsyncLogout.fulfilled, (state, action) => {
       localStorage.clear();
@@ -140,5 +157,9 @@ export const selectWorkspace = (state: RootState) =>
 export const selectUserRegistration = (state: RootState) =>
   state.auth.user.registration;
 export const selectWorkspaceName = (state: RootState) => state.auth.workspace;
+export const selectErrorMessage = (state: RootState) => state.auth.errorMessage;
+export const selectErrorOpen = (state: RootState) => state.auth.errorOpen;
+
+export const { setErrorOpen } = authSlice.actions;
 
 export default authSlice.reducer;
