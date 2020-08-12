@@ -16,6 +16,7 @@ import Container from "@material-ui/core/Container";
 import Color from "../../util/color";
 import "../../../App.css";
 import Box from "@material-ui/core/Box";
+import clsx from "clsx";
 
 const drawerWidth = 240;
 
@@ -105,7 +106,7 @@ const SideBarOfAdmin: FC<SideBarOfAdminProps> = ({
                       alt="アイコン"
                     />
                   </Grid>
-                  <Grid item className={classes.mainTitle}>
+                  <Grid item className={clsx(classes.mainTitle, "logo")}>
                     VWORK
                   </Grid>
                 </Grid>

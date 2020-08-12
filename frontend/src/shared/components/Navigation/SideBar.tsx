@@ -1,4 +1,5 @@
 import React from "react";
+import clsx from "clsx";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
@@ -108,7 +109,7 @@ const SideBar = () => {
                       alt="icon"
                     />
                   </Grid>
-                  <Grid item className={classes.mainTitle}>
+                  <Grid item className={clsx(classes.mainTitle, "logo")}>
                     VWORK
                   </Grid>
                 </Grid>

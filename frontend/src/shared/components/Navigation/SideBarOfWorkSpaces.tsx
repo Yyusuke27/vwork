@@ -17,6 +17,7 @@ import Container from "@material-ui/core/Container";
 import Color from "../../util/color";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
+import clsx from "clsx";
 
 const drawerWidth = 240;
 
@@ -32,6 +33,10 @@ const useStyles = makeStyles((theme: Theme) =>
       width: drawerWidth,
       flexShrink: 0,
       color: Color.VWORK_BLACK,
+    },
+    mainTitle: {
+      paddingLeft: 3,
+      fontSize: 30,
     },
     drawerPaper: {
       width: drawerWidth,
@@ -99,7 +104,7 @@ const SideBarOfWorkSpaces = () => {
                     alt=""
                   />
                 </Grid>
-                <Grid item style={{ fontSize: 30 }}>
+                <Grid item className={clsx(classes.mainTitle, "logo")}>
                   VWORK
                 </Grid>
               </Grid>
