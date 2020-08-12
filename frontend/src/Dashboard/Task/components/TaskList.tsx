@@ -1,4 +1,9 @@
 import React, { FC } from "react";
+import { useSelector } from "react-redux";
+
+import TaskItem from "./TaskItem";
+import { selectProjects } from "../../Project/projectSlice";
+
 import Box from "@material-ui/core/Box";
 import {
   createStyles,
@@ -6,7 +11,6 @@ import {
   Theme,
   withStyles,
 } from "@material-ui/core/styles";
-import TaskItem from "./TaskItem";
 import Grid from "@material-ui/core/Grid";
 import FormControl from "@material-ui/core/FormControl";
 import NativeSelect from "@material-ui/core/NativeSelect";
@@ -60,21 +64,49 @@ const BootstrapInput = withStyles((theme: Theme) =>
   })
 )(InputBase);
 
-const taskData = [
-  { title: "管理画面のUI見直し", project: "プロジェクト名", data: "日付" },
-];
-
 interface TaskListProps {
   title?: string;
   iconType?: string;
+  taskData?: {
+    name: string;
+    project: { _id: string; name: string };
+    endDateAt: string;
+    _id: string;
+    user: { _id: string; name: string };
+  }[];
 }
 
-const TaskList: FC<TaskListProps> = ({ title = "", iconType = "" }) => {
+const TaskList: FC<TaskListProps> = ({
+  title = "",
+  iconType = "",
+  taskData,
+}) => {
   const classes = useStyles();
   const [text, setText] = React.useState("");
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setText(event.target.value as string);
   };
+
+  // TODO:　全てのTaskListを使っているところとAPIを連携させたらここを削除
+  const tasks: {
+    name: string;
+    project: { _id: string; name: string };
+    endDateAt: string;
+    _id: string;
+    user: { _id: string; name: string };
+  }[] = taskData
+    ? taskData
+    : [
+        {
+          name: "タスク",
+          project: { name: "プロジェクト", _id: "12345" },
+          endDateAt: "日付",
+          _id: "12345",
+          user: { name: "太郎", _id: "12345" },
+        },
+      ];
+
+  const projectState = useSelector(selectProjects);
 
   return (
     <>
@@ -115,16 +147,8 @@ const TaskList: FC<TaskListProps> = ({ title = "", iconType = "" }) => {
         </Grid>
         <Box mt={2}>
           <Grid container direction="column" justify="flex-start">
-            {taskData.map((data, index) => {
-              return (
-                <TaskItem
-                  title={data.title}
-                  project={data.project}
-                  data={data.data}
-                  iconType={iconType}
-                  key={index}
-                />
-              );
+            {tasks.map((data, index) => {
+              return <TaskItem data={data} iconType={iconType} key={index} />;
             })}
           </Grid>
         </Box>

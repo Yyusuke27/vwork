@@ -1,16 +1,20 @@
 import React, { FC } from "react";
+import { useDispatch } from "react-redux";
+import moment from "moment";
+
+import { toggleTaskCardClicked } from "../../../appSlice";
+import Color from "../../../shared/util/color";
+
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import Color from "../../../shared/util/color";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import Avatar from "@material-ui/core/Avatar";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import { useDispatch } from "react-redux";
-import { toggleTaskCardClicked } from "../../../appSlice";
+import Chip from "@material-ui/core/Chip";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,83 +25,90 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: 15,
       cursor: "pointer",
     },
-    color: {
-      color: Color.VWORK_RED,
+    cardActionArea: {
+      height: 80,
     },
-    title: {
-      fontSize: 20,
+    avatar: {
+      backgroundColor: Color.VWORK_RED,
     },
   })
 );
 
 interface TaskItemProps {
-  title: string;
-  project: string;
-  data: string;
+  data: {
+    name: string;
+    project: { _id: string; name: string };
+    endDateAt: string;
+    _id: string;
+    user: { _id: string; name: string };
+  };
   iconType?: string;
 }
 
-const TaskItem: FC<TaskItemProps> = ({
-  title = "",
-  project = "",
-  data = "",
-  iconType = "",
-}) => {
+const TaskItem: FC<TaskItemProps> = ({ iconType = "", data }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
   return (
     <>
       <Card className={classes.root}>
-        <CardActionArea onClick={() => dispatch(toggleTaskCardClicked(true))}>
+        <CardActionArea
+          className={classes.cardActionArea}
+          onClick={() => dispatch(toggleTaskCardClicked(true))}
+        >
           <Grid
             container
-            direction="row"
-            justify="space-between"
             alignItems="center"
-            style={{ height: 80, margin: "auto" }}
+            style={{ height: 80, padding: "10px", boxSizing: "border-box" }}
+            spacing={2}
           >
-            <Grid item>
-              <Grid
-                container
-                direction="row"
-                justify="space-between"
-                alignItems="center"
-                style={{ width: 220, paddingLeft: 10 }}
-              >
+            <Grid item xs={6}>
+              <Grid container direction="row" alignItems="center" spacing={1}>
                 <Grid item>
                   {iconType === "alert" ? (
-                    <ErrorOutlineIcon className={classes.color} />
+                    <ErrorOutlineIcon color="primary" />
                   ) : (
-                    <CheckCircleIcon />
+                    <CheckCircleIcon color="secondary" />
                   )}
                 </Grid>
                 <Grid item>
-                  <Typography className={classes.title}>{title}</Typography>
+                  <Typography noWrap>{data.name}</Typography>
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item>
-              <Grid
-                container
-                direction="row"
-                justify="space-between"
-                alignItems="center"
-                style={{ width: 280, paddingRight: 10 }}
-              >
-                <Grid item>
-                  <Typography>{project}</Typography>
-                </Grid>
-                <Grid item>
-                  <AccessTimeIcon />
-                </Grid>
-                <Grid item>
-                  <Typography>{data}</Typography>
-                </Grid>
-                <Grid item>
-                  <Avatar>S</Avatar>
-                </Grid>
+            <Grid item container xs alignItems="center">
+              <Grid item>
+                {data.project.name ? (
+                  <Chip
+                    label={data.project.name}
+                    variant="outlined"
+                    color="secondary"
+                  />
+                ) : (
+                  <Chip label="プロジェクト未選択" variant="outlined" />
+                )}
               </Grid>
+            </Grid>
+            <Grid item container xs alignItems="center" spacing={1}>
+              <Grid item>
+                <AccessTimeIcon color="disabled" />
+              </Grid>
+              <Grid item>
+                <Typography>
+                  {data.endDateAt
+                    ? moment(data.endDateAt).format("YYYY/MM/DD")
+                    : ""}
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid item xs={1}>
+              {data.user.name ? (
+                <Avatar className={classes.avatar}>
+                  {data.user.name.slice(0, 1)}
+                </Avatar>
+              ) : (
+                <Avatar>V</Avatar>
+              )}
             </Grid>
           </Grid>
         </CardActionArea>

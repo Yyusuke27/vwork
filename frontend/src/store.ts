@@ -4,6 +4,7 @@ import appReducer from "./appSlice";
 import dashboardReducer from "./Dashboard/dashboardSlice";
 import registReducer from "./Regist/registSlice";
 import projectReducer from "./Dashboard/Project/projectSlice";
+import taskReducer from "./Dashboard/Task/taskSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     dashboard: dashboardReducer,
     regist: registReducer,
     project: projectReducer,
+    task: taskReducer,
   },
 });
 
