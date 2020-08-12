@@ -50,6 +50,7 @@ export const fetchAsyncLogout = createAsyncThunk("auth/logout", async () => {
 interface AuthState {
   token: number | string;
   user: {
+    _id: string;
     name: string;
     email: string;
     registration: boolean;
@@ -57,12 +58,13 @@ interface AuthState {
     lastAccessWorkspace: string;
   };
   workspaceCount: number;
-  workspace: string;
+  workspace: { id: string; name: string };
 }
 
 const initialState: AuthState = {
   token: "",
   user: {
+    _id: "",
     name: "",
     email: "",
     registration: false,
@@ -70,17 +72,13 @@ const initialState: AuthState = {
     lastAccessWorkspace: "",
   },
   workspaceCount: 0,
-  workspace: "",
+  workspace: { id: "", name: "" },
 };
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-    setWorkspace(state, action) {
-      state.workspace = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncLogin.fulfilled, (state, action) => {
       localStorage.setItem("token", action.payload.token);
@@ -94,6 +92,7 @@ export const authSlice = createSlice({
     builder.addCase(fetchAsyncCurrentUser.fulfilled, (state, action) => {
       state.token = localStorage.token;
       state.user = action.payload.data;
+      state.workspace = action.payload.workspace;
       state.workspaceCount = localStorage.wc;
       localStorage.setItem(
         "workspace",
@@ -140,5 +139,6 @@ export const selectWorkspace = (state: RootState) =>
   state.auth.user.lastAccessWorkspace;
 export const selectUserRegistration = (state: RootState) =>
   state.auth.user.registration;
+export const selectWorkspaceName = (state: RootState) => state.auth.workspace;
 
 export default authSlice.reducer;
