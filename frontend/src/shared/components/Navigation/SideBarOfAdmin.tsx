@@ -129,7 +129,7 @@ const SideBarOfAdmin: FC<SideBarOfAdminProps> = ({
               </ListItemIcon>
               <ListItemText primary="ホーム" />
             </ListItem>
-            <ListItem button component={NavLink} to="/my_task" exact>
+            <ListItem button component={NavLink} to="/mytask" exact>
               <ListItemIcon className={classes.icon}>
                 <DashboardIcon />
               </ListItemIcon>

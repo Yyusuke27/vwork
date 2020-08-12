@@ -118,7 +118,7 @@ const Dashboard = () => {
           <Route path="/" exact>
             <Home />
           </Route>
-          <Route path="/my_task" exact>
+          <Route path="/mytask" exact>
             <MyTask />
           </Route>
           <Route path="/work_manage" exact>
