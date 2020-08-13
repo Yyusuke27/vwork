@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../../store";
 
+import { toast } from "react-toastify";
+
 const apiUrl = "http://localhost:5000/";
 const token = localStorage.token;
 
@@ -206,7 +208,16 @@ const taskSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchAsyncAddTask.fulfilled, (state, action) => {});
+    builder.addCase(fetchAsyncAddTask.fulfilled, (state, action) => {
+      toast.info("タスクを追加しました。", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    });
+    builder.addCase(fetchAsyncUpdateTask.fulfilled, (state, action) => {
+      toast.info("タスクを更新しました。", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    });
     builder.addCase(fetchAsyncTasks.fulfilled, (state, action) => {
       state.tasks = action.payload;
     });

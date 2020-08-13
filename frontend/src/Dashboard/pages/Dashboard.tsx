@@ -38,6 +38,9 @@ import {
 } from "../Task/taskSlice";
 
 import { setSelectedMembers } from "../dashboardSlice";
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const drawerWidth = 240;
 
@@ -130,6 +133,7 @@ const Dashboard = () => {
   return (
     <div className={classes.root}>
       <MainNavigation />
+      <ToastContainer hideProgressBar autoClose={2000} />
       <CssBaseline />
       <main
         className={clsx(classes.content, {
