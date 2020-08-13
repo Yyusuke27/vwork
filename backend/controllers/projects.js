@@ -34,7 +34,12 @@ exports.getProjects = asyncHandler(async (req, res, next) => {
 // @route Get /api/v1/projects/:id
 // @access Public
 exports.getProject = asyncHandler(async (req, res, next) => {
-  const project = await Project.findById(req.params.id).populate("tasks");
+  const project = await Project.findById(req.params.id)
+    .populate({
+      path: "members",
+      populate: { path: "members" },
+    })
+    .populate("tasks");
 
   if (!project) {
     return next(
@@ -44,7 +49,10 @@ exports.getProject = asyncHandler(async (req, res, next) => {
   }
 
   // ユーザーがプロジェクトのメンバーではなかったら表示しない
-  const isMemberInProject = project.members.includes(req.user.id);
+  // const isMemberInProject = project.members.includes(req.user.id);
+  const isMemberInProject = project.members.find(
+    (member) => member._id.toString() === req.user.id
+  );
 
   if (!isMemberInProject) {
     return next(
