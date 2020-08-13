@@ -106,6 +106,9 @@ export const authSlice = createSlice({
     setErrorOpen(state, action) {
       state.errorOpen = action.payload;
     },
+    setUser(state, action) {
+      state.user = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncLogin.fulfilled, (state, action) => {
@@ -127,6 +130,7 @@ export const authSlice = createSlice({
       state.errorMessage = "";
       state.token = localStorage.token;
       state.user = action.payload.data;
+
       state.workspace = action.payload.workspace;
       state.workspaceCount = localStorage.wc;
       localStorage.setItem(
@@ -181,6 +185,6 @@ export const selectWorkspaceName = (state: RootState) => state.auth.workspace;
 export const selectErrorMessage = (state: RootState) => state.auth.errorMessage;
 export const selectErrorOpen = (state: RootState) => state.auth.errorOpen;
 
-export const { setErrorOpen } = authSlice.actions;
+export const { setErrorOpen, setUser } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -1,3 +1,4 @@
+// TODO: 追加 or 変更した時にsnackcbarを表示
 import React, { FC } from "react";
 import * as Yup from "yup";
 import { Field, Form, Formik } from "formik";
@@ -26,6 +27,7 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import HighlightIcon from "@material-ui/icons/Highlight";
 import SubjectIcon from "@material-ui/icons/Subject";
+import { selectSelectedMembers } from "../../dashboardSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,8 +51,18 @@ const TASK_STATE = ["TODO", "進行中", "完了"];
 const TASK_PRIORITY = ["低", "中", "高"];
 
 interface TaskFormProps {
-  users: { name: string; id: string }[];
-  taskUser?: string;
+  taskData: {
+    user: string;
+    name: string;
+    description: string;
+    startDateAt: string;
+    endDateAt: string;
+    state: number;
+    progress: number;
+    priority: number;
+    project: string | null;
+    todaysTask: boolean;
+  };
   projects: { id: string; name: string }[];
   submitFunction: (
     value: {
@@ -70,18 +82,29 @@ interface TaskFormProps {
 }
 
 const TaskForm: FC<TaskFormProps> = ({
-  users,
   projects,
-  taskUser,
   submitFunction,
+  taskData,
 }) => {
   const classes = useStyles();
   const workspace = useSelector(selectWorkspace);
 
-  const user = taskUser ? taskUser : "";
+  const members = useSelector(selectSelectedMembers);
 
-  const today = moment().toString();
-  const tomorrow = moment().add(1, "days").toString();
+  if (!taskData.startDateAt) {
+    taskData.startDateAt = moment().toString();
+  }
+  if (!taskData.endDateAt) {
+    taskData.endDateAt = moment().add(1, "days").toString();
+  }
+
+  if (!taskData.todaysTask) {
+    taskData.todaysTask = false;
+  }
+
+  if (!taskData.project) {
+    taskData.project = "";
+  }
 
   interface TaskFormValues {
     user: string;
@@ -97,21 +120,22 @@ const TaskForm: FC<TaskFormProps> = ({
   }
 
   const initialValues: TaskFormValues = {
-    user: user,
-    name: "",
-    description: "",
-    startDateAt: today,
-    endDateAt: tomorrow,
-    state: 0,
-    progress: 0,
-    priority: 0,
-    project: "",
-    todaysTask: false,
+    user: taskData.user,
+    name: taskData.name,
+    description: taskData.description,
+    startDateAt: taskData.startDateAt,
+    endDateAt: taskData.endDateAt,
+    state: taskData.state,
+    progress: taskData.progress,
+    priority: taskData.priority,
+    project: taskData.project,
+    todaysTask: taskData.todaysTask,
   };
 
   return (
     <div>
       <Formik
+        enableReinitialize={true}
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string()
@@ -138,6 +162,7 @@ const TaskForm: FC<TaskFormProps> = ({
                   label="タスク名"
                   fullWidth
                   id="name"
+                  value={props.values.name}
                 />
               </Grid>
               <Grid item xs={2}>
@@ -159,6 +184,7 @@ const TaskForm: FC<TaskFormProps> = ({
                 type="checkbox"
                 name="todaysTask"
                 Label={{ label: "今日やる" }}
+                checked={props.values.todaysTask}
               />
             </FormControl>
             <Grid container className={classes.formContent}>
@@ -174,8 +200,8 @@ const TaskForm: FC<TaskFormProps> = ({
                     component={Select}
                     name="user"
                     id="user"
+                    defaultValue={props.values.user}
                     as="select"
-                    defaultValue={user}
                     inputProps={{
                       id: "user",
                     }}
@@ -183,9 +209,9 @@ const TaskForm: FC<TaskFormProps> = ({
                     <MenuItem value="">
                       <em>未選択</em>
                     </MenuItem>
-                    {users.map((user, index) => {
+                    {members.map((user, index) => {
                       return (
-                        <MenuItem value={user.id.toString()} key={index}>
+                        <MenuItem value={user._id.toString()} key={index}>
                           {user.name.toString()}
                         </MenuItem>
                       );
@@ -249,6 +275,7 @@ const TaskForm: FC<TaskFormProps> = ({
                     name="project"
                     id="project"
                     as="select"
+                    defaultValue={props.values.project}
                     inputProps={{
                       id: "project",
                     }}
@@ -281,6 +308,7 @@ const TaskForm: FC<TaskFormProps> = ({
                     name="state"
                     id="state"
                     as="select"
+                    defaultValue={props.values.state}
                     inputProps={{
                       id: "state",
                     }}
@@ -308,6 +336,7 @@ const TaskForm: FC<TaskFormProps> = ({
                     component={Select}
                     name="priority"
                     id="priority"
+                    defaultValue={props.values.priority}
                     as="select"
                     inputProps={{
                       id: "priority",
@@ -334,7 +363,7 @@ const TaskForm: FC<TaskFormProps> = ({
                     color="secondary"
                     name="progress"
                     id="progress"
-                    defaultValue={0}
+                    value={props.values.progress}
                     min={0}
                     max={100}
                     step={10}
@@ -364,6 +393,7 @@ const TaskForm: FC<TaskFormProps> = ({
                     fullWidth
                     multiline
                     id="description"
+                    value={props.values.description}
                     rows={4}
                   />
                 </FormControl>

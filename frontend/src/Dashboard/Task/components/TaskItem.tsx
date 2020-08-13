@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import moment from "moment";
 
 import { toggleTaskCardClicked } from "../../../appSlice";
+import { setSelectedTask } from "../taskSlice";
 import Color from "../../../shared/util/color";
 
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
@@ -54,7 +55,10 @@ const TaskItem: FC<TaskItemProps> = ({ iconType = "", data }) => {
       <Card className={classes.root}>
         <CardActionArea
           className={classes.cardActionArea}
-          onClick={() => dispatch(toggleTaskCardClicked(true))}
+          onClick={() => {
+            dispatch(setSelectedTask(data._id));
+            dispatch(toggleTaskCardClicked(true));
+          }}
         >
           <Grid
             container
