@@ -57,6 +57,7 @@ const MyProject = () => {
             <IconButton
               className={classes.iconStyle}
               onClick={() => dispatch(toggleAddProjectButton(true))}
+              data-testid="test"
             >
               <AddIcon className={classes.icon} />
             </IconButton>
