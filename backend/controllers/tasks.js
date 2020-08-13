@@ -80,7 +80,7 @@ exports.getTasks = asyncHandler(async (req, res, next) => {
 // @route Get /api/v1/tasks/:id
 // @access Public
 exports.getTask = asyncHandler(async (req, res, next) => {
-  const task = await Task.findById(req.params.id);
+  let task = await Task.findById(req.params.id);
 
   if (!task) {
     return next(
@@ -109,6 +109,10 @@ exports.getTask = asyncHandler(async (req, res, next) => {
       )
     );
   }
+
+  task = await Task.findById(req.params.id).select(
+    "user name description startDateAt endDateAt state progress priority project todaysTask"
+  );
 
   res.status(200).json({
     success: true,
@@ -254,18 +258,9 @@ exports.getNearDeadlineTasks = asyncHandler(async (req, res, next) => {
     user: req.user.id,
     workspace: req.params.workspaceId,
     endDateAt: { $lte: nearDeadlineDate },
-  })
-    .populate({
-      path: "project",
-      select: "name",
-    })
-    .populate({
-      path: "user",
-      select: "name",
-    })
-    .sort({
-      endDateAt: 1,
-    });
+  }).sort({
+    endDateAt: 1,
+  });
 
   res.status(200).json({
     success: true,
@@ -285,14 +280,6 @@ exports.getRecentTasks = asyncHandler(async (req, res, next) => {
     workspace: req.params.workspaceId,
     updatedAt: { $gte: oneWeekAgo },
   })
-    .populate({
-      path: "project",
-      select: "name",
-    })
-    .populate({
-      path: "user",
-      select: "name",
-    })
     .limit(3)
     .sort({
       updatedAt: -1,
