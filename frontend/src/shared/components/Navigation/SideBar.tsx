@@ -20,7 +20,7 @@ import Color from "../../util/color";
 import Box from "@material-ui/core/Box";
 import { useDispatch, useSelector } from "react-redux";
 import { selectOpenMenu, toggleOpenMenu } from "../../../appSlice";
-
+import { useHistory } from "react-router";
 import { selectWorkspaceName } from "../../../Auth/authSlice";
 import Typography from "@material-ui/core/Typography";
 
@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       fontWeight: 900,
+      cursor: "pointer",
     },
     mainTitle: {
       fontSize: 30,
@@ -69,6 +70,11 @@ const useStyles = makeStyles((theme: Theme) =>
 const SideBar = () => {
   const classes = useStyles();
 
+  const history = useHistory();
+  const pageChangeHandler = () => {
+    history.push("/");
+  };
+
   const dispatch = useDispatch();
   const openMenu = useSelector(selectOpenMenu);
 
@@ -92,7 +98,7 @@ const SideBar = () => {
             justify="space-between"
             alignItems="center"
           >
-            <Grid item>
+            <Grid item onClick={pageChangeHandler}>
               <Box ml={2}>
                 <Grid
                   container
