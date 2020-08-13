@@ -24,10 +24,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-type VwDrawerProps = {
+interface VwDrawerProps {
   open: boolean;
   click: () => void;
-};
+}
 
 const VwDrawer: FC<VwDrawerProps> = (props) => {
   const classes = useStyles();
