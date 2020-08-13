@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import Drawer from "@material-ui/core/Drawer";
 import Backdrop from "@material-ui/core/Backdrop";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
@@ -24,7 +24,12 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const VwDrawer = (props: any) => {
+type VwDrawerProps = {
+  open: boolean;
+  click: () => void;
+};
+
+const VwDrawer: FC<VwDrawerProps> = (props) => {
   const classes = useStyles();
   return (
     <>
