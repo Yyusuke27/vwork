@@ -38,7 +38,7 @@ import {
 } from "../Task/taskSlice";
 
 import { setSelectedMembers } from "../dashboardSlice";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 
