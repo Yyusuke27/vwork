@@ -54,6 +54,7 @@ const WorkSpaceItem: FC<WorkSpaceItemProps> = ({ id, name }) => {
             })
           );
           history.push("/");
+          history.go(0);
         }}
       >
         <Card className={classes.root}>
