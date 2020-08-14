@@ -88,6 +88,7 @@ const TaskAddButton = () => {
             className={classes.button}
             startIcon={<AddIcon />}
             onClick={() => dispatch(toggleAddTaskButton(true))}
+            data-testid="test"
           >
             タスクを追加
           </Button>

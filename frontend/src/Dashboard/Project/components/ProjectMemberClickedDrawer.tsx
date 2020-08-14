@@ -73,6 +73,7 @@ const ProjectMemberClickedDrawer = () => {
               <Grid
                 item
                 onClick={() => dispatch(toggleMemberIconClicked(false))}
+                data-testid="testID"
               >
                 <TaskList title="プロジェクト内担当タスク" />
               </Grid>

@@ -59,6 +59,7 @@ const TaskItem: FC<TaskItemProps> = ({ iconType = "", data }) => {
             dispatch(setSelectedTask(data._id));
             dispatch(toggleTaskCardClicked(true));
           }}
+          data-testid="test"
         >
           <Grid
             container

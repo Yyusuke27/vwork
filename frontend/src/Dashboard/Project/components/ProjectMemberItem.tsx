@@ -15,12 +15,12 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface TaskMemberItemProps {
+interface ProjectMemberItemProps {
   name: string;
   icon: string;
 }
 
-const ProjectMemberItem: FC<TaskMemberItemProps> = ({
+const ProjectMemberItem: FC<ProjectMemberItemProps> = ({
   name = "",
   icon = "",
 }) => {
@@ -32,6 +32,7 @@ const ProjectMemberItem: FC<TaskMemberItemProps> = ({
         button
         style={{ paddingLeft: 0 }}
         onClick={() => dispatch(toggleMemberIconClicked(true))}
+        data-testid="test"
       >
         <ListItemIcon>
           <Avatar className={classes.icon}>{icon}</Avatar>
