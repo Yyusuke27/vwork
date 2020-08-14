@@ -62,7 +62,7 @@ const Project = () => {
   return (
     <>
       <Container>
-        <MainHeader title="UI改修" />
+        <MainHeader title={project.name} />
         <AddButtonInProject />
         <Grid container direction="row" justify="space-between">
           <Grid item style={{ width: "70%" }}>

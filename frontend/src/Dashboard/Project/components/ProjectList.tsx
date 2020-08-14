@@ -70,6 +70,7 @@ const ProjectList = () => {
         {projectData.map((data, index) => {
           return (
             <ProjectItem
+              id={data._id}
               name={data.name}
               bgColor={PROJECT_COLORS[data.color]}
               iconNum={data.icon}

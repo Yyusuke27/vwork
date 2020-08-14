@@ -1,4 +1,6 @@
 import React, { FC } from "react";
+import { Link } from "react-router-dom";
+
 import clsx from "clsx";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -28,12 +30,13 @@ const useStyles = makeStyles({
 });
 
 interface ProjectItemProps {
+  id: string;
   name: string;
   bgColor: Color;
   iconNum: number;
 }
 
-const ProjectItem: FC<ProjectItemProps> = ({ name = "", bgColor, iconNum }) => {
+const ProjectItem: FC<ProjectItemProps> = ({ id, name, bgColor, iconNum }) => {
   const classes = useStyles();
 
   const projectIcons = [
@@ -46,7 +49,7 @@ const ProjectItem: FC<ProjectItemProps> = ({ name = "", bgColor, iconNum }) => {
     <TimelineIcon className={classes.icon} />,
   ];
   return (
-    <>
+    <Link to={`/project/${id}`}>
       <Box className={classes.contentWidth} mr={3} mb={3}>
         <Grid container direction="column">
           <Grid
@@ -66,7 +69,7 @@ const ProjectItem: FC<ProjectItemProps> = ({ name = "", bgColor, iconNum }) => {
           </Grid>
         </Grid>
       </Box>
-    </>
+    </Link>
   );
 };
 
