@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Box from "@material-ui/core/Box";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
@@ -49,13 +49,18 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const programDate = [
-  { name: "柚木将吾", icon: "S" },
-  { name: "柚木祐輔", icon: "Y" },
-  { name: "柚木郁美", icon: "I" },
-];
+interface ProjectMemberListProps {
+  members: {
+    active: boolean;
+    email: string;
+    name: string;
+    registration: boolean;
+    role: string;
+    _id: string;
+  }[];
+}
 
-const ProjectMemberList = () => {
+const ProjectMemberList: FC<ProjectMemberListProps> = ({ members }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const addMemberButton = useSelector(selectAddMemberButton);
@@ -80,14 +85,8 @@ const ProjectMemberList = () => {
           </ListItem>
         </Grid>
         <Grid item>
-          {programDate.map((date, index) => {
-            return (
-              <ProjectMemberItem
-                name={date.name}
-                icon={date.icon}
-                key={index}
-              />
-            );
+          {members.map((member, index) => {
+            return <ProjectMemberItem name={member.name} key={index} />;
           })}
         </Grid>
       </Grid>

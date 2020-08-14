@@ -20,6 +20,18 @@ export const fetchAsyncAllMyProjects = createAsyncThunk(
   }
 );
 
+export const fetchAsyncGetProject = createAsyncThunk(
+  "project/Project",
+  async (id: string) => {
+    const res = await axios.get(`${apiUrl}api/v1/projects/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  }
+);
+
 interface projectState {
   projects: {
     _id: string;
@@ -27,10 +39,47 @@ interface projectState {
     color: number;
     icon: number;
   }[];
+  project: {
+    _id: string;
+    name: string;
+    color: number;
+    icon: number;
+    description: string;
+    members: {
+      active: boolean;
+      email: string;
+      name: string;
+      registration: boolean;
+      role: string;
+      _id: string;
+    }[];
+    tasks: {
+      _id: string;
+      user: string;
+      name: string;
+      description: string;
+      startDateAt: string;
+      endDateAt: string;
+      state: number;
+      progress: number;
+      priority: number;
+      project: string | null;
+      todaysTask: boolean;
+    }[];
+  };
 }
 
 const initialState: projectState = {
   projects: [],
+  project: {
+    _id: "",
+    name: "",
+    color: 0,
+    icon: 0,
+    description: "",
+    members: [],
+    tasks: [],
+  },
 };
 
 const projectSlice = createSlice({
@@ -42,9 +91,13 @@ const projectSlice = createSlice({
       state.projects = action.payload.data;
     });
     builder.addCase(fetchAsyncAllMyProjects.rejected, (state, action) => {});
+    builder.addCase(fetchAsyncGetProject.fulfilled, (state, action) => {
+      state.project = action.payload.data;
+    });
   },
 });
 
 export const selectProjects = (state: RootState) => state.project.projects;
+export const selectProject = (state: RootState) => state.project.project;
 
 export default projectSlice.reducer;

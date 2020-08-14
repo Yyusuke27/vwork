@@ -34,12 +34,14 @@ exports.getProjects = asyncHandler(async (req, res, next) => {
 // @route Get /api/v1/projects/:id
 // @access Public
 exports.getProject = asyncHandler(async (req, res, next) => {
-  const project = await Project.findById(req.params.id)
-    .populate({
-      path: "members",
-      populate: { path: "members" },
-    })
-    .populate("tasks");
+  const project = await Project.findById(req.params.id).populate({
+    path: "members",
+    populate: { path: "members" },
+  });
+
+  project.members = project.members.filter(
+    (member) => member.registration === true
+  );
 
   if (!project) {
     return next(

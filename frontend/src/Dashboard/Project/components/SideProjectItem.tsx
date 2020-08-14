@@ -10,9 +10,14 @@ import Color from "../../../shared/util/color";
 interface SideProjectItemProps {
   title: string;
   bgColor: Color;
+  projectId: string;
 }
 
-const SideProjectItem: FC<SideProjectItemProps> = ({ title = "", bgColor }) => {
+const SideProjectItem: FC<SideProjectItemProps> = ({
+  title = "",
+  bgColor,
+  projectId,
+}) => {
   return (
     <>
       <List style={{ padding: 0 }}>
@@ -20,7 +25,7 @@ const SideProjectItem: FC<SideProjectItemProps> = ({ title = "", bgColor }) => {
           button
           style={{ paddingTop: 0, paddingBottom: 0 }}
           component={NavLink}
-          to="/my_project"
+          to={`/project/${projectId}`}
           exact
         >
           <ListItemIcon>

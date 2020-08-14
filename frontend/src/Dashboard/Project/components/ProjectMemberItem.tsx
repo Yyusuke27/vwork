@@ -17,13 +17,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface ProjectMemberItemProps {
   name: string;
-  icon: string;
 }
 
-const ProjectMemberItem: FC<ProjectMemberItemProps> = ({
-  name = "",
-  icon = "",
-}) => {
+const ProjectMemberItem: FC<ProjectMemberItemProps> = ({ name }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   return (
@@ -35,7 +31,7 @@ const ProjectMemberItem: FC<ProjectMemberItemProps> = ({
         data-testid="test"
       >
         <ListItemIcon>
-          <Avatar className={classes.icon}>{icon}</Avatar>
+          <Avatar className={classes.icon}>{name.slice(0, 1)}</Avatar>
         </ListItemIcon>
         <ListItemText primary={name} />
       </ListItem>

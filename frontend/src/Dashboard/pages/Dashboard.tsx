@@ -8,11 +8,7 @@ import Project from "../Project/pages/Project";
 import MainNavigation from "../../shared/components/Navigation/MainNavigation";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import {
-  fetchAsyncCurrentUser,
-  selectUser,
-  selectWorkspace,
-} from "../../Auth/authSlice";
+import { fetchAsyncCurrentUser, selectWorkspace } from "../../Auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import NewProjectDrawer from "../Project/components/NewProjectDrawer";
 import InviteMemberInAddIconDrawer from "../Project/components/InviteMemberInAddIconDrawer";
@@ -37,7 +33,6 @@ import {
   fetchAsyncRecentTasks,
 } from "../Task/taskSlice";
 
-import { setSelectedMembers } from "../dashboardSlice";
 import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -81,7 +76,6 @@ const Dashboard = () => {
   const dispatch = useDispatch();
 
   const workspace = useSelector(selectWorkspace);
-  const user = useSelector(selectUser);
 
   const fetchUser = useCallback(async () => {
     await dispatch(fetchAsyncCurrentUser());
@@ -106,7 +100,6 @@ const Dashboard = () => {
       fetchProject();
       fetchNearDeadlineTasks();
       fetchRecentTasks();
-      dispatch(setSelectedMembers([user]));
     } else {
       fetchUser();
       mounted.current = true;
@@ -117,8 +110,6 @@ const Dashboard = () => {
     fetchNearDeadlineTasks,
     fetchRecentTasks,
     workspace,
-    user,
-    dispatch,
   ]);
 
   const openMenu = useSelector(selectOpenMenu);
@@ -158,7 +149,7 @@ const Dashboard = () => {
           <Route path="/work_manage" exact>
             <MyAttendance />
           </Route>
-          <Route path="/my_project" exact>
+          <Route path="/project/:projectId" exact>
             <Project />
           </Route>
         </Switch>

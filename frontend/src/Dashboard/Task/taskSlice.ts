@@ -54,6 +54,19 @@ export const fetchAsyncTasks = createAsyncThunk(
   }
 );
 
+export const fetchAsyncProjectTasks = createAsyncThunk(
+  "task/getProjectTask",
+  async (projectId: string) => {
+    const res = await axios.get(`${apiUrl}api/v1/projects/${projectId}/tasks`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  }
+);
+
 export const fetchAsyncTask = createAsyncThunk(
   "task/get",
   async (id: string) => {
@@ -219,6 +232,9 @@ const taskSlice = createSlice({
       });
     });
     builder.addCase(fetchAsyncTasks.fulfilled, (state, action) => {
+      state.tasks = action.payload;
+    });
+    builder.addCase(fetchAsyncProjectTasks.fulfilled, (state, action) => {
       state.tasks = action.payload;
     });
     builder.addCase(fetchAsyncTask.fulfilled, (state, action) => {

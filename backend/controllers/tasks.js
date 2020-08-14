@@ -17,6 +17,7 @@ const Project = require("../models/Project");
 // @access Public
 exports.getTasks = asyncHandler(async (req, res, next) => {
   let tasks;
+  let todaysTasks;
 
   // TODO: プロジェクトのメンバーのみ閲覧可能
   if (req.params.projectId) {
@@ -25,7 +26,18 @@ exports.getTasks = asyncHandler(async (req, res, next) => {
     if (!isMember) {
       return next(new ErrorResponse("タスクの閲覧権限がありません"));
     }
-    tasks = await Task.find({ project: req.params.projectId });
+    tasks = await Task.find({ project: req.params.projectId })
+      .populate({
+        path: "project",
+        select: "name",
+      })
+      .populate({
+        path: "user",
+        select: "name",
+      })
+      .sort({
+        updatedAt: -1,
+      });
   } else if (req.params.workspaceId) {
     tasks = await Task.find({
       user: req.user.id,
@@ -71,7 +83,6 @@ exports.getTasks = asyncHandler(async (req, res, next) => {
     success: true,
     count: tasks.length,
     data: tasks,
-    countTodaysTask: todaysTasks.length,
     todaysTasks,
   });
 });
@@ -170,7 +181,7 @@ exports.createTask = asyncHandler(async (req, res, next) => {
   }
 
   // ユーザーをbodyに追加
-  req.body.user = req.user.id;
+  // req.body.user = req.user.id;
 
   const task = await Task.create(req.body);
 

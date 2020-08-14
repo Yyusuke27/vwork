@@ -6,6 +6,9 @@ import {
   toggleTaskCardClicked,
 } from "../../../appSlice";
 import {
+  fetchAsyncNearDeadlineTasks,
+  fetchAsyncProjectTasks,
+  fetchAsyncRecentTasks,
   fetchAsyncTask,
   fetchAsyncTasks,
   fetchAsyncUpdateTask,
@@ -13,7 +16,7 @@ import {
   selectTask,
 } from "../taskSlice";
 import TaskForm from "./TaskForm";
-import { selectProjects } from "../../Project/projectSlice";
+import { selectProject, selectProjects } from "../../Project/projectSlice";
 
 import { Box, Container } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
@@ -22,6 +25,8 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 
 const TaskCardClickedDrawer = () => {
+  const project = useSelector(selectProject);
+
   const dispatch = useDispatch();
   const taskCardClicked = useSelector(selectTaskCardClicked);
 
@@ -58,6 +63,8 @@ const TaskCardClickedDrawer = () => {
   // taskはreadonly propertyだから新しい変数に渡す
   const taskData = { ...task };
 
+  const pathName = window.location.pathname;
+
   const submitFunction = async (
     value: {
       user: string;
@@ -74,7 +81,14 @@ const TaskCardClickedDrawer = () => {
     workspace: string
   ) => {
     await dispatch(fetchAsyncUpdateTask({ id: taskId, task: value }));
-    await dispatch(fetchAsyncTasks(workspace));
+    if (pathName.includes("project")) {
+      await dispatch(fetchAsyncProjectTasks(project._id));
+    } else if (pathName.includes("mytask")) {
+      await dispatch(fetchAsyncTasks(workspace));
+    } else {
+      await dispatch(fetchAsyncRecentTasks(workspace));
+      await dispatch(fetchAsyncNearDeadlineTasks(workspace));
+    }
   };
 
   return (

@@ -53,7 +53,7 @@ ProjectSchema.virtual("tasks", {
   ref: "Task",
   localField: "_id",
   foreignField: "project",
-  justOne: true,
+  justOne: false,
 });
 
 module.exports = mongoose.model("Project", ProjectSchema);

@@ -128,7 +128,7 @@ const TaskForm: FC<TaskFormProps> = ({
     state: taskData.state,
     progress: taskData.progress,
     priority: taskData.priority,
-    project: taskData.project,
+    project: taskData.project || "",
     todaysTask: taskData.todaysTask,
   };
 
@@ -138,6 +138,7 @@ const TaskForm: FC<TaskFormProps> = ({
         enableReinitialize={true}
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
+          user: Yup.string().required("担当者を選択してください"),
           name: Yup.string()
             .max(24, "24文字以内で入力してください")
             .required("タスク名は必須です。"),
@@ -145,11 +146,12 @@ const TaskForm: FC<TaskFormProps> = ({
         onSubmit={async (value, actions) => {
           actions.setSubmitting(false);
 
-          if (!value.project) {
-            value.project = null;
+          let submitData = { ...value };
+          if (!submitData.project) {
+            submitData.project = null;
           }
 
-          await submitFunction(value, workspace);
+          await submitFunction(submitData, workspace);
         }}
       >
         {(props) => (
@@ -178,15 +180,13 @@ const TaskForm: FC<TaskFormProps> = ({
                 </DialogActions>
               </Grid>
             </Grid>
-            <FormControl className={classes.formControl}>
-              <Field
-                component={CheckboxWithLabel}
-                type="checkbox"
-                name="todaysTask"
-                Label={{ label: "今日やる" }}
-                checked={props.values.todaysTask}
-              />
-            </FormControl>
+            <Field
+              component={CheckboxWithLabel}
+              type="checkbox"
+              name="todaysTask"
+              Label={{ label: "今日やる" }}
+              checked={props.values.todaysTask}
+            />
             <Grid container className={classes.formContent}>
               <Grid item xs={2}>
                 <Box height="100%" display="flex" alignItems="center">
@@ -197,11 +197,12 @@ const TaskForm: FC<TaskFormProps> = ({
               <Grid item xs={8}>
                 <FormControl className={classes.formControl}>
                   <Field
-                    component={Select}
+                    component={TextField}
                     name="user"
                     id="user"
                     defaultValue={props.values.user}
-                    as="select"
+                    select
+                    onChange={props.handleChange("user")}
                     inputProps={{
                       id: "user",
                     }}
@@ -280,6 +281,7 @@ const TaskForm: FC<TaskFormProps> = ({
                       id: "project",
                     }}
                   >
+                    <MenuItem value="">未選択</MenuItem>
                     {projects.map((project, index) => {
                       return (
                         <MenuItem value={project.id} key={index}>
