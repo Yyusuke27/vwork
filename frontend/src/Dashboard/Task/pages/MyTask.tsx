@@ -39,7 +39,7 @@ const MyTask = () => {
       <Container>
         <MainHeader title="マイタスク" />
         <TaskAddButton />
-        {tasksData.todaysTasks.length > 0 ? (
+        {tasksData.todaysTasks && tasksData.todaysTasks.length > 0 ? (
           <TaskList title="今日やる" taskData={tasksData.todaysTasks} />
         ) : (
           ""
