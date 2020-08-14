@@ -1,10 +1,10 @@
 import React from "react";
+import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
 import { render, screen, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import ProjectMemberClickedDrawer from "./ProjectMemberClickedDrawer";
 import appReducer from "../../../appSlice";
-import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
 import store from "../../../store";
 
 afterEach(() => {

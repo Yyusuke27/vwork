@@ -1,9 +1,9 @@
 import React from "react";
 import CheckAttendanceArea from "../components/CheckAttendanceArea";
 import DatePickerArea from "../components/DatePickerArea";
-import Container from "@material-ui/core/Container";
 import AttendanceList from "../components/AttendanceList";
 import MainHeader from "../../../shared/components/Navigation/MainHeader";
+import Container from "@material-ui/core/Container";
 
 const MyAttendance = () => {
   return (

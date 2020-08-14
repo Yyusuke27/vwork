@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import Color from "../../../shared/util/color";
 import Dialog from "@material-ui/core/Dialog";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -17,17 +18,16 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Button from "@material-ui/core/Button";
-import "../../../App.css";
-import { useHistory } from "react-router-dom";
 import NewTaskAddAfterWorkDrawer from "../../Task/components/TaskAddButtonAfetrWorkDrawer";
 import AddedTaskTextAfterWorkDrawer from "../../Task/components/AddedTaskTextAfterWorkDrawer";
-import { useDispatch, useSelector } from "react-redux";
 import {
   selectAddButtonAfterTask,
   selectAddedTaskText,
   toggleAddedTaskText,
   toggleAddButtonAfterTask,
 } from "../../../appSlice";
+import "../../../App.css";
+import Color from "../../../shared/util/color";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

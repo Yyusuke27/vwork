@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
-import VwDrawer from "../../../shared/components/Common/VwDrawer";
 import { useDispatch, useSelector } from "react-redux";
+import VwDrawer from "../../../shared/components/Common/VwDrawer";
 import {
   selectTaskCardClicked,
   toggleTaskCardClicked,

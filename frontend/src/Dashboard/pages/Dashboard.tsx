@@ -19,7 +19,7 @@ import InviteMemberInAddIconDrawer from "../Project/components/InviteMemberInAdd
 import SetProfileInAvatarIconDrawer from "../Project/components/SetProfileInAvatarIconDrawer";
 import TaskCardClickedDrawer from "../Task/components/TaskCardClickedDrawer";
 import NewTaskAddDrawer from "../Task/components/NewTaskAddDrawer";
-import KintaiKardClickedDrawer from "../Attendance/components/KintaiKardClickedDrawer";
+import KintaiCardClickedDrawer from "../Attendance/components/KintaiCardClickedDrawer";
 import { fetchAsyncAllMyProjects } from "../Project/projectSlice";
 import {
   selectOpenMenu,
@@ -147,7 +147,7 @@ const Dashboard = () => {
         {taskCardClicked ? <TaskCardClickedDrawer /> : ""}
         {addTaskButton ? <NewTaskAddDrawer /> : ""}
         {memberIconClicked ? <ProjectMemberClickedDrawer /> : ""}
-        {kintaiCardClicked ? <KintaiKardClickedDrawer /> : ""}
+        {kintaiCardClicked ? <KintaiCardClickedDrawer /> : ""}
         <Switch>
           <Route path="/" exact>
             <Home />

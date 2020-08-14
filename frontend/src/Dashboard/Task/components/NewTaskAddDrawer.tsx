@@ -1,12 +1,12 @@
 import React from "react";
-import VwDrawer from "../../../shared/components/Common/VwDrawer";
 import { useSelector, useDispatch } from "react-redux";
+import VwDrawer from "../../../shared/components/Common/VwDrawer";
 import { selectAddTaskButton, toggleAddTaskButton } from "../../../appSlice";
 import { selectProjects } from "../../Project/projectSlice";
 import TaskForm from "./TaskForm";
-import { Container } from "@material-ui/core";
 import { fetchAsyncAddTask, fetchAsyncTasks } from "../taskSlice";
 import Box from "@material-ui/core/Box";
+import { Container } from "@material-ui/core";
 
 const NewTaskAddDrawer = () => {
   const dispatch = useDispatch();

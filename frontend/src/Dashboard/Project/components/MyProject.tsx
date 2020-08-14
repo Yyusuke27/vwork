@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import Box from "@material-ui/core/Box";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -7,7 +8,6 @@ import AddIcon from "@material-ui/icons/Add";
 import Typography from "@material-ui/core/Typography";
 import SideProjectList from "./SideProjectList";
 import Color from "../../../shared/util/color";
-import { useDispatch } from "react-redux";
 import { toggleAddProjectButton } from "../../../appSlice";
 
 const DrawerWith = "50%";

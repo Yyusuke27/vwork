@@ -1,15 +1,15 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import CheckAttendanceAreaInDetail from "./CheckAttendanceAreaInDetail";
 import VwDrawer from "../../../shared/components/Common/VwDrawer";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
-import CheckAttendanceAreaInDetail from "./CheckAttendanceAreaInDetail";
-import { useDispatch, useSelector } from "react-redux";
 import {
   selectKintaiCardClicked,
   toggleKintaiCardClicked,
 } from "../../../appSlice";
 
-const KintaiKardClickedDrawer = () => {
+const KintaiCardClickedDrawer = () => {
   const dispatch = useDispatch();
   const kintaiCardClicked = useSelector(selectKintaiCardClicked);
   return (
@@ -30,4 +30,4 @@ const KintaiKardClickedDrawer = () => {
   );
 };
 
-export default KintaiKardClickedDrawer;
+export default KintaiCardClickedDrawer;

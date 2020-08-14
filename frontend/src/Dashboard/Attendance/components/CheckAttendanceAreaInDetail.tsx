@@ -1,13 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import Color from "../../../shared/util/color";
+import TaskList from "../../Task/components/TaskList";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Card from "@material-ui/core/Card";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import Color from "../../../shared/util/color";
 import Box from "@material-ui/core/Box";
 import { toggleKintaiCardClicked } from "../../../appSlice";
-import { useDispatch } from "react-redux";
-import TaskList from "../../Task/components/TaskList";
 import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
 import TextField from "@material-ui/core/TextField";
 

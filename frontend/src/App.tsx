@@ -1,21 +1,18 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { theme } from "./shared/util/theme";
-
 import Admin from "./Admin/pages/Admin";
 import Regist from "./Regist/pages/Regist";
 import WorkSpaces from "./WorkSpaces/pages/WorkSpaces";
 import Dashboard from "./Dashboard/pages/Dashboard";
 import Auth from "./Auth/pages/Auth";
-
+import { selectLoader } from "./appSlice";
 import { MuiThemeProvider } from "@material-ui/core";
-
 import "./App.css";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Backdrop from "@material-ui/core/Backdrop";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { useSelector } from "react-redux";
-import { selectLoader } from "./appSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

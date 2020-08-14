@@ -1,15 +1,15 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import clsx from "clsx";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
 import Grid from "@material-ui/core/Grid";
-import clsx from "clsx";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Container from "@material-ui/core/Container";
 import Card from "@material-ui/core/Card";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import { Box } from "@material-ui/core";
-import { useDispatch } from "react-redux";
 import { toggleKintaiCardClicked } from "../../../appSlice";
 
 const useStyles = makeStyles((theme: Theme) =>

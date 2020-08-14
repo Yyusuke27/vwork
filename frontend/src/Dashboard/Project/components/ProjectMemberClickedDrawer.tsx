@@ -1,11 +1,11 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Box } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import VwDrawer from "../../../shared/components/Common/VwDrawer";
 import TaskList from "../../Task/components/TaskList";
-import { useSelector, useDispatch } from "react-redux";
 import {
   selectMemberIconClicked,
   toggleMemberIconClicked,

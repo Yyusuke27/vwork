@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
@@ -12,11 +13,10 @@ import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import Drawer from "@material-ui/core/Drawer";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { NavLink } from "react-router-dom";
 import Container from "@material-ui/core/Container";
-import Color from "../../util/color";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
+import Color from "../../util/color";
 
 const drawerWidth = 240;
 

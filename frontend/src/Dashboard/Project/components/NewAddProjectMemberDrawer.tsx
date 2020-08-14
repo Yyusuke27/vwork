@@ -1,11 +1,11 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
-import AddMemberList from "./AddMemberList";
-import Button from "@material-ui/core/Button";
-import VwDrawer from "../../../shared/components/Common/VwDrawer";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { useSelector, useDispatch } from "react-redux";
+import Button from "@material-ui/core/Button";
+import AddMemberList from "./AddMemberList";
+import VwDrawer from "../../../shared/components/Common/VwDrawer";
 import {
   selectAddMemberButton,
   toggleAddMemberButton,

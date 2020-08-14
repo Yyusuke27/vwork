@@ -1,7 +1,6 @@
 import React, { FC } from "react";
-
-import Grid from "@material-ui/core/Grid";
 import clsx from "clsx";
+import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -12,7 +11,6 @@ import EqualizerIcon from "@material-ui/icons/Equalizer";
 import TableChartIcon from "@material-ui/icons/TableChart";
 import TextureIcon from "@material-ui/icons/Texture";
 import TimelineIcon from "@material-ui/icons/Timeline";
-
 import Color from "../../../shared/util/color";
 
 const useStyles = makeStyles({

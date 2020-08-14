@@ -1,9 +1,9 @@
 import React from "react";
+import clsx from "clsx";
+import ProjectItem from "./ProjectItem";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import ProjectItem from "./ProjectItem";
-import clsx from "clsx";
 import Typography from "@material-ui/core/Typography";
 import AddIcon from "@material-ui/icons/Add";
 import { useSelector } from "react-redux";

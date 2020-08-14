@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Box from "@material-ui/core/Box";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
@@ -8,7 +9,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
 import ProjectMemberItem from "./ProjectMemberItem";
 import NewAddProjectMemberDrawer from "./NewAddProjectMemberDrawer";
-import { useDispatch, useSelector } from "react-redux";
 import {
   selectAddMemberButton,
   toggleAddMemberButton,

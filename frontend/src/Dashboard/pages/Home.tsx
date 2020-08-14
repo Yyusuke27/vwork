@@ -1,11 +1,11 @@
 import React from "react";
-import CheckAttendanceArea from "../Attendance/components/CheckAttendanceArea";
-import TaskList from "../Task/components/TaskList";
-import ProjectList from "../Project/components/ProjectList";
-import Container from "@material-ui/core/Container";
-import MainHeader from "../../shared/components/Navigation/MainHeader";
 import { useSelector } from "react-redux";
+import Container from "@material-ui/core/Container";
+import CheckAttendanceArea from "../Attendance/components/CheckAttendanceArea";
+import ProjectList from "../Project/components/ProjectList";
+import MainHeader from "../../shared/components/Navigation/MainHeader";
 import { selectNearDeadlineTasks, selectRecentTasks } from "../Task/taskSlice";
+import TaskList from "../Task/components/TaskList";
 
 const Home = () => {
   const nearDeadlineTasks = useSelector(selectNearDeadlineTasks);

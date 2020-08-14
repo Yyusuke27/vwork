@@ -1,6 +1,6 @@
 import React from "react";
-import SideProjectItem from "./SideProjectItem";
 import { useSelector } from "react-redux";
+import SideProjectItem from "./SideProjectItem";
 import { selectProjects } from "../projectSlice";
 import { PROJECT_COLORS } from "../../../shared/util/color";
 

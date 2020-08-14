@@ -1,11 +1,11 @@
 import React, { FC } from "react";
+import { NavLink } from "react-router-dom";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import List from "@material-ui/core/List";
 import Brightness1Icon from "@material-ui/icons/Brightness1";
 import Color from "../../../shared/util/color";
-import { NavLink } from "react-router-dom";
 
 interface SideProjectItemProps {
   title: string;

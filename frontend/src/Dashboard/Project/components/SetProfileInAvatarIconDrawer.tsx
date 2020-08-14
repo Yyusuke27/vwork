@@ -1,6 +1,6 @@
 import React from "react";
-import VwDrawer from "../../../shared/components/Common/VwDrawer";
 import { useSelector, useDispatch } from "react-redux";
+import VwDrawer from "../../../shared/components/Common/VwDrawer";
 import {
   selectSetProfileClicked,
   toggleSetProfileClicked,

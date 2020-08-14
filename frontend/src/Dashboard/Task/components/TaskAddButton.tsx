@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import Grid from "@material-ui/core/Grid";
@@ -12,7 +13,6 @@ import FormControl from "@material-ui/core/FormControl";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import InputBase from "@material-ui/core/InputBase";
 import Color from "../../../shared/util/color";
-import { useDispatch } from "react-redux";
 import { toggleAddTaskButton } from "../../../appSlice";
 
 const BootstrapInput = withStyles((theme: Theme) =>
