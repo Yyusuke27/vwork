@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect } from "react";
 import CheckAttendanceArea from "../components/CheckAttendanceArea";
 import DatePickerArea from "../components/DatePickerArea";
 import AttendanceList from "../components/AttendanceList";
@@ -19,14 +19,8 @@ const MyAttendance = () => {
     [dispatch]
   );
 
-  const mounted = useRef(false);
-
   useEffect(() => {
-    if (mounted.current) {
-      getTodaysAttendance(workspace);
-    } else {
-      mounted.current = true;
-    }
+    getTodaysAttendance(workspace);
   }, [workspace, getTodaysAttendance]);
 
   return (

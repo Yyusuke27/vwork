@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect } from "react";
 import TaskList from "../Task/components/TaskList";
 import { useDispatch, useSelector } from "react-redux";
 import Container from "@material-ui/core/Container";
@@ -29,18 +29,12 @@ const Home = () => {
     [dispatch]
   );
 
-  const mounted = useRef(false);
-
   useEffect(() => {
     dispatch(setSelectedMembers([user]));
   }, [dispatch, user, tasks]);
 
   useEffect(() => {
-    if (mounted.current) {
-      getTodaysAttendance(workspace);
-    } else {
-      mounted.current = true;
-    }
+    getTodaysAttendance(workspace);
   }, [workspace, getTodaysAttendance]);
 
   return (
