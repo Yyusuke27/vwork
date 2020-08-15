@@ -44,7 +44,7 @@ const Home = () => {
       <Container>
         <MainHeader title="ホーム" />
         <CheckAttendanceArea />
-        {nearDeadlineTasks ? (
+        {nearDeadlineTasks && nearDeadlineTasks.length > 0 ? (
           <TaskList
             title="期限が近いタスク"
             iconType="alert"
@@ -53,7 +53,7 @@ const Home = () => {
         ) : (
           ""
         )}
-        {recentTasks ? (
+        {recentTasks && recentTasks.length > 0 ? (
           <TaskList title="アクティブなタスク" taskData={recentTasks} />
         ) : (
           ""
