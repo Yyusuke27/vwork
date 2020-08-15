@@ -28,6 +28,7 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import HighlightIcon from "@material-ui/icons/Highlight";
 import SubjectIcon from "@material-ui/icons/Subject";
 import { selectSelectedMembers } from "../../dashboardSlice";
+import { selectProject } from "../../Project/projectSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -88,6 +89,7 @@ const TaskForm: FC<TaskFormProps> = ({
 }) => {
   const classes = useStyles();
   const workspace = useSelector(selectWorkspace);
+  const project = useSelector(selectProject);
 
   const members = useSelector(selectSelectedMembers);
 
@@ -103,7 +105,11 @@ const TaskForm: FC<TaskFormProps> = ({
   }
 
   if (!taskData.project) {
-    taskData.project = "";
+    if (project._id) {
+      taskData.project = project._id;
+    } else {
+      taskData.project = "";
+    }
   }
 
   interface TaskFormValues {
