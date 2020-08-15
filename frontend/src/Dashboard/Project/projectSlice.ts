@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../../store";
 
+import { toast } from "react-toastify";
+
 const apiUrl = "http://localhost:5000/";
 const token = localStorage.token;
 
@@ -21,13 +23,32 @@ export const fetchAsyncAllMyProjects = createAsyncThunk(
 );
 
 export const fetchAsyncGetProject = createAsyncThunk(
-  "project/Project",
+  "project/project",
   async (id: string) => {
     const res = await axios.get(`${apiUrl}api/v1/projects/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
+    return res.data;
+  }
+);
+
+export const fetchAsyncCreateProject = createAsyncThunk(
+  "project/create",
+  async (data: {
+    workspace: string;
+    projectData: { name: string; description: string };
+  }) => {
+    const res = await axios.post(
+      `${apiUrl}api/v1/workspaces/${data.workspace}/projects`,
+      data.projectData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return res.data;
   }
 );
@@ -93,6 +114,12 @@ const projectSlice = createSlice({
     builder.addCase(fetchAsyncAllMyProjects.rejected, (state, action) => {});
     builder.addCase(fetchAsyncGetProject.fulfilled, (state, action) => {
       state.project = action.payload.data;
+    });
+    builder.addCase(fetchAsyncCreateProject.fulfilled, (state, action) => {
+      state.projects = action.payload.data;
+      toast.info("プロジェクトを追加しました。", {
+        position: toast.POSITION.TOP_CENTER,
+      });
     });
   },
 });

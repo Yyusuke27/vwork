@@ -6,9 +6,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import AddIcon from "@material-ui/icons/Add";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectProjects } from "../projectSlice";
 import { PROJECT_COLORS } from "../../../shared/util/color";
+import { toggleAddProjectButton } from "../../../appSlice";
 
 const useStyles = makeStyles({
   title: {
@@ -35,6 +36,7 @@ const useStyles = makeStyles({
 
 const ProjectList = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const projectData = useSelector(selectProjects);
 
@@ -49,6 +51,7 @@ const ProjectList = () => {
           className={clsx(classes.contentWidth, classes.iconStyle)}
           mr={3}
           mb={3}
+          onClick={() => dispatch(toggleAddProjectButton(true))}
         >
           <Grid container direction="column">
             <Grid

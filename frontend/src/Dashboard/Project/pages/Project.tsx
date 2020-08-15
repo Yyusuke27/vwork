@@ -10,7 +10,9 @@ import { fetchAsyncProjectTasks, selectTasks } from "../../Task/taskSlice";
 import { setSelectedMembers } from "../../dashboardSlice";
 
 import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import { Box } from "@material-ui/core";
 
 const Project = () => {
   const dispatch = useDispatch();
@@ -63,6 +65,9 @@ const Project = () => {
     <>
       <Container>
         <MainHeader title={project.name} />
+        <Box mb={5} pb={1} borderBottom={1} width="69%">
+          <Typography variant="body1">{project.description}</Typography>
+        </Box>
         <AddButtonInProject />
         <Grid container direction="row" justify="space-between">
           <Grid item style={{ width: "70%" }}>

@@ -111,11 +111,16 @@ exports.createProject = asyncHandler(async (req, res, next) => {
     color: colorNum,
   };
 
-  const project = await Project.create(projectData);
+  await Project.create(projectData);
+
+  const projects = await Project.find({
+    members: req.user.id,
+    workspace: req.params.workspaceId,
+  });
 
   res.status(201).json({
     success: true,
-    data: project,
+    data: projects,
   });
 });
 
