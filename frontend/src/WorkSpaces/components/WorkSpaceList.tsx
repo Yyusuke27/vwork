@@ -14,6 +14,11 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: 20,
       paddingLeft: 10,
     },
+    workspacesArea: {
+      height: "42vh",
+      overflowY: "scroll",
+      overflowX: "hidden",
+    },
   })
 );
 
@@ -37,7 +42,7 @@ const WorkSpaceList = () => {
       <Box borderBottom={1} className={classes.title} my={5}>
         WORKSPACE一覧
       </Box>
-      <Grid container>
+      <Grid container className={classes.workspacesArea}>
         {workspaces.map((workspace, index) => (
           <WorkSpaceItem name={workspace.name} id={workspace._id} key={index} />
         ))}
