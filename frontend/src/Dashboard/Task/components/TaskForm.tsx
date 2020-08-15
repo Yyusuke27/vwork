@@ -210,13 +210,14 @@ const TaskForm: FC<TaskFormProps> = ({
                     <MenuItem value="">
                       <em>未選択</em>
                     </MenuItem>
-                    {members.map((user, index) => {
-                      return (
-                        <MenuItem value={user._id.toString()} key={index}>
-                          {user.name.toString()}
-                        </MenuItem>
-                      );
-                    })}
+                    {members &&
+                      members.map((user, index) => {
+                        return (
+                          <MenuItem value={user._id.toString()} key={index}>
+                            {user.name.toString()}
+                          </MenuItem>
+                        );
+                      })}
                   </Field>
                 </FormControl>
               </Grid>

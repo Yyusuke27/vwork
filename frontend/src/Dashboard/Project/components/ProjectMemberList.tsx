@@ -85,9 +85,10 @@ const ProjectMemberList: FC<ProjectMemberListProps> = ({ members }) => {
           </ListItem>
         </Grid>
         <Grid item>
-          {members.map((member, index) => {
-            return <ProjectMemberItem name={member.name} key={index} />;
-          })}
+          {members &&
+            members.map((member, index) => {
+              return <ProjectMemberItem name={member.name} key={index} />;
+            })}
         </Grid>
       </Grid>
       {addMemberButton ? <NewAddProjectMemberDrawer /> : ""}
