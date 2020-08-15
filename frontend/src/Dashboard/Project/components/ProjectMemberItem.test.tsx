@@ -21,7 +21,7 @@ describe("Redux Integration Test", () => {
   it("Should display the detail of each member", () => {
     render(
       <Provider store={store}>
-        <ProjectMemberItem name="" icon="" />
+        <ProjectMemberItem name="" />
       </Provider>
     );
     userEvent.click(screen.getByTestId("test"));
