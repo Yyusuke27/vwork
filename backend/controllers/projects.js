@@ -113,8 +113,6 @@ exports.createProject = asyncHandler(async (req, res, next) => {
 
   const project = await Project.create(projectData);
 
-  console.log(project);
-
   res.status(201).json({
     success: true,
     data: project,

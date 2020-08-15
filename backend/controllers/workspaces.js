@@ -128,7 +128,6 @@ exports.deleteWorkspace = asyncHandler(async (req, res, next) => {
 // @route GET /api/v1/workspaces/:workspaceId/members
 // @access Private
 exports.getMembers = asyncHandler(async (req, res, next) => {
-  console.log(req.params.id);
   // メンバー一覧表示
   // TODO: workspaceのowner and adminユーザーのみ閲覧可能
   const workspace = await Workspace.findById(req.params.id);

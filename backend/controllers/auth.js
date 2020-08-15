@@ -107,8 +107,6 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
   //　トークンの取得
   const resetToken = user.getResetPasswordToken();
 
-  console.log(resetToken);
-
   await user.save({ validateBeforeSave: false });
 
   // TODO: リセットのURLをReactページのURLに指定する

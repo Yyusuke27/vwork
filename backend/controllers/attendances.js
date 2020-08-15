@@ -52,7 +52,6 @@ exports.getAttendances = asyncHandler(async (req, res, next) => {
 exports.getAttendance = asyncHandler(async (req, res, next) => {
   let attendance;
   // 閲覧可能なのはユーザー and workspaceのオーナー  and admin
-  console.log(req.params);
   if (req.params.workspaceId) {
     const workspace = await Workspace.findById(req.params.workspaceId);
     const isOwnerInWorkspace = workspace.owners.includes(req.user.id);
@@ -146,7 +145,6 @@ exports.updateAttendance = asyncHandler(async (req, res, next) => {
 // @route Get /api/v1/workspaces/:workspaceId/attendances/today
 // @access Public
 exports.getTodayAttendance = asyncHandler(async (req, res, next) => {
-  console.log("hello");
   // ホーム画面、勤怠画面に出すやつ
   let latestAttendance = await Attendance.findOne(
     { user: req.user.id, workspace: req.params.workspaceId },
@@ -178,8 +176,6 @@ exports.getTodayAttendance = asyncHandler(async (req, res, next) => {
       latestAttendance = await Attendance.create(newAttendanceData);
     }
   }
-
-  console.log(latestAttendance);
 
   res.status(200).json({
     success: true,
