@@ -2,9 +2,15 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import VwDrawer from "../../../shared/components/Common/VwDrawer";
 import { selectAddTaskButton, toggleAddTaskButton } from "../../../appSlice";
-import { selectProjects } from "../../Project/projectSlice";
+import { selectProject, selectProjects } from "../../Project/projectSlice";
 import TaskForm from "./TaskForm";
-import { fetchAsyncAddTask, fetchAsyncTasks } from "../taskSlice";
+import {
+  fetchAsyncAddTask,
+  fetchAsyncNearDeadlineTasks,
+  fetchAsyncProjectTasks,
+  fetchAsyncRecentTasks,
+  fetchAsyncTasks,
+} from "../taskSlice";
 import Box from "@material-ui/core/Box";
 import { Container } from "@material-ui/core";
 
@@ -12,6 +18,7 @@ const NewTaskAddDrawer = () => {
   const dispatch = useDispatch();
   const taskAddButton = useSelector(selectAddTaskButton);
 
+  const project = useSelector(selectProject);
   const projects = useSelector(selectProjects);
   const projectData = projects.map((data) => {
     return { id: data._id, name: data.name };
@@ -30,6 +37,8 @@ const NewTaskAddDrawer = () => {
     todaysTask: false,
   };
 
+  const pathName = window.location.pathname;
+
   const submitFunction = async (
     value: {
       user: string;
@@ -46,7 +55,14 @@ const NewTaskAddDrawer = () => {
     workspace: string
   ) => {
     await dispatch(fetchAsyncAddTask({ task: value, workspace }));
-    await dispatch(fetchAsyncTasks(workspace));
+    if (pathName.includes("project")) {
+      await dispatch(fetchAsyncProjectTasks(project._id));
+    } else if (pathName.includes("mytask")) {
+      await dispatch(fetchAsyncTasks(workspace));
+    } else {
+      await dispatch(fetchAsyncRecentTasks(workspace));
+      await dispatch(fetchAsyncNearDeadlineTasks(workspace));
+    }
     dispatch(toggleAddTaskButton(false));
   };
   return (
