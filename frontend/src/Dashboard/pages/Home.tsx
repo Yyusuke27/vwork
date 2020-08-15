@@ -34,7 +34,9 @@ const Home = () => {
   }, [dispatch, user, tasks]);
 
   useEffect(() => {
-    getTodaysAttendance(workspace);
+    if (workspace) {
+      getTodaysAttendance(workspace);
+    }
   }, [workspace, getTodaysAttendance]);
 
   return (

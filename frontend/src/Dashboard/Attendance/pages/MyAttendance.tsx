@@ -20,7 +20,9 @@ const MyAttendance = () => {
   );
 
   useEffect(() => {
-    getTodaysAttendance(workspace);
+    if (workspace) {
+      getTodaysAttendance(workspace);
+    }
   }, [workspace, getTodaysAttendance]);
 
   return (
