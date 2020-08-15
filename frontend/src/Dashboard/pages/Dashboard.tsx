@@ -11,7 +11,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { fetchAsyncCurrentUser, selectWorkspace } from "../../Auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import NewProjectDrawer from "../Project/components/NewProjectDrawer";
-import InviteMemberInAddIconDrawer from "../Project/components/InviteMemberInAddIconDrawer";
+import InviteMemberInAddIconDrawer from "../components/InviteMemberInAddIconDrawer";
 import SetProfileInAvatarIconDrawer from "../Project/components/SetProfileInAvatarIconDrawer";
 import TaskCardClickedDrawer from "../Task/components/TaskCardClickedDrawer";
 import NewTaskAddDrawer from "../Task/components/NewTaskAddDrawer";

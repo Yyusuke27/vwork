@@ -181,23 +181,21 @@ exports.inviteNewMembers = asyncHandler(async (req, res, next) => {
 
     //メール送信
     // TODO: invitee registのURLをReactページのURLに指定する
-    const inviteeRegistUrl = `${req.protocol}://${req.get(
-      "host"
-    )}/regist/invitee/${inviteToken}`;
+    // TODO: 本番の時はhostを変える
+    const inviteeRegistUrl = `${req.protocol}://localhost:3000/regist/invitee/welcome/?${inviteToken}`;
 
+    // TODO: メールにworkspace名をいれる
     const message = `招待からの登録はこちらから \n\n ${inviteeRegistUrl}`;
-    const html = `<a href="${inviteeRegistUrl}">${invitation.name}さん：招待からの登録はこちらから</a>`;
+    const html = `<a href="${inviteeRegistUrl}">${invitation.name}さん：${workspace.name}へ招待されました。登録はこちらから</a>`;
 
     try {
       await sendEmail({
         email: invitee.email,
-        subject: "vworkに招待されました",
+        subject: `[vwork]${workspace.name}に招待されました`,
         message,
         html,
       });
     } catch (err) {
-      console.log(err);
-
       invite.invitationToken = undefined;
       invite.invitationExpire = undefined;
 

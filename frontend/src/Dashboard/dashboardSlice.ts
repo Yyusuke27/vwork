@@ -1,5 +1,30 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import axios from "axios";
+
+import { toast } from "react-toastify";
+
+const apiUrl = "http://localhost:5000/";
+const token = localStorage.token;
+
+export const fetchAsyncInviteMember = createAsyncThunk(
+  "dashboard/invite",
+  async (data: {
+    workspace: string;
+    invitations: { name: string; email: string }[];
+  }) => {
+    const res = await axios.post(
+      `${apiUrl}api/v1/workspaces/${data.workspace}/members`,
+      { invitations: data.invitations },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return res.data;
+  }
+);
 
 interface dashboardState {
   owner: boolean;
@@ -24,7 +49,18 @@ const dashboardSlice = createSlice({
       state.selectedMembers = action.payload;
     },
   },
-  extraReducers: (builder) => {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchAsyncInviteMember.fulfilled, (state, action) => {
+      toast.info("招待メールを送信しました。", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    });
+    builder.addCase(fetchAsyncInviteMember.rejected, (state, action) => {
+      toast.error("招待に失敗しました。", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    });
+  },
 });
 
 export const { setWorkspace, setSelectedMembers } = dashboardSlice.actions;
