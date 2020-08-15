@@ -185,6 +185,7 @@ interface taskState {
     _id: string;
     user: { _id: string; name: string };
   }[];
+  todaysDoneTasks: string[];
 }
 
 const initialState: taskState = {
@@ -210,6 +211,7 @@ const initialState: taskState = {
   selectedTask: "",
   recentTasks: [],
   nearDeadlineTasks: [],
+  todaysDoneTasks: [],
 };
 
 const taskSlice = createSlice({
@@ -218,6 +220,9 @@ const taskSlice = createSlice({
   reducers: {
     setSelectedTask(state, action) {
       state.selectedTask = action.payload;
+    },
+    setTodaysDoneTasks(state, action) {
+      state.todaysDoneTasks = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -255,7 +260,9 @@ export const selectSelectedTask = (state: RootState) => state.task.selectedTask;
 export const selectRecentTasks = (state: RootState) => state.task.recentTasks;
 export const selectNearDeadlineTasks = (state: RootState) =>
   state.task.nearDeadlineTasks;
+export const selectTodaysDoneTasks = (state: RootState) =>
+  state.task.todaysDoneTasks;
 
-export const { setSelectedTask } = taskSlice.actions;
+export const { setSelectedTask, setTodaysDoneTasks } = taskSlice.actions;
 
 export default taskSlice.reducer;

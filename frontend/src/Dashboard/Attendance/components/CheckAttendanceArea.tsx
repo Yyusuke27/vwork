@@ -1,6 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+
+import * as Yup from "yup";
+import { Field, Form, Formik } from "formik";
+import { TextField } from "formik-material-ui";
+
+import NewTaskAddAfterWorkDrawer from "../../Task/components/TaskAddButtonAfetrWorkDrawer";
+import AddedTaskTextAfterWorkDrawer from "../../Task/components/AddedTaskTextAfterWorkDrawer";
+import {
+  selectAddButtonAfterTask,
+  selectAddedTaskText,
+  toggleAddButtonAfterTask,
+} from "../../../appSlice";
+import {
+  fetchAsyncUpdateTodaysAttendance,
+  selectTodaysAttendance,
+} from "../attendanceSlice";
+
+import Color from "../../../shared/util/color";
+
 import Box from "@material-ui/core/Box";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -13,21 +31,13 @@ import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Slide from "@material-ui/core/Slide";
 import { TransitionProps } from "@material-ui/core/transitions";
-import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Button from "@material-ui/core/Button";
-import NewTaskAddAfterWorkDrawer from "../../Task/components/TaskAddButtonAfetrWorkDrawer";
-import AddedTaskTextAfterWorkDrawer from "../../Task/components/AddedTaskTextAfterWorkDrawer";
-import {
-  selectAddButtonAfterTask,
-  selectAddedTaskText,
-  toggleAddedTaskText,
-  toggleAddButtonAfterTask,
-} from "../../../appSlice";
-import "../../../App.css";
-import Color from "../../../shared/util/color";
+
+import FormControl from "@material-ui/core/FormControl";
+import { selectTodaysDoneTasks } from "../../Task/taskSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -64,10 +74,6 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "10%",
       fontSize: 20,
     },
-    addedTask: {
-      fontSize: 30,
-      cursor: "pointer",
-    },
     todayUpdate: {
       marginBottom: 10,
     },
@@ -94,74 +100,49 @@ const CheckAttendanceArea = () => {
   const moment = require("moment");
   const [open, setOpen] = React.useState(false);
 
+  const todaysAttendance = useSelector(selectTodaysAttendance);
+
   const handleClickOpen = () => {
     setOpen(true);
-    setStep({
-      ...step,
-      restStart: true,
-      restEnd: true,
-      finished: true,
-    });
-    setFinishedTime(moment().format("HH:mm"));
   };
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const [step, setStep] = useState({
-    attended: false,
-    restStart: true,
-    restEnd: true,
-    finished: true,
-  });
-
-  const attendedClicked = () => {
-    setStep({
-      ...step,
-      attended: true,
-      restStart: false,
-      finished: false,
-    });
-    setAttendedTime(moment().format("HH:mm"));
+  const attendedClicked = async () => {
+    await dispatch(
+      fetchAsyncUpdateTodaysAttendance({
+        id: todaysAttendance._id,
+        attendance: { startedAt: moment() },
+      })
+    );
   };
 
-  const restStartedClicked = () => {
-    setStep({
-      ...step,
-      restStart: true,
-      restEnd: false,
-      finished: false,
-    });
-    setRestInTime(moment().format("HH:mm"));
+  const restStartedClicked = async () => {
+    await dispatch(
+      fetchAsyncUpdateTodaysAttendance({
+        id: todaysAttendance._id,
+        attendance: { restStartedAt: moment() },
+      })
+    );
   };
 
-  const restEndClicked = () => {
-    setStep({
-      ...step,
-      restEnd: true,
-      finished: false,
-    });
-    setRestOutTime(moment().format("HH:mm"));
-  };
-
-  const [attendedTime, setAttendedTime] = useState();
-
-  const [restInTime, setRestInTime] = useState();
-
-  const [restOutTime, setRestOutTime] = useState();
-
-  const [finishedTime, setFinishedTime] = useState();
-
-  const history = useHistory();
-  const pageChangeHandler = () => {
-    history.push("/");
-    history.go(0);
+  const restEndClicked = async () => {
+    if (window.confirm("休憩を終了しますか？")) {
+      await dispatch(
+        fetchAsyncUpdateTodaysAttendance({
+          id: todaysAttendance._id,
+          attendance: { restEndedAt: moment() },
+        })
+      );
+    }
   };
 
   const dispatch = useDispatch();
   const addButtonAfterTask = useSelector(selectAddButtonAfterTask);
   const addedTaskText = useSelector(selectAddedTaskText);
+  const todaysDoneTasks = useSelector(selectTodaysDoneTasks);
 
   return (
     <>
@@ -175,26 +156,44 @@ const CheckAttendanceArea = () => {
             color="textSecondary"
             gutterBottom
           >
-            2020年8月10日
+            {moment().format("YYYY年MM月DD日")}
           </Typography>
-          <Grid container direction="row" className={classes.timeArea}>
-            <Grid item style={{ width: "20%" }}>
-              <span style={{ fontWeight: 600 }}>出社</span>：{attendedTime}
+          <Grid
+            container
+            spacing={5}
+            direction="row"
+            className={classes.timeArea}
+          >
+            <Grid item>
+              <span style={{ fontWeight: 600 }}>出社</span>：
+              {todaysAttendance.startedAt
+                ? moment(todaysAttendance.startedAt)
+                    .utcOffset("+09:00")
+                    .format("HH:mm")
+                : ""}
             </Grid>
-            <Grid item style={{ width: "20%" }}>
-              {step.attended === false ? (
-                <Grid item>
-                  <span style={{ fontWeight: 600 }}>休憩</span>：
-                </Grid>
-              ) : (
-                <Grid item>
-                  <span style={{ fontWeight: 600 }}>休憩</span>：{restInTime} ~
-                  {restOutTime}
-                </Grid>
-              )}
+            <Grid item>
+              <Grid item>
+                <span style={{ fontWeight: 600 }}>休憩</span>：
+                {todaysAttendance.restStartedAt
+                  ? moment(todaysAttendance.restStartedAt)
+                      .utcOffset("+09:00")
+                      .format("HH:mm") + " ~ "
+                  : ""}
+                {todaysAttendance.restEndedAt
+                  ? moment(todaysAttendance.restEndedAt)
+                      .utcOffset("+09:00")
+                      .format("HH:mm")
+                  : ""}
+              </Grid>
             </Grid>
-            <Grid item style={{ width: "20%" }}>
-              <span style={{ fontWeight: 600 }}>退社</span>：{finishedTime}
+            <Grid item>
+              <span style={{ fontWeight: 600 }}>退社</span>：
+              {todaysAttendance.endedAt
+                ? moment(todaysAttendance.endedAt)
+                    .utcOffset("+09:00")
+                    .format("HH:mm")
+                : ""}
             </Grid>
           </Grid>
         </CardContent>
@@ -206,7 +205,7 @@ const CheckAttendanceArea = () => {
                   size="small"
                   variant="contained"
                   color="primary"
-                  disabled={step.attended}
+                  disabled={!!todaysAttendance.startedAt}
                   onClick={attendedClicked}
                 >
                   出社
@@ -215,11 +214,12 @@ const CheckAttendanceArea = () => {
             </Box>
             <Box mr={1}>
               <Grid item>
-                {step.restStart === false || step.restEnd === true ? (
+                {!!todaysAttendance.startedAt &&
+                !todaysAttendance.restStartedAt ? (
                   <Button
                     size="small"
                     variant="contained"
-                    disabled={step.restStart}
+                    disabled={!!todaysAttendance.restStartedAt}
                     color="primary"
                     onClick={restStartedClicked}
                   >
@@ -229,7 +229,7 @@ const CheckAttendanceArea = () => {
                   <Button
                     size="small"
                     variant="contained"
-                    disabled={step.restEnd}
+                    disabled={!!todaysAttendance.restEndedAt}
                     color="secondary"
                     onClick={restEndClicked}
                   >
@@ -245,7 +245,11 @@ const CheckAttendanceArea = () => {
                   variant="contained"
                   color="primary"
                   onClick={handleClickOpen}
-                  disabled={step.finished}
+                  disabled={
+                    !!todaysAttendance.endedAt ||
+                    (!!todaysAttendance.restStartedAt &&
+                      !todaysAttendance.restEndedAt)
+                  }
                 >
                   退社
                 </Button>
@@ -301,44 +305,70 @@ const CheckAttendanceArea = () => {
                   </Grid>
                 </Grid>
               </Box>
-              <Box mt={3}>
-                <Grid
-                  item
-                  className={classes.addedTask}
-                  onClick={() => dispatch(toggleAddedTaskText(true))}
-                >
-                  X件のタスクを追加済
-                </Grid>
-              </Box>
               <Grid item>
-                <Box mt={12}>
-                  <Grid container direction="column">
-                    <Grid item className={classes.todayUpdate}>
-                      今日の振り返り
-                    </Grid>
-                    <Grid item>
-                      <TextField
-                        multiline
-                        rows={8}
-                        variant="outlined"
-                        className={classes.textField}
-                      />
-                    </Grid>
-                  </Grid>
-                </Box>
+                <Typography variant="h5">
+                  <span className="vwork-red">
+                    {todaysDoneTasks && todaysDoneTasks.length > 0
+                      ? todaysDoneTasks.length
+                      : "0"}
+                    件
+                  </span>
+                  のタスクを追加済
+                </Typography>
               </Grid>
               <Grid item>
-                <Box mt={10} mr={4}>
-                  <Grid container direction="row" justify="flex-end">
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      className={classes.out}
-                      onClick={pageChangeHandler}
-                    >
-                      退勤する
-                    </Button>
-                  </Grid>
+                <Box mt={3}>
+                  <Formik
+                    initialValues={{ comment: "" }}
+                    validationSchema={Yup.object().shape({})}
+                    onSubmit={async (values, actions) => {
+                      actions.setSubmitting(false);
+
+                      await dispatch(
+                        fetchAsyncUpdateTodaysAttendance({
+                          id: todaysAttendance._id,
+                          attendance: {
+                            endedAt: moment(),
+                            comment: values.comment,
+                            tasks: todaysDoneTasks,
+                          },
+                        })
+                      );
+
+                      setOpen(false);
+                    }}
+                  >
+                    {(props) => (
+                      <Form>
+                        <FormControl className={classes.textField}>
+                          <Field
+                            component={TextField}
+                            name="comment"
+                            variant="outlined"
+                            label="今日の振り返り"
+                            margin="normal"
+                            fullWidth
+                            multiline
+                            id="comment"
+                            value={props.values.comment}
+                            rows={4}
+                          />
+                        </FormControl>
+                        <Box mt={10} mr={4}>
+                          <Grid container direction="row" justify="flex-end">
+                            <Button
+                              type="submit"
+                              variant="contained"
+                              color="primary"
+                              className={classes.out}
+                            >
+                              退勤する
+                            </Button>
+                          </Grid>
+                        </Box>
+                      </Form>
+                    )}
+                  </Formik>
                 </Box>
               </Grid>
             </Container>

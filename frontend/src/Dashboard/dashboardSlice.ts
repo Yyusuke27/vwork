@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { authSlice } from "../Auth/authSlice";
 
 interface dashboardState {
   owner: boolean;
@@ -25,11 +24,7 @@ const dashboardSlice = createSlice({
       state.selectedMembers = action.payload;
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(authSlice.actions.setUser, (state, action) => {
-      state.selectedMembers = [action.payload];
-    });
-  },
+  extraReducers: (builder) => {},
 });
 
 export const { setWorkspace, setSelectedMembers } = dashboardSlice.actions;
