@@ -45,6 +45,10 @@ const InviteeStepOne = () => {
 
   const inviteeMail = useSelector(selectInviteUserMail);
 
+  if (inviteUserState.registration) {
+    history.push("/regist/invitee/step2");
+  }
+
   return (
     <>
       <DialogTitle id="alert-dialog-slide-title">

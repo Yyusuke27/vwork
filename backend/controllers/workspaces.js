@@ -157,17 +157,27 @@ exports.inviteNewMembers = asyncHandler(async (req, res, next) => {
   }
 
   for (const invitation of req.body.invitations) {
-    // ユーザー作成
-    // passwordを乱数で生成
-    const buff = crypto.randomBytes(8); // バイナリで8byteのランダムな値を生成
-    const hex = buff.toString("hex"); // 16進数の文字列に変換
-    const password = parseInt(hex, 16); // integerに変換して返却
+    const user = await User.findOne({ email: invitation.email });
+    let invitee;
 
-    const newUserData = {
-      ...invitation,
-      password,
-    };
-    const invitee = await User.create(newUserData);
+    if (user) {
+      invitee = user;
+      if (workspace.members.includes(invitee._id)) {
+        return next(new ErrorResponse("ワークスペースのメンバーです。"));
+      }
+    } else {
+      // ユーザー作成
+      // passwordを乱数で生成
+      const buff = crypto.randomBytes(8); // バイナリで8byteのランダムな値を生成
+      const hex = buff.toString("hex"); // 16進数の文字列に変換
+      const password = parseInt(hex, 16); // integerに変換して返却
+
+      const newUserData = {
+        ...invitation,
+        password,
+      };
+      invitee = await User.create(newUserData);
+    }
 
     const invite = await Invite.create({
       user: invitee._id,
@@ -180,11 +190,9 @@ exports.inviteNewMembers = asyncHandler(async (req, res, next) => {
     await invite.save({ validateBeforeSave: false });
 
     //メール送信
-    // TODO: invitee registのURLをReactページのURLに指定する
     // TODO: 本番の時はhostを変える
     const inviteeRegistUrl = `${req.protocol}://localhost:3000/regist/invitee/welcome/?${inviteToken}`;
 
-    // TODO: メールにworkspace名をいれる
     const message = `招待からの登録はこちらから \n\n ${inviteeRegistUrl}`;
     const html = `<a href="${inviteeRegistUrl}">${invitation.name}さん：${workspace.name}へ招待されました。登録はこちらから</a>`;
 

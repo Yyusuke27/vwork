@@ -56,17 +56,25 @@ exports.regist = asyncHandler(async (req, res, next) => {
 
   // inviteの処理
   for (const invitation of req.body.invitations) {
-    // ユーザー作成
-    // passwordを乱数で生成
-    const buff = crypto.randomBytes(8); // バイナリで8byteのランダムな値を生成
-    const hex = buff.toString("hex"); // 16進数の文字列に変換
-    const password = parseInt(hex, 16); // integerに変換して返却
+    // TODO: すでに存在するメアドだった時はworkspaceに追加 & profileの追加のみ
+    const user = await User.findOne({ email: invitation.email });
+    let invitee;
 
-    const newUserData = {
-      ...invitation,
-      password,
-    };
-    const invitee = await User.create(newUserData);
+    if (user) {
+      invitee = user;
+    } else {
+      // ユーザー作成
+      // passwordを乱数で生成
+      const buff = crypto.randomBytes(8); // バイナリで8byteのランダムな値を生成
+      const hex = buff.toString("hex"); // 16進数の文字列に変換
+      const password = parseInt(hex, 16); // integerに変換して返却
+
+      const newUserData = {
+        ...invitation,
+        password,
+      };
+      invitee = await User.create(newUserData);
+    }
 
     const invite = await Invite.create({
       user: invitee._id,
@@ -79,23 +87,20 @@ exports.regist = asyncHandler(async (req, res, next) => {
     await invite.save({ validateBeforeSave: false });
 
     //メール送信
-    // TODO: invitee registのURLをReactページのURLに指定する
     // TODO: 本番の時はhostを変える
     const inviteeRegistUrl = `${req.protocol}://localhost:3000/regist/invitee/welcome/?${inviteToken}`;
 
     const message = `招待からの登録はこちらから \n\n ${inviteeRegistUrl}`;
-    const html = `<a href="${inviteeRegistUrl}">${invitation.name}さん：招待からの登録はこちらから</a>`;
+    const html = `<a href="${inviteeRegistUrl}">${invitation.name}さん：${workspace.name}へ招待されました。登録はこちらから</a>`;
 
     try {
       await sendEmail({
         email: invitee.email,
-        subject: "vworkに招待されました",
+        subject: `[vwork]${workspace.name}に招待されました`,
         message,
         html,
       });
     } catch (err) {
-      console.log(err);
-
       invite.invitationToken = undefined;
       invite.invitationExpire = undefined;
 
@@ -149,7 +154,6 @@ exports.getInviteeUserInfo = asyncHandler(async (req, res, next) => {
 // @route POST /api/v1/registration/invitee
 // @access Private
 exports.registInvitee = asyncHandler(async (req, res, next) => {
-  // TODO: workspaceのメンバーに追加する処理が必要
   // 招待者の登録作業
 
   const invitationToken = makeTokenHash(req.body.token);
@@ -172,8 +176,11 @@ exports.registInvitee = asyncHandler(async (req, res, next) => {
     runValidators: true,
   });
 
-  user.password = req.body.user.password;
-  await user.save();
+  // 既に登録済の場合はパスワードを更新させない
+  if (req.body.user.password) {
+    user.password = req.body.user.password;
+    await user.save();
+  }
 
   let profile = await UserProfile.findOne({
     user: user._id,

@@ -104,7 +104,6 @@ const Signup = () => {
             onSubmit={async (value) => {
               dispatch(toggleLoading(true));
               await dispatch(fetchAsyncSignup(value));
-              dispatch(toggleLoading(false));
             }}
           >
             <Form className={classes.form}>

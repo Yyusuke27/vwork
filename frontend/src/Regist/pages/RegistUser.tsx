@@ -1,18 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { Route, Switch } from "react-router-dom";
 import Welcome from "../components/Welcome";
 import RegistStep from "./RegistStep";
 import { useDispatch } from "react-redux";
-import { toggleLoading } from "../../appSlice";
 import { fetchAsyncCurrentUser } from "../../Auth/authSlice";
 
 const RegistUser = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(toggleLoading(true));
-    dispatch(fetchAsyncCurrentUser());
-    dispatch(toggleLoading(false));
+
+  const fetchUser = useCallback(async () => {
+    await dispatch(fetchAsyncCurrentUser());
   }, [dispatch]);
+
+  const mounted = useRef(false);
+
+  useEffect(() => {
+    if (mounted.current) {
+    } else {
+      fetchUser();
+      mounted.current = true;
+    }
+  }, [fetchUser]);
+
   return (
     <>
       <Switch>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -48,14 +48,21 @@ const InviteeWelcome = () => {
 
   const dispatch = useDispatch();
 
+  const getInvitation = useCallback(
+    async (query) => {
+      await dispatch(fetchAsyncInvitation(query));
+    },
+    [dispatch]
+  );
+
   useEffect(() => {
     localStorage.clear();
     const query = window.location.search.slice(1);
     localStorage.setItem("Itoken", query);
     dispatch(toggleLoading(true));
-    dispatch(fetchAsyncInvitation(query));
+    getInvitation(query);
     dispatch(toggleLoading(false));
-  }, [dispatch]);
+  }, [dispatch, getInvitation]);
 
   return (
     <>

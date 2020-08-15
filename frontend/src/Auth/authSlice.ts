@@ -139,13 +139,22 @@ export const authSlice = createSlice({
       );
 
       const path = window.location.pathname;
-      if (path === "/auth/login" || path === "/auth/signup") {
-        window.location.href = "/";
-      }
 
-      //　登録済のユーザーは登録ステップの画面にランディングできない
-      if (state.user.registration && path.includes("/regist")) {
-        window.location.href = "/";
+      if (!state.user.registration && !path.includes("/regist")) {
+        window.location.href = "/regist/welcome";
+      } else {
+        if (path === "/auth/login" || path === "/auth/signup") {
+          window.location.href = "/";
+        }
+
+        //　登録済のユーザーは登録ステップの画面にランディングできない
+        if (
+          state.user.registration &&
+          path.includes("/regist") &&
+          !path.includes("/invitee")
+        ) {
+          window.location.href = "/";
+        }
       }
     });
     builder.addCase(fetchAsyncCurrentUser.rejected, (state, action) => {

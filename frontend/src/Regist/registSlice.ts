@@ -103,6 +103,7 @@ interface RegistState {
       email: string;
       position: string;
       password: string;
+      registration: boolean;
     };
   };
 }
@@ -130,6 +131,7 @@ const initialState: RegistState = {
       email: "",
       position: "",
       password: "",
+      registration: false,
     },
   },
 };
