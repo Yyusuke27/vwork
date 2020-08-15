@@ -149,248 +149,258 @@ const CheckAttendanceArea = () => {
       <Box borderBottom={1} className={classes.mainTitle}>
         勤怠管理
       </Box>
-      <Card className={classes.root}>
-        <CardContent>
-          <Typography
-            className={classes.title}
-            color="textSecondary"
-            gutterBottom
-          >
-            {moment().format("YYYY年MM月DD日")}
-          </Typography>
-          <Grid
-            container
-            spacing={5}
-            direction="row"
-            className={classes.timeArea}
-          >
-            <Grid item>
-              <span style={{ fontWeight: 600 }}>出社</span>：
-              {todaysAttendance.startedAt
-                ? moment(todaysAttendance.startedAt)
-                    .utcOffset("+09:00")
-                    .format("HH:mm")
-                : ""}
-            </Grid>
-            <Grid item>
-              <Grid item>
-                <span style={{ fontWeight: 600 }}>休憩</span>：
-                {todaysAttendance.restStartedAt
-                  ? moment(todaysAttendance.restStartedAt)
-                      .utcOffset("+09:00")
-                      .format("HH:mm") + " ~ "
-                  : ""}
-                {todaysAttendance.restEndedAt
-                  ? moment(todaysAttendance.restEndedAt)
-                      .utcOffset("+09:00")
-                      .format("HH:mm")
-                  : ""}
-              </Grid>
-            </Grid>
-            <Grid item>
-              <span style={{ fontWeight: 600 }}>退社</span>：
-              {todaysAttendance.endedAt
-                ? moment(todaysAttendance.endedAt)
-                    .utcOffset("+09:00")
-                    .format("HH:mm")
-                : ""}
-            </Grid>
-          </Grid>
-        </CardContent>
-        <CardActions>
-          <Grid container direction="row" justify="flex-end">
-            <Box mr={1}>
-              <Grid item>
-                <Button
-                  size="small"
-                  variant="contained"
-                  color="primary"
-                  disabled={!!todaysAttendance.startedAt}
-                  onClick={attendedClicked}
-                >
-                  出社
-                </Button>
-              </Grid>
-            </Box>
-            <Box mr={1}>
-              <Grid item>
-                {!todaysAttendance.restStartedAt ? (
-                  <Button
-                    size="small"
-                    variant="contained"
-                    disabled={
-                      !todaysAttendance.startedAt ||
-                      !!todaysAttendance.restStartedAt ||
-                      !!todaysAttendance.endedAt
-                    }
-                    color="primary"
-                    onClick={restStartedClicked}
-                  >
-                    休憩
-                  </Button>
-                ) : (
-                  ""
-                )}
-                {todaysAttendance.restStartedAt ? (
-                  <Button
-                    size="small"
-                    variant="contained"
-                    disabled={
-                      !todaysAttendance.startedAt ||
-                      !!todaysAttendance.restEndedAt ||
-                      !!todaysAttendance.endedAt
-                    }
-                    color="secondary"
-                    onClick={restEndClicked}
-                  >
-                    休憩終了
-                  </Button>
-                ) : (
-                  ""
-                )}
-              </Grid>
-            </Box>
-            <Box mr={1}>
-              <Grid item>
-                <Button
-                  size="small"
-                  variant="contained"
-                  color="primary"
-                  onClick={handleClickOpen}
-                  disabled={
-                    !todaysAttendance.startedAt ||
-                    !!todaysAttendance.endedAt ||
-                    (!!todaysAttendance.restStartedAt &&
-                      !todaysAttendance.restEndedAt)
-                  }
-                >
-                  退社
-                </Button>
-              </Grid>
-            </Box>
-          </Grid>
-        </CardActions>
-      </Card>
-      <Dialog fullScreen open={open} TransitionComponent={Transition}>
-        <AppBar className={classes.appBar}>
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={handleClose}
-              aria-label="close"
-            >
-              <CloseIcon />
-            </IconButton>
-            <img
-              src={`${process.env.PUBLIC_URL}/images/logo192.png`}
-              style={{ height: 25 }}
-              className="imgstyle"
-              alt="icon"
-            />
-            <Typography variant="h6" className={classes.dialogTitle}>
-              VWORK
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Box mt={10}>
-          <Grid container direction="column" className={classes.dialogText}>
-            <Container maxWidth="lg">
-              <Grid item>勤務お疲れさまでした</Grid>
-              <Box mt={7}>
+      {todaysAttendance._id ? (
+        <>
+          <Card className={classes.root}>
+            <CardContent>
+              <Typography
+                className={classes.title}
+                color="textSecondary"
+                gutterBottom
+              >
+                {moment().format("YYYY年MM月DD日")}
+              </Typography>
+              <Grid
+                container
+                spacing={5}
+                direction="row"
+                className={classes.timeArea}
+              >
                 <Grid item>
-                  <Grid container direction="column">
-                    <Grid item>今日行ったタスクの確認をして下さい。</Grid>
-                    <Box mt={3}>
-                      <Grid item>
-                        <Button
-                          className={classes.additionalButton}
-                          onClick={() =>
-                            dispatch(toggleAddButtonAfterTask(true))
-                          }
-                          variant="contained"
-                          color="secondary"
-                        >
-                          追加
-                        </Button>
-                      </Grid>
-                    </Box>
+                  <span style={{ fontWeight: 600 }}>出社</span>：
+                  {todaysAttendance.startedAt
+                    ? moment(todaysAttendance.startedAt)
+                        .utcOffset("+09:00")
+                        .format("HH:mm")
+                    : ""}
+                </Grid>
+                <Grid item>
+                  <Grid item>
+                    <span style={{ fontWeight: 600 }}>休憩</span>：
+                    {todaysAttendance.restStartedAt
+                      ? moment(todaysAttendance.restStartedAt)
+                          .utcOffset("+09:00")
+                          .format("HH:mm") + " ~ "
+                      : ""}
+                    {todaysAttendance.restEndedAt
+                      ? moment(todaysAttendance.restEndedAt)
+                          .utcOffset("+09:00")
+                          .format("HH:mm")
+                      : ""}
                   </Grid>
                 </Grid>
-              </Box>
-              <Grid item>
-                <Typography variant="h5">
-                  <span className="vwork-red">
-                    {todaysDoneTasks && todaysDoneTasks.length > 0
-                      ? todaysDoneTasks.length
-                      : "0"}
-                    件
-                  </span>
-                  のタスクを追加済
-                </Typography>
+                <Grid item>
+                  <span style={{ fontWeight: 600 }}>退社</span>：
+                  {todaysAttendance.endedAt
+                    ? moment(todaysAttendance.endedAt)
+                        .utcOffset("+09:00")
+                        .format("HH:mm")
+                    : ""}
+                </Grid>
               </Grid>
-              <Grid item>
-                <Box mt={3}>
-                  <Formik
-                    initialValues={{ comment: "" }}
-                    validationSchema={Yup.object().shape({})}
-                    onSubmit={async (values, actions) => {
-                      actions.setSubmitting(false);
-
-                      await dispatch(
-                        fetchAsyncUpdateTodaysAttendance({
-                          id: todaysAttendance._id,
-                          attendance: {
-                            endedAt: moment(),
-                            comment: values.comment,
-                            tasks: todaysDoneTasks,
-                          },
-                        })
-                      );
-
-                      setOpen(false);
-                    }}
-                  >
-                    {(props) => (
-                      <Form>
-                        <FormControl className={classes.textField}>
-                          <Field
-                            component={TextField}
-                            name="comment"
-                            variant="outlined"
-                            label="今日の振り返り"
-                            margin="normal"
-                            fullWidth
-                            multiline
-                            id="comment"
-                            value={props.values.comment}
-                            rows={4}
-                          />
-                        </FormControl>
-                        <Box mt={10} mr={4}>
-                          <Grid container direction="row" justify="flex-end">
+            </CardContent>
+            <CardActions>
+              <Grid container direction="row" justify="flex-end">
+                <Box mr={1}>
+                  <Grid item>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      color="primary"
+                      disabled={!!todaysAttendance.startedAt}
+                      onClick={attendedClicked}
+                    >
+                      出社
+                    </Button>
+                  </Grid>
+                </Box>
+                <Box mr={1}>
+                  <Grid item>
+                    {!todaysAttendance.restStartedAt ? (
+                      <Button
+                        size="small"
+                        variant="contained"
+                        disabled={
+                          !todaysAttendance.startedAt ||
+                          !!todaysAttendance.restStartedAt ||
+                          !!todaysAttendance.endedAt
+                        }
+                        color="primary"
+                        onClick={restStartedClicked}
+                      >
+                        休憩
+                      </Button>
+                    ) : (
+                      ""
+                    )}
+                    {todaysAttendance.restStartedAt ? (
+                      <Button
+                        size="small"
+                        variant="contained"
+                        disabled={
+                          !todaysAttendance.startedAt ||
+                          !!todaysAttendance.restEndedAt ||
+                          !!todaysAttendance.endedAt
+                        }
+                        color="secondary"
+                        onClick={restEndClicked}
+                      >
+                        休憩終了
+                      </Button>
+                    ) : (
+                      ""
+                    )}
+                  </Grid>
+                </Box>
+                <Box mr={1}>
+                  <Grid item>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      color="primary"
+                      onClick={handleClickOpen}
+                      disabled={
+                        !todaysAttendance.startedAt ||
+                        !!todaysAttendance.endedAt ||
+                        (!!todaysAttendance.restStartedAt &&
+                          !todaysAttendance.restEndedAt)
+                      }
+                    >
+                      退社
+                    </Button>
+                  </Grid>
+                </Box>
+              </Grid>
+            </CardActions>
+          </Card>
+          <Dialog fullScreen open={open} TransitionComponent={Transition}>
+            <AppBar className={classes.appBar}>
+              <Toolbar>
+                <IconButton
+                  edge="start"
+                  color="inherit"
+                  onClick={handleClose}
+                  aria-label="close"
+                >
+                  <CloseIcon />
+                </IconButton>
+                <img
+                  src={`${process.env.PUBLIC_URL}/images/logo192.png`}
+                  style={{ height: 25 }}
+                  className="imgstyle"
+                  alt="icon"
+                />
+                <Typography variant="h6" className={classes.dialogTitle}>
+                  VWORK
+                </Typography>
+              </Toolbar>
+            </AppBar>
+            <Box mt={10}>
+              <Grid container direction="column" className={classes.dialogText}>
+                <Container maxWidth="lg">
+                  <Grid item>勤務お疲れさまでした</Grid>
+                  <Box mt={7}>
+                    <Grid item>
+                      <Grid container direction="column">
+                        <Grid item>今日行ったタスクの確認をして下さい。</Grid>
+                        <Box mt={3}>
+                          <Grid item>
                             <Button
-                              type="submit"
+                              className={classes.additionalButton}
+                              onClick={() =>
+                                dispatch(toggleAddButtonAfterTask(true))
+                              }
                               variant="contained"
-                              color="primary"
-                              className={classes.out}
+                              color="secondary"
                             >
-                              退勤する
+                              追加
                             </Button>
                           </Grid>
                         </Box>
-                      </Form>
-                    )}
-                  </Formik>
-                </Box>
-              </Grid>
-            </Container>
-          </Grid>
-        </Box>
-        {addButtonAfterTask ? <NewTaskAddAfterWorkDrawer /> : ""}
+                      </Grid>
+                    </Grid>
+                  </Box>
+                  <Grid item>
+                    <Typography variant="h5">
+                      <span className="vwork-red">
+                        {todaysDoneTasks && todaysDoneTasks.length > 0
+                          ? todaysDoneTasks.length
+                          : "0"}
+                        件
+                      </span>
+                      のタスクを追加済
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <Box mt={3}>
+                      <Formik
+                        initialValues={{ comment: "" }}
+                        validationSchema={Yup.object().shape({})}
+                        onSubmit={async (values, actions) => {
+                          actions.setSubmitting(false);
 
-        {addedTaskText ? <AddedTaskTextAfterWorkDrawer /> : ""}
-      </Dialog>
+                          await dispatch(
+                            fetchAsyncUpdateTodaysAttendance({
+                              id: todaysAttendance._id,
+                              attendance: {
+                                endedAt: moment(),
+                                comment: values.comment,
+                                tasks: todaysDoneTasks,
+                              },
+                            })
+                          );
+
+                          setOpen(false);
+                        }}
+                      >
+                        {(props) => (
+                          <Form>
+                            <FormControl className={classes.textField}>
+                              <Field
+                                component={TextField}
+                                name="comment"
+                                variant="outlined"
+                                label="今日の振り返り"
+                                margin="normal"
+                                fullWidth
+                                multiline
+                                id="comment"
+                                value={props.values.comment}
+                                rows={4}
+                              />
+                            </FormControl>
+                            <Box mt={10} mr={4}>
+                              <Grid
+                                container
+                                direction="row"
+                                justify="flex-end"
+                              >
+                                <Button
+                                  type="submit"
+                                  variant="contained"
+                                  color="primary"
+                                  className={classes.out}
+                                >
+                                  退勤する
+                                </Button>
+                              </Grid>
+                            </Box>
+                          </Form>
+                        )}
+                      </Formik>
+                    </Box>
+                  </Grid>
+                </Container>
+              </Grid>
+            </Box>
+            {addButtonAfterTask ? <NewTaskAddAfterWorkDrawer /> : ""}
+
+            {addedTaskText ? <AddedTaskTextAfterWorkDrawer /> : ""}
+          </Dialog>
+        </>
+      ) : (
+        ""
+      )}
     </>
   );
 };
