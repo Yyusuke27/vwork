@@ -214,27 +214,39 @@ const CheckAttendanceArea = () => {
             </Box>
             <Box mr={1}>
               <Grid item>
-                {!!todaysAttendance.startedAt &&
-                !todaysAttendance.restStartedAt ? (
+                {!todaysAttendance.restStartedAt ? (
                   <Button
                     size="small"
                     variant="contained"
-                    disabled={!!todaysAttendance.restStartedAt}
+                    disabled={
+                      !todaysAttendance.startedAt ||
+                      !!todaysAttendance.restStartedAt ||
+                      !!todaysAttendance.endedAt
+                    }
                     color="primary"
                     onClick={restStartedClicked}
                   >
                     休憩
                   </Button>
                 ) : (
+                  ""
+                )}
+                {todaysAttendance.restStartedAt ? (
                   <Button
                     size="small"
                     variant="contained"
-                    disabled={!!todaysAttendance.restEndedAt}
+                    disabled={
+                      !todaysAttendance.startedAt ||
+                      !!todaysAttendance.restEndedAt ||
+                      !!todaysAttendance.endedAt
+                    }
                     color="secondary"
                     onClick={restEndClicked}
                   >
                     休憩終了
                   </Button>
+                ) : (
+                  ""
                 )}
               </Grid>
             </Box>
@@ -246,6 +258,7 @@ const CheckAttendanceArea = () => {
                   color="primary"
                   onClick={handleClickOpen}
                   disabled={
+                    !todaysAttendance.startedAt ||
                     !!todaysAttendance.endedAt ||
                     (!!todaysAttendance.restStartedAt &&
                       !todaysAttendance.restEndedAt)
