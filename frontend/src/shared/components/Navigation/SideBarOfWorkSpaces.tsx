@@ -11,7 +11,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import HomeIcon from "@material-ui/icons/Home";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
-import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
+// import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import Drawer from "@material-ui/core/Drawer";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -136,12 +136,12 @@ const SideBarOfWorkSpaces = () => {
               </ListItemIcon>
               <ListItemText primary="勤怠管理" />
             </ListItem>
-            <ListItem button>
-              <ListItemIcon className={classes.iconStyle}>
-                <NotificationsNoneIcon />
-              </ListItemIcon>
-              <ListItemText primary="受信ボックス" />
-            </ListItem>
+            {/*<ListItem button>*/}
+            {/*  <ListItemIcon className={classes.iconStyle}>*/}
+            {/*    <NotificationsNoneIcon />*/}
+            {/*  </ListItemIcon>*/}
+            {/*  <ListItemText primary="受信ボックス" />*/}
+            {/*</ListItem>*/}
           </List>
           <Box borderBottom={1} className={classes.projectTitle}>
             <Typography>マイプロジェクト</Typography>
