@@ -4,7 +4,7 @@ import axios from "axios";
 
 import { toast } from "react-toastify";
 
-const apiUrl = "http://localhost:5000/";
+const apiUrl = process.env.REACT_APP_BACKEND_URL;
 const token = localStorage.token;
 
 export const fetchAsyncInviteMember = createAsyncThunk(

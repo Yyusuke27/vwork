@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../store";
 
-const apiUrl = "http://localhost:5000/";
+const apiUrl = process.env.REACT_APP_BACKEND_URL;
 const token = localStorage.token;
 
 export const fetchAsyncGetWorkspaces = createAsyncThunk(
