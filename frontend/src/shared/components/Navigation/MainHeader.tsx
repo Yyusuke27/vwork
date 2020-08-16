@@ -16,7 +16,7 @@ import Menu, { MenuProps } from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Container from "@material-ui/core/Container";
 import Color from "../../../shared/util/color";
-import { fetchAsyncLogout } from "../../../Auth/authSlice";
+import { fetchAsyncLogout, selectUser } from "../../../Auth/authSlice";
 import {
   selectOpenMenu,
   toggleOpenMenu,
@@ -107,6 +107,8 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
 
   const dispatch = useDispatch();
 
+  const user = useSelector(selectUser);
+
   const logoutHandler = async () => {
     await dispatch(fetchAsyncLogout());
   };
@@ -185,10 +187,7 @@ const MainHeader: FC<MainHeaderProps> = ({ title = "" }) => {
                       onClick={avatarIconClickedOpen}
                       style={{ padding: 0, paddingRight: 10 }}
                     >
-                      <Avatar
-                        alt="Shogo Yunoki"
-                        src="/static/images/avatar/1.jpg"
-                      />
+                      <Avatar>{user ? user.name.slice(0, 1) : ""}</Avatar>
                     </IconButton>
                   </Grid>
                 </Grid>
