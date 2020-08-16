@@ -87,7 +87,13 @@ const ProjectMemberList: FC<ProjectMemberListProps> = ({ members }) => {
         <Grid item>
           {members &&
             members.map((member, index) => {
-              return <ProjectMemberItem name={member.name} key={index} />;
+              return (
+                <ProjectMemberItem
+                  name={member.name}
+                  key={index}
+                  memberId={member._id}
+                />
+              );
             })}
         </Grid>
       </Grid>

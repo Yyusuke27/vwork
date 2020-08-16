@@ -269,6 +269,8 @@ exports.addMemeber = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("プロジェクトの閲覧権限がありません"));
   }
 
+  // TODO: workspaceのメンバーではなかったら追加できないようにする
+
   const updateProject = await project.update(
     { $push: { members: { $each: req.body.members } } },
     {

@@ -6,6 +6,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { toggleMemberIconClicked } from "../../../appSlice";
+import { setSelectedMember } from "../projectSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,9 +18,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface ProjectMemberItemProps {
   name: string;
+  memberId: string;
 }
 
-const ProjectMemberItem: FC<ProjectMemberItemProps> = ({ name }) => {
+const ProjectMemberItem: FC<ProjectMemberItemProps> = ({ name, memberId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   return (
@@ -27,7 +29,10 @@ const ProjectMemberItem: FC<ProjectMemberItemProps> = ({ name }) => {
       <ListItem
         button
         style={{ paddingLeft: 0 }}
-        onClick={() => dispatch(toggleMemberIconClicked(true))}
+        onClick={() => {
+          dispatch(setSelectedMember(memberId));
+          dispatch(toggleMemberIconClicked(true));
+        }}
         data-testid="test"
       >
         <ListItemIcon>

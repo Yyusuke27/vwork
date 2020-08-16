@@ -68,6 +68,21 @@ export const fetchAsyncGetNewMembers = createAsyncThunk(
   }
 );
 
+export const fetchAsyncGetMember = createAsyncThunk(
+  "project/member",
+  async (data: { workspaces: string; projectId: string; userId: string }) => {
+    const res = await axios.get(
+      `${apiUrl}api/v1/workspaces/${data.workspaces}/projects/${data.projectId}/users/${data.userId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return res.data;
+  }
+);
+
 interface projectState {
   projects: {
     _id: string;
@@ -104,6 +119,25 @@ interface projectState {
     }[];
   };
   newMembers: {}[];
+  member: {
+    user: {
+      _id: string;
+      name: string;
+      email: string;
+      registration: boolean;
+      role: string;
+      lastAccessWorkspace: string;
+    };
+    tasks: {
+      name: string;
+      project: { _id: string; name: string };
+      endDateAt: string;
+      _id: string;
+      user: { _id: string; name: string };
+    }[];
+    profile: { position: string };
+  };
+  selectedMember: string;
 }
 
 const initialState: projectState = {
@@ -118,12 +152,32 @@ const initialState: projectState = {
     tasks: [],
   },
   newMembers: [],
+  member: {
+    user: {
+      _id: "",
+      name: "",
+      email: "",
+      registration: false,
+      role: "",
+      lastAccessWorkspace: "",
+    },
+    tasks: [],
+    profile: { position: "" },
+  },
+  selectedMember: "",
 };
 
 const projectSlice = createSlice({
   name: "project",
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedMember(state, action) {
+      state.selectedMember = action.payload;
+    },
+    setProjectMember(state, action) {
+      state.member = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncAllMyProjects.fulfilled, (state, action) => {
       state.projects = action.payload.data;
@@ -142,10 +196,20 @@ const projectSlice = createSlice({
       console.log(action.payload);
       state.newMembers = action.payload.data;
     });
+    builder.addCase(fetchAsyncGetMember.fulfilled, (state, action) => {
+      state.member.user = action.payload.user;
+      state.member.profile = action.payload.profile;
+      state.member.tasks = action.payload.tasks;
+    });
   },
 });
 
 export const selectProjects = (state: RootState) => state.project.projects;
 export const selectProject = (state: RootState) => state.project.project;
+export const selectSelectedProjectMember = (state: RootState) =>
+  state.project.selectedMember;
+export const selectProjectMember = (state: RootState) => state.project.member;
+
+export const { setSelectedMember, setProjectMember } = projectSlice.actions;
 
 export default projectSlice.reducer;
