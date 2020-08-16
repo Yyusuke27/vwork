@@ -254,7 +254,7 @@ exports.getNewMembers = asyncHandler(async (req, res, next) => {
 });
 
 // @desc Add member
-// @route POST /api/v1/projects/:projectId/members
+// @route PUT /api/v1/projects/:projectId/members
 // @access Private
 exports.addMemeber = asyncHandler(async (req, res, next) => {
   // Project内のメンバーであればユーザーを追加できる。

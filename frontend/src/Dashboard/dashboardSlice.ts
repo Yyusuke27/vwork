@@ -26,6 +26,27 @@ export const fetchAsyncInviteMember = createAsyncThunk(
   }
 );
 
+export const fetchAsyncUpdateUserProfile = createAsyncThunk(
+  "dashboard/updateProfile",
+  async (data: {
+    workspace: string;
+    userId: string;
+    bodyData: { name?: string; email?: string; position?: string };
+  }) => {
+    const res = await axios.post(
+      `${apiUrl}api/v1/workspaces/${data.workspace}/users/${data.userId}/profile`,
+      data.bodyData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return res.data;
+  }
+);
+
 interface dashboardState {
   owner: boolean;
   workspace: string;

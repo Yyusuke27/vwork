@@ -45,6 +45,7 @@ export const fetchAsyncCreateProject = createAsyncThunk(
       data.projectData,
       {
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       }
@@ -75,6 +76,23 @@ export const fetchAsyncGetMember = createAsyncThunk(
       `${apiUrl}api/v1/workspaces/${data.workspaces}/projects/${data.projectId}/users/${data.userId}`,
       {
         headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return res.data;
+  }
+);
+
+export const fetchAsyncAddMembers = createAsyncThunk(
+  "project/addMember",
+  async (data: { projectId: string; members: string[] }) => {
+    const res = await axios.put(
+      `${apiUrl}api/v1/projects/${data.projectId}/members`,
+      { members: data.members },
+      {
+        headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       }
@@ -118,7 +136,7 @@ interface projectState {
       todaysTask: boolean;
     }[];
   };
-  newMembers: {}[];
+  newMembers: { name: string; _id: string }[];
   member: {
     user: {
       _id: string;
@@ -193,13 +211,17 @@ const projectSlice = createSlice({
       });
     });
     builder.addCase(fetchAsyncGetNewMembers.fulfilled, (state, action) => {
-      console.log(action.payload);
       state.newMembers = action.payload.data;
     });
     builder.addCase(fetchAsyncGetMember.fulfilled, (state, action) => {
       state.member.user = action.payload.user;
       state.member.profile = action.payload.profile;
       state.member.tasks = action.payload.tasks;
+    });
+    builder.addCase(fetchAsyncAddMembers.fulfilled, (state, action) => {
+      toast.info("プロジェクトにメンバーを追加しました", {
+        position: toast.POSITION.TOP_CENTER,
+      });
     });
   },
 });
@@ -209,6 +231,7 @@ export const selectProject = (state: RootState) => state.project.project;
 export const selectSelectedProjectMember = (state: RootState) =>
   state.project.selectedMember;
 export const selectProjectMember = (state: RootState) => state.project.member;
+export const selectNewMembers = (state: RootState) => state.project.newMembers;
 
 export const { setSelectedMember, setProjectMember } = projectSlice.actions;
 

@@ -1,18 +1,117 @@
 import React from "react";
-import AddMemberItem from "./AddMemberItem";
+import * as Yup from "yup";
+import { Field, FieldArray, Form, Formik } from "formik";
+import { Box } from "@material-ui/core";
+import { CheckboxWithLabel } from "formik-material-ui";
+import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
+import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
+import DialogActions from "@material-ui/core/DialogActions";
+import Button from "@material-ui/core/Button";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchAsyncAddMembers,
+  fetchAsyncGetProject,
+  selectNewMembers,
+  selectProject,
+} from "../projectSlice";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { toggleAddMemberButton, toggleLoading } from "../../../appSlice";
 
-const memberdata = [
-  { myName: "Shogo Yunoki" },
-  { myName: "Shogo Yunoki" },
-  { myName: "Shogo Yunoki" },
-];
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    button: {
+      width: "50%",
+    },
+  })
+);
 
 const AddMemberList = () => {
+  const classes = useStyles();
+  const newMembers = useSelector(selectNewMembers);
+  const project = useSelector(selectProject);
+
+  const dispatch = useDispatch();
+
+  interface NewMemberFormValues {
+    members: string[];
+  }
+
+  const initialValues: NewMemberFormValues = {
+    members: [],
+  };
   return (
     <>
-      {memberdata.map((data, index) => {
-        return <AddMemberItem myName={data.myName} key={index} />;
-      })}
+      <Formik
+        initialValues={initialValues}
+        validationSchema={Yup.object().shape({})}
+        onSubmit={async (values, actions) => {
+          actions.setSubmitting(false);
+          dispatch(toggleLoading(true));
+          await dispatch(
+            fetchAsyncAddMembers({
+              projectId: project._id,
+              members: values.members,
+            })
+          );
+          await dispatch(fetchAsyncGetProject(project._id));
+          dispatch(toggleLoading(false));
+          dispatch(toggleAddMemberButton(false));
+        }}
+      >
+        {({ values }) => (
+          <Form>
+            <FieldArray
+              name="members"
+              render={(arrayHelpers) => (
+                <div>
+                  {newMembers &&
+                    newMembers.map((member, index) => (
+                      <div key={`newMember-${index}`}>
+                        <Field
+                          component={CheckboxWithLabel}
+                          Label={{ label: member.name }}
+                          name="tasks"
+                          type="checkbox"
+                          value={member._id}
+                          checked={values.members.includes(member._id)}
+                          onChange={(
+                            e: React.ChangeEvent<HTMLInputElement>
+                          ) => {
+                            if (e.target.checked) {
+                              arrayHelpers.push(member._id);
+                            } else {
+                              const idx = values.members.indexOf(member._id);
+                              arrayHelpers.remove(idx);
+                            }
+                          }}
+                          icon={<RadioButtonUncheckedIcon />}
+                          checkedIcon={<RadioButtonCheckedIcon />}
+                        />
+                      </div>
+                    ))}
+                  <DialogActions>
+                    <Box
+                      mt={5}
+                      width="100%"
+                      display="flex"
+                      justifyContent="center"
+                    >
+                      <Button
+                        type="submit"
+                        className={classes.button}
+                        variant="contained"
+                        color="primary"
+                      >
+                        追加
+                      </Button>
+                    </Box>
+                  </DialogActions>
+                </div>
+              )}
+            />
+          </Form>
+        )}
+      </Formik>
     </>
   );
 };

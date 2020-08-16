@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import AddMemberList from "./AddMemberList";
 import VwDrawer from "../../../shared/components/Common/VwDrawer";
 import {
@@ -35,6 +34,7 @@ const NewAddProjectMemberDrawer = () => {
   const workspaces = useSelector(selectWorkspace);
   const project = useSelector(selectProject);
   const projectId = project._id;
+
   const getNewMembers = useCallback(
     async (workspaces, projectId) => {
       await dispatch(fetchAsyncGetNewMembers({ workspaces, projectId }));
@@ -44,6 +44,7 @@ const NewAddProjectMemberDrawer = () => {
   useEffect(() => {
     getNewMembers(workspaces, projectId);
   }, [getNewMembers, projectId, workspaces]);
+
   return (
     <>
       <VwDrawer
@@ -52,18 +53,9 @@ const NewAddProjectMemberDrawer = () => {
       >
         <Container maxWidth="md">
           <Box borderBottom={1} mt={10} mb={5} className={classes.drawerTitle}>
-            メンバー
+            追加するメンバーを選択
           </Box>
           <AddMemberList />
-          <Box mt={40} ml={35}>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-            >
-              招待
-            </Button>
-          </Box>
         </Container>
       </VwDrawer>
     </>
