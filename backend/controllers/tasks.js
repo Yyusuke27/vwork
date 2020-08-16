@@ -39,38 +39,58 @@ exports.getTasks = asyncHandler(async (req, res, next) => {
         updatedAt: -1,
       });
   } else if (req.params.workspaceId) {
-    tasks = await Task.find({
-      user: req.user.id,
-      todaysTask: false,
-      workspace: req.params.workspaceId,
-    })
-      .populate({
-        path: "project",
-        select: "name",
+    // 自分のタスク一覧
+    if (req.query.state) {
+      tasks = await Task.find({
+        user: req.user.id,
+        workspace: req.params.workspaceId,
+        state: req.query.state,
       })
-      .populate({
-        path: "user",
-        select: "name",
+        .populate({
+          path: "project",
+          select: "name",
+        })
+        .populate({
+          path: "user",
+          select: "name",
+        })
+        .sort({
+          updatedAt: -1,
+        });
+    } else {
+      tasks = await Task.find({
+        user: req.user.id,
+        todaysTask: false,
+        workspace: req.params.workspaceId,
       })
-      .sort({
-        updatedAt: -1,
-      });
-    todaysTasks = await Task.find({
-      user: req.user.id,
-      todaysTask: true,
-      workspace: req.params.workspaceId,
-    })
-      .populate({
-        path: "project",
-        select: "name",
+        .populate({
+          path: "project",
+          select: "name",
+        })
+        .populate({
+          path: "user",
+          select: "name",
+        })
+        .sort({
+          updatedAt: -1,
+        });
+      todaysTasks = await Task.find({
+        user: req.user.id,
+        todaysTask: true,
+        workspace: req.params.workspaceId,
       })
-      .populate({
-        path: "user",
-        select: "name",
-      })
-      .sort({
-        updatedAt: -1,
-      });
+        .populate({
+          path: "project",
+          select: "name",
+        })
+        .populate({
+          path: "user",
+          select: "name",
+        })
+        .sort({
+          updatedAt: -1,
+        });
+    }
   } else {
     if (req.user.role === "admin") {
       tasks = await Task.find();

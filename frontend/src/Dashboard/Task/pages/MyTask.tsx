@@ -5,10 +5,17 @@ import TaskAddButton from "../components/TaskAddButton";
 import TaskList from "../components/TaskList";
 import MainHeader from "../../../shared/components/Navigation/MainHeader";
 import { selectUser, selectWorkspace } from "../../../Auth/authSlice";
-import { fetchAsyncTasks, selectTasks } from "../taskSlice";
+import {
+  fetchAsyncTasks,
+  selectTaskQuery,
+  selectTasks,
+  setQuery,
+} from "../taskSlice";
 
 import Container from "@material-ui/core/Container";
 import { setSelectedMembers } from "../../dashboardSlice";
+
+const TASK_STATE = ["TODO", "進行中", "完了"];
 
 const MyTask = () => {
   const dispatch = useDispatch();
@@ -16,19 +23,25 @@ const MyTask = () => {
   const tasksData = useSelector(selectTasks);
   const user = useSelector(selectUser);
   const tasks = useSelector(selectTasks);
+  const taskQuery = useSelector(selectTaskQuery);
 
   const getTasks = useCallback(
     async (workspace) => {
-      await dispatch(fetchAsyncTasks(workspace));
+      await dispatch(fetchAsyncTasks({ workspace }));
     },
     [dispatch]
   );
+
+  const setTaskQuery = useCallback(() => {
+    dispatch(setQuery(""));
+  }, [dispatch]);
 
   useEffect(() => {
     if (workspace) {
       getTasks(workspace);
     }
-  }, [getTasks, workspace]);
+    setTaskQuery();
+  }, [getTasks, workspace, setTaskQuery]);
 
   useEffect(() => {
     dispatch(setSelectedMembers([user]));
@@ -45,7 +58,14 @@ const MyTask = () => {
           ""
         )}
         {tasksData.count ? (
-          <TaskList title="一覧" taskData={tasksData.data} />
+          <TaskList
+            title={
+              taskQuery
+                ? `【${TASK_STATE[Number(taskQuery)]}】タスク一覧`
+                : "一覧"
+            }
+            taskData={tasksData.data}
+          />
         ) : (
           ""
         )}

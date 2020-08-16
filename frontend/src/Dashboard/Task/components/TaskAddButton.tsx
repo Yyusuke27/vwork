@@ -1,56 +1,17 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import Grid from "@material-ui/core/Grid";
-import {
-  createStyles,
-  makeStyles,
-  withStyles,
-  Theme,
-} from "@material-ui/core/styles";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
-import NativeSelect from "@material-ui/core/NativeSelect";
-import InputBase from "@material-ui/core/InputBase";
+import InputLabel from "@material-ui/core/InputLabel";
 import Color from "../../../shared/util/color";
 import { toggleAddTaskButton } from "../../../appSlice";
-
-const BootstrapInput = withStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      "label + &": {
-        marginTop: theme.spacing(3),
-      },
-    },
-    input: {
-      borderRadius: 4,
-      position: "relative",
-      backgroundColor: theme.palette.background.paper,
-      border: "1px solid #ced4da",
-      fontSize: 16,
-      padding: "10px 26px 10px 12px",
-      transition: theme.transitions.create(["border-color", "box-shadow"]),
-      // Use the system font instead of the default Roboto font.
-      fontFamily: [
-        "-apple-system",
-        "BlinkMacSystemFont",
-        '"Segoe UI"',
-        "Roboto",
-        '"Helvetica Neue"',
-        "Arial",
-        "sans-serif",
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-      ].join(","),
-      "&:focus": {
-        borderRadius: 4,
-        borderColor: "#80bdff",
-        boxShadow: "0 0 0 0.2rem rgba(0,123,255,.25)",
-      },
-    },
-  })
-)(InputBase);
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
+import { fetchAsyncTasks, selectTaskQuery, setQuery } from "../taskSlice";
+import { selectWorkspace } from "../../../Auth/authSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -67,11 +28,25 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const TaskAddButton = () => {
   const classes = useStyles();
-  const [text, setText] = React.useState("");
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setText(event.target.value as string);
-  };
   const dispatch = useDispatch();
+
+  const workspace = useSelector(selectWorkspace);
+
+  const getTasks = useCallback(
+    async (workspace, query) => {
+      await dispatch(fetchAsyncTasks({ workspace, query }));
+    },
+    [dispatch]
+  );
+
+  const handleChange = (
+    event: React.ChangeEvent<{ name?: string | undefined; value: unknown }>
+  ) => {
+    dispatch(setQuery(event.target.value));
+    getTasks(workspace, event.target.value);
+  };
+
+  const taskQuery = useSelector(selectTaskQuery);
   return (
     <div>
       <Grid
@@ -95,16 +70,18 @@ const TaskAddButton = () => {
         </Grid>
         <Grid item>
           <FormControl className={classes.margin}>
-            <NativeSelect
-              value={text}
+            <InputLabel id="task-state">絞り込み</InputLabel>
+            <Select
+              id="task-state"
               onChange={handleChange}
-              input={<BootstrapInput />}
               style={{ width: 200 }}
+              value={taskQuery}
             >
-              <option value={"未完了のタスク"}>未完了のタスク</option>
-              <option value={"未完了のタスク"}>未完了のタスク</option>
-              <option value={"未完了のタスク"}>未完了のタスク</option>
-            </NativeSelect>
+              <MenuItem value="">未選択</MenuItem>
+              <MenuItem value="0">TODO</MenuItem>
+              <MenuItem value="1">進行中</MenuItem>
+              <MenuItem value="2">完了</MenuItem>
+            </Select>
           </FormControl>
         </Grid>
       </Grid>

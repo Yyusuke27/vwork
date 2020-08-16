@@ -40,9 +40,11 @@ export const fetchAsyncAddTask = createAsyncThunk(
 
 export const fetchAsyncTasks = createAsyncThunk(
   "task/getAll",
-  async (workspace: string) => {
+  async (data: { workspace: string; query?: string }) => {
     const res = await axios.get(
-      `${apiUrl}api/v1/workspaces/${workspace}/tasks`,
+      `${apiUrl}api/v1/workspaces/${data.workspace}/tasks${
+        data.query ? `?state=${data.query}` : ""
+      }`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -186,6 +188,7 @@ interface taskState {
     user: { _id: string; name: string };
   }[];
   todaysDoneTasks: string[];
+  query: string;
 }
 
 const initialState: taskState = {
@@ -212,6 +215,7 @@ const initialState: taskState = {
   recentTasks: [],
   nearDeadlineTasks: [],
   todaysDoneTasks: [],
+  query: "",
 };
 
 const taskSlice = createSlice({
@@ -226,6 +230,9 @@ const taskSlice = createSlice({
     },
     setTodaysDoneTasks(state, action) {
       state.todaysDoneTasks = action.payload;
+    },
+    setQuery(state, action) {
+      state.query = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -265,11 +272,13 @@ export const selectNearDeadlineTasks = (state: RootState) =>
   state.task.nearDeadlineTasks;
 export const selectTodaysDoneTasks = (state: RootState) =>
   state.task.todaysDoneTasks;
+export const selectTaskQuery = (state: RootState) => state.task.query;
 
 export const {
   setSelectedTask,
   setTodaysDoneTasks,
   setTask,
+  setQuery,
 } = taskSlice.actions;
 
 export default taskSlice.reducer;

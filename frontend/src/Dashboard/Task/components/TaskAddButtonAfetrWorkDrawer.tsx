@@ -41,7 +41,7 @@ const NewTaskAddAfterWorkDrawer = () => {
 
   const getTasks = useCallback(
     async (workspace) => {
-      await dispatch(fetchAsyncTasks(workspace));
+      await dispatch(fetchAsyncTasks({ workspace }));
     },
     [dispatch]
   );

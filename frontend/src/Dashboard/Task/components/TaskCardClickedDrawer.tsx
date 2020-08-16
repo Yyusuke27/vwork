@@ -14,6 +14,7 @@ import {
   fetchAsyncUpdateTask,
   selectSelectedTask,
   selectTask,
+  selectTaskQuery,
   setTask,
 } from "../taskSlice";
 import TaskForm from "./TaskForm";
@@ -30,6 +31,8 @@ const TaskCardClickedDrawer = () => {
 
   const dispatch = useDispatch();
   const taskCardClicked = useSelector(selectTaskCardClicked);
+
+  const taskQuery = useSelector(selectTaskQuery);
 
   const taskId = useSelector(selectSelectedTask);
 
@@ -85,7 +88,7 @@ const TaskCardClickedDrawer = () => {
     if (pathName.includes("project")) {
       await dispatch(fetchAsyncProjectTasks(project._id));
     } else if (pathName.includes("mytask")) {
-      await dispatch(fetchAsyncTasks(workspace));
+      await dispatch(fetchAsyncTasks({ workspace, query: taskQuery }));
     } else {
       await dispatch(fetchAsyncRecentTasks(workspace));
       await dispatch(fetchAsyncNearDeadlineTasks(workspace));

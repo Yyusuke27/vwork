@@ -11,8 +11,9 @@ import {
 } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import FormControl from "@material-ui/core/FormControl";
-import NativeSelect from "@material-ui/core/NativeSelect";
+import Select from "@material-ui/core/Select";
 import InputBase from "@material-ui/core/InputBase";
+import MenuItem from "@material-ui/core/MenuItem";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -125,16 +126,17 @@ const TaskList: FC<TaskListProps> = ({
           <Grid item>
             {title === "タスク" ? (
               <FormControl className={classes.margin}>
-                <NativeSelect
+                <Select
                   value={text}
                   onChange={handleChange}
                   input={<BootstrapInput />}
                   style={{ width: 200 }}
                 >
-                  <option value={"未完了のタスク"}>未完了のタスク</option>
-                  <option value={"未完了のタスク"}>未完了のタスク</option>
-                  <option value={"未完了のタスク"}>未完了のタスク</option>
-                </NativeSelect>
+                  <MenuItem value="">未選択</MenuItem>
+                  <MenuItem value="0">TODO</MenuItem>
+                  <MenuItem value="1">進行中</MenuItem>
+                  <MenuItem value="2">完了</MenuItem>
+                </Select>
               </FormControl>
             ) : (
               ""
