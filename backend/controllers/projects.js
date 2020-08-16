@@ -243,6 +243,7 @@ exports.getNewMembers = asyncHandler(async (req, res, next) => {
 
   const members = await User.find({
     _id: { $in: workspace.members, $nin: project.members },
+    registration: true,
   });
 
   res.status(200).json({
