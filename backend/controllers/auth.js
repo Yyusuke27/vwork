@@ -71,10 +71,14 @@ exports.currentUser = asyncHandler(async (req, res, next) => {
     "name"
   );
 
-  const profile = await UserProfile.findOne({
-    user: user._id,
-    workspace: workspace._id,
-  });
+  let profile;
+
+  if (workspace) {
+    profile = await UserProfile.findOne({
+      user: user._id,
+      workspace: workspace._id,
+    });
+  }
 
   res.status(200).json({
     success: true,

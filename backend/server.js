@@ -1,10 +1,13 @@
 const express = require("express");
 const colors = require("colors");
 const dotenv = require("dotenv");
-const morgan = require("morgan");
 const connectDB = require("./config/db");
 const errorHandler = require("./middleware/error");
 const cors = require("cors");
+const path = require("path");
+if (process.env.NODE_ENV === "development") {
+  const morgan = require("morgan");
+}
 
 dotenv.config({ path: "./config/config.env" });
 
@@ -24,12 +27,14 @@ const app = express();
 
 // Setting CORS
 // TODO: deploy時に修正
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    optionsSuccessStatus: 200,
-  })
-);
+if (process.env.NODE_ENV === "development") {
+  app.use(
+    cors({
+      origin: "http://localhost:3000",
+      optionsSuccessStatus: 200,
+    })
+  );
+}
 
 // Body parser
 app.use(express.json());
@@ -37,6 +42,10 @@ app.use(express.json());
 // 開発環境用のログ
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
+}
+
+if (process.env.NODE_ENV !== "development") {
+  app.use(express.static(path.join("public")));
 }
 
 // route設定
@@ -47,6 +56,12 @@ app.use("/api/v1/tasks", tasks);
 app.use("/api/v1/attendances", attendances);
 app.use("/api/v1/registration", registration);
 app.use("/api/v1/users", users);
+
+if (process.env.NODE_ENV !== "development") {
+  app.use((req, res, next) => {
+    res.sendFile(path.resolve(__dirname, "public", "index.html"));
+  });
+}
 
 app.use(errorHandler);
 

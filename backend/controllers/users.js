@@ -53,19 +53,26 @@ exports.updateUserAndProfile = asyncHandler(async (req, res, next) => {
     runValidators: true,
   });
 
-  let profile = await UserProfile.findOne({
-    user: req.params.id,
-    workspace: req.params.workspaceId,
-  });
-  if (!profile) {
-    profile = await UserProfile.create({
+  let profile;
+
+  if (req.body.position) {
+    profile = await UserProfile.findOne({
       user: req.params.id,
       workspace: req.params.workspaceId,
-      position: req.body.position,
     });
-  } else {
-    profile.position = req.body.position;
-    await profile.save();
+    if (!profile) {
+      profile = await UserProfile.create({
+        user: req.params.id,
+        workspace: req.params.workspaceId,
+        position: req.body.position,
+      });
+    } else {
+      profile.position = req.body.position;
+      await profile.save();
+    }
+
+    user.profiles.push(profile._id);
+    await user.save();
   }
 
   res.status(200).json({
