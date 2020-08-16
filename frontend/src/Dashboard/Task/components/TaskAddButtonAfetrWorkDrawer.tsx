@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-
+// TODO: mapけい直す
 const NewTaskAddAfterWorkDrawer = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -89,32 +89,33 @@ const NewTaskAddAfterWorkDrawer = () => {
                             今日のタスク
                           </Typography>
                         </Box>
-                        {tasksData.todaysTasks.map((todaysTask, index) => (
-                          <div key={`todaysTask-${index}`}>
-                            <Field
-                              component={CheckboxWithLabel}
-                              Label={{ label: todaysTask.name }}
-                              name="tasks"
-                              type="checkbox"
-                              value={todaysTask._id}
-                              checked={values.tasks.includes(todaysTask._id)}
-                              onChange={(
-                                e: React.ChangeEvent<HTMLInputElement>
-                              ) => {
-                                if (e.target.checked) {
-                                  arrayHelpers.push(todaysTask._id);
-                                } else {
-                                  const idx = values.tasks.indexOf(
-                                    todaysTask._id
-                                  );
-                                  arrayHelpers.remove(idx);
-                                }
-                              }}
-                              icon={<RadioButtonUncheckedIcon />}
-                              checkedIcon={<RadioButtonCheckedIcon />}
-                            />
-                          </div>
-                        ))}
+                        {tasksData.todaysTasks &&
+                          tasksData.todaysTasks.map((todaysTask, index) => (
+                            <div key={`todaysTask-${index}`}>
+                              <Field
+                                component={CheckboxWithLabel}
+                                Label={{ label: todaysTask.name }}
+                                name="tasks"
+                                type="checkbox"
+                                value={todaysTask._id}
+                                checked={values.tasks.includes(todaysTask._id)}
+                                onChange={(
+                                  e: React.ChangeEvent<HTMLInputElement>
+                                ) => {
+                                  if (e.target.checked) {
+                                    arrayHelpers.push(todaysTask._id);
+                                  } else {
+                                    const idx = values.tasks.indexOf(
+                                      todaysTask._id
+                                    );
+                                    arrayHelpers.remove(idx);
+                                  }
+                                }}
+                                icon={<RadioButtonUncheckedIcon />}
+                                checkedIcon={<RadioButtonCheckedIcon />}
+                              />
+                            </div>
+                          ))}
                         <br />
                         <Box
                           borderBottom={1}
@@ -126,30 +127,31 @@ const NewTaskAddAfterWorkDrawer = () => {
                             タスク一覧
                           </Typography>
                         </Box>
-                        {tasksData.data.map((task, index) => (
-                          <div key={`task-${index}`}>
-                            <Field
-                              component={CheckboxWithLabel}
-                              Label={{ label: task.name }}
-                              name="tasks"
-                              type="checkbox"
-                              value={task._id}
-                              checked={values.tasks.includes(task._id)}
-                              onChange={(
-                                e: React.ChangeEvent<HTMLInputElement>
-                              ) => {
-                                if (e.target.checked) {
-                                  arrayHelpers.push(task._id);
-                                } else {
-                                  const idx = values.tasks.indexOf(task._id);
-                                  arrayHelpers.remove(idx);
-                                }
-                              }}
-                              icon={<RadioButtonUncheckedIcon />}
-                              checkedIcon={<RadioButtonCheckedIcon />}
-                            />
-                          </div>
-                        ))}
+                        {tasksData.data &&
+                          tasksData.data.map((task, index) => (
+                            <div key={`task-${index}`}>
+                              <Field
+                                component={CheckboxWithLabel}
+                                Label={{ label: task.name }}
+                                name="tasks"
+                                type="checkbox"
+                                value={task._id}
+                                checked={values.tasks.includes(task._id)}
+                                onChange={(
+                                  e: React.ChangeEvent<HTMLInputElement>
+                                ) => {
+                                  if (e.target.checked) {
+                                    arrayHelpers.push(task._id);
+                                  } else {
+                                    const idx = values.tasks.indexOf(task._id);
+                                    arrayHelpers.remove(idx);
+                                  }
+                                }}
+                                icon={<RadioButtonUncheckedIcon />}
+                                checkedIcon={<RadioButtonCheckedIcon />}
+                              />
+                            </div>
+                          ))}
                         <br />
                         <DialogActions>
                           <Button
