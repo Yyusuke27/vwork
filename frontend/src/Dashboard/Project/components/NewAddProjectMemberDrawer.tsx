@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
@@ -10,6 +10,8 @@ import {
   selectAddMemberButton,
   toggleAddMemberButton,
 } from "../../../appSlice";
+import { fetchAsyncGetNewMembers, selectProject } from "../projectSlice";
+import { selectWorkspace } from "../../../Auth/authSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,6 +32,18 @@ const NewAddProjectMemberDrawer = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const addMemberButton = useSelector(selectAddMemberButton);
+  const workspaces = useSelector(selectWorkspace);
+  const project = useSelector(selectProject);
+  const projectId = project._id;
+  const getNewMembers = useCallback(
+    async (workspaces, projectId) => {
+      await dispatch(fetchAsyncGetNewMembers({ workspaces, projectId }));
+    },
+    [dispatch]
+  );
+  useEffect(() => {
+    getNewMembers(workspaces, projectId);
+  }, [getNewMembers, projectId, workspaces]);
   return (
     <>
       <VwDrawer

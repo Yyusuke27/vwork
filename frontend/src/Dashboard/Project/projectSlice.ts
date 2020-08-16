@@ -53,6 +53,21 @@ export const fetchAsyncCreateProject = createAsyncThunk(
   }
 );
 
+export const fetchAsyncGetNewMembers = createAsyncThunk(
+  "project/newMembers",
+  async (data: { workspaces: string; projectId: string }) => {
+    const res = await axios.get(
+      `${apiUrl}api/v1/workspaces/${data.workspaces}/projects/${data.projectId}/members/new`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return res.data;
+  }
+);
+
 interface projectState {
   projects: {
     _id: string;
@@ -88,6 +103,7 @@ interface projectState {
       todaysTask: boolean;
     }[];
   };
+  newMembers: {}[];
 }
 
 const initialState: projectState = {
@@ -101,6 +117,7 @@ const initialState: projectState = {
     members: [],
     tasks: [],
   },
+  newMembers: [],
 };
 
 const projectSlice = createSlice({
@@ -120,6 +137,10 @@ const projectSlice = createSlice({
       toast.info("プロジェクトを追加しました。", {
         position: toast.POSITION.TOP_CENTER,
       });
+    });
+    builder.addCase(fetchAsyncGetNewMembers.fulfilled, (state, action) => {
+      console.log(action.payload);
+      state.newMembers = action.payload.data;
     });
   },
 });
