@@ -3,6 +3,7 @@ const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
 const User = require("../models/User");
 const Workspace = require("../models/Workspace");
+const UserProfile = require("../models/UserProfile");
 
 const sendEmail = require("../utils/sendEmail");
 
@@ -70,10 +71,16 @@ exports.currentUser = asyncHandler(async (req, res, next) => {
     "name"
   );
 
+  const profile = await UserProfile.findOne({
+    user: user._id,
+    workspace: workspace._id,
+  });
+
   res.status(200).json({
     success: true,
     data: user,
     workspace,
+    profile,
   });
 });
 
