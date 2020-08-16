@@ -5,8 +5,11 @@ const connectDB = require("./config/db");
 const errorHandler = require("./middleware/error");
 const cors = require("cors");
 const path = require("path");
+
+// 開発環境用のログ
 if (process.env.NODE_ENV === "development") {
   const morgan = require("morgan");
+  app.use(morgan("dev"));
 }
 
 dotenv.config({ path: "./config/config.env" });
@@ -38,11 +41,6 @@ if (process.env.NODE_ENV === "development") {
 
 // Body parser
 app.use(express.json());
-
-// 開発環境用のログ
-if (process.env.NODE_ENV === "development") {
-  app.use(morgan("dev"));
-}
 
 if (process.env.NODE_ENV !== "development") {
   app.use(express.static(path.join("public")));
