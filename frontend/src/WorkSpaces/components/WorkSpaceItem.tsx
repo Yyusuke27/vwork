@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
 
 import { fetchAsyncUpdateUser, selectUser } from "../../Auth/authSlice";
 
@@ -40,8 +39,6 @@ const WorkSpaceItem: FC<WorkSpaceItemProps> = ({ id, name }) => {
   const userData = useSelector(selectUser);
   const dispatch = useDispatch();
 
-  const history = useHistory();
-
   return (
     <Grid item xs={12} style={{ marginBottom: 10 }}>
       <CardActionArea
@@ -53,8 +50,7 @@ const WorkSpaceItem: FC<WorkSpaceItemProps> = ({ id, name }) => {
               postData: { lastAccessWorkspace: id },
             })
           );
-          history.push("/");
-          history.go(0);
+          window.location.href = "/";
         }}
       >
         <Card className={classes.root}>
