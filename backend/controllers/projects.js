@@ -222,6 +222,7 @@ exports.getMembers = asyncHandler(async (req, res, next) => {
 
 // @desc Get members
 // @route GET /api/v1/projects/:projectId/members/new
+// @route GET /api/v1/workspaces/:workspaceId/projects/:projectId/members/new
 // @access Public
 exports.getNewMembers = asyncHandler(async (req, res, next) => {
   // Project外のメンバーを取得
@@ -230,12 +231,19 @@ exports.getNewMembers = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("プロジェクトが存在しません", 404));
   }
 
+  const workspace = await Workspace.findById(req.params.workspaceId);
+  if (!workspace) {
+    return next(new ErrorResponse("ワークスペースが存在しません", 404));
+  }
+
   const isMemberInProject = project.members.includes(req.user.id);
   if (!isMemberInProject) {
     return next(new ErrorResponse("プロジェクトの閲覧権限がありません"));
   }
 
-  const members = await User.find({ _id: { $nin: project.members } });
+  const members = await User.find({
+    _id: { $in: workspace.members, $nin: project.members },
+  });
 
   res.status(200).json({
     success: true,
