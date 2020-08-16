@@ -68,7 +68,13 @@ const TaskItem: FC<TaskItemProps> = ({ iconType = "", data }) => {
             spacing={2}
           >
             <Grid item xs={6}>
-              <Grid container direction="row" alignItems="center" spacing={1}>
+              <Grid
+                container
+                wrap="nowrap"
+                direction="row"
+                alignItems="center"
+                spacing={1}
+              >
                 <Grid item>
                   {iconType === "alert" ? (
                     <ErrorOutlineIcon color="primary" />
@@ -77,7 +83,7 @@ const TaskItem: FC<TaskItemProps> = ({ iconType = "", data }) => {
                   )}
                 </Grid>
                 <Grid item>
-                  <Typography noWrap>{data.name}</Typography>
+                  <Typography variant="body1">{data.name}</Typography>
                 </Grid>
               </Grid>
             </Grid>
