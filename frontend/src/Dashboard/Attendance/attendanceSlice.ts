@@ -52,9 +52,14 @@ export const fetchAsyncUpdateTodaysAttendance = createAsyncThunk(
 
 export const fetchAsyncGetMyAttendances = createAsyncThunk(
   "attendance/myAttendances",
-  async (workspace: string) => {
+  async (data: {
+    workspace: string;
+    query?: { year: string; month: string };
+  }) => {
     const res = await axios.get(
-      `${apiUrl}api/v1/workspaces/${workspace}/attendances`,
+      `${apiUrl}api/v1/workspaces/${data.workspace}/attendances${
+        data.query ? `?year=${data.query.year}&month=${data.query.month}` : ""
+      }`,
       {
         headers: {
           "Content-Type": "application/json",

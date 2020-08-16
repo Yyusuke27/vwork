@@ -26,7 +26,7 @@ const MyAttendance = () => {
 
   const getAttendances = useCallback(
     async (workspace) => {
-      await dispatch(fetchAsyncGetMyAttendances(workspace));
+      await dispatch(fetchAsyncGetMyAttendances({ workspace }));
     },
     [dispatch]
   );

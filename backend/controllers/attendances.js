@@ -34,17 +34,45 @@ exports.getAttendances = asyncHandler(async (req, res, next) => {
     });
   } else if (req.params.workspaceId) {
     // 自分の全ての勤怠管理の閲覧
-    attendances = await Attendance.find({
-      user: req.user.id,
-      workspace: req.params.workspaceId,
-      createdAt: {
-        $lt: moment(Date.now())
-          .utcOffset("+09:00")
-          .hour(0)
-          .minute(0)
-          .seconds(0),
-      },
-    });
+    if (req.query && req.query.year && req.query.month) {
+      const year = Number(req.query.year);
+      const month = Number(req.query.month);
+      const startDateOfTheMonth = moment(`${year}-${month}-01`)
+        .utcOffset("+09:00")
+        .toDate();
+      const endDateOfTheMonth = moment(`${year}-${month + 1}-01`)
+        .subtract(1, "day")
+        .utcOffset("+09:00")
+        .toDate();
+
+      attendances = await Attendance.find({
+        user: req.user.id,
+        workspace: req.params.workspaceId,
+        createdAt: {
+          $gte: startDateOfTheMonth,
+          $lte: endDateOfTheMonth,
+        },
+      });
+    } else {
+      const today = moment(Date.now());
+      const year = today.format("YYYY");
+      const month = today.format("MM");
+      const startDateOfThisMonth = moment(`${year}-${month}-01`)
+        .utcOffset("+09:00")
+        .toDate();
+      attendances = await Attendance.find({
+        user: req.user.id,
+        workspace: req.params.workspaceId,
+        createdAt: {
+          $gte: startDateOfThisMonth,
+          $lt: moment(Date.now())
+            .utcOffset("+09:00")
+            .hour(0)
+            .minute(0)
+            .seconds(0),
+        },
+      });
+    }
   } else {
     // adminの場合全て閲覧可能
     if (req.user.role === "admin") {
