@@ -218,6 +218,9 @@ const taskSlice = createSlice({
   name: "task",
   initialState,
   reducers: {
+    setTask(state, action) {
+      state.task = action.payload;
+    },
     setSelectedTask(state, action) {
       state.selectedTask = action.payload;
     },
@@ -263,6 +266,10 @@ export const selectNearDeadlineTasks = (state: RootState) =>
 export const selectTodaysDoneTasks = (state: RootState) =>
   state.task.todaysDoneTasks;
 
-export const { setSelectedTask, setTodaysDoneTasks } = taskSlice.actions;
+export const {
+  setSelectedTask,
+  setTodaysDoneTasks,
+  setTask,
+} = taskSlice.actions;
 
 export default taskSlice.reducer;

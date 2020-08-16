@@ -6,11 +6,16 @@ import MainHeader from "../../../shared/components/Navigation/MainHeader";
 import Container from "@material-ui/core/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { selectWorkspace } from "../../../Auth/authSlice";
-import { fetchAsyncTodaysAttendance } from "../attendanceSlice";
+import {
+  fetchAsyncGetMyAttendances,
+  fetchAsyncTodaysAttendance,
+  selectAttenances,
+} from "../attendanceSlice";
 
 const MyAttendance = () => {
   const dispatch = useDispatch();
   const workspace = useSelector(selectWorkspace);
+  const attendances = useSelector(selectAttenances);
 
   const getTodaysAttendance = useCallback(
     async (workspace) => {
@@ -19,11 +24,19 @@ const MyAttendance = () => {
     [dispatch]
   );
 
+  const getAttendances = useCallback(
+    async (workspace) => {
+      await dispatch(fetchAsyncGetMyAttendances(workspace));
+    },
+    [dispatch]
+  );
+
   useEffect(() => {
     if (workspace) {
       getTodaysAttendance(workspace);
+      getAttendances(workspace);
     }
-  }, [workspace, getTodaysAttendance]);
+  }, [workspace, getTodaysAttendance, getAttendances]);
 
   return (
     <>
@@ -31,7 +44,7 @@ const MyAttendance = () => {
         <MainHeader title="勤怠管理" />
         <CheckAttendanceArea />
         <DatePickerArea />
-        <AttendanceList />
+        <AttendanceList attendances={attendances} />
       </Container>
     </>
   );

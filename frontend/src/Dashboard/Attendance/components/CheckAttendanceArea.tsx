@@ -88,6 +88,8 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+// TODO: 出社時、退社時にuserのactiveを切り替える
+
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement },
   ref: React.Ref<unknown>

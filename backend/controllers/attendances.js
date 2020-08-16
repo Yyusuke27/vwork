@@ -3,6 +3,7 @@ const asyncHandler = require("../middleware/async");
 
 const Attendance = require("../models/Attendance");
 const Workspace = require("../models/Workspace");
+const Task = require("../models/Task");
 
 const moment = require("moment");
 
@@ -23,18 +24,33 @@ exports.getAttendances = asyncHandler(async (req, res, next) => {
     attendances = await Attendance.find({
       workspace: req.params.workspaceId,
       user: req.params.userId,
+      createdAt: {
+        $lt: moment(Date.now())
+          .utcOffset("+09:00")
+          .hour(0)
+          .minute(0)
+          .seconds(0),
+      },
     });
   } else if (req.params.workspaceId) {
     // 自分の全ての勤怠管理の閲覧
-    attendances = await Attendance.find({ user: req.user.id });
+    attendances = await Attendance.find({
+      user: req.user.id,
+      workspace: req.params.workspaceId,
+      createdAt: {
+        $lt: moment(Date.now())
+          .utcOffset("+09:00")
+          .hour(0)
+          .minute(0)
+          .seconds(0),
+      },
+    });
   } else {
     // adminの場合全て閲覧可能
     if (req.user.role === "admin") {
       attendances = await Attendance.find();
     } else {
-      return next(
-        new ErrorResponse("全ての勤怠情報を閲覧する権限がありません")
-      );
+      return next(new ErrorResponse("勤怠情報を閲覧する権限がありません"));
     }
   }
 
@@ -52,6 +68,7 @@ exports.getAttendances = asyncHandler(async (req, res, next) => {
 exports.getAttendance = asyncHandler(async (req, res, next) => {
   let attendance;
   // 閲覧可能なのはユーザー and workspaceのオーナー  and admin
+  // 現在のワークスペースがこの勤怠管理のワークスペースかどうか判断するため
   if (req.params.workspaceId) {
     const workspace = await Workspace.findById(req.params.workspaceId);
     const isOwnerInWorkspace = workspace.owners.includes(req.user.id);
@@ -66,7 +83,6 @@ exports.getAttendance = asyncHandler(async (req, res, next) => {
       return next(new ErrorResponse("この勤怠をみる権限がありません"));
     }
     // attendanceがworkspaceのものではなかったら表示しない。
-    // TODO: 冗長だからもっとすっきりさせたい
     if (!isAttendanceOfWorkspace) {
       return next(new ErrorResponse("この勤怠をみる権限がありません"));
     }
@@ -79,9 +95,20 @@ exports.getAttendance = asyncHandler(async (req, res, next) => {
     }
   }
 
+  const tasks = await Task.find({ _id: { $in: attendance.tasks } })
+    .populate({
+      path: "project",
+      select: "name",
+    })
+    .populate({
+      path: "user",
+      select: "name",
+    });
+
   res.status(200).json({
     success: true,
     data: attendance,
+    tasks: tasks,
   });
 });
 

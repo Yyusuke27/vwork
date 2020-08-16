@@ -14,6 +14,7 @@ import {
   fetchAsyncUpdateTask,
   selectSelectedTask,
   selectTask,
+  setTask,
 } from "../taskSlice";
 import TaskForm from "./TaskForm";
 import { selectProject, selectProjects } from "../../Project/projectSlice";
@@ -95,7 +96,23 @@ const TaskCardClickedDrawer = () => {
     <>
       <VwDrawer
         open={taskCardClicked}
-        click={() => dispatch(toggleTaskCardClicked(false))}
+        click={() => {
+          dispatch(toggleTaskCardClicked(false));
+          dispatch(
+            setTask({
+              user: "",
+              name: "",
+              description: "",
+              startDateAt: "",
+              endDateAt: "",
+              state: 0,
+              progress: 0,
+              priority: 0,
+              project: "",
+              todaysTask: false,
+            })
+          );
+        }}
       >
         <Container maxWidth="md">
           <Box textAlign="right" mt={2}>

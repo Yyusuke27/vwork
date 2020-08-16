@@ -50,6 +50,37 @@ export const fetchAsyncUpdateTodaysAttendance = createAsyncThunk(
   }
 );
 
+export const fetchAsyncGetMyAttendances = createAsyncThunk(
+  "attendance/myAttendances",
+  async (workspace: string) => {
+    const res = await axios.get(
+      `${apiUrl}api/v1/workspaces/${workspace}/attendances`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return res.data;
+  }
+);
+export const fetchAsyncGetAttendance = createAsyncThunk(
+  "attendance/attendance",
+  async (data: { id: string; workspace: string }) => {
+    const res = await axios.get(
+      `${apiUrl}api/v1/workspaces/${data.workspace}/attendances/${data.id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return res.data;
+  }
+);
+
 interface attendanceState {
   today: {
     _id: string;
@@ -58,6 +89,40 @@ interface attendanceState {
     restStartedAt: string;
     restEndedAt: string;
   };
+  attendances: {
+    tasks: string[];
+    _id: string;
+    user: string;
+    workspace: string;
+    createdAt: string;
+    startedAt: string;
+    endedAt: string;
+    restStartedAt: string;
+    restEndedAt: string;
+    comment: string;
+  }[];
+  attendance: {
+    data: {
+      tasks: string[];
+      _id: string;
+      user: string;
+      workspace: string;
+      createdAt: string;
+      startedAt: string;
+      endedAt: string;
+      restStartedAt: string;
+      restEndedAt: string;
+      comment: string;
+    };
+    tasks: {
+      name: string;
+      project: { _id: string; name: string };
+      endDateAt: string;
+      _id: string;
+      user: { _id: string; name: string };
+    }[];
+  };
+  selectedAttendance: string;
 }
 
 const initialState: attendanceState = {
@@ -68,12 +133,36 @@ const initialState: attendanceState = {
     restStartedAt: "",
     restEndedAt: "",
   },
+  attendances: [],
+  attendance: {
+    data: {
+      tasks: [],
+      _id: "",
+      user: "",
+      workspace: "",
+      createdAt: "",
+      startedAt: "",
+      endedAt: "",
+      restStartedAt: "",
+      restEndedAt: "",
+      comment: "",
+    },
+    tasks: [],
+  },
+  selectedAttendance: "",
 };
 
 const attendanceSlice = createSlice({
   name: "attendance",
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedAttendance(state, action) {
+      state.selectedAttendance = action.payload;
+    },
+    setAttendance(state, action) {
+      state.attendance = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncTodaysAttendance.fulfilled, (state, action) => {
       state.today = action.payload.data;
@@ -87,10 +176,25 @@ const attendanceSlice = createSlice({
         state.today = action.payload.data;
       }
     );
+    builder.addCase(fetchAsyncGetMyAttendances.fulfilled, (state, action) => {
+      state.attendances = action.payload.data;
+    });
+    builder.addCase(fetchAsyncGetAttendance.fulfilled, (state, action) => {
+      state.attendance.data = action.payload.data;
+      state.attendance.tasks = action.payload.tasks;
+    });
   },
 });
 
 export const selectTodaysAttendance = (state: RootState) =>
   state.attendance.today;
+export const selectAttenances = (state: RootState) =>
+  state.attendance.attendances;
+export const selectSelectedAttenances = (state: RootState) =>
+  state.attendance.selectedAttendance;
+export const selectAttendance = (state: RootState) =>
+  state.attendance.attendance;
+
+export const { setSelectedAttendance, setAttendance } = attendanceSlice.actions;
 
 export default attendanceSlice.reducer;
