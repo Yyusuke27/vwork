@@ -53,8 +53,8 @@
         g = a(92),
         h = a(210),
         v = a(354),
-        k = a(61),
-        j = a.n(k),
+        j = a(61),
+        k = a.n(j),
         O = a(355),
         w = a(76),
         y = a(2),
@@ -117,7 +117,7 @@
                       edge: "start",
                       className: Object(y.a)(a && n.hide),
                     },
-                    c.a.createElement(j.a, { className: n.menuIcon })
+                    c.a.createElement(k.a, { className: n.menuIcon })
                   ),
                   c.a.createElement(
                     C.a,
@@ -272,7 +272,7 @@
                           onClick: t,
                           style: { paddingLeft: 0, paddingRight: 10 },
                         },
-                        c.a.createElement(j.a, { className: n.menuIcon })
+                        c.a.createElement(k.a, { className: n.menuIcon })
                       )
                     )
                   )
@@ -448,7 +448,7 @@
                       c.a.createElement(
                         x.a,
                         null,
-                        c.a.createElement(j.a, {
+                        c.a.createElement(k.a, {
                           style: { fontSize: 40, color: p.VWORK_GRAY },
                         })
                       )
@@ -597,7 +597,7 @@
         ge = "https://v-work.herokuapp.com/",
         he = localStorage.token,
         ve = localStorage.Itoken,
-        ke = Object(fe.b)(
+        je = Object(fe.b)(
           "regist/user",
           (function () {
             var e = Object(ne.a)(
@@ -630,7 +630,7 @@
             };
           })()
         ),
-        je = Object(fe.b)(
+        ke = Object(fe.b)(
           "regist/invitation",
           (function () {
             var e = Object(ne.a)(
@@ -738,17 +738,17 @@
             },
           },
           extraReducers: function (e) {
-            e.addCase(ke.fulfilled, function (e, t) {
+            e.addCase(je.fulfilled, function (e, t) {
               window.location.href = "/";
             }),
-              e.addCase(ke.rejected, function (e, t) {
+              e.addCase(je.rejected, function (e, t) {
                 window.location.href = "/regist/step/1";
               }),
-              e.addCase(je.fulfilled, function (e, t) {
+              e.addCase(ke.fulfilled, function (e, t) {
                 (e.invite.workspace = t.payload.workspace),
                   (e.invite.user = t.payload.data);
               }),
-              e.addCase(je.rejected, function (e, t) {
+              e.addCase(ke.rejected, function (e, t) {
                 window.location.href = "/auth/signup";
               }),
               e.addCase(Oe.fulfilled, function (e, t) {
@@ -831,13 +831,15 @@
               ue.d,
               {
                 initialValues: { workspace: "" },
-                validationSchema: pe.b().shape({
-                  workspace: pe
-                    .c()
-                    .required(
-                      "\u30ef\u30fc\u30af\u30b9\u30da\u30fc\u30b9\u540d\u306f\u5fc5\u9808\u3067\u3059\u3002"
-                    ),
-                }),
+                validationSchema: pe
+                  .b()
+                  .shape({
+                    workspace: pe
+                      .c()
+                      .required(
+                        "\u30ef\u30fc\u30af\u30b9\u30da\u30fc\u30b9\u540d\u306f\u5fc5\u9808\u3067\u3059\u3002"
+                      ),
+                  }),
                 onSubmit: function (e) {
                   a(xe(e.workspace)), n.push("/regist/step/2");
                 },
@@ -925,18 +927,20 @@
               ue.d,
               {
                 initialValues: { name: "", position: "" },
-                validationSchema: pe.b().shape({
-                  name: pe
-                    .c()
-                    .required(
-                      "\u6c0f\u540d\u306f\u5fc5\u9808\u3067\u3059\u3002"
-                    ),
-                  position: pe
-                    .c()
-                    .required(
-                      "\u5f79\u8077\u30fb\u62c5\u5f53\u306f\u5fc5\u9808\u3067\u3059\u3002"
-                    ),
-                }),
+                validationSchema: pe
+                  .b()
+                  .shape({
+                    name: pe
+                      .c()
+                      .required(
+                        "\u6c0f\u540d\u306f\u5fc5\u9808\u3067\u3059\u3002"
+                      ),
+                    position: pe
+                      .c()
+                      .required(
+                        "\u5f79\u8077\u30fb\u62c5\u5f53\u306f\u5fc5\u9808\u3067\u3059\u3002"
+                      ),
+                  }),
                 onSubmit: function (e) {
                   a(Ne(e)), n.push("/regist/step/3");
                 },
@@ -1040,23 +1044,31 @@
               ue.d,
               {
                 initialValues: { invitations: [{ name: "", email: "" }] },
-                validationSchema: pe.b().shape({
-                  invitations: pe.a().of(
-                    pe.b().shape({
-                      email: pe
-                        .c()
-                        .email(
-                          "\u6709\u52b9\u306a\u30e1\u30fc\u30eb\u30a2\u30c9\u30ec\u30b9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
-                        )
-                        .required("email\u306f\u5fc5\u9808\u3067\u3059\u3002"),
-                      name: pe
-                        .c()
-                        .required(
-                          "\u6c0f\u540d\u306f\u5fc5\u9808\u3067\u3059\u3002"
-                        ),
-                    })
-                  ),
-                }),
+                validationSchema: pe
+                  .b()
+                  .shape({
+                    invitations: pe
+                      .a()
+                      .of(
+                        pe
+                          .b()
+                          .shape({
+                            email: pe
+                              .c()
+                              .email(
+                                "\u6709\u52b9\u306a\u30e1\u30fc\u30eb\u30a2\u30c9\u30ec\u30b9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
+                              )
+                              .required(
+                                "email\u306f\u5fc5\u9808\u3067\u3059\u3002"
+                              ),
+                            name: pe
+                              .c()
+                              .required(
+                                "\u6c0f\u540d\u306f\u5fc5\u9808\u3067\u3059\u3002"
+                              ),
+                          })
+                      ),
+                  }),
                 onSubmit: function (e) {
                   a(Ce(e.invitations)), n.push("/regist/step/4");
                 },
@@ -1326,18 +1338,20 @@
               ue.d,
               {
                 initialValues: { name: "", description: "" },
-                validationSchema: pe.b().shape({
-                  name: pe
-                    .c()
-                    .required(
-                      "\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u540d\u306f\u5fc5\u9808\u3067\u3059\u3002"
-                    ),
-                  description: pe
-                    .c()
-                    .required(
-                      "\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u8a73\u7d30\u306f\u5fc5\u9808\u3067\u3059\u3002"
-                    ),
-                }),
+                validationSchema: pe
+                  .b()
+                  .shape({
+                    name: pe
+                      .c()
+                      .required(
+                        "\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u540d\u306f\u5fc5\u9808\u3067\u3059\u3002"
+                      ),
+                    description: pe
+                      .c()
+                      .required(
+                        "\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u8a73\u7d30\u306f\u5fc5\u9808\u3067\u3059\u3002"
+                      ),
+                  }),
                 onSubmit: (function () {
                   var e = Object(ne.a)(
                     ae.a.mark(function e(t) {
@@ -1350,7 +1364,7 @@
                                 ((r = Object(W.a)({}, n)).project = t),
                                 a(Ue(!0)),
                                 (e.next = 5),
-                                a(ke(r))
+                                a(je(r))
                               );
                             case 5:
                               a(Ue(!1));
@@ -1408,7 +1422,7 @@
             )
           );
         },
-        kt = Object(g.a)(function (e) {
+        jt = Object(g.a)(function (e) {
           return Object(h.a)({
             root: { width: "100%" },
             button: {
@@ -1423,8 +1437,8 @@
             },
           });
         });
-      var jt = function () {
-          var e = kt(),
+      var kt = function () {
+          var e = jt(),
             t = [
               "\u57fa\u672c\u8a2d\u5b9a",
               "\u500b\u4eba\u8a2d\u5b9a",
@@ -1511,7 +1525,7 @@
               c.a.createElement(
                 m.a,
                 { path: "/regist/step/5", exact: !0 },
-                c.a.createElement(jt, null)
+                c.a.createElement(kt, null)
               )
             )
           );
@@ -1840,7 +1854,7 @@
                       for (;;)
                         switch ((e.prev = e.next)) {
                           case 0:
-                            return (e.next = 2), t(je(a));
+                            return (e.next = 2), t(ke(a));
                           case 2:
                           case "end":
                             return e.stop();
@@ -1971,23 +1985,25 @@
                 ue.d,
                 {
                   initialValues: { email: r, password: "" },
-                  validationSchema: pe.b().shape({
-                    email: pe
-                      .c()
-                      .email(
-                        "\u6709\u52b9\u306a\u30e1\u30fc\u30eb\u30a2\u30c9\u30ec\u30b9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
-                      )
-                      .required("email\u306f\u5fc5\u9808\u3067\u3059\u3002"),
-                    password: pe
-                      .c()
-                      .min(
-                        6,
-                        "6\u5b57\u4ee5\u4e0a\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044"
-                      )
-                      .required(
-                        "\u30d1\u30b9\u30ef\u30fc\u30c9\u306f\u5fc5\u9808\u3067\u3059\u3002"
-                      ),
-                  }),
+                  validationSchema: pe
+                    .b()
+                    .shape({
+                      email: pe
+                        .c()
+                        .email(
+                          "\u6709\u52b9\u306a\u30e1\u30fc\u30eb\u30a2\u30c9\u30ec\u30b9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
+                        )
+                        .required("email\u306f\u5fc5\u9808\u3067\u3059\u3002"),
+                      password: pe
+                        .c()
+                        .min(
+                          6,
+                          "6\u5b57\u4ee5\u4e0a\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044"
+                        )
+                        .required(
+                          "\u30d1\u30b9\u30ef\u30fc\u30c9\u306f\u5fc5\u9808\u3067\u3059\u3002"
+                        ),
+                    }),
                   onSubmit: function (e) {
                     var r = Object(W.a)({}, n, {}, e);
                     t(Se(r)), a.push("/regist/invitee/step2");
@@ -2083,13 +2099,15 @@
               ue.d,
               {
                 initialValues: { name: n, position: "" },
-                validationSchema: pe.b().shape({
-                  name: pe
-                    .c()
-                    .required(
-                      "\u6c0f\u540d\u306f\u5fc5\u9808\u3067\u3059\u3002"
-                    ),
-                }),
+                validationSchema: pe
+                  .b()
+                  .shape({
+                    name: pe
+                      .c()
+                      .required(
+                        "\u6c0f\u540d\u306f\u5fc5\u9808\u3067\u3059\u3002"
+                      ),
+                  }),
                 onSubmit: (function () {
                   var e = Object(ne.a)(
                     ae.a.mark(function e(n) {
@@ -2386,7 +2404,7 @@
                       c.a.createElement(
                         x.a,
                         null,
-                        c.a.createElement(j.a, {
+                        c.a.createElement(k.a, {
                           style: { fontSize: 40, color: p.VWORK_GRAY },
                         })
                       )
@@ -2864,7 +2882,7 @@
             };
           })()
         ),
-        ka = Object(fe.b)(
+        ja = Object(fe.b)(
           "task/getRecent",
           (function () {
             var e = Object(ne.a)(
@@ -2902,7 +2920,7 @@
             };
           })()
         ),
-        ja = Object(fe.b)(
+        ka = Object(fe.b)(
           "task/getNearDeadline",
           (function () {
             var e = Object(ne.a)(
@@ -3004,10 +3022,10 @@
               e.addCase(ha.fulfilled, function (e, t) {
                 e.task = t.payload.data;
               }),
-              e.addCase(ka.fulfilled, function (e, t) {
+              e.addCase(ja.fulfilled, function (e, t) {
                 e.recentTasks = t.payload.data;
               }),
-              e.addCase(ja.fulfilled, function (e, t) {
+              e.addCase(ka.fulfilled, function (e, t) {
                 e.nearDeadlineTasks = t.payload.data;
               });
           },
@@ -3828,12 +3846,12 @@
         vn = function (e) {
           return e.attendance.selectedAttendance;
         },
-        kn = function (e) {
+        jn = function (e) {
           return e.attendance.attendance;
         },
-        jn = bn.actions,
-        On = jn.setSelectedAttendance,
-        wn = jn.setAttendance,
+        kn = bn.actions,
+        On = kn.setSelectedAttendance,
+        wn = kn.setAttendance,
         yn = bn.reducer,
         xn = a(369),
         Cn = a(368),
@@ -4845,7 +4863,7 @@
             )
           );
         }),
-        kr = Object(Ya.a)(function (e) {
+        jr = Object(Ya.a)(function (e) {
           return {
             root: {
               "&:focus": {
@@ -4857,12 +4875,13 @@
             },
           };
         })(Xa.a),
-        jr = function (e) {
+        kr = function (e) {
           var t = e.title,
             a = void 0 === t ? "" : t,
             n = hr(),
             r = Object(l.b)(),
-            o = (function () {
+            o = Object(l.c)(Wt),
+            i = (function () {
               var e = Object(ne.a)(
                 ae.a.mark(function e() {
                   return ae.a.wrap(function (e) {
@@ -4881,15 +4900,15 @@
                 return e.apply(this, arguments);
               };
             })(),
-            i = c.a.useState(null),
-            m = Object(E.a)(i, 2),
-            u = m[0],
-            d = m[1],
-            f = c.a.useState(null),
-            g = Object(E.a)(f, 2),
-            h = g[0],
-            k = g[1],
-            A = Object(l.c)(ot);
+            m = c.a.useState(null),
+            u = Object(E.a)(m, 2),
+            d = u[0],
+            f = u[1],
+            g = c.a.useState(null),
+            h = Object(E.a)(g, 2),
+            j = h[0],
+            A = h[1],
+            T = Object(l.c)(ot);
           return c.a.createElement(
             "div",
             { className: n.root },
@@ -4903,7 +4922,7 @@
                   position: "fixed",
                   className: Object(y.a)(
                     n.appBar,
-                    Object(b.a)({}, n.appBarShift, A)
+                    Object(b.a)({}, n.appBarShift, T)
                   ),
                 },
                 c.a.createElement(
@@ -4918,9 +4937,9 @@
                         return r(Ge(!0));
                       },
                       edge: "start",
-                      className: Object(y.a)(A && n.hide),
+                      className: Object(y.a)(T && n.hide),
                     },
-                    c.a.createElement(j.a, { className: n.menuIcon })
+                    c.a.createElement(k.a, { className: n.menuIcon })
                   ),
                   c.a.createElement(
                     C.a,
@@ -4958,7 +4977,7 @@
                             {
                               "aria-label": "add",
                               onClick: function (e) {
-                                d(e.currentTarget);
+                                f(e.currentTarget);
                               },
                               style: { padding: 0, paddingRight: 10 },
                             },
@@ -4972,14 +4991,15 @@
                             x.a,
                             {
                               onClick: function (e) {
-                                k(e.currentTarget);
+                                A(e.currentTarget);
                               },
                               style: { padding: 0, paddingRight: 10 },
                             },
-                            c.a.createElement(N.a, {
-                              alt: "Shogo Yunoki",
-                              src: "/static/images/avatar/1.jpg",
-                            })
+                            c.a.createElement(
+                              N.a,
+                              null,
+                              o ? o.name.slice(0, 1) : ""
+                            )
                           )
                         )
                       )
@@ -4992,15 +5012,15 @@
               vr,
               {
                 id: "customized-menu",
-                anchorEl: u,
+                anchorEl: d,
                 keepMounted: !0,
-                open: Boolean(u),
+                open: Boolean(d),
                 onClick: function () {
-                  d(null);
+                  f(null);
                 },
               },
               c.a.createElement(
-                kr,
+                jr,
                 {
                   onClick: function () {
                     return r(Ze(!0));
@@ -5009,7 +5029,7 @@
                 "\u30bf\u30b9\u30af\u8ffd\u52a0"
               ),
               c.a.createElement(
-                kr,
+                jr,
                 {
                   onClick: function () {
                     return r(Xe(!0));
@@ -5018,7 +5038,7 @@
                 "\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u8ffd\u52a0"
               ),
               c.a.createElement(
-                kr,
+                jr,
                 {
                   onClick: function () {
                     return r(Je(!0));
@@ -5031,15 +5051,15 @@
               vr,
               {
                 id: "customized-menu",
-                anchorEl: h,
+                anchorEl: j,
                 keepMounted: !0,
-                open: Boolean(h),
+                open: Boolean(j),
                 onClick: function () {
-                  k(null);
+                  A(null);
                 },
               },
               c.a.createElement(
-                kr,
+                jr,
                 {
                   onClick: function () {
                     return r(Qe(!0));
@@ -5053,11 +5073,11 @@
                   to: "/workspaces",
                   style: { textDecoration: "none", color: p.VWORK_BLACK },
                 },
-                c.a.createElement(kr, null, "\u4ed6\u306eworkspace ")
+                c.a.createElement(jr, null, "\u4ed6\u306eworkspace ")
               ),
               c.a.createElement(
-                kr,
-                { onClick: o },
+                jr,
+                { onClick: i },
                 "\u30ed\u30b0\u30a2\u30a6\u30c8"
               )
             )
@@ -5225,7 +5245,7 @@
               c.a.createElement(
                 S.a,
                 null,
-                c.a.createElement(jr, { title: "\u30db\u30fc\u30e0" }),
+                c.a.createElement(kr, { title: "\u30db\u30fc\u30e0" }),
                 c.a.createElement(Rn, null),
                 n && n.length > 0
                   ? c.a.createElement($a, {
@@ -5410,7 +5430,7 @@
               c.a.createElement(
                 S.a,
                 null,
-                c.a.createElement(jr, {
+                c.a.createElement(kr, {
                   title: "\u30de\u30a4\u30bf\u30b9\u30af",
                 }),
                 c.a.createElement(Rr, null),
@@ -5836,7 +5856,7 @@
               c.a.createElement(
                 S.a,
                 null,
-                c.a.createElement(jr, { title: "\u52e4\u6020\u7ba1\u7406" }),
+                c.a.createElement(kr, { title: "\u52e4\u6020\u7ba1\u7406" }),
                 c.a.createElement(Rn, null),
                 c.a.createElement(Dr, null),
                 c.a.createElement(Pr, { attendances: a })
@@ -6246,7 +6266,7 @@
               c.a.createElement(
                 S.a,
                 null,
-                c.a.createElement(jr, { title: t.name }),
+                c.a.createElement(kr, { title: t.name }),
                 c.a.createElement(
                   R.a,
                   { mb: 5, pb: 1, borderBottom: 1, width: "69%" },
@@ -6484,7 +6504,7 @@
                             return a(Ge(!1));
                           },
                         },
-                        c.a.createElement(j.a, { className: e.menuIcon })
+                        c.a.createElement(k.a, { className: e.menuIcon })
                       )
                     )
                   )
@@ -6597,18 +6617,20 @@
                   ue.d,
                   {
                     initialValues: { name: "", description: "" },
-                    validationSchema: pe.b().shape({
-                      name: pe
-                        .c()
-                        .required(
-                          "\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u540d\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
-                        ),
-                      description: pe
-                        .c()
-                        .required(
-                          "\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u306e\u8a73\u7d30\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
-                        ),
-                    }),
+                    validationSchema: pe
+                      .b()
+                      .shape({
+                        name: pe
+                          .c()
+                          .required(
+                            "\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u540d\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
+                          ),
+                        description: pe
+                          .c()
+                          .required(
+                            "\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u306e\u8a73\u7d30\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
+                          ),
+                      }),
                     onSubmit: (function () {
                       var e = Object(ne.a)(
                         ae.a.mark(function e(a, r) {
@@ -6726,25 +6748,31 @@
                   ue.d,
                   {
                     initialValues: { invitations: [{ name: "", email: "" }] },
-                    validationSchema: pe.b().shape({
-                      invitations: pe.a().of(
-                        pe.b().shape({
-                          email: pe
-                            .c()
-                            .email(
-                              "\u6709\u52b9\u306a\u30e1\u30fc\u30eb\u30a2\u30c9\u30ec\u30b9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
-                            )
-                            .required(
-                              "email\u306f\u5fc5\u9808\u3067\u3059\u3002"
-                            ),
-                          name: pe
-                            .c()
-                            .required(
-                              "\u6c0f\u540d\u306f\u5fc5\u9808\u3067\u3059\u3002"
-                            ),
-                        })
-                      ),
-                    }),
+                    validationSchema: pe
+                      .b()
+                      .shape({
+                        invitations: pe
+                          .a()
+                          .of(
+                            pe
+                              .b()
+                              .shape({
+                                email: pe
+                                  .c()
+                                  .email(
+                                    "\u6709\u52b9\u306a\u30e1\u30fc\u30eb\u30a2\u30c9\u30ec\u30b9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
+                                  )
+                                  .required(
+                                    "email\u306f\u5fc5\u9808\u3067\u3059\u3002"
+                                  ),
+                                name: pe
+                                  .c()
+                                  .required(
+                                    "\u6c0f\u540d\u306f\u5fc5\u9808\u3067\u3059\u3002"
+                                  ),
+                              })
+                          ),
+                      }),
                     onSubmit: (function () {
                       var e = Object(ne.a)(
                         ae.a.mark(function e(a) {
@@ -6927,13 +6955,15 @@
                   ue.d,
                   {
                     initialValues: { name: "", description: "" },
-                    validationSchema: pe.b().shape({
-                      name: pe
-                        .c()
-                        .required(
-                          "\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u540d\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
-                        ),
-                    }),
+                    validationSchema: pe
+                      .b()
+                      .shape({
+                        name: pe
+                          .c()
+                          .required(
+                            "\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u540d\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
+                          ),
+                      }),
                     onSubmit: function (e, t) {
                       console.log(e);
                     },
@@ -6981,9 +7011,9 @@
           );
         },
         vc = a(383),
-        kc = a(208),
-        jc = a(244),
-        Oc = a.n(jc),
+        jc = a(208),
+        kc = a(244),
+        Oc = a.n(kc),
         wc = a(247),
         yc = a.n(wc),
         xc = a(245),
@@ -7034,22 +7064,24 @@
               {
                 enableReinitialize: !0,
                 initialValues: m,
-                validationSchema: pe.b().shape({
-                  user: pe
-                    .c()
-                    .required(
-                      "\u62c5\u5f53\u8005\u3092\u9078\u629e\u3057\u3066\u304f\u3060\u3055\u3044"
-                    ),
-                  name: pe
-                    .c()
-                    .max(
-                      24,
-                      "24\u6587\u5b57\u4ee5\u5185\u3067\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044"
-                    )
-                    .required(
-                      "\u30bf\u30b9\u30af\u540d\u306f\u5fc5\u9808\u3067\u3059\u3002"
-                    ),
-                }),
+                validationSchema: pe
+                  .b()
+                  .shape({
+                    user: pe
+                      .c()
+                      .required(
+                        "\u62c5\u5f53\u8005\u3092\u9078\u629e\u3057\u3066\u304f\u3060\u3055\u3044"
+                      ),
+                    name: pe
+                      .c()
+                      .max(
+                        24,
+                        "24\u6587\u5b57\u4ee5\u5185\u3067\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044"
+                      )
+                      .required(
+                        "\u30bf\u30b9\u30af\u540d\u306f\u5fc5\u9808\u3067\u3059\u3002"
+                      ),
+                  }),
                 onSubmit: (function () {
                   var e = Object(ne.a)(
                     ae.a.mark(function e(t, n) {
@@ -7212,7 +7244,7 @@
                               C.a,
                               { item: !0 },
                               c.a.createElement(ue.a, {
-                                component: kc.a,
+                                component: jc.a,
                                 name: "startDateAt",
                                 label: "\u958b\u59cb",
                                 id: "startDateAt",
@@ -7223,7 +7255,7 @@
                               C.a,
                               { item: !0 },
                               c.a.createElement(ue.a, {
-                                component: kc.a,
+                                component: jc.a,
                                 name: "endDateAt",
                                 label: "\u7d42\u4e86",
                                 id: "endDateAt",
@@ -7537,9 +7569,9 @@
                           a.next = 16;
                           break;
                         case 12:
-                          return (a.next = 14), t(ka(c));
+                          return (a.next = 14), t(ja(c));
                         case 14:
-                          return (a.next = 16), t(ja(c));
+                          return (a.next = 16), t(ka(c));
                         case 16:
                         case "end":
                           return a.stop();
@@ -7662,9 +7694,9 @@
                           t.next = 16;
                           break;
                         case 12:
-                          return (t.next = 14), e(ka(c));
+                          return (t.next = 14), e(ja(c));
                         case 14:
-                          return (t.next = 16), e(ja(c));
+                          return (t.next = 16), e(ka(c));
                         case 16:
                           e(Ze(!1));
                         case 17:
@@ -7733,7 +7765,7 @@
         Fc = function () {
           var e = Dc(),
             t = Object(l.b)(),
-            a = Object(l.c)(kn);
+            a = Object(l.c)(jn);
           return c.a.createElement(
             c.a.Fragment,
             null,
@@ -8229,7 +8261,7 @@
                     for (;;)
                       switch ((e.prev = e.next)) {
                         case 0:
-                          return (e.next = 2), t(ja(a));
+                          return (e.next = 2), t(ka(a));
                         case 2:
                         case "end":
                           return e.stop();
@@ -8246,7 +8278,7 @@
                     for (;;)
                       switch ((e.prev = e.next)) {
                         case 0:
-                          return (e.next = 2), t(ka(a));
+                          return (e.next = 2), t(ja(a));
                         case 2:
                         case "end":
                           return e.stop();
@@ -8270,7 +8302,7 @@
             g = Object(l.c)(mt),
             h = Object(l.c)(ut),
             v = Object(l.c)(bt),
-            k = Object(l.c)(dt);
+            j = Object(l.c)(dt);
           return c.a.createElement(
             "div",
             { className: e.root },
@@ -8292,7 +8324,7 @@
               g ? c.a.createElement(zc, null) : "",
               h ? c.a.createElement(Vc, null) : "",
               v ? c.a.createElement(Hc, null) : "",
-              k ? c.a.createElement(Mc, null) : "",
+              j ? c.a.createElement(Mc, null) : "",
               c.a.createElement(
                 m.c,
                 null,
@@ -8465,23 +8497,27 @@
                   ue.d,
                   {
                     initialValues: { email: "", password: "" },
-                    validationSchema: pe.b().shape({
-                      email: pe
-                        .c()
-                        .email(
-                          "\u6709\u52b9\u306a\u30e1\u30fc\u30eb\u30a2\u30c9\u30ec\u30b9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
-                        )
-                        .required("email\u306f\u5fc5\u9808\u3067\u3059\u3002"),
-                      password: pe
-                        .c()
-                        .min(
-                          6,
-                          "6\u5b57\u4ee5\u4e0a\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044"
-                        )
-                        .required(
-                          "\u30d1\u30b9\u30ef\u30fc\u30c9\u306f\u5fc5\u9808\u3067\u3059\u3002"
-                        ),
-                    }),
+                    validationSchema: pe
+                      .b()
+                      .shape({
+                        email: pe
+                          .c()
+                          .email(
+                            "\u6709\u52b9\u306a\u30e1\u30fc\u30eb\u30a2\u30c9\u30ec\u30b9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
+                          )
+                          .required(
+                            "email\u306f\u5fc5\u9808\u3067\u3059\u3002"
+                          ),
+                        password: pe
+                          .c()
+                          .min(
+                            6,
+                            "6\u5b57\u4ee5\u4e0a\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044"
+                          )
+                          .required(
+                            "\u30d1\u30b9\u30ef\u30fc\u30c9\u306f\u5fc5\u9808\u3067\u3059\u3002"
+                          ),
+                      }),
                     onSubmit: (function () {
                       var e = Object(ne.a)(
                         ae.a.mark(function e(a) {
@@ -8632,25 +8668,27 @@
                     ue.d,
                     {
                       initialValues: { email: "", password: "" },
-                      validationSchema: pe.b().shape({
-                        email: pe
-                          .c()
-                          .email(
-                            "\u6709\u52b9\u306a\u30e1\u30fc\u30eb\u30a2\u30c9\u30ec\u30b9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
-                          )
-                          .required(
-                            "email\u306f\u5fc5\u9808\u3067\u3059\u3002"
-                          ),
-                        password: pe
-                          .c()
-                          .min(
-                            6,
-                            "6\u5b57\u4ee5\u4e0a\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044"
-                          )
-                          .required(
-                            "\u30d1\u30b9\u30ef\u30fc\u30c9\u306f\u5fc5\u9808\u3067\u3059\u3002"
-                          ),
-                      }),
+                      validationSchema: pe
+                        .b()
+                        .shape({
+                          email: pe
+                            .c()
+                            .email(
+                              "\u6709\u52b9\u306a\u30e1\u30fc\u30eb\u30a2\u30c9\u30ec\u30b9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
+                            )
+                            .required(
+                              "email\u306f\u5fc5\u9808\u3067\u3059\u3002"
+                            ),
+                          password: pe
+                            .c()
+                            .min(
+                              6,
+                              "6\u5b57\u4ee5\u4e0a\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044"
+                            )
+                            .required(
+                              "\u30d1\u30b9\u30ef\u30fc\u30c9\u306f\u5fc5\u9808\u3067\u3059\u3002"
+                            ),
+                        }),
                       onSubmit: (function () {
                         var e = Object(ne.a)(
                           ae.a.mark(function e(a) {
@@ -8922,4 +8960,4 @@
   },
   [[270, 1, 2]],
 ]);
-//# sourceMappingURL=main.3ab9221e.chunk.js.map
+//# sourceMappingURL=main.c92a6ac7.chunk.js.map
