@@ -1,0 +1,13 @@
+runtime: nodejs12
+
+env_variables:
+  FROM_EMAIL: "noreply@vwork.jp"
+  FROM_NAME: "VWORKサポートチーム"
+  JWT_COOKIE_EXPIRE: "30"
+  JWT_EXPIRE: "30d"
+  JWT_SECRET: "11028015290961148000"
+  MONGO_URI: "mongodb+srv://vwork-admin:orKvrTuVyQiK4UQYyH@vwork.5uf14.gcp.mongodb.net/vwork-prod?retryWrites=true&w=majority"
+  SMTP_EMAIL: "98c3ac854c4e08"
+  SMTP_HOST: "smtp.mailtrap.io"
+  SMTP_PASSWORD: "20247810ef46d1"
+  SMTP_PORT: "2525"
