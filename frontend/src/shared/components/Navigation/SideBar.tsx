@@ -13,7 +13,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import HomeIcon from "@material-ui/icons/Home";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
-// import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
+import PersonIcon from "@material-ui/icons/Person";
 import Drawer from "@material-ui/core/Drawer";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -151,12 +151,12 @@ const SideBar = () => {
               </ListItemIcon>
               <ListItemText primary="勤怠管理" />
             </ListItem>
-            {/*<ListItem button>*/}
-            {/*  <ListItemIcon className={classes.icon}>*/}
-            {/*    <NotificationsNoneIcon />*/}
-            {/*  </ListItemIcon>*/}
-            {/*  <ListItemText primary="受信ボックス" />*/}
-            {/*</ListItem>*/}
+            <ListItem button component={NavLink} to="/members" exact>
+              <ListItemIcon className={classes.icon}>
+                <PersonIcon />
+              </ListItemIcon>
+              <ListItemText primary="メンバー一覧" />
+            </ListItem>
           </List>
           <MyProject />
         </Drawer>

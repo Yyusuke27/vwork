@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import clsx from "clsx";
 import Home from "./Home";
 import MyTask from "../Task/pages/MyTask";
+import Members from "../Members/pages/Members";
 import MyAttendance from "../Attendance/pages/MyAttendance";
 import Project from "../Project/pages/Project";
 import MainNavigation from "../../shared/components/Navigation/MainNavigation";
@@ -148,6 +149,9 @@ const Dashboard = () => {
           </Route>
           <Route path="/work_manage" exact>
             <MyAttendance />
+          </Route>
+          <Route path="/members" exact>
+            <Members />
           </Route>
           <Route path="/project/:projectId" exact>
             <Project />
