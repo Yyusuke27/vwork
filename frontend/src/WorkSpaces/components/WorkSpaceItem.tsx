@@ -8,6 +8,7 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,7 +41,7 @@ const WorkSpaceItem: FC<WorkSpaceItemProps> = ({ id, name }) => {
   const dispatch = useDispatch();
 
   return (
-    <Grid item xs={12} style={{ marginBottom: 10 }}>
+    <Box width="100%" mb={3}>
       <CardActionArea
         className={classes.cardActionArea}
         onClick={async () => {
@@ -67,7 +68,7 @@ const WorkSpaceItem: FC<WorkSpaceItemProps> = ({ id, name }) => {
           </Grid>
         </Card>
       </CardActionArea>
-    </Grid>
+    </Box>
   );
 };
 
