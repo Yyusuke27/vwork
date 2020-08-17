@@ -17,11 +17,16 @@ import Alert from "@material-ui/lab/Alert";
 
 const Auth = () => {
   const dispatch = useDispatch();
+
+  const token = localStorage.token;
+
   useEffect(() => {
-    dispatch(toggleLoading(true));
-    dispatch(fetchAsyncCurrentUser());
-    dispatch(toggleLoading(false));
-  }, [dispatch]);
+    if (token) {
+      dispatch(toggleLoading(true));
+      dispatch(fetchAsyncCurrentUser());
+      dispatch(toggleLoading(false));
+    }
+  }, [dispatch, token]);
 
   const errorMessage = useSelector(selectErrorMessage);
   const errorOpen = useSelector(selectErrorOpen);
