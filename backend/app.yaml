@@ -11,3 +11,17 @@ env_variables:
   SMTP_HOST: "smtp.mailtrap.io"
   SMTP_PASSWORD: "20247810ef46d1"
   SMTP_PORT: "2525"
+  INVITE_URL: "https://v-work.xyz/"
+  IS_JWT_COOKIE_SECURE: "true"
+  USE_MORGAN: "false"
+  USE_CORS: "false"
+  SHOW_BUILD_FRONTEND: "true"
+
+
+default_expiration: "5m"
+
+handlers:
+- url: /.*
+  secure: always
+  redirect_http_response_code: 301
+  script: auto
