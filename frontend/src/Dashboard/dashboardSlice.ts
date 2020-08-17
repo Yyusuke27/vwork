@@ -33,7 +33,7 @@ export const fetchAsyncUpdateUserProfile = createAsyncThunk(
     userId: string;
     bodyData: { name?: string; email?: string; position?: string };
   }) => {
-    const res = await axios.post(
+    const res = await axios.put(
       `${apiUrl}api/v1/workspaces/${data.workspace}/users/${data.userId}/profile`,
       data.bodyData,
       {

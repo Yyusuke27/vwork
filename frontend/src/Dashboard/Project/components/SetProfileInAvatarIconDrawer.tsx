@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import VwDrawer from "../../../shared/components/Common/VwDrawer";
 import {
   selectSetProfileClicked,
+  toggleLoading,
   toggleSetProfileClicked,
 } from "../../../appSlice";
 import Container from "@material-ui/core/Container";
@@ -14,6 +15,13 @@ import { TextField } from "formik-material-ui";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import Color from "../../../shared/util/color";
+import { fetchAsyncUpdateUserProfile } from "../../../Dashboard/dashboardSlice";
+import {
+  selectProfile,
+  selectUser,
+  selectWorkspace,
+} from "../../../Auth/authSlice";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   formArea: {
@@ -33,16 +41,24 @@ const SetProfileInAvatarIconDrawer = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const profileClicked = useSelector(selectSetProfileClicked);
+  const workspace = useSelector(selectWorkspace);
+  const user = useSelector(selectUser);
+  const profile = useSelector(selectProfile);
 
   interface initialValuesType {
     name: string;
-    description: string;
+    email: string;
+    position: string;
   }
 
   const initialValues: initialValuesType = {
-    name: "",
-    description: "",
+    name: user.name,
+    email: user.email,
+    position: profile.position,
   };
+
+  const history = useHistory();
+
   return (
     <>
       <VwDrawer
@@ -55,46 +71,75 @@ const SetProfileInAvatarIconDrawer = () => {
           </Box>
           <Formik
             initialValues={initialValues}
-            validationSchema={Yup.object().shape({
-              name: Yup.string().required("プロジェクト名を入力してください。"),
-            })}
-            onSubmit={(values, actions) => {
+            validationSchema={Yup.object().shape({})}
+            onSubmit={async (values, actions) => {
+              actions.setSubmitting(false);
+
+              dispatch(toggleLoading(true));
+              await dispatch(
+                fetchAsyncUpdateUserProfile({
+                  workspace,
+                  userId: user._id,
+                  bodyData: values,
+                })
+              );
+              dispatch(toggleLoading(false));
+              dispatch(toggleSetProfileClicked(false));
+              history.go(0);
               console.log(values);
             }}
           >
-            <Form className={classes.form}>
-              <Field
-                component={TextField}
-                name="name"
-                label="プロジェクト名"
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                id="name"
-              />
-              <br />
-              <Field
-                component={TextField}
-                label="詳細"
-                fullWidth
-                multiline
-                variant="outlined"
-                margin="normal"
-                name="description"
-                id="description"
-                rows={4}
-              />
-              <br />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
-                作成
-              </Button>
-            </Form>
+            {(props) => (
+              <Form className={classes.form}>
+                <Field
+                  component={TextField}
+                  name="name"
+                  label="氏名"
+                  variant="outlined"
+                  margin="normal"
+                  fullWidth
+                  id="name"
+                  value={props.values.name}
+                >
+                  {props.values.name}
+                </Field>
+                <br />
+                <Field
+                  component={TextField}
+                  label="メールアドレス"
+                  fullWidth
+                  variant="outlined"
+                  margin="normal"
+                  name="email"
+                  id="email"
+                  value={props.values.email}
+                >
+                  {props.values.email}
+                </Field>
+                <Field
+                  component={TextField}
+                  label="役職・担当"
+                  fullWidth
+                  variant="outlined"
+                  margin="normal"
+                  name="position"
+                  id="position"
+                  value={props.values.position}
+                >
+                  {props.values.position}
+                </Field>
+                <br />
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                >
+                  更新
+                </Button>
+              </Form>
+            )}
           </Formik>
         </Container>
       </VwDrawer>

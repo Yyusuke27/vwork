@@ -81,6 +81,7 @@ interface AuthState {
   workspace: { id: string; name: string };
   errorMessage: string;
   errorOpen: boolean;
+  profile: { _id: string; position: string };
 }
 
 const initialState: AuthState = {
@@ -97,6 +98,10 @@ const initialState: AuthState = {
   workspace: { id: "", name: "" },
   errorMessage: "",
   errorOpen: false,
+  profile: {
+    _id: "",
+    position: "",
+  },
 };
 
 export const authSlice = createSlice({
@@ -131,6 +136,7 @@ export const authSlice = createSlice({
       state.token = localStorage.token;
       state.user = action.payload.data;
 
+      state.profile = action.payload.profile;
       state.workspace = action.payload.workspace;
       state.workspaceCount = localStorage.wc;
       localStorage.setItem(
@@ -186,6 +192,7 @@ export const authSlice = createSlice({
 
 export const selectUser = (state: RootState) => state.auth.user;
 export const selectToken = (state: RootState) => state.auth.token;
+export const selectProfile = (state: RootState) => state.auth.profile;
 export const selectWorkspace = (state: RootState) =>
   state.auth.user.lastAccessWorkspace;
 export const selectUserRegistration = (state: RootState) =>
