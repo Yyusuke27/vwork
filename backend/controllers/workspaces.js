@@ -190,11 +190,7 @@ exports.inviteNewMembers = asyncHandler(async (req, res, next) => {
     await invite.save({ validateBeforeSave: false });
 
     //メール送信
-    // TODO: 本番の時はhostを変える
-    const inviteeRegistUrl =
-      process.env.NODE_ENV === "development"
-        ? `${req.protocol}://localhost:3000/regist/invitee/welcome/?${inviteToken}`
-        : `https://v-work.herokuapp.com/regist/invitee/welcome/?${inviteToken}`;
+    const inviteeRegistUrl = `${process.env.INVITE_URL}regist/invitee/welcome/?${inviteToken}`;
 
     const message = `招待からの登録はこちらから \n\n ${inviteeRegistUrl}`;
     const html = `<a href="${inviteeRegistUrl}">${invitation.name}さん：${workspace.name}へ招待されました。登録はこちらから</a>`;

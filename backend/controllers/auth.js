@@ -193,7 +193,7 @@ const sendTokenResponse = (user, statusCode, res, workspaceCount) => {
     httpOnly: true,
   };
 
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.IS_JWT_COOKIE_SECURE === "true") {
     options.secure = true;
   }
 

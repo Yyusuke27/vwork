@@ -7,7 +7,7 @@ const cors = require("cors");
 const path = require("path");
 
 // 開発環境用のログ
-if (process.env.NODE_ENV === "development") {
+if (process.env.USE_MORGAN === "true") {
   const morgan = require("morgan");
   app.use(morgan("dev"));
 }
@@ -29,8 +29,7 @@ const users = require("./routes/users");
 const app = express();
 
 // Setting CORS
-// TODO: deploy時に修正
-if (process.env.NODE_ENV === "development") {
+if (process.env.USE_CORS === "true") {
   app.use(
     cors({
       origin: "http://localhost:3000",
@@ -42,10 +41,6 @@ if (process.env.NODE_ENV === "development") {
 // Body parser
 app.use(express.json());
 
-if (process.env.NODE_ENV !== "development") {
-  app.use(express.static(path.join("public")));
-}
-
 // route設定
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/workspaces", workspaces);
@@ -55,7 +50,8 @@ app.use("/api/v1/attendances", attendances);
 app.use("/api/v1/registration", registration);
 app.use("/api/v1/users", users);
 
-if (process.env.NODE_ENV !== "development") {
+if (process.env.SHOW_BUILD_FRONTEND === "true") {
+  app.use(express.static(path.join("public")));
   app.use((req, res, next) => {
     res.sendFile(path.resolve(__dirname, "public", "index.html"));
   });
