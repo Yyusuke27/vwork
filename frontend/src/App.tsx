@@ -1,6 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom";
 import { theme } from "./shared/util/theme";
 import Admin from "./Admin/pages/Admin";
 import Regist from "./Regist/pages/Regist";
@@ -26,6 +31,9 @@ const useStyles = makeStyles((theme: Theme) =>
 const App = () => {
   const classes = useStyles();
   const loading = useSelector(selectLoader);
+
+  const token = localStorage.token;
+
   return (
     <MuiThemeProvider theme={theme}>
       {loading ? (
@@ -44,13 +52,14 @@ const App = () => {
             <Regist />
           </Route>
           <Route path="/admin">
+            {token ? <Admin /> : <Redirect to="/auth/login" />}
             <Admin />
           </Route>
           <Route path="/workspaces">
-            <WorkSpaces />
+            {token ? <WorkSpaces /> : <Redirect to="/auth/login" />}
           </Route>
           <Route path="/">
-            <Dashboard />
+            {token ? <Dashboard /> : <Redirect to="/auth/login" />}
           </Route>
         </Switch>
       </Router>
