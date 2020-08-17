@@ -81,6 +81,16 @@ const dashboardSlice = createSlice({
         position: toast.POSITION.TOP_CENTER,
       });
     });
+    builder.addCase(fetchAsyncUpdateUserProfile.fulfilled, (state, action) => {
+      toast.info("プロフィールを更新しました。", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    });
+    builder.addCase(fetchAsyncUpdateUserProfile.rejected, (state, action) => {
+      toast.error("プロフィールの更新に失敗しました。", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    });
   },
 });
 

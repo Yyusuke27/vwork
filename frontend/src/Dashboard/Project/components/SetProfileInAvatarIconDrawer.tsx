@@ -21,7 +21,6 @@ import {
   selectUser,
   selectWorkspace,
 } from "../../../Auth/authSlice";
-import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   formArea: {
@@ -54,10 +53,8 @@ const SetProfileInAvatarIconDrawer = () => {
   const initialValues: initialValuesType = {
     name: user.name,
     email: user.email,
-    position: profile.position,
+    position: profile ? profile.position : "",
   };
-
-  const history = useHistory();
 
   return (
     <>
@@ -71,7 +68,9 @@ const SetProfileInAvatarIconDrawer = () => {
           </Box>
           <Formik
             initialValues={initialValues}
-            validationSchema={Yup.object().shape({})}
+            validationSchema={Yup.object().shape({
+              name: Yup.string().required("氏名は必須です。"),
+            })}
             onSubmit={async (values, actions) => {
               actions.setSubmitting(false);
 
@@ -85,8 +84,6 @@ const SetProfileInAvatarIconDrawer = () => {
               );
               dispatch(toggleLoading(false));
               dispatch(toggleSetProfileClicked(false));
-              history.go(0);
-              console.log(values);
             }}
           >
             {(props) => (
@@ -94,7 +91,7 @@ const SetProfileInAvatarIconDrawer = () => {
                 <Field
                   component={TextField}
                   name="name"
-                  label="氏名"
+                  label="氏名*"
                   variant="outlined"
                   margin="normal"
                   fullWidth

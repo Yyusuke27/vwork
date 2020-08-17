@@ -55,24 +55,21 @@ exports.updateUserAndProfile = asyncHandler(async (req, res, next) => {
 
   let profile;
 
-  if (req.body.position) {
-    profile = await UserProfile.findOne({
+  profile = await UserProfile.findOne({
+    user: req.params.id,
+    workspace: req.params.workspaceId,
+  });
+  if (!profile) {
+    profile = await UserProfile.create({
       user: req.params.id,
       workspace: req.params.workspaceId,
+      position: req.body.position,
     });
-    if (!profile) {
-      profile = await UserProfile.create({
-        user: req.params.id,
-        workspace: req.params.workspaceId,
-        position: req.body.position,
-      });
-    } else {
-      profile.position = req.body.position;
-      await profile.save();
-    }
-
     user.profiles.push(profile._id);
     await user.save();
+  } else {
+    profile.position = req.body.position;
+    await profile.save();
   }
 
   res.status(200).json({
