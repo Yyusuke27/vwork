@@ -54,8 +54,8 @@
         h = a(210),
         v = a(354),
         j = a(61),
-        k = a.n(j),
-        O = a(355),
+        O = a.n(j),
+        k = a(355),
         w = a(76),
         y = a(2),
         x = a(305),
@@ -106,7 +106,7 @@
                   ),
                 },
                 c.a.createElement(
-                  O.a,
+                  k.a,
                   null,
                   c.a.createElement(
                     x.a,
@@ -117,7 +117,7 @@
                       edge: "start",
                       className: Object(y.a)(a && n.hide),
                     },
-                    c.a.createElement(k.a, { className: n.menuIcon })
+                    c.a.createElement(O.a, { className: n.menuIcon })
                   ),
                   c.a.createElement(
                     C.a,
@@ -272,7 +272,7 @@
                           onClick: t,
                           style: { paddingLeft: 0, paddingRight: 10 },
                         },
-                        c.a.createElement(k.a, { className: n.menuIcon })
+                        c.a.createElement(O.a, { className: n.menuIcon })
                       )
                     )
                   )
@@ -448,7 +448,7 @@
                       c.a.createElement(
                         x.a,
                         null,
-                        c.a.createElement(k.a, {
+                        c.a.createElement(O.a, {
                           style: { fontSize: 40, color: p.VWORK_GRAY },
                         })
                       )
@@ -594,7 +594,7 @@
         fe = a(15),
         Ee = a(23),
         be = a.n(Ee),
-        ge = "https://v-work.herokuapp.com/",
+        ge = "https://vwork-production.an.r.appspot.com/",
         he = localStorage.token,
         ve = localStorage.Itoken,
         je = Object(fe.b)(
@@ -630,7 +630,7 @@
             };
           })()
         ),
-        ke = Object(fe.b)(
+        Oe = Object(fe.b)(
           "regist/invitation",
           (function () {
             var e = Object(ne.a)(
@@ -664,7 +664,7 @@
             };
           })()
         ),
-        Oe = Object(fe.b)(
+        ke = Object(fe.b)(
           "regist/invitee",
           (function () {
             var e = Object(ne.a)(
@@ -744,18 +744,18 @@
               e.addCase(je.rejected, function (e, t) {
                 window.location.href = "/regist/step/1";
               }),
-              e.addCase(ke.fulfilled, function (e, t) {
+              e.addCase(Oe.fulfilled, function (e, t) {
                 (e.invite.workspace = t.payload.workspace),
                   (e.invite.user = t.payload.data);
               }),
-              e.addCase(ke.rejected, function (e, t) {
+              e.addCase(Oe.rejected, function (e, t) {
                 window.location.href = "/auth/signup";
               }),
-              e.addCase(Oe.fulfilled, function (e, t) {
+              e.addCase(ke.fulfilled, function (e, t) {
                 localStorage.setItem("token", t.payload.token),
                   (window.location.href = "/");
               }),
-              e.addCase(Oe.rejected, function (e, t) {
+              e.addCase(ke.rejected, function (e, t) {
                 window.location.href = "/regist/invitee/step1";
               });
           },
@@ -1437,7 +1437,7 @@
             },
           });
         });
-      var kt = function () {
+      var Ot = function () {
           var e = jt(),
             t = [
               "\u57fa\u672c\u8a2d\u5b9a",
@@ -1495,7 +1495,7 @@
             )
           );
         },
-        Ot = function () {
+        kt = function () {
           return c.a.createElement(
             c.a.Fragment,
             null,
@@ -1525,12 +1525,12 @@
               c.a.createElement(
                 m.a,
                 { path: "/regist/step/5", exact: !0 },
-                c.a.createElement(kt, null)
+                c.a.createElement(Ot, null)
               )
             )
           );
         },
-        wt = "https://v-work.herokuapp.com/",
+        wt = "https://vwork-production.an.r.appspot.com/",
         yt = localStorage.token,
         xt = Object(fe.b)(
           "auth/login",
@@ -1820,7 +1820,7 @@
                 c.a.createElement(
                   m.a,
                   { path: "/regist/step" },
-                  c.a.createElement(Ot, null)
+                  c.a.createElement(kt, null)
                 )
               )
             )
@@ -1854,7 +1854,7 @@
                       for (;;)
                         switch ((e.prev = e.next)) {
                           case 0:
-                            return (e.next = 2), t(ke(a));
+                            return (e.next = 2), t(Oe(a));
                           case 2:
                           case "end":
                             return e.stop();
@@ -2121,7 +2121,7 @@
                                 (o = { token: r, user: c }),
                                 t(Ue(!0)),
                                 (e.next = 5),
-                                t(Oe(o))
+                                t(ke(o))
                               );
                             case 5:
                               t(Ue(!1));
@@ -2404,7 +2404,7 @@
                       c.a.createElement(
                         x.a,
                         null,
-                        c.a.createElement(k.a, {
+                        c.a.createElement(O.a, {
                           style: { fontSize: 40, color: p.VWORK_GRAY },
                         })
                       )
@@ -2556,7 +2556,7 @@
                         (e.next = 2),
                         be.a.get(
                           "".concat(
-                            "https://v-work.herokuapp.com/",
+                            "https://vwork-production.an.r.appspot.com/",
                             "api/v1/workspaces/"
                           ),
                           { headers: { Authorization: "Bearer ".concat(aa) } }
@@ -2694,7 +2694,7 @@
         ma = a(31),
         ua = a.n(ma),
         da = a(43),
-        pa = "https://v-work.herokuapp.com/",
+        pa = "https://vwork-production.an.r.appspot.com/",
         fa = localStorage.token,
         Ea = Object(fe.b)(
           "task/add",
@@ -2920,7 +2920,7 @@
             };
           })()
         ),
-        ka = Object(fe.b)(
+        Oa = Object(fe.b)(
           "task/getNearDeadline",
           (function () {
             var e = Object(ne.a)(
@@ -2958,7 +2958,7 @@
             };
           })()
         ),
-        Oa = Object(fe.c)({
+        ka = Object(fe.c)({
           name: "task",
           initialState: {
             tasks: {
@@ -3025,7 +3025,7 @@
               e.addCase(ja.fulfilled, function (e, t) {
                 e.recentTasks = t.payload.data;
               }),
-              e.addCase(ka.fulfilled, function (e, t) {
+              e.addCase(Oa.fulfilled, function (e, t) {
                 e.nearDeadlineTasks = t.payload.data;
               });
           },
@@ -3051,12 +3051,12 @@
         Aa = function (e) {
           return e.task.query;
         },
-        Ta = Oa.actions,
+        Ta = ka.actions,
         Wa = Ta.setSelectedTask,
         Ra = Ta.setTodaysDoneTasks,
         Ia = Ta.setTask,
         _a = Ta.setQuery,
-        Ba = Oa.reducer,
+        Ba = ka.reducer,
         Ka = a(234),
         za = a.n(Ka),
         Va = a(235),
@@ -3607,8 +3607,9 @@
             )
           );
         },
-        un = localStorage.token,
-        dn = Object(fe.b)(
+        un = "https://vwork-production.an.r.appspot.com/",
+        dn = localStorage.token,
+        pn = Object(fe.b)(
           "attendance/today",
           (function () {
             var e = Object(ne.a)(
@@ -3622,57 +3623,12 @@
                           (e.next = 2),
                           be.a.get(
                             ""
-                              .concat(
-                                "https://v-work.herokuapp.com/",
-                                "api/v1/workspaces/"
-                              )
+                              .concat(un, "api/v1/workspaces/")
                               .concat(t, "/attendances/today"),
                             {
                               headers: {
                                 "Content-Type": "application/json",
-                                Authorization: "Bearer ".concat(un),
-                              },
-                            }
-                          )
-                        );
-                      case 2:
-                        return (a = e.sent), e.abrupt("return", a.data);
-                      case 4:
-                      case "end":
-                        return e.stop();
-                    }
-                }, e);
-              })
-            );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })()
-        ),
-        pn = Object(fe.b)(
-          "attendance/update",
-          (function () {
-            var e = Object(ne.a)(
-              ae.a.mark(function e(t) {
-                var a;
-                return ae.a.wrap(function (e) {
-                  for (;;)
-                    switch ((e.prev = e.next)) {
-                      case 0:
-                        return (
-                          (e.next = 2),
-                          be.a.put(
-                            ""
-                              .concat(
-                                "https://v-work.herokuapp.com/",
-                                "api/v1/attendances/"
-                              )
-                              .concat(t.id),
-                            t.attendance,
-                            {
-                              headers: {
-                                "Content-Type": "application/json",
-                                Authorization: "Bearer ".concat(un),
+                                Authorization: "Bearer ".concat(dn),
                               },
                             }
                           )
@@ -3692,7 +3648,7 @@
           })()
         ),
         fn = Object(fe.b)(
-          "attendance/myAttendances",
+          "attendance/update",
           (function () {
             var e = Object(ne.a)(
               ae.a.mark(function e(t) {
@@ -3703,24 +3659,13 @@
                       case 0:
                         return (
                           (e.next = 2),
-                          be.a.get(
-                            ""
-                              .concat(
-                                "https://v-work.herokuapp.com/",
-                                "api/v1/workspaces/"
-                              )
-                              .concat(t.workspace, "/attendances")
-                              .concat(
-                                t.query
-                                  ? "?year="
-                                      .concat(t.query.year, "&month=")
-                                      .concat(t.query.month)
-                                  : ""
-                              ),
+                          be.a.put(
+                            "".concat(un, "api/v1/attendances/").concat(t.id),
+                            t.attendance,
                             {
                               headers: {
                                 "Content-Type": "application/json",
-                                Authorization: "Bearer ".concat(un),
+                                Authorization: "Bearer ".concat(dn),
                               },
                             }
                           )
@@ -3740,7 +3685,7 @@
           })()
         ),
         En = Object(fe.b)(
-          "attendance/attendance",
+          "attendance/myAttendances",
           (function () {
             var e = Object(ne.a)(
               ae.a.mark(function e(t) {
@@ -3753,16 +3698,19 @@
                           (e.next = 2),
                           be.a.get(
                             ""
+                              .concat(un, "api/v1/workspaces/")
+                              .concat(t.workspace, "/attendances")
                               .concat(
-                                "https://v-work.herokuapp.com/",
-                                "api/v1/workspaces/"
-                              )
-                              .concat(t.workspace, "/attendances/")
-                              .concat(t.id),
+                                t.query
+                                  ? "?year="
+                                      .concat(t.query.year, "&month=")
+                                      .concat(t.query.month)
+                                  : ""
+                              ),
                             {
                               headers: {
                                 "Content-Type": "application/json",
-                                Authorization: "Bearer ".concat(un),
+                                Authorization: "Bearer ".concat(dn),
                               },
                             }
                           )
@@ -3781,7 +3729,46 @@
             };
           })()
         ),
-        bn = Object(fe.c)({
+        bn = Object(fe.b)(
+          "attendance/attendance",
+          (function () {
+            var e = Object(ne.a)(
+              ae.a.mark(function e(t) {
+                var a;
+                return ae.a.wrap(function (e) {
+                  for (;;)
+                    switch ((e.prev = e.next)) {
+                      case 0:
+                        return (
+                          (e.next = 2),
+                          be.a.get(
+                            ""
+                              .concat(un, "api/v1/workspaces/")
+                              .concat(t.workspace, "/attendances/")
+                              .concat(t.id),
+                            {
+                              headers: {
+                                "Content-Type": "application/json",
+                                Authorization: "Bearer ".concat(dn),
+                              },
+                            }
+                          )
+                        );
+                      case 2:
+                        return (a = e.sent), e.abrupt("return", a.data);
+                      case 4:
+                      case "end":
+                        return e.stop();
+                    }
+                }, e);
+              })
+            );
+            return function (t) {
+              return e.apply(this, arguments);
+            };
+          })()
+        ),
+        gn = Object(fe.c)({
           name: "attendance",
           initialState: {
             today: {
@@ -3818,47 +3805,47 @@
             },
           },
           extraReducers: function (e) {
-            e.addCase(dn.fulfilled, function (e, t) {
+            e.addCase(pn.fulfilled, function (e, t) {
               e.today = t.payload.data;
             }),
-              e.addCase(pn.fulfilled, function (e, t) {
+              e.addCase(fn.fulfilled, function (e, t) {
                 da.b.info(
                   "\u52e4\u6020\u60c5\u5831\u3092\u66f4\u65b0\u3057\u307e\u3057\u305f\u3002",
                   { position: da.b.POSITION.TOP_CENTER }
                 ),
                   (e.today = t.payload.data);
               }),
-              e.addCase(fn.fulfilled, function (e, t) {
+              e.addCase(En.fulfilled, function (e, t) {
                 e.attendances = t.payload.data;
               }),
-              e.addCase(En.fulfilled, function (e, t) {
+              e.addCase(bn.fulfilled, function (e, t) {
                 (e.attendance.data = t.payload.data),
                   (e.attendance.tasks = t.payload.tasks);
               });
           },
         }),
-        gn = function (e) {
+        hn = function (e) {
           return e.attendance.today;
         },
-        hn = function (e) {
+        vn = function (e) {
           return e.attendance.attendances;
         },
-        vn = function (e) {
+        jn = function (e) {
           return e.attendance.selectedAttendance;
         },
-        jn = function (e) {
+        On = function (e) {
           return e.attendance.attendance;
         },
-        kn = bn.actions,
-        On = kn.setSelectedAttendance,
-        wn = kn.setAttendance,
-        yn = bn.reducer,
-        xn = a(369),
-        Cn = a(368),
-        Nn = a(306),
-        Sn = a(236),
-        An = a.n(Sn),
-        Tn = Object(g.a)(function (e) {
+        kn = gn.actions,
+        wn = kn.setSelectedAttendance,
+        yn = kn.setAttendance,
+        xn = gn.reducer,
+        Cn = a(369),
+        Nn = a(368),
+        Sn = a(306),
+        An = a(236),
+        Tn = a.n(An),
+        Wn = Object(g.a)(function (e) {
           return Object(h.a)({
             mainTitle: { width: "30%", fontSize: 23 },
             root: {
@@ -3881,20 +3868,20 @@
             out: { borderRadius: 10, width: 150, fontSize: 20 },
           });
         }),
-        Wn = c.a.forwardRef(function (e, t) {
+        Rn = c.a.forwardRef(function (e, t) {
           return c.a.createElement(
-            Nn.a,
+            Sn.a,
             Object.assign({ direction: "up", ref: t }, e)
           );
         }),
-        Rn = function () {
-          var e = Tn(),
+        In = function () {
+          var e = Wn(),
             t = a(31),
             n = c.a.useState(!1),
             r = Object(E.a)(n, 2),
             o = r[0],
             i = r[1],
-            s = Object(l.c)(gn),
+            s = Object(l.c)(hn),
             m = (function () {
               var e = Object(ne.a)(
                 ae.a.mark(function e() {
@@ -3904,7 +3891,7 @@
                         case 0:
                           return (
                             (e.next = 2),
-                            p(pn({ id: s._id, attendance: { startedAt: t() } }))
+                            p(fn({ id: s._id, attendance: { startedAt: t() } }))
                           );
                         case 2:
                         case "end":
@@ -3927,7 +3914,7 @@
                           return (
                             (e.next = 2),
                             p(
-                              pn({
+                              fn({
                                 id: s._id,
                                 attendance: { restStartedAt: t() },
                               })
@@ -3962,7 +3949,7 @@
                           return (
                             (e.next = 3),
                             p(
-                              pn({
+                              fn({
                                 id: s._id,
                                 attendance: { restEndedAt: t() },
                               })
@@ -3999,7 +3986,7 @@
                     Zt.a,
                     { className: e.root },
                     c.a.createElement(
-                      Cn.a,
+                      Nn.a,
                       null,
                       c.a.createElement(
                         w.a,
@@ -4071,7 +4058,7 @@
                       )
                     ),
                     c.a.createElement(
-                      xn.a,
+                      Cn.a,
                       null,
                       c.a.createElement(
                         C.a,
@@ -4168,12 +4155,12 @@
                   ),
                   c.a.createElement(
                     ee.a,
-                    { fullScreen: !0, open: o, TransitionComponent: Wn },
+                    { fullScreen: !0, open: o, TransitionComponent: Rn },
                     c.a.createElement(
                       v.a,
                       { className: e.appBar },
                       c.a.createElement(
-                        O.a,
+                        k.a,
                         null,
                         c.a.createElement(
                           x.a,
@@ -4185,7 +4172,7 @@
                             },
                             "aria-label": "close",
                           },
-                          c.a.createElement(An.a, null)
+                          c.a.createElement(Tn.a, null)
                         ),
                         c.a.createElement("img", {
                           src: "".concat("", "/images/logo192.png"),
@@ -4292,7 +4279,7 @@
                                                   n.setSubmitting(!1),
                                                   (e.next = 3),
                                                   p(
-                                                    pn({
+                                                    fn({
                                                       id: s._id,
                                                       attendance: {
                                                         endedAt: t(),
@@ -4374,37 +4361,37 @@
               : ""
           );
         },
-        In = a(237),
-        _n = a.n(In),
-        Bn = a(238),
-        Kn = a.n(Bn),
-        zn = a(239),
-        Vn = a.n(zn),
-        Dn = a(240),
-        Fn = a.n(Dn),
-        Mn = a(241),
-        Ln = a.n(Mn),
-        Hn = a(242),
-        Pn = a.n(Hn),
-        Yn = Object(g.a)({
+        _n = a(237),
+        Bn = a.n(_n),
+        Kn = a(238),
+        zn = a.n(Kn),
+        Vn = a(239),
+        Dn = a.n(Vn),
+        Fn = a(240),
+        Mn = a.n(Fn),
+        Ln = a(241),
+        Hn = a.n(Ln),
+        Pn = a(242),
+        Yn = a.n(Pn),
+        qn = Object(g.a)({
           icon: { fontSize: 55 },
           iconArea: { color: "white", height: 150, borderRadius: 8 },
           contentWidth: { width: 150 },
         }),
-        qn = function (e) {
+        Un = function (e) {
           var t = e.id,
             a = e.name,
             n = e.bgColor,
             r = e.iconNum,
-            o = Yn(),
+            o = qn(),
             i = [
-              c.a.createElement(_n.a, { className: o.icon }),
-              c.a.createElement(Kn.a, { className: o.icon }),
+              c.a.createElement(Bn.a, { className: o.icon }),
+              c.a.createElement(zn.a, { className: o.icon }),
               c.a.createElement(F.a, { className: o.icon }),
-              c.a.createElement(Vn.a, { className: o.icon }),
-              c.a.createElement(Fn.a, { className: o.icon }),
-              c.a.createElement(Ln.a, { className: o.icon }),
-              c.a.createElement(Pn.a, { className: o.icon }),
+              c.a.createElement(Dn.a, { className: o.icon }),
+              c.a.createElement(Mn.a, { className: o.icon }),
+              c.a.createElement(Hn.a, { className: o.icon }),
+              c.a.createElement(Yn.a, { className: o.icon }),
             ];
           return c.a.createElement(
             s.b,
@@ -4440,11 +4427,11 @@
             )
           );
         },
-        Un = a(102),
-        Gn = a.n(Un),
-        Xn = "https://v-work.herokuapp.com/",
-        Jn = localStorage.token,
-        Qn = Object(fe.b)(
+        Gn = a(102),
+        Xn = a.n(Gn),
+        Jn = "https://vwork-production.an.r.appspot.com/",
+        Qn = localStorage.token,
+        $n = Object(fe.b)(
           "project/allMyProjects",
           (function () {
             var e = Object(ne.a)(
@@ -4458,40 +4445,9 @@
                           (e.next = 2),
                           be.a.get(
                             ""
-                              .concat(Xn, "api/v1/workspaces/")
+                              .concat(Jn, "api/v1/workspaces/")
                               .concat(t, "/projects"),
-                            { headers: { Authorization: "Bearer ".concat(Jn) } }
-                          )
-                        );
-                      case 2:
-                        return (a = e.sent), e.abrupt("return", a.data);
-                      case 4:
-                      case "end":
-                        return e.stop();
-                    }
-                }, e);
-              })
-            );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })()
-        ),
-        $n = Object(fe.b)(
-          "project/project",
-          (function () {
-            var e = Object(ne.a)(
-              ae.a.mark(function e(t) {
-                var a;
-                return ae.a.wrap(function (e) {
-                  for (;;)
-                    switch ((e.prev = e.next)) {
-                      case 0:
-                        return (
-                          (e.next = 2),
-                          be.a.get(
-                            "".concat(Xn, "api/v1/projects/").concat(t),
-                            { headers: { Authorization: "Bearer ".concat(Jn) } }
+                            { headers: { Authorization: "Bearer ".concat(Qn) } }
                           )
                         );
                       case 2:
@@ -4509,7 +4465,7 @@
           })()
         ),
         Zn = Object(fe.b)(
-          "project/create",
+          "project/project",
           (function () {
             var e = Object(ne.a)(
               ae.a.mark(function e(t) {
@@ -4520,17 +4476,9 @@
                       case 0:
                         return (
                           (e.next = 2),
-                          be.a.post(
-                            ""
-                              .concat(Xn, "api/v1/workspaces/")
-                              .concat(t.workspace, "/projects"),
-                            t.projectData,
-                            {
-                              headers: {
-                                "Content-Type": "application/json",
-                                Authorization: "Bearer ".concat(Jn),
-                              },
-                            }
+                          be.a.get(
+                            "".concat(Jn, "api/v1/projects/").concat(t),
+                            { headers: { Authorization: "Bearer ".concat(Qn) } }
                           )
                         );
                       case 2:
@@ -4548,7 +4496,7 @@
           })()
         ),
         er = Object(fe.b)(
-          "project/newMembers",
+          "project/create",
           (function () {
             var e = Object(ne.a)(
               ae.a.mark(function e(t) {
@@ -4559,84 +4507,15 @@
                       case 0:
                         return (
                           (e.next = 2),
-                          be.a.get(
+                          be.a.post(
                             ""
-                              .concat(Xn, "api/v1/workspaces/")
-                              .concat(t.workspaces, "/projects/")
-                              .concat(t.projectId, "/members/new"),
-                            { headers: { Authorization: "Bearer ".concat(Jn) } }
-                          )
-                        );
-                      case 2:
-                        return (a = e.sent), e.abrupt("return", a.data);
-                      case 4:
-                      case "end":
-                        return e.stop();
-                    }
-                }, e);
-              })
-            );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })()
-        ),
-        tr = Object(fe.b)(
-          "project/member",
-          (function () {
-            var e = Object(ne.a)(
-              ae.a.mark(function e(t) {
-                var a;
-                return ae.a.wrap(function (e) {
-                  for (;;)
-                    switch ((e.prev = e.next)) {
-                      case 0:
-                        return (
-                          (e.next = 2),
-                          be.a.get(
-                            ""
-                              .concat(Xn, "api/v1/workspaces/")
-                              .concat(t.workspaces, "/projects/")
-                              .concat(t.projectId, "/users/")
-                              .concat(t.userId),
-                            { headers: { Authorization: "Bearer ".concat(Jn) } }
-                          )
-                        );
-                      case 2:
-                        return (a = e.sent), e.abrupt("return", a.data);
-                      case 4:
-                      case "end":
-                        return e.stop();
-                    }
-                }, e);
-              })
-            );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })()
-        ),
-        ar = Object(fe.b)(
-          "project/addMember",
-          (function () {
-            var e = Object(ne.a)(
-              ae.a.mark(function e(t) {
-                var a;
-                return ae.a.wrap(function (e) {
-                  for (;;)
-                    switch ((e.prev = e.next)) {
-                      case 0:
-                        return (
-                          (e.next = 2),
-                          be.a.put(
-                            ""
-                              .concat(Xn, "api/v1/projects/")
-                              .concat(t.projectId, "/members"),
-                            { members: t.members },
+                              .concat(Jn, "api/v1/workspaces/")
+                              .concat(t.workspace, "/projects"),
+                            t.projectData,
                             {
                               headers: {
                                 "Content-Type": "application/json",
-                                Authorization: "Bearer ".concat(Jn),
+                                Authorization: "Bearer ".concat(Qn),
                               },
                             }
                           )
@@ -4655,7 +4534,115 @@
             };
           })()
         ),
-        nr = Object(fe.c)({
+        tr = Object(fe.b)(
+          "project/newMembers",
+          (function () {
+            var e = Object(ne.a)(
+              ae.a.mark(function e(t) {
+                var a;
+                return ae.a.wrap(function (e) {
+                  for (;;)
+                    switch ((e.prev = e.next)) {
+                      case 0:
+                        return (
+                          (e.next = 2),
+                          be.a.get(
+                            ""
+                              .concat(Jn, "api/v1/workspaces/")
+                              .concat(t.workspaces, "/projects/")
+                              .concat(t.projectId, "/members/new"),
+                            { headers: { Authorization: "Bearer ".concat(Qn) } }
+                          )
+                        );
+                      case 2:
+                        return (a = e.sent), e.abrupt("return", a.data);
+                      case 4:
+                      case "end":
+                        return e.stop();
+                    }
+                }, e);
+              })
+            );
+            return function (t) {
+              return e.apply(this, arguments);
+            };
+          })()
+        ),
+        ar = Object(fe.b)(
+          "project/member",
+          (function () {
+            var e = Object(ne.a)(
+              ae.a.mark(function e(t) {
+                var a;
+                return ae.a.wrap(function (e) {
+                  for (;;)
+                    switch ((e.prev = e.next)) {
+                      case 0:
+                        return (
+                          (e.next = 2),
+                          be.a.get(
+                            ""
+                              .concat(Jn, "api/v1/workspaces/")
+                              .concat(t.workspaces, "/projects/")
+                              .concat(t.projectId, "/users/")
+                              .concat(t.userId),
+                            { headers: { Authorization: "Bearer ".concat(Qn) } }
+                          )
+                        );
+                      case 2:
+                        return (a = e.sent), e.abrupt("return", a.data);
+                      case 4:
+                      case "end":
+                        return e.stop();
+                    }
+                }, e);
+              })
+            );
+            return function (t) {
+              return e.apply(this, arguments);
+            };
+          })()
+        ),
+        nr = Object(fe.b)(
+          "project/addMember",
+          (function () {
+            var e = Object(ne.a)(
+              ae.a.mark(function e(t) {
+                var a;
+                return ae.a.wrap(function (e) {
+                  for (;;)
+                    switch ((e.prev = e.next)) {
+                      case 0:
+                        return (
+                          (e.next = 2),
+                          be.a.put(
+                            ""
+                              .concat(Jn, "api/v1/projects/")
+                              .concat(t.projectId, "/members"),
+                            { members: t.members },
+                            {
+                              headers: {
+                                "Content-Type": "application/json",
+                                Authorization: "Bearer ".concat(Qn),
+                              },
+                            }
+                          )
+                        );
+                      case 2:
+                        return (a = e.sent), e.abrupt("return", a.data);
+                      case 4:
+                      case "end":
+                        return e.stop();
+                    }
+                }, e);
+              })
+            );
+            return function (t) {
+              return e.apply(this, arguments);
+            };
+          })()
+        ),
+        rr = Object(fe.c)({
           name: "project",
           initialState: {
             projects: [],
@@ -4692,29 +4679,29 @@
             },
           },
           extraReducers: function (e) {
-            e.addCase(Qn.fulfilled, function (e, t) {
+            e.addCase($n.fulfilled, function (e, t) {
               e.projects = t.payload.data;
             }),
-              e.addCase(Qn.rejected, function (e, t) {}),
-              e.addCase($n.fulfilled, function (e, t) {
+              e.addCase($n.rejected, function (e, t) {}),
+              e.addCase(Zn.fulfilled, function (e, t) {
                 e.project = t.payload.data;
               }),
-              e.addCase(Zn.fulfilled, function (e, t) {
+              e.addCase(er.fulfilled, function (e, t) {
                 (e.projects = t.payload.data),
                   da.b.info(
                     "\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u3092\u8ffd\u52a0\u3057\u307e\u3057\u305f\u3002",
                     { position: da.b.POSITION.TOP_CENTER }
                   );
               }),
-              e.addCase(er.fulfilled, function (e, t) {
+              e.addCase(tr.fulfilled, function (e, t) {
                 e.newMembers = t.payload.data;
               }),
-              e.addCase(tr.fulfilled, function (e, t) {
+              e.addCase(ar.fulfilled, function (e, t) {
                 (e.member.user = t.payload.user),
                   (e.member.profile = t.payload.profile),
                   (e.member.tasks = t.payload.tasks);
               }),
-              e.addCase(ar.fulfilled, function (e, t) {
+              e.addCase(nr.fulfilled, function (e, t) {
                 da.b.info(
                   "\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u306b\u30e1\u30f3\u30d0\u30fc\u3092\u8ffd\u52a0\u3057\u307e\u3057\u305f",
                   { position: da.b.POSITION.TOP_CENTER }
@@ -4722,26 +4709,26 @@
               });
           },
         }),
-        rr = function (e) {
+        cr = function (e) {
           return e.project.projects;
         },
-        cr = function (e) {
+        or = function (e) {
           return e.project.project;
         },
-        or = function (e) {
+        ir = function (e) {
           return e.project.selectedMember;
         },
-        ir = function (e) {
+        lr = function (e) {
           return e.project.member;
         },
-        lr = function (e) {
+        sr = function (e) {
           return e.project.newMembers;
         },
-        sr = nr.actions,
-        mr = sr.setSelectedMember,
-        ur = sr.setProjectMember,
-        dr = nr.reducer,
-        pr = Object(g.a)({
+        mr = rr.actions,
+        ur = mr.setSelectedMember,
+        dr = mr.setProjectMember,
+        pr = rr.reducer,
+        fr = Object(g.a)({
           title: { fontSize: 23, width: "30%" },
           contentWidth: { width: 150 },
           icon: { fontSize: 55 },
@@ -4753,10 +4740,10 @@
           },
           iconArea: { height: 150, borderRadius: 8 },
         }),
-        fr = function () {
-          var e = pr(),
+        Er = function () {
+          var e = fr(),
             t = Object(l.b)(),
-            a = Object(l.c)(rr);
+            a = Object(l.c)(cr);
           return c.a.createElement(
             c.a.Fragment,
             null,
@@ -4790,7 +4777,7 @@
                       alignItems: "center",
                       className: Object(y.a)(e.iconArea, e.contentWidth),
                     },
-                    c.a.createElement(Gn.a, { style: { fontSize: 100 } })
+                    c.a.createElement(Xn.a, { style: { fontSize: 100 } })
                   ),
                   c.a.createElement(
                     C.a,
@@ -4808,7 +4795,7 @@
                 )
               ),
               a.map(function (e, t) {
-                return c.a.createElement(qn, {
+                return c.a.createElement(Un, {
                   id: e._id,
                   name: e.name,
                   bgColor: d[e.color],
@@ -4819,10 +4806,10 @@
             )
           );
         },
-        Er = a(185),
-        br = a.n(Er),
-        gr = a(251),
-        hr = Object(g.a)(function (e) {
+        br = a(185),
+        gr = a.n(br),
+        hr = a(251),
+        vr = Object(g.a)(function (e) {
           return Object(h.a)({
             root: { display: "flex" },
             appBar: {
@@ -4847,11 +4834,11 @@
             icon: { paddingLeft: 0 },
           });
         }),
-        vr = Object(Ya.a)({ paper: { border: "1px solid #d3d4d5" } })(function (
+        jr = Object(Ya.a)({ paper: { border: "1px solid #d3d4d5" } })(function (
           e
         ) {
           return c.a.createElement(
-            gr.a,
+            hr.a,
             Object.assign(
               {
                 elevation: 0,
@@ -4863,7 +4850,7 @@
             )
           );
         }),
-        jr = Object(Ya.a)(function (e) {
+        Or = Object(Ya.a)(function (e) {
           return {
             root: {
               "&:focus": {
@@ -4878,7 +4865,7 @@
         kr = function (e) {
           var t = e.title,
             a = void 0 === t ? "" : t,
-            n = hr(),
+            n = vr(),
             r = Object(l.b)(),
             o = Object(l.c)(Wt),
             i = (function () {
@@ -4926,7 +4913,7 @@
                   ),
                 },
                 c.a.createElement(
-                  O.a,
+                  k.a,
                   null,
                   c.a.createElement(
                     x.a,
@@ -4939,7 +4926,7 @@
                       edge: "start",
                       className: Object(y.a)(T && n.hide),
                     },
-                    c.a.createElement(k.a, { className: n.menuIcon })
+                    c.a.createElement(O.a, { className: n.menuIcon })
                   ),
                   c.a.createElement(
                     C.a,
@@ -4981,7 +4968,7 @@
                               },
                               style: { padding: 0, paddingRight: 10 },
                             },
-                            c.a.createElement(br.a, { className: n.addIcon })
+                            c.a.createElement(gr.a, { className: n.addIcon })
                           )
                         ),
                         c.a.createElement(
@@ -5009,7 +4996,7 @@
               )
             ),
             c.a.createElement(
-              vr,
+              jr,
               {
                 id: "customized-menu",
                 anchorEl: d,
@@ -5020,7 +5007,7 @@
                 },
               },
               c.a.createElement(
-                jr,
+                Or,
                 {
                   onClick: function () {
                     return r(Ze(!0));
@@ -5029,7 +5016,7 @@
                 "\u30bf\u30b9\u30af\u8ffd\u52a0"
               ),
               c.a.createElement(
-                jr,
+                Or,
                 {
                   onClick: function () {
                     return r(Xe(!0));
@@ -5038,7 +5025,7 @@
                 "\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u8ffd\u52a0"
               ),
               c.a.createElement(
-                jr,
+                Or,
                 {
                   onClick: function () {
                     return r(Je(!0));
@@ -5048,7 +5035,7 @@
               )
             ),
             c.a.createElement(
-              vr,
+              jr,
               {
                 id: "customized-menu",
                 anchorEl: j,
@@ -5059,7 +5046,7 @@
                 },
               },
               c.a.createElement(
-                jr,
+                Or,
                 {
                   onClick: function () {
                     return r(Qe(!0));
@@ -5073,18 +5060,18 @@
                   to: "/workspaces",
                   style: { textDecoration: "none", color: p.VWORK_BLACK },
                 },
-                c.a.createElement(jr, null, "\u4ed6\u306eworkspace ")
+                c.a.createElement(Or, null, "\u4ed6\u306eworkspace ")
               ),
               c.a.createElement(
-                jr,
+                Or,
                 { onClick: i },
                 "\u30ed\u30b0\u30a2\u30a6\u30c8"
               )
             )
           );
         },
-        Or = localStorage.token,
-        wr = Object(fe.b)(
+        wr = localStorage.token,
+        yr = Object(fe.b)(
           "dashboard/invite",
           (function () {
             var e = Object(ne.a)(
@@ -5099,12 +5086,12 @@
                           be.a.post(
                             ""
                               .concat(
-                                "https://v-work.herokuapp.com/",
+                                "https://vwork-production.an.r.appspot.com/",
                                 "api/v1/workspaces/"
                               )
                               .concat(t.workspace, "/members"),
                             { invitations: t.invitations },
-                            { headers: { Authorization: "Bearer ".concat(Or) } }
+                            { headers: { Authorization: "Bearer ".concat(wr) } }
                           )
                         );
                       case 2:
@@ -5121,7 +5108,7 @@
             };
           })()
         ),
-        yr =
+        xr =
           (Object(fe.b)(
             "dashboard/updateProfile",
             (function () {
@@ -5137,7 +5124,7 @@
                             be.a.post(
                               ""
                                 .concat(
-                                  "https://v-work.herokuapp.com/",
+                                  "https://vwork-production.an.r.appspot.com/",
                                   "api/v1/workspaces/"
                                 )
                                 .concat(t.workspace, "/users/")
@@ -5146,7 +5133,7 @@
                               {
                                 headers: {
                                   "Content-Type": "application/json",
-                                  Authorization: "Bearer ".concat(Or),
+                                  Authorization: "Bearer ".concat(wr),
                                 },
                               }
                             )
@@ -5177,13 +5164,13 @@
               },
             },
             extraReducers: function (e) {
-              e.addCase(wr.fulfilled, function (e, t) {
+              e.addCase(yr.fulfilled, function (e, t) {
                 da.b.info(
                   "\u62db\u5f85\u30e1\u30fc\u30eb\u3092\u9001\u4fe1\u3057\u307e\u3057\u305f\u3002",
                   { position: da.b.POSITION.TOP_CENTER }
                 );
               }),
-                e.addCase(wr.rejected, function (e, t) {
+                e.addCase(yr.rejected, function (e, t) {
                   da.b.error(
                     "\u62db\u5f85\u306b\u5931\u6557\u3057\u307e\u3057\u305f\u3002",
                     { position: da.b.POSITION.TOP_CENTER }
@@ -5191,13 +5178,13 @@
                 });
             },
           })),
-        xr = yr.actions,
-        Cr = (xr.setWorkspace, xr.setSelectedMembers),
-        Nr = function (e) {
+        Cr = xr.actions,
+        Nr = (Cr.setWorkspace, Cr.setSelectedMembers),
+        Sr = function (e) {
           return e.dashboard.selectedMembers;
         },
-        Sr = yr.reducer,
-        Ar = function () {
+        Ar = xr.reducer,
+        Tr = function () {
           var e = Object(l.b)(),
             t = Object(l.c)(Wt),
             a = Object(l.c)(wa),
@@ -5212,7 +5199,7 @@
                       for (;;)
                         switch ((t.prev = t.next)) {
                           case 0:
-                            return (t.next = 2), e(dn(a));
+                            return (t.next = 2), e(pn(a));
                           case 2:
                           case "end":
                             return t.stop();
@@ -5229,7 +5216,7 @@
           return (
             Object(r.useEffect)(
               function () {
-                e(Cr([t]));
+                e(Nr([t]));
               },
               [e, t, a]
             ),
@@ -5246,7 +5233,7 @@
                 S.a,
                 null,
                 c.a.createElement(kr, { title: "\u30db\u30fc\u30e0" }),
-                c.a.createElement(Rn, null),
+                c.a.createElement(In, null),
                 n && n.length > 0
                   ? c.a.createElement($a, {
                       title: "\u671f\u9650\u304c\u8fd1\u3044\u30bf\u30b9\u30af",
@@ -5261,13 +5248,13 @@
                       taskData: o,
                     })
                   : "",
-                c.a.createElement(fr, null)
+                c.a.createElement(Er, null)
               )
             )
           );
         },
-        Tr = a(320),
-        Wr = Object(g.a)(function (e) {
+        Wr = a(320),
+        Rr = Object(g.a)(function (e) {
           return Object(h.a)({
             button: {
               backgroundColor: p.VWORK_DARK_BLUE,
@@ -5277,8 +5264,8 @@
             margin: { margin: e.spacing(1) },
           });
         }),
-        Rr = function () {
-          var e = Wr(),
+        Ir = function () {
+          var e = Rr(),
             t = Object(l.b)(),
             a = Object(l.c)(Rt),
             n = Object(r.useCallback)(
@@ -5327,7 +5314,7 @@
                     variant: "contained",
                     color: "secondary",
                     className: e.button,
-                    startIcon: c.a.createElement(Gn.a, null),
+                    startIcon: c.a.createElement(Xn.a, null),
                     onClick: function () {
                       return t(Ze(!0));
                     },
@@ -5343,7 +5330,7 @@
                   qa.a,
                   { className: e.margin },
                   c.a.createElement(
-                    Tr.a,
+                    Wr.a,
                     { id: "task-state" },
                     "\u7d5e\u308a\u8fbc\u307f"
                   ),
@@ -5375,8 +5362,8 @@
             )
           );
         },
-        Ir = ["TODO", "\u9032\u884c\u4e2d", "\u5b8c\u4e86"],
-        _r = function () {
+        _r = ["TODO", "\u9032\u884c\u4e2d", "\u5b8c\u4e86"],
+        Br = function () {
           var e = Object(l.b)(),
             t = Object(l.c)(Rt),
             a = Object(l.c)(wa),
@@ -5420,7 +5407,7 @@
             ),
             Object(r.useEffect)(
               function () {
-                e(Cr([n]));
+                e(Nr([n]));
               },
               [e, n, o]
             ),
@@ -5433,7 +5420,7 @@
                 c.a.createElement(kr, {
                   title: "\u30de\u30a4\u30bf\u30b9\u30af",
                 }),
-                c.a.createElement(Rr, null),
+                c.a.createElement(Ir, null),
                 a.todaysTasks && a.todaysTasks.length > 0
                   ? c.a.createElement($a, {
                       title: "\u4eca\u65e5\u3084\u308b",
@@ -5444,7 +5431,7 @@
                   ? c.a.createElement($a, {
                       title: i
                         ? "\u3010".concat(
-                            Ir[Number(i)],
+                            _r[Number(i)],
                             "\u3011\u30bf\u30b9\u30af\u4e00\u89a7"
                           )
                         : "\u4e00\u89a7",
@@ -5455,11 +5442,11 @@
             )
           );
         },
-        Br = a(188),
-        Kr = a(377),
-        zr = a(370),
-        Vr = a(35),
-        Dr = function () {
+        Kr = a(188),
+        zr = a(377),
+        Vr = a(370),
+        Dr = a(35),
+        Fr = function () {
           var e = Object(r.useState)(new Date()),
             t = Object(E.a)(e, 2),
             a = t[0],
@@ -5481,7 +5468,7 @@
                             return (
                               (e.next = 2),
                               d(
-                                fn({
+                                En({
                                   workspace: t,
                                   query: { year: a, month: n },
                                 })
@@ -5518,9 +5505,9 @@
                   C.a,
                   { item: !0 },
                   c.a.createElement(
-                    Vr.a,
-                    { utils: Br.a, locale: Kr.a },
-                    c.a.createElement(zr.a, {
+                    Dr.a,
+                    { utils: Kr.a, locale: zr.a },
+                    c.a.createElement(Vr.a, {
                       openTo: "month",
                       views: ["year", "month"],
                       label: "\u7d5e\u308a\u8fbc\u3080",
@@ -5552,9 +5539,9 @@
             )
           );
         },
-        Fr = a(187),
-        Mr = a.n(Fr),
-        Lr = Object(g.a)(function (e) {
+        Mr = a(187),
+        Lr = a.n(Mr),
+        Hr = Object(g.a)(function (e) {
           return Object(h.a)({
             root: { minWidth: 275, borderRadius: 10, marginTop: 25 },
             title: { fontSize: 18 },
@@ -5563,9 +5550,9 @@
             task: { fontSize: 20 },
           });
         }),
-        Hr = function (e) {
+        Pr = function (e) {
           var t = e.attendance,
-            a = Lr(),
+            a = Hr(),
             n = Object(l.b)(),
             r = ua()(t.startedAt).utcOffset("+09:00"),
             o = ua()(t.endedAt).utcOffset("+09:00"),
@@ -5585,7 +5572,7 @@
                 $t.a,
                 {
                   onClick: function () {
-                    n(On(t._id)), n(et(!0));
+                    n(wn(t._id)), n(et(!0));
                   },
                 },
                 c.a.createElement(
@@ -5754,7 +5741,7 @@
                               c.a.createElement(
                                 R.a,
                                 { mr: 3 },
-                                c.a.createElement(Mr.a, { color: "secondary" })
+                                c.a.createElement(Lr.a, { color: "secondary" })
                               )
                             ),
                             c.a.createElement(
@@ -5776,7 +5763,7 @@
             )
           );
         },
-        Pr = function (e) {
+        Yr = function (e) {
           var t = e.attendances;
           return c.a.createElement(
             c.a.Fragment,
@@ -5789,16 +5776,16 @@
                 { item: !0 },
                 t &&
                   t.map(function (e, t) {
-                    return c.a.createElement(Hr, { key: t, attendance: e });
+                    return c.a.createElement(Pr, { key: t, attendance: e });
                   })
               )
             )
           );
         },
-        Yr = function () {
+        qr = function () {
           var e = Object(l.b)(),
             t = Object(l.c)(Rt),
-            a = Object(l.c)(hn),
+            a = Object(l.c)(vn),
             n = Object(r.useCallback)(
               (function () {
                 var t = Object(ne.a)(
@@ -5807,7 +5794,7 @@
                       for (;;)
                         switch ((t.prev = t.next)) {
                           case 0:
-                            return (t.next = 2), e(dn(a));
+                            return (t.next = 2), e(pn(a));
                           case 2:
                           case "end":
                             return t.stop();
@@ -5829,7 +5816,7 @@
                       for (;;)
                         switch ((t.prev = t.next)) {
                           case 0:
-                            return (t.next = 2), e(fn({ workspace: a }));
+                            return (t.next = 2), e(En({ workspace: a }));
                           case 2:
                           case "end":
                             return t.stop();
@@ -5857,14 +5844,14 @@
                 S.a,
                 null,
                 c.a.createElement(kr, { title: "\u52e4\u6020\u7ba1\u7406" }),
-                c.a.createElement(Rn, null),
-                c.a.createElement(Dr, null),
-                c.a.createElement(Pr, { attendances: a })
+                c.a.createElement(In, null),
+                c.a.createElement(Fr, null),
+                c.a.createElement(Yr, { attendances: a })
               )
             )
           );
         },
-        qr = Object(g.a)(function (e) {
+        Ur = Object(g.a)(function (e) {
           return Object(h.a)({
             button: {
               backgroundColor: p.VWORK_DARK_BLUE,
@@ -5873,8 +5860,8 @@
             },
           });
         }),
-        Ur = function () {
-          var e = qr(),
+        Gr = function () {
+          var e = Ur(),
             t = Object(l.b)();
           return c.a.createElement(
             c.a.Fragment,
@@ -5896,7 +5883,7 @@
                     variant: "contained",
                     color: "secondary",
                     className: e.button,
-                    startIcon: c.a.createElement(Gn.a, null),
+                    startIcon: c.a.createElement(Xn.a, null),
                     onClick: function () {
                       return t(Ze(!0));
                     },
@@ -5908,13 +5895,13 @@
             )
           );
         },
-        Gr = Object(g.a)(function (e) {
+        Xr = Object(g.a)(function (e) {
           return Object(h.a)({ icon: { fontSize: 30 } });
         }),
-        Xr = function (e) {
+        Jr = function (e) {
           var t = e.name,
             a = e.memberId,
-            n = Gr(),
+            n = Xr(),
             r = Object(l.b)();
           return c.a.createElement(
             c.a.Fragment,
@@ -5925,7 +5912,7 @@
                 button: !0,
                 style: { paddingLeft: 0 },
                 onClick: function () {
-                  r(mr(a)), r(rt(!0));
+                  r(ur(a)), r(rt(!0));
                 },
                 "data-testid": "test",
               },
@@ -5938,13 +5925,13 @@
             )
           );
         },
-        Jr = Object(g.a)(function (e) {
+        Qr = Object(g.a)(function (e) {
           return Object(h.a)({ button: { width: "50%" } });
         }),
-        Qr = function () {
-          var e = Jr(),
-            t = Object(l.c)(lr),
-            a = Object(l.c)(cr),
+        $r = function () {
+          var e = Qr(),
+            t = Object(l.c)(sr),
+            a = Object(l.c)(or),
             n = Object(l.b)();
           return c.a.createElement(
             c.a.Fragment,
@@ -5965,10 +5952,10 @@
                                 r.setSubmitting(!1),
                                 n(Ue(!0)),
                                 (e.next = 4),
-                                n(ar({ projectId: a._id, members: t.members }))
+                                n(nr({ projectId: a._id, members: t.members }))
                               );
                             case 4:
-                              return (e.next = 6), n($n(a._id));
+                              return (e.next = 6), n(Zn(a._id));
                             case 6:
                               n(Ue(!1)), n(nt(!1));
                             case 8:
@@ -6049,19 +6036,19 @@
             )
           );
         },
-        $r = Object(g.a)(function (e) {
+        Zr = Object(g.a)(function (e) {
           return Object(h.a)({
             closeIcon: { padding: 0 },
             drawerTitle: { fontSize: 25, width: "85%" },
             button: { width: 300 },
           });
         }),
-        Zr = function () {
-          var e = $r(),
+        ec = function () {
+          var e = Zr(),
             t = Object(l.b)(),
             a = Object(l.c)(Et),
             n = Object(l.c)(Rt),
-            o = Object(l.c)(cr)._id,
+            o = Object(l.c)(or)._id,
             i = Object(r.useCallback)(
               (function () {
                 var e = Object(ne.a)(
@@ -6072,7 +6059,7 @@
                           case 0:
                             return (
                               (e.next = 2),
-                              t(er({ workspaces: a, projectId: n }))
+                              t(tr({ workspaces: a, projectId: n }))
                             );
                           case 2:
                           case "end":
@@ -6118,13 +6105,13 @@
                     },
                     "\u8ffd\u52a0\u3059\u308b\u30e1\u30f3\u30d0\u30fc\u3092\u9078\u629e"
                   ),
-                  c.a.createElement(Qr, null)
+                  c.a.createElement($r, null)
                 )
               )
             )
           );
         },
-        ec = Object(g.a)(function (e) {
+        tc = Object(g.a)(function (e) {
           return Object(h.a)({
             title: { fontSize: 23, width: 300 },
             icon: { fontSize: 45 },
@@ -6136,9 +6123,9 @@
             button: { width: 300 },
           });
         }),
-        tc = function (e) {
+        ac = function (e) {
           var t = e.members,
-            a = ec(),
+            a = tc(),
             n = Object(l.b)(),
             r = Object(l.c)(Et);
           return c.a.createElement(
@@ -6168,7 +6155,7 @@
                   c.a.createElement(
                     B.a,
                     null,
-                    c.a.createElement(br.a, { className: a.icon })
+                    c.a.createElement(gr.a, { className: a.icon })
                   ),
                   c.a.createElement(K.a, {
                     primary: "\u30e1\u30f3\u30d0\u30fc\u3092\u8ffd\u52a0",
@@ -6180,7 +6167,7 @@
                 { item: !0 },
                 t &&
                   t.map(function (e, t) {
-                    return c.a.createElement(Xr, {
+                    return c.a.createElement(Jr, {
                       name: e.name,
                       key: t,
                       memberId: e._id,
@@ -6188,12 +6175,12 @@
                   })
               )
             ),
-            r ? c.a.createElement(Zr, null) : ""
+            r ? c.a.createElement(ec, null) : ""
           );
         },
-        ac = function () {
+        nc = function () {
           var e = Object(l.b)(),
-            t = Object(l.c)(cr),
+            t = Object(l.c)(or),
             a = Object(l.c)(wa),
             n = Object(m.g)().projectId,
             o = Object(r.useCallback)(
@@ -6204,7 +6191,7 @@
                       for (;;)
                         switch ((t.prev = t.next)) {
                           case 0:
-                            return (t.next = 2), e($n(a));
+                            return (t.next = 2), e(Zn(a));
                           case 2:
                           case "end":
                             return t.stop();
@@ -6242,7 +6229,7 @@
             ),
             s = Object(r.useCallback)(
               function (t) {
-                e(Cr(t));
+                e(Nr(t));
               },
               [e]
             ),
@@ -6272,7 +6259,7 @@
                   { mb: 5, pb: 1, borderBottom: 1, width: "69%" },
                   c.a.createElement(w.a, { variant: "body1" }, t.description)
                 ),
-                c.a.createElement(Ur, null),
+                c.a.createElement(Gr, null),
                 c.a.createElement(
                   C.a,
                   { container: !0, direction: "row", justify: "space-between" },
@@ -6287,16 +6274,16 @@
                   c.a.createElement(
                     C.a,
                     { item: !0 },
-                    c.a.createElement(tc, { members: t.members })
+                    c.a.createElement(ac, { members: t.members })
                   )
                 )
               )
             )
           );
         },
-        nc = a(243),
-        rc = a.n(nc),
-        cc = function (e) {
+        rc = a(243),
+        cc = a.n(rc),
+        oc = function (e) {
           var t = e.title,
             a = void 0 === t ? "" : t,
             n = e.bgColor,
@@ -6319,20 +6306,20 @@
                 c.a.createElement(
                   B.a,
                   null,
-                  c.a.createElement(rc.a, { style: { color: n } })
+                  c.a.createElement(cc.a, { style: { color: n } })
                 ),
                 c.a.createElement(K.a, { primary: a })
               )
             )
           );
         },
-        oc = function () {
-          var e = Object(l.c)(rr);
+        ic = function () {
+          var e = Object(l.c)(cr);
           return c.a.createElement(
             c.a.Fragment,
             null,
             e.map(function (e, t) {
-              return c.a.createElement(cc, {
+              return c.a.createElement(oc, {
                 title: e.name,
                 bgColor: d[e.color],
                 projectId: e._id,
@@ -6341,7 +6328,7 @@
             })
           );
         },
-        ic = Object(g.a)(function (e) {
+        lc = Object(g.a)(function (e) {
           return Object(h.a)({
             title: { fontSize: 15 },
             backdrop: { zIndex: e.zIndex.drawer + 1, color: "#fff" },
@@ -6351,8 +6338,8 @@
             icon: { borderRadius: 10 },
           });
         }),
-        lc = function () {
-          var e = ic(),
+        sc = function () {
+          var e = lc(),
             t = Object(l.b)();
           return c.a.createElement(
             c.a.Fragment,
@@ -6389,15 +6376,15 @@
                       },
                       "data-testid": "test",
                     },
-                    c.a.createElement(Gn.a, { className: e.icon })
+                    c.a.createElement(Xn.a, { className: e.icon })
                   )
                 )
               )
             ),
-            c.a.createElement(oc, null)
+            c.a.createElement(ic, null)
           );
         },
-        sc = Object(g.a)(function (e) {
+        mc = Object(g.a)(function (e) {
           return Object(h.a)({
             root: { display: "flex" },
             drawer: { width: 240, flexShrink: 0, color: p.VWORK_BLACK },
@@ -6421,8 +6408,8 @@
             icon: { color: p.VWORK_WHITE },
           });
         }),
-        mc = function () {
-          var e = sc(),
+        uc = function () {
+          var e = mc(),
             t = Object(m.f)(),
             a = Object(l.b)(),
             n = Object(l.c)(ot),
@@ -6504,7 +6491,7 @@
                             return a(Ge(!1));
                           },
                         },
-                        c.a.createElement(k.a, { className: e.menuIcon })
+                        c.a.createElement(O.a, { className: e.menuIcon })
                       )
                     )
                   )
@@ -6562,20 +6549,20 @@
                     })
                   )
                 ),
-                c.a.createElement(lc, null)
+                c.a.createElement(sc, null)
               )
             )
           );
         },
-        uc = function () {
+        dc = function () {
           return c.a.createElement(
             c.a.Fragment,
             null,
-            c.a.createElement(mc, null)
+            c.a.createElement(uc, null)
           );
         },
-        dc = a(372),
-        pc = Object(g.a)(function (e) {
+        pc = a(372),
+        fc = Object(g.a)(function (e) {
           return {
             formArea: {
               backgroundColor: p.VWORK_BLACK,
@@ -6585,8 +6572,8 @@
             submit: { margin: e.spacing(3, 0, 2) },
           };
         }),
-        fc = function () {
-          var e = pc(),
+        Ec = function () {
+          var e = fc(),
             t = Object(l.b)(),
             a = Object(l.c)(it),
             n = Object(l.c)(Rt);
@@ -6641,7 +6628,7 @@
                                   return (
                                     (e.next = 2),
                                     t(
-                                      Zn({
+                                      er({
                                         workspace: n,
                                         projectData: {
                                           name: a.name,
@@ -6706,7 +6693,7 @@
             )
           );
         },
-        Ec = Object(g.a)(function (e) {
+        bc = Object(g.a)(function (e) {
           return Object(h.a)({
             root: { width: "100%" },
             formArea: {
@@ -6716,8 +6703,8 @@
             },
           });
         }),
-        bc = function () {
-          var e = Ec(),
+        gc = function () {
+          var e = bc(),
             t = Object(l.b)(),
             a = Object(l.c)(lt),
             n = Object(l.c)(Rt);
@@ -6784,7 +6771,7 @@
                                     t(Ue(!0)),
                                     (e.next = 3),
                                     t(
-                                      wr({
+                                      yr({
                                         workspace: n,
                                         invitations: a.invitations,
                                       })
@@ -6914,7 +6901,7 @@
             )
           );
         },
-        gc = Object(g.a)(function (e) {
+        hc = Object(g.a)(function (e) {
           return {
             formArea: {
               backgroundColor: p.VWORK_BLACK,
@@ -6924,8 +6911,8 @@
             submit: { margin: e.spacing(3, 0, 2) },
           };
         }),
-        hc = function () {
-          var e = gc(),
+        vc = function () {
+          var e = hc(),
             t = Object(l.b)(),
             a = Object(l.c)(st);
           return c.a.createElement(
@@ -7010,19 +6997,19 @@
             )
           );
         },
-        vc = a(383),
-        jc = a(208),
+        jc = a(383),
+        Oc = a(208),
         kc = a(244),
-        Oc = a.n(kc),
-        wc = a(247),
-        yc = a.n(wc),
-        xc = a(245),
-        Cc = a.n(xc),
-        Nc = a(246),
-        Sc = a.n(Nc),
-        Ac = a(248),
-        Tc = a.n(Ac),
-        Wc = Object(g.a)(function (e) {
+        wc = a.n(kc),
+        yc = a(247),
+        xc = a.n(yc),
+        Cc = a(245),
+        Nc = a.n(Cc),
+        Sc = a(246),
+        Ac = a.n(Sc),
+        Tc = a(248),
+        Wc = a.n(Tc),
+        Rc = Object(g.a)(function (e) {
           return Object(h.a)({
             formControl: { margin: e.spacing(1), minWidth: "100%" },
             selectEmpty: { marginTop: e.spacing(2) },
@@ -7030,16 +7017,16 @@
             formContent: { marginBottom: e.spacing(1) },
           });
         }),
-        Rc = ["TODO", "\u9032\u884c\u4e2d", "\u5b8c\u4e86"],
-        Ic = ["\u4f4e", "\u4e2d", "\u9ad8"],
-        _c = function (e) {
+        Ic = ["TODO", "\u9032\u884c\u4e2d", "\u5b8c\u4e86"],
+        _c = ["\u4f4e", "\u4e2d", "\u9ad8"],
+        Bc = function (e) {
           var t = e.projects,
             a = e.submitFunction,
             n = e.taskData,
-            r = Wc(),
+            r = Rc(),
             o = Object(l.c)(Rt),
-            i = Object(l.c)(cr),
-            s = Object(l.c)(Nr);
+            i = Object(l.c)(or),
+            s = Object(l.c)(Sr);
           n.startDateAt || (n.startDateAt = ua()().toString()),
             n.endDateAt || (n.endDateAt = ua()().add(1, "days").toString()),
             n.todaysTask || (n.todaysTask = !1),
@@ -7167,7 +7154,7 @@
                           display: "flex",
                           alignItems: "center",
                         },
-                        c.a.createElement(Oc.a, {
+                        c.a.createElement(wc.a, {
                           color: "disabled",
                           className: r.labelIcon,
                         }),
@@ -7221,7 +7208,7 @@
                           display: "flex",
                           alignItems: "center",
                         },
-                        c.a.createElement(Cc.a, {
+                        c.a.createElement(Nc.a, {
                           color: "disabled",
                           className: r.labelIcon,
                         }),
@@ -7235,8 +7222,8 @@
                         qa.a,
                         { className: r.formControl },
                         c.a.createElement(
-                          Vr.a,
-                          { utils: Br.a, locale: Kr.a },
+                          Dr.a,
+                          { utils: Kr.a, locale: zr.a },
                           c.a.createElement(
                             C.a,
                             { container: !0, spacing: 2 },
@@ -7244,7 +7231,7 @@
                               C.a,
                               { item: !0 },
                               c.a.createElement(ue.a, {
-                                component: jc.a,
+                                component: Oc.a,
                                 name: "startDateAt",
                                 label: "\u958b\u59cb",
                                 id: "startDateAt",
@@ -7255,7 +7242,7 @@
                               C.a,
                               { item: !0 },
                               c.a.createElement(ue.a, {
-                                component: jc.a,
+                                component: Oc.a,
                                 name: "endDateAt",
                                 label: "\u7d42\u4e86",
                                 id: "endDateAt",
@@ -7294,7 +7281,7 @@
                         qa.a,
                         { className: r.formControl },
                         c.a.createElement(
-                          Tr.a,
+                          Wr.a,
                           { htmlFor: "project" },
                           "\u30d7\u30ed\u30b8\u30a7\u30af\u30c8"
                         ),
@@ -7360,9 +7347,9 @@
                             defaultValue: e.values.state,
                             inputProps: { id: "state" },
                           },
-                          c.a.createElement(Xa.a, { value: 0 }, Rc[0]),
-                          c.a.createElement(Xa.a, { value: 1 }, Rc[1]),
-                          c.a.createElement(Xa.a, { value: 2 }, Rc[2])
+                          c.a.createElement(Xa.a, { value: 0 }, Ic[0]),
+                          c.a.createElement(Xa.a, { value: 1 }, Ic[1]),
+                          c.a.createElement(Xa.a, { value: 2 }, Ic[2])
                         )
                       )
                     )
@@ -7380,7 +7367,7 @@
                           display: "flex",
                           alignItems: "center",
                         },
-                        c.a.createElement(Sc.a, {
+                        c.a.createElement(Ac.a, {
                           color: "disabled",
                           className: r.labelIcon,
                         }),
@@ -7403,9 +7390,9 @@
                             as: "select",
                             inputProps: { id: "priority" },
                           },
-                          c.a.createElement(Xa.a, { value: 0 }, Ic[0]),
-                          c.a.createElement(Xa.a, { value: 1 }, Ic[1]),
-                          c.a.createElement(Xa.a, { value: 2 }, Ic[2])
+                          c.a.createElement(Xa.a, { value: 0 }, _c[0]),
+                          c.a.createElement(Xa.a, { value: 1 }, _c[1]),
+                          c.a.createElement(Xa.a, { value: 2 }, _c[2])
                         )
                       )
                     )
@@ -7423,7 +7410,7 @@
                           display: "flex",
                           alignItems: "center",
                         },
-                        c.a.createElement(yc.a, {
+                        c.a.createElement(xc.a, {
                           color: "disabled",
                           className: r.labelIcon,
                         }),
@@ -7436,7 +7423,7 @@
                       c.a.createElement(
                         qa.a,
                         { className: r.formControl },
-                        c.a.createElement(vc.a, {
+                        c.a.createElement(jc.a, {
                           color: "secondary",
                           name: "progress",
                           id: "progress",
@@ -7461,7 +7448,7 @@
                       c.a.createElement(
                         R.a,
                         { display: "flex", alignItems: "center" },
-                        c.a.createElement(Tc.a, {
+                        c.a.createElement(Wc.a, {
                           color: "disabled",
                           className: r.labelIcon,
                         }),
@@ -7494,10 +7481,10 @@
             )
           );
         },
-        Bc = a(249),
-        Kc = a.n(Bc),
-        zc = function () {
-          var e = Object(l.c)(cr),
+        Kc = a(249),
+        zc = a.n(Kc),
+        Vc = function () {
+          var e = Object(l.c)(or),
             t = Object(l.b)(),
             a = Object(l.c)(mt),
             n = Object(l.c)(Aa),
@@ -7531,7 +7518,7 @@
             },
             [s, o]
           );
-          var m = Object(l.c)(rr).map(function (e) {
+          var m = Object(l.c)(cr).map(function (e) {
               return { id: e._id, name: e.name };
             }),
             u = c.a.useState(null),
@@ -7571,7 +7558,7 @@
                         case 12:
                           return (a.next = 14), t(ja(c));
                         case 14:
-                          return (a.next = 16), t(ka(c));
+                          return (a.next = 16), t(Oa(c));
                         case 16:
                         case "end":
                           return a.stop();
@@ -7624,10 +7611,10 @@
                         f(e.currentTarget);
                       },
                     },
-                    c.a.createElement(Kc.a, null)
+                    c.a.createElement(zc.a, null)
                   ),
                   c.a.createElement(
-                    gr.a,
+                    hr.a,
                     {
                       id: "simple-menu",
                       anchorEl: p,
@@ -7650,7 +7637,7 @@
                     )
                   )
                 ),
-                c.a.createElement(_c, {
+                c.a.createElement(Bc, {
                   projects: m,
                   submitFunction: h,
                   taskData: b,
@@ -7659,11 +7646,11 @@
             )
           );
         },
-        Vc = function () {
+        Dc = function () {
           var e = Object(l.b)(),
             t = Object(l.c)(ut),
-            a = Object(l.c)(cr),
-            n = Object(l.c)(rr).map(function (e) {
+            a = Object(l.c)(or),
+            n = Object(l.c)(cr).map(function (e) {
               return { id: e._id, name: e.name };
             }),
             r = window.location.pathname,
@@ -7696,7 +7683,7 @@
                         case 12:
                           return (t.next = 14), e(ja(c));
                         case 14:
-                          return (t.next = 16), e(ka(c));
+                          return (t.next = 16), e(Oa(c));
                         case 16:
                           e(Ze(!1));
                         case 17:
@@ -7728,7 +7715,7 @@
                     c.a.createElement(
                       R.a,
                       { mt: 5 },
-                      c.a.createElement(_c, {
+                      c.a.createElement(Bc, {
                         projects: n,
                         submitFunction: o,
                         taskData: {
@@ -7750,7 +7737,7 @@
               : ""
           );
         },
-        Dc = Object(g.a)(function (e) {
+        Fc = Object(g.a)(function (e) {
           return Object(h.a)({
             root: {
               borderRadius: 10,
@@ -7762,10 +7749,10 @@
             title: { fontSize: 20 },
           });
         }),
-        Fc = function () {
-          var e = Dc(),
+        Mc = function () {
+          var e = Fc(),
             t = Object(l.b)(),
-            a = Object(l.c)(jn);
+            a = Object(l.c)(On);
           return c.a.createElement(
             c.a.Fragment,
             null,
@@ -7889,7 +7876,7 @@
                               c.a.createElement(
                                 C.a,
                                 { item: !0 },
-                                c.a.createElement(Mr.a, null)
+                                c.a.createElement(Lr.a, null)
                               )
                             ),
                             c.a.createElement(
@@ -7937,10 +7924,10 @@
             )
           );
         },
-        Mc = function () {
+        Lc = function () {
           var e = Object(l.b)(),
             t = Object(l.c)(dt),
-            a = Object(l.c)(vn),
+            a = Object(l.c)(jn),
             n = Object(l.c)(Rt),
             o = Object(r.useCallback)(
               (function () {
@@ -7950,7 +7937,7 @@
                       for (;;)
                         switch ((t.prev = t.next)) {
                           case 0:
-                            return (t.next = 2), e(En({ workspace: a, id: n }));
+                            return (t.next = 2), e(bn({ workspace: a, id: n }));
                           case 2:
                           case "end":
                             return t.stop();
@@ -7981,7 +7968,7 @@
                   click: function () {
                     e(et(!1)),
                       e(
-                        wn({
+                        yn({
                           tasks: [],
                           _id: "",
                           user: "",
@@ -8005,7 +7992,7 @@
                     c.a.createElement(
                       C.a,
                       { item: !0 },
-                      c.a.createElement(Fc, null)
+                      c.a.createElement(Mc, null)
                     )
                   )
                 )
@@ -8013,7 +8000,7 @@
             )
           );
         },
-        Lc = Object(g.a)(function (e) {
+        Hc = Object(g.a)(function (e) {
           return Object(h.a)({
             closeIcon: { padding: 0 },
             profile: { fontSize: 20 },
@@ -8021,14 +8008,14 @@
             profileItem: { margin: 0 },
           });
         }),
-        Hc = function () {
-          var e = Lc(),
+        Pc = function () {
+          var e = Hc(),
             t = Object(l.b)(),
             a = Object(l.c)(Rt),
             n = Object(l.c)(bt),
-            o = Object(l.c)(cr),
-            i = Object(l.c)(or),
-            s = Object(l.c)(ir),
+            o = Object(l.c)(or),
+            i = Object(l.c)(ir),
+            s = Object(l.c)(lr),
             m = Object(r.useCallback)(
               (function () {
                 var e = Object(ne.a)(
@@ -8039,7 +8026,7 @@
                           case 0:
                             return (
                               (e.next = 2),
-                              t(tr({ workspaces: a, projectId: n, userId: r }))
+                              t(ar({ workspaces: a, projectId: n, userId: r }))
                             );
                           case 2:
                           case "end":
@@ -8070,7 +8057,7 @@
                   open: n,
                   click: function () {
                     t(
-                      ur({
+                      dr({
                         user: {
                           _id: "",
                           name: "",
@@ -8184,7 +8171,7 @@
             )
           );
         },
-        Pc =
+        Yc =
           (a(302),
           Object(g.a)(function (e) {
             return Object(h.a)({
@@ -8216,8 +8203,8 @@
               ),
             });
           })),
-        Yc = function () {
-          var e = Pc(),
+        qc = function () {
+          var e = Yc(),
             t = Object(l.b)(),
             a = Object(l.c)(Rt),
             n = Object(r.useCallback)(
@@ -8244,7 +8231,7 @@
                     for (;;)
                       switch ((e.prev = e.next)) {
                         case 0:
-                          return (e.next = 2), t(Qn(a));
+                          return (e.next = 2), t($n(a));
                         case 2:
                         case "end":
                           return e.stop();
@@ -8261,7 +8248,7 @@
                     for (;;)
                       switch ((e.prev = e.next)) {
                         case 0:
-                          return (e.next = 2), t(ka(a));
+                          return (e.next = 2), t(Oa(a));
                         case 2:
                         case "end":
                           return e.stop();
@@ -8306,9 +8293,9 @@
           return c.a.createElement(
             "div",
             { className: e.root },
-            c.a.createElement(uc, null),
+            c.a.createElement(dc, null),
             c.a.createElement(da.a, { hideProgressBar: !0, autoClose: 2e3 }),
-            c.a.createElement(dc.a, null),
+            c.a.createElement(pc.a, null),
             c.a.createElement(
               "main",
               {
@@ -8318,42 +8305,42 @@
                 ),
               },
               c.a.createElement("div", { className: e.drawerHeader }),
-              p ? c.a.createElement(fc, null) : "",
-              f ? c.a.createElement(bc, null) : "",
-              E ? c.a.createElement(hc, null) : "",
-              g ? c.a.createElement(zc, null) : "",
-              h ? c.a.createElement(Vc, null) : "",
-              v ? c.a.createElement(Hc, null) : "",
-              j ? c.a.createElement(Mc, null) : "",
+              p ? c.a.createElement(Ec, null) : "",
+              f ? c.a.createElement(gc, null) : "",
+              E ? c.a.createElement(vc, null) : "",
+              g ? c.a.createElement(Vc, null) : "",
+              h ? c.a.createElement(Dc, null) : "",
+              v ? c.a.createElement(Pc, null) : "",
+              j ? c.a.createElement(Lc, null) : "",
               c.a.createElement(
                 m.c,
                 null,
                 c.a.createElement(
                   m.a,
                   { path: "/", exact: !0 },
-                  c.a.createElement(Ar, null)
+                  c.a.createElement(Tr, null)
                 ),
                 c.a.createElement(
                   m.a,
                   { path: "/mytask", exact: !0 },
-                  c.a.createElement(_r, null)
+                  c.a.createElement(Br, null)
                 ),
                 c.a.createElement(
                   m.a,
                   { path: "/work_manage", exact: !0 },
-                  c.a.createElement(Yr, null)
+                  c.a.createElement(qr, null)
                 ),
                 c.a.createElement(
                   m.a,
                   { path: "/project/:projectId", exact: !0 },
-                  c.a.createElement(ac, null)
+                  c.a.createElement(nc, null)
                 )
               )
             )
           );
         },
-        qc = a(157),
-        Uc = Object(g.a)(function (e) {
+        Uc = a(157),
+        Gc = Object(g.a)(function (e) {
           return {
             paper: {
               height: "70vh",
@@ -8377,11 +8364,11 @@
             },
           };
         }),
-        Gc = function (e) {
+        Xc = function (e) {
           var t = e.children,
             a = e.buttonText,
             n = e.buttonPath,
-            r = Uc();
+            r = Gc();
           return c.a.createElement(
             S.a,
             { maxWidth: "sm" },
@@ -8420,7 +8407,7 @@
             c.a.createElement("div", { className: r.paper }, t)
           );
         },
-        Xc = Object(g.a)(function (e) {
+        Jc = Object(g.a)(function (e) {
           return {
             root: { height: "100vh" },
             formArea: {
@@ -8460,13 +8447,13 @@
             },
           };
         }),
-        Jc = function () {
-          var e = Xc(),
+        Qc = function () {
+          var e = Jc(),
             t = Object(l.b)();
           return c.a.createElement(
             C.a,
             { container: !0, component: "main", className: e.root },
-            c.a.createElement(dc.a, null),
+            c.a.createElement(pc.a, null),
             c.a.createElement(
               C.a,
               {
@@ -8475,7 +8462,7 @@
                 xs: 12,
                 sm: 8,
                 md: 6,
-                component: qc.a,
+                component: Uc.a,
                 elevation: 6,
                 direction: "column",
                 alignItems: "center",
@@ -8483,7 +8470,7 @@
                 className: e.formArea,
               },
               c.a.createElement(
-                Gc,
+                Xc,
                 {
                   buttonPath: "/auth/login",
                   buttonText: "\u30ed\u30b0\u30a4\u30f3",
@@ -8587,8 +8574,8 @@
             })
           );
         },
-        Qc = a(373),
-        $c = Object(g.a)(function (e) {
+        $c = a(373),
+        Zc = Object(g.a)(function (e) {
           return {
             root: { height: "100vh" },
             formArea: {
@@ -8628,8 +8615,8 @@
             },
           };
         }),
-        Zc = function () {
-          var e = $c(),
+        eo = function () {
+          var e = Zc(),
             t = Object(l.b)();
           return c.a.createElement(
             "div",
@@ -8637,7 +8624,7 @@
             c.a.createElement(
               C.a,
               { container: !0, component: "main", className: e.root },
-              c.a.createElement(dc.a, null),
+              c.a.createElement(pc.a, null),
               c.a.createElement(
                 C.a,
                 {
@@ -8646,7 +8633,7 @@
                   xs: 12,
                   sm: 8,
                   md: 6,
-                  component: qc.a,
+                  component: Uc.a,
                   elevation: 6,
                   direction: "column",
                   alignItems: "center",
@@ -8654,7 +8641,7 @@
                   className: e.formArea,
                 },
                 c.a.createElement(
-                  Gc,
+                  Xc,
                   {
                     buttonPath: "/auth/signup",
                     buttonText: "\u4f1a\u54e1\u767b\u9332",
@@ -8756,7 +8743,7 @@
                       C.a,
                       { item: !0, xs: !0 },
                       c.a.createElement(
-                        Qc.a,
+                        $c.a,
                         { href: "#", variant: "body2" },
                         "\u30d1\u30b9\u30ef\u30fc\u30c9\u3092\u304a\u5fd8\u308c\u306e\u65b9\u306f\u3053\u3061\u3089"
                       )
@@ -8774,9 +8761,9 @@
             )
           );
         },
-        eo = a(379),
-        to = a(376),
-        ao = function () {
+        to = a(379),
+        ao = a(376),
+        no = function () {
           var e = Object(l.b)();
           Object(r.useEffect)(
             function () {
@@ -8793,13 +8780,13 @@
             "div",
             null,
             c.a.createElement(
-              eo.a,
+              to.a,
               {
                 anchorOrigin: { vertical: "top", horizontal: "center" },
                 open: a,
                 onClose: n,
               },
-              c.a.createElement(to.a, { onClose: n, severity: "error" }, t)
+              c.a.createElement(ao.a, { onClose: n, severity: "error" }, t)
             ),
             c.a.createElement(
               m.c,
@@ -8807,34 +8794,34 @@
               c.a.createElement(
                 m.a,
                 { exact: !0, path: "/auth/signup" },
-                c.a.createElement(Jc, null)
+                c.a.createElement(Qc, null)
               ),
               c.a.createElement(
                 m.a,
                 { exact: !0, path: "/auth/login" },
-                c.a.createElement(Zc, null)
+                c.a.createElement(eo, null)
               )
             )
           );
         },
-        no = a(374),
-        ro = a(371),
-        co = Object(g.a)(function (e) {
+        ro = a(374),
+        co = a(371),
+        oo = Object(g.a)(function (e) {
           return Object(h.a)({
             backdrop: { zIndex: e.zIndex.drawer + 1500, color: "#fff" },
           });
         }),
-        oo = function () {
-          var e = co(),
+        io = function () {
+          var e = oo(),
             t = Object(l.c)(ct);
           return c.a.createElement(
-            no.a,
+            ro.a,
             { theme: f },
             t
               ? c.a.createElement(
                   Za.a,
                   { className: e.backdrop, open: !0 },
-                  c.a.createElement(ro.a, { color: "primary" })
+                  c.a.createElement(co.a, { color: "primary" })
                 )
               : "",
             c.a.createElement(
@@ -8846,7 +8833,7 @@
                 c.a.createElement(
                   m.a,
                   { path: "/auth" },
-                  c.a.createElement(ao, null)
+                  c.a.createElement(no, null)
                 ),
                 c.a.createElement(
                   m.a,
@@ -8866,20 +8853,20 @@
                 c.a.createElement(
                   m.a,
                   { path: "/" },
-                  c.a.createElement(Yc, null)
+                  c.a.createElement(qc, null)
                 )
               )
             )
           );
         },
-        io = Boolean(
+        lo = Boolean(
           "localhost" === window.location.hostname ||
             "[::1]" === window.location.hostname ||
             window.location.hostname.match(
               /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
             )
         );
-      function lo(e, t) {
+      function so(e, t) {
         navigator.serviceWorker
           .register(e)
           .then(function (e) {
@@ -8902,20 +8889,20 @@
             console.error("Error during service worker registration:", e);
           });
       }
-      var so = Object(fe.a)({
+      var mo = Object(fe.a)({
         reducer: {
           auth: Vt,
           app: gt,
-          dashboard: Sr,
+          dashboard: Ar,
           regist: Ie,
-          project: dr,
+          project: pr,
           task: Ba,
           workspace: oa,
-          attendance: yn,
+          attendance: xn,
         },
       });
       i.a.render(
-        c.a.createElement(l.a, { store: so }, c.a.createElement(oo, null)),
+        c.a.createElement(l.a, { store: mo }, c.a.createElement(io, null)),
         document.getElementById("root")
       ),
         (function (e) {
@@ -8927,7 +8914,7 @@
               return;
             window.addEventListener("load", function () {
               var t = "".concat("", "/service-worker.js");
-              io
+              lo
                 ? (!(function (e, t) {
                     fetch(e, { headers: { "Service-Worker": "script" } })
                       .then(function (a) {
@@ -8939,7 +8926,7 @@
                                 window.location.reload();
                               });
                             })
-                          : lo(e, t);
+                          : so(e, t);
                       })
                       .catch(function () {
                         console.log(
@@ -8952,7 +8939,7 @@
                       "This web app is being served cache-first by a service worker. To learn more, visit https://bit.ly/CRA-PWA"
                     );
                   }))
-                : lo(t, e);
+                : so(t, e);
             });
           }
         })();
@@ -8960,4 +8947,4 @@
   },
   [[270, 1, 2]],
 ]);
-//# sourceMappingURL=main.c92a6ac7.chunk.js.map
+//# sourceMappingURL=main.71f2fde0.chunk.js.map
