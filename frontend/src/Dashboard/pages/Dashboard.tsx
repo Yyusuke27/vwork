@@ -37,6 +37,12 @@ import {
 import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
+import MemberDetail from "../Members/components/MemberDetail";
+import DatePickerArea from "../Attendance/components/DatePickerArea";
+import AttendanceList from "../Attendance/components/AttendanceList";
+import Container from "@material-ui/core/Container";
+import { selectAttenances } from "../Attendance/attendanceSlice";
+import ProjectList from "../Project/components/ProjectList";
 
 const drawerWidth = 240;
 
@@ -121,6 +127,7 @@ const Dashboard = () => {
   const addTaskButton = useSelector(selectAddTaskButton);
   const memberIconClicked = useSelector(selectMemberIconClicked);
   const kintaiCardClicked = useSelector(selectKintaiCardClicked);
+  const attendances = useSelector(selectAttenances);
 
   return (
     <div className={classes.root}>
@@ -152,6 +159,19 @@ const Dashboard = () => {
           </Route>
           <Route path="/members" exact>
             <Members />
+          </Route>
+          <Route path="/members/1" exact>
+            <Container>
+              <MemberDetail />
+              <DatePickerArea />
+              <AttendanceList attendances={attendances} />
+            </Container>
+          </Route>
+          <Route path="/members/1/project" exact>
+            <Container>
+              <MemberDetail />
+              <ProjectList />
+            </Container>
           </Route>
           <Route path="/project/:projectId" exact>
             <Project />

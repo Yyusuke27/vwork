@@ -23,11 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
 //     _id: string;
 //   }[];
 // }
-const members = [
-  { name: "Shogo", _id: "1" },
-  { name: "Yusuke", _id: "2" },
-  { name: "Ikumi", _id: "3" },
-];
+const members = [{ name: "Shogo", _id: "1" }];
 
 const MemberList = () => {
   const classes = useStyles();
