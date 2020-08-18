@@ -87,7 +87,7 @@ exports.regist = asyncHandler(async (req, res, next) => {
     await invite.save({ validateBeforeSave: false });
 
     //メール送信
-    const inviteeRegistUrl = `${process.env.INVITE_URL}regist/invitee/welcome/?${inviteToken}`;
+    const inviteeRegistUrl = `${process.env.HOST_URL}regist/invitee/welcome/?${inviteToken}`;
 
     const message = `招待からの登録はこちらから \n\n ${inviteeRegistUrl}`;
     const html = `<a href="${inviteeRegistUrl}">${invitation.name}さん：${workspace.name}へ招待されました。登録はこちらから</a>`;
@@ -95,7 +95,7 @@ exports.regist = asyncHandler(async (req, res, next) => {
     try {
       await sendEmail({
         email: invitee.email,
-        subject: `[vwork]${workspace.name}に招待されました`,
+        subject: `[VWORK]${workspace.name}に招待されました`,
         message,
         html,
       });

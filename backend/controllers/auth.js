@@ -121,9 +121,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
 
   // TODO: リセットのURLをReactページのURLに指定する
-  const resetUrl = `${req.protocol}://${req.get(
-    "host"
-  )}/api/v1/auth/resetpassword/${resetToken}`;
+  const resetUrl = `${process.env.HOST_URL}auth/reset/?${resetToken}`;
 
   const message = `パスワードのリセットはこちらから \n\n ${resetUrl}`;
   const html = `<a href="${resetUrl}">パスワードのリセットはこちらから</a>`;
@@ -131,7 +129,7 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
   try {
     await sendEmail({
       email: user.email,
-      subject: "パスワードの再設定",
+      subject: "[VWORK]パスワードの再設定",
       message,
       html,
     });
