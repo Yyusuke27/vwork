@@ -24,7 +24,6 @@ const MemberItem: FC<MemberItemProps> = ({ name, memberId }) => {
   const history = useHistory();
   const handlePageChange = () => {
     history.push("/members/1");
-    history.go(0);
   };
   return (
     <>
