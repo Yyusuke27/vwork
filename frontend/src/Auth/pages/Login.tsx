@@ -9,7 +9,7 @@ import Color from "../../shared/util/color";
 import FormArea from "../components/FormArea";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Link from "@material-ui/core/Link";
+import { Link } from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -142,8 +142,10 @@ const Login = () => {
             </Formik>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  パスワードをお忘れの方はこちら
+                <Link to="/auth/forgot">
+                  <Typography variant="body2" className="vwork-red">
+                    パスワードをお忘れの方はこちら
+                  </Typography>
                 </Link>
               </Grid>
             </Grid>

@@ -2,6 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../store";
 
+import { toast } from "react-toastify";
+
 const apiUrl = process.env.REACT_APP_BACKEND_URL;
 const token = localStorage.token;
 
@@ -60,6 +62,38 @@ export const fetchAsyncUpdateUser = createAsyncThunk(
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return res.data;
+  }
+);
+
+export const fetchAsyncForgotPassword = createAsyncThunk(
+  "auth/forgotPassword",
+  async (email: string) => {
+    const res = await axios.post(
+      `${apiUrl}api/v1/auth/forgotpassword`,
+      { email },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return res.data;
+  }
+);
+
+export const fetchAsyncResetPassword = createAsyncThunk(
+  "auth/resetPassword",
+  async (auth: { resetToken: string; password: string }) => {
+    const res = await axios.put(
+      `${apiUrl}api/v1/auth/resetpassword/${auth.resetToken}`,
+      { password: auth.password },
+      {
+        headers: {
+          "Content-Type": "application/json",
         },
       }
     );
@@ -187,6 +221,23 @@ export const authSlice = createSlice({
       window.location.href = "/auth/login";
     });
     builder.addCase(fetchAsyncUpdateUser.fulfilled, (state, action) => {});
+    builder.addCase(fetchAsyncForgotPassword.fulfilled, (state, action) => {
+      window.location.href = "/auth/forgot/complete";
+    });
+    builder.addCase(fetchAsyncForgotPassword.rejected, (state, action) => {
+      toast.error("再設定の申請に失敗しました。", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    });
+    builder.addCase(fetchAsyncResetPassword.fulfilled, (state, action) => {
+      localStorage.setItem("token", action.payload.token);
+      if (action.payload.token) {
+        console.log("login success");
+        action.payload.workspaceCount > 1
+          ? (window.location.href = "/workspaces")
+          : (window.location.href = "/");
+      }
+    });
   },
 });
 

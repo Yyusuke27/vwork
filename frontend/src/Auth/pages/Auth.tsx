@@ -14,6 +14,9 @@ import { toggleLoading } from "../../appSlice";
 
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
+import ForgotPassword from "./ForgotPassword";
+import ResetPassword from "./ResetPassword";
+import DoneForgotPassword from "./DoneForgotPassword";
 
 const Auth = () => {
   const dispatch = useDispatch();
@@ -51,6 +54,15 @@ const Auth = () => {
         </Route>
         <Route exact path="/auth/login">
           <Login />
+        </Route>
+        <Route exact path="/auth/forgot/complete">
+          <DoneForgotPassword />
+        </Route>
+        <Route exact path="/auth/forgot">
+          <ForgotPassword />
+        </Route>
+        <Route exact path="/auth/reset">
+          <ResetPassword />
         </Route>
       </Switch>
     </div>
