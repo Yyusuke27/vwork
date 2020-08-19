@@ -2,7 +2,8 @@ const express = require("express");
 const {
   updateUser,
   updateUserAndProfile,
-  getProjectUser,
+  getUser,
+  getWorkspaceMembers,
 } = require("../controllers/users");
 
 const { protect } = require("../middleware/auth");
@@ -18,6 +19,8 @@ router.use("/:userId/tasks", taskRouter);
 
 router.route("/:id/profile").put(protect, updateUserAndProfile);
 
-router.route("/:id").get(protect, getProjectUser).put(protect, updateUser);
+router.route("/:id").get(protect, getUser).put(protect, updateUser);
+
+router.route("/").get(protect, getWorkspaceMembers);
 
 module.exports = router;

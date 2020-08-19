@@ -1,7 +1,7 @@
 const crypto = require("crypto");
 const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
-const Users = require("../models/User");
+const User = require("../models/User");
 const UserProfile = require("../models/UserProfile");
 const Project = require("../models/Project");
 const Task = require("../models/Task");
@@ -17,7 +17,7 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("ユーザー情報の更新権限がありません"));
   }
 
-  const user = await Users.findByIdAndUpdate(req.params.id, req.body, {
+  const user = await User.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
   });
@@ -47,7 +47,7 @@ exports.updateUserAndProfile = asyncHandler(async (req, res, next) => {
     position: req.body.position,
   };
 
-  const user = await Users.findByIdAndUpdate(req.params.id, updateUserData, {
+  const user = await User.findByIdAndUpdate(req.params.id, updateUserData, {
     new: true,
     runValidators: true,
   });
@@ -78,13 +78,14 @@ exports.updateUserAndProfile = asyncHandler(async (req, res, next) => {
   });
 });
 
-// @desc Get Project member
+// @desc Get single user
+// @route GET /api/v1/workspaces/:workspaceId/users/:id
 // @route GET /api/v1/workspaces/:workspaceId/projects/:projectId/users/:id
-exports.getProjectUser = asyncHandler(async (req, res, next) => {
+exports.getUser = asyncHandler(async (req, res, next) => {
   const isAdmin = req.user.role === "admin";
   let user, tasks, profile;
 
-  if (req.params.projectId) {
+  if (req.params.workspaceId && req.params.projectId) {
     // プロジェクトのメンバーのみ閲覧可能
     const project = await Project.findById(req.params.projectId);
 
@@ -98,7 +99,7 @@ exports.getProjectUser = asyncHandler(async (req, res, next) => {
       return next(new ErrorResponse("プロジェクトの閲覧権限がありません"));
     }
 
-    user = await Users.findOne({ _id: req.params.id });
+    user = await User.findById(req.params.id);
 
     IsMemberInProject = project.members.includes(user.id);
 
@@ -128,6 +129,27 @@ exports.getProjectUser = asyncHandler(async (req, res, next) => {
       .sort({
         updatedAt: -1,
       });
+  } else if (req.params.workspaceId) {
+    const workspace = await Workspace.findById(req.params.workspaceId);
+    const isOwnerInWorkspace = workspace.owners.includes(req.user.id);
+    if (!isOwnerInWorkspace) {
+      return next(new ErrorResponse("ユーザーの閲覧権限がありません"));
+    }
+
+    user = await User.findById(req.params.id);
+
+    const IsMemberInWorkspace = workspace.members.includes(user.id);
+
+    if (!IsMemberInWorkspace) {
+      return next(
+        new ErrorResponse("ワークスペースのメンバーではないため閲覧できません")
+      );
+    }
+
+    profile = await UserProfile.findOne({
+      user: user.id,
+      workspace: req.params.workspaceId,
+    });
   }
 
   res.status(200).json({
@@ -146,16 +168,16 @@ exports.getWorkspaceMembers = asyncHandler(async (req, res, next) => {
   if (!isOwnerInWorkspace) {
     return next(new ErrorResponse("ユーザー一覧の閲覧権限がありません"));
   }
-});
 
-// @desc show workspace single member
-// @route GET /api/v1/workspaces/:workspaceId/users/:id
-exports.getWorkspaceMember = asyncHandler(async (req, res, next) => {
-  const workspace = await Workspace.findById(req.params.workspaceId);
-  const isOwnerInWorkspace = workspace.owners.includes(req.user.id);
-  if (!isOwnerInWorkspace) {
-    return next(new ErrorResponse("ユーザーの閲覧権限がありません"));
-  }
+  const users = await User.find({
+    _id: { $in: workspace.members },
+    registration: true,
+  });
+
+  res.status(200).json({
+    success: true,
+    users,
+  });
 });
 
 //　TODO: 招待中でまだ未登録のユーザーを登録未完了ユーザーとして表示したい
