@@ -161,7 +161,7 @@ exports.getUser = asyncHandler(async (req, res, next) => {
 });
 
 // @desc show workspace members
-// @route GET /api/v1/workspaces/:workspaceId/users/
+// @route GET /api/v1/workspaces/:workspaceId/users
 exports.getWorkspaceMembers = asyncHandler(async (req, res, next) => {
   const workspace = await Workspace.findById(req.params.workspaceId);
   const isOwnerInWorkspace = workspace.owners.includes(req.user.id);
