@@ -59,7 +59,7 @@ const Home = () => {
           ""
         )}
 
-        <ProjectList />
+        <ProjectList title="参加しているプロジェクト" />
       </Container>
     </>
   );

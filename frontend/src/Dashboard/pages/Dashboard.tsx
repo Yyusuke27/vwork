@@ -174,7 +174,7 @@ const Dashboard = () => {
             <MainHeader title="メンバー管理" />
             <Container>
               <MemberDetail />
-              <ProjectList />
+              <ProjectList title="参加しているプロジェクト" />
             </Container>
           </Route>
           <Route path="/members/1/task" exact>
@@ -182,6 +182,12 @@ const Dashboard = () => {
             <Container>
               <MemberDetail />
               <TaskList title="一覧" />
+            </Container>
+          </Route>
+          <Route path="/project_manage" exact>
+            <MainHeader title="プロジェクト管理" />
+            <Container>
+              <ProjectList title="全てのプロジェクト" />
             </Container>
           </Route>
           <Route path="/project/:projectId" exact>

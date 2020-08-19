@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import clsx from "clsx";
 import ProjectItem from "./ProjectItem";
 import Box from "@material-ui/core/Box";
@@ -34,7 +34,11 @@ const useStyles = makeStyles({
   },
 });
 
-const ProjectList = () => {
+interface ProjectListProps {
+  title: string;
+}
+
+const ProjectList: FC<ProjectListProps> = ({ title = "" }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -43,7 +47,7 @@ const ProjectList = () => {
   return (
     <>
       <Box borderBottom={1} mt={7} mb={4} className={classes.title}>
-        参加しているプロジェクト
+        {title}
       </Box>
 
       <Grid container justify="flex-start">

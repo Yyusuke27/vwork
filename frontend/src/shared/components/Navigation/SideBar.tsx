@@ -23,6 +23,7 @@ import Typography from "@material-ui/core/Typography";
 import { selectWorkspaceName } from "../../../Auth/authSlice";
 import MyProject from "../../../Dashboard/Project/components/MyProject";
 import Color from "../../util/color";
+import WorkIcon from "@material-ui/icons/Work";
 
 const drawerWidth = 240;
 
@@ -156,6 +157,12 @@ const SideBar = () => {
                 <PersonIcon />
               </ListItemIcon>
               <ListItemText primary="メンバー管理" />
+            </ListItem>
+            <ListItem button component={NavLink} to="/project_manage" exact>
+              <ListItemIcon className={classes.icon}>
+                <WorkIcon />
+              </ListItemIcon>
+              <ListItemText primary="プロジェクト管理" />
             </ListItem>
           </List>
           <MyProject />
