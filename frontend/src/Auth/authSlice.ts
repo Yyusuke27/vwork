@@ -113,6 +113,7 @@ interface AuthState {
   };
   workspaceCount: number;
   workspace: { id: string; name: string };
+  owner: boolean;
   errorMessage: string;
   errorOpen: boolean;
   profile: { _id: string; position: string };
@@ -130,6 +131,7 @@ const initialState: AuthState = {
   },
   workspaceCount: 0,
   workspace: { id: "", name: "" },
+  owner: false,
   errorMessage: "",
   errorOpen: false,
   profile: {
@@ -172,6 +174,8 @@ export const authSlice = createSlice({
 
       state.profile = action.payload.profile;
       state.workspace = action.payload.workspace;
+      state.owner = action.payload.owner;
+
       state.workspaceCount = localStorage.wc;
       localStorage.setItem(
         "workspace",
