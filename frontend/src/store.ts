@@ -7,6 +7,7 @@ import projectReducer from "./Dashboard/Project/projectSlice";
 import taskReducer from "./Dashboard/Task/taskSlice";
 import workspaceReducer from "./WorkSpaces/workspaceSlice";
 import attendanceReducer from "./Dashboard/Attendance/attendanceSlice";
+import memberReducer from "./Dashboard/Members/memberSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     task: taskReducer,
     workspace: workspaceReducer,
     attendance: attendanceReducer,
+    member: memberReducer,
   },
 });
 
