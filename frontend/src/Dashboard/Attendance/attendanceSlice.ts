@@ -70,11 +70,29 @@ export const fetchAsyncGetMyAttendances = createAsyncThunk(
     return res.data;
   }
 );
+
 export const fetchAsyncGetAttendance = createAsyncThunk(
   "attendance/attendance",
   async (data: { id: string; workspace: string }) => {
     const res = await axios.get(
       `${apiUrl}api/v1/workspaces/${data.workspace}/attendances/${data.id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return res.data;
+  }
+);
+
+// メンバー管理のユーザーの勤怠情報一覧
+export const fetchAsyncGetMemberAttendance = createAsyncThunk(
+  "attendance/memberAttendance",
+  async (data: { userId: string; workspace: string }) => {
+    const res = await axios.get(
+      `${apiUrl}api/v1/workspaces/${data.workspace}/users/${data.userId}/attendances`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -188,6 +206,12 @@ const attendanceSlice = createSlice({
       state.attendance.data = action.payload.data;
       state.attendance.tasks = action.payload.tasks;
     });
+    builder.addCase(
+      fetchAsyncGetMemberAttendance.fulfilled,
+      (state, action) => {
+        console.log(action.payload);
+      }
+    );
   },
 });
 
