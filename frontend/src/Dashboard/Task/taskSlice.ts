@@ -124,11 +124,29 @@ export const fetchAsyncRecentTasks = createAsyncThunk(
     return res.data;
   }
 );
+
 export const fetchAsyncNearDeadlineTasks = createAsyncThunk(
   "task/getNearDeadline",
   async (workspace: string) => {
     const res = await axios.get(
       `${apiUrl}api/v1/workspaces/${workspace}/tasks/near_deadline`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return res.data;
+  }
+);
+
+// ユーザー管理のユーザーに紐づくタスク一覧
+export const fetchAsyncMemberTasks = createAsyncThunk(
+  "task/member",
+  async (data: { workspace: string; userId: string }) => {
+    const res = await axios.get(
+      `${apiUrl}api/v1/workspaces/${data.workspace}/users/${data.userId}/tasks`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -260,6 +278,9 @@ const taskSlice = createSlice({
     });
     builder.addCase(fetchAsyncNearDeadlineTasks.fulfilled, (state, action) => {
       state.nearDeadlineTasks = action.payload.data;
+    });
+    builder.addCase(fetchAsyncMemberTasks.fulfilled, (state, action) => {
+      console.log(action.payload);
     });
   },
 });
