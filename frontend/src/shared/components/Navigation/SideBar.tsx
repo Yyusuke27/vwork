@@ -14,16 +14,16 @@ import HomeIcon from "@material-ui/icons/Home";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import GroupIcon from "@material-ui/icons/Group";
+import WorkIcon from "@material-ui/icons/Work";
 import Drawer from "@material-ui/core/Drawer";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
-import { selectOpenMenu, toggleOpenMenu } from "../../../appSlice";
 import Typography from "@material-ui/core/Typography";
+import { selectOpenMenu, toggleOpenMenu } from "../../../appSlice";
 import { selectWorkspaceName } from "../../../Auth/authSlice";
 import MyProject from "../../../Dashboard/Project/components/MyProject";
 import Color from "../../util/color";
-import WorkIcon from "@material-ui/icons/Work";
 
 const drawerWidth = 240;
 
