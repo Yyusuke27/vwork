@@ -14,12 +14,11 @@ const Project = require("../models/Project");
 // @route Get /api/v1/tasks
 // @route Get /api/v1/projects/:projectId/tasks
 // @route Get /api/v1/workspaces/:workspaceId/tasks
-// @access Public
+// @route Get /api/v1/workspaces/:workspaceId/users/:userId/tasks
 exports.getTasks = asyncHandler(async (req, res, next) => {
   let tasks;
   let todaysTasks;
 
-  // TODO: プロジェクトのメンバーのみ閲覧可能
   if (req.params.projectId) {
     const project = await Project.findById(req.params.projectId);
     const isMember = project.members.includes(req.user.id);
@@ -38,9 +37,32 @@ exports.getTasks = asyncHandler(async (req, res, next) => {
       .sort({
         updatedAt: -1,
       });
+  } else if (req.params.workspaceId && req.params.userId) {
+    // ownerのみ閲覧可能。owner画面のユーザー管理で使用
+    const workspace = await Workspace.findById(req.params.workspaceId);
+    const isOwnerInWorkspace = workspace.owners.includes(req.user.id);
+    if (!isOwnerInWorkspace) {
+      return next(new ErrorResponse("タスクの閲覧権限がありません"));
+    }
+    tasks = await Task.find({
+      user: req.params.userId,
+      workspace: req.params.workspaceId,
+    })
+      .populate({
+        path: "project",
+        select: "name",
+      })
+      .populate({
+        path: "user",
+        select: "name",
+      })
+      .sort({
+        updatedAt: -1,
+      });
   } else if (req.params.workspaceId) {
     // 自分のタスク一覧
     if (req.query.state) {
+      // 絞り込み処理
       tasks = await Task.find({
         user: req.user.id,
         workspace: req.params.workspaceId,
@@ -109,7 +131,6 @@ exports.getTasks = asyncHandler(async (req, res, next) => {
 
 // @desc Get single task
 // @route Get /api/v1/tasks/:id
-// @access Public
 exports.getTask = asyncHandler(async (req, res, next) => {
   let task = await Task.findById(req.params.id);
 
@@ -118,6 +139,9 @@ exports.getTask = asyncHandler(async (req, res, next) => {
       new ErrorResponse(`ID:${req.params.id}のタスクはありません`, 404)
     );
   }
+
+  const workspace = await Workspace.findById(task.workspace);
+  const isOwnerInWorkspace = workspace.owners.includes(req.user.id);
 
   // タスクの担当者かどうか
   const isTaskMember = task.user.toString() === req.user.id;
@@ -131,8 +155,13 @@ exports.getTask = asyncHandler(async (req, res, next) => {
     }
   }
 
-  // 1.タスクのメンバー or 2.プロジェクトのメンバー or 3.adminユーザーのみ閲覧可能
-  if (!isTaskMember && !isProjectMember && req.user.role !== "admin") {
+  // 1.タスクのメンバー or 2.プロジェクトのメンバー or 3. workspaceのオーナー or 4.adminユーザーのみ閲覧可能
+  if (
+    !isTaskMember &&
+    !isProjectMember &&
+    !isOwnerInWorkspace &&
+    req.user.role !== "admin"
+  ) {
     return next(
       new ErrorResponse(
         `ID:${req.params.id}のタスクの閲覧権限がありません`,
@@ -154,7 +183,6 @@ exports.getTask = asyncHandler(async (req, res, next) => {
 // @desc Create new task
 // @route POST /api/v1/workspaces/:workspaceId/tasks
 // @route POST /api/v1/projects/:projectId/tasks
-// @access Private
 // TODO: paramsにprojectsをつけるパターンはいらないかも
 exports.createTask = asyncHandler(async (req, res, next) => {
   // workspaceからの場合
@@ -213,7 +241,6 @@ exports.createTask = asyncHandler(async (req, res, next) => {
 
 // @desc Update task
 // @route PUT /api/v1/tasks/:id
-// @access Private
 exports.updateTask = asyncHandler(async (req, res, next) => {
   let task = await Task.findById(req.params.id);
 
@@ -254,7 +281,6 @@ exports.updateTask = asyncHandler(async (req, res, next) => {
 
 // @desc Delete task
 // @route DELETE /api/v1/tasks/:id
-// @access Private
 exports.deleteTask = asyncHandler(async (req, res, next) => {
   const task = await Task.findById(req.params.id);
 
@@ -281,7 +307,6 @@ exports.deleteTask = asyncHandler(async (req, res, next) => {
 
 // @desc Get near deadline tasks
 // @route Get /api/v1/workspaces/:workspaceId/tasks/near_deadline
-// @access Public
 exports.getNearDeadlineTasks = asyncHandler(async (req, res, next) => {
   // 期限が近い(3日以内)タスクを取得
   const nearDeadlineDate = moment().add(3, "days");
