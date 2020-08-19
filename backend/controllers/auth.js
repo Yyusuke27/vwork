@@ -68,8 +68,10 @@ exports.currentUser = asyncHandler(async (req, res, next) => {
   );
 
   const workspace = await Workspace.findById(user.lastAccessWorkspace).select(
-    "name"
+    "name owners"
   );
+
+  const owner = workspace.owners.includes(req.user.id);
 
   let profile;
 
@@ -83,8 +85,9 @@ exports.currentUser = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     data: user,
-    workspace,
+    workspace: { id: workspace.id, name: workspace.name },
     profile,
+    owner,
   });
 });
 
