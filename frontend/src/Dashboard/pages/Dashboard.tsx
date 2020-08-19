@@ -43,6 +43,8 @@ import AttendanceList from "../Attendance/components/AttendanceList";
 import Container from "@material-ui/core/Container";
 import { selectAttenances } from "../Attendance/attendanceSlice";
 import ProjectList from "../Project/components/ProjectList";
+import MainHeader from "../../shared/components/Navigation/MainHeader";
+import TaskList from "../Task/components/TaskList";
 
 const drawerWidth = 240;
 
@@ -161,6 +163,7 @@ const Dashboard = () => {
             <Members />
           </Route>
           <Route path="/members/1" exact>
+            <MainHeader title="メンバー管理" />
             <Container>
               <MemberDetail />
               <DatePickerArea />
@@ -168,9 +171,17 @@ const Dashboard = () => {
             </Container>
           </Route>
           <Route path="/members/1/project" exact>
+            <MainHeader title="メンバー管理" />
             <Container>
               <MemberDetail />
               <ProjectList />
+            </Container>
+          </Route>
+          <Route path="/members/1/task" exact>
+            <MainHeader title="メンバー管理" />
+            <Container>
+              <MemberDetail />
+              <TaskList title="一覧" />
             </Container>
           </Route>
           <Route path="/project/:projectId" exact>

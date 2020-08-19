@@ -1,11 +1,11 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import WorkIcon from "@material-ui/icons/Work";
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { Box } from "@material-ui/core";
 import { useHistory } from "react-router";
 
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: 0,
     },
     profile: {
-      fontSize: 25,
+      fontSize: 20,
     },
     profileTitle: {
       color: "#9e9e9e",
@@ -25,7 +25,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     root: {
       flexGrow: 1,
-      maxWidth: "100%",
+      maxWidth: "60%",
+    },
+    tabs: {
+      backgroundColor: "#fafafa",
+      width: "60%",
     },
   })
 );
@@ -48,17 +52,15 @@ const MemberDetail = () => {
     history.push("/members/1/project");
   };
 
+  const handlePageChangeToTask = () => {
+    history.push("/members/1/task");
+  };
+
   return (
     <>
       <Grid container direction="column">
         <Grid item>
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="center"
-            style={{ width: "100%" }}
-          >
+          <Grid container direction="row" spacing={5}>
             <Grid item className={classes.profile}>
               <dl>
                 <dt className={classes.profileTitle}>氏名</dt>
@@ -86,27 +88,31 @@ const MemberDetail = () => {
         </Grid>
         <Grid item>
           <Box mt={5}>
-            <Paper square className={classes.root}>
-              <Tabs
-                value={value}
-                onChange={handleChange}
-                variant="fullWidth"
-                indicatorColor="secondary"
-                textColor="secondary"
-                aria-label="icon label tabs example"
-              >
-                <Tab
-                  icon={<QueryBuilderIcon />}
-                  label="勤怠情報"
-                  onClick={handlePageChangeToKintai}
-                />
-                <Tab
-                  icon={<WorkIcon />}
-                  label="プロジェクト"
-                  onClick={handlePageChangeToProject}
-                />
-              </Tabs>
-            </Paper>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              variant="fullWidth"
+              indicatorColor="secondary"
+              textColor="secondary"
+              aria-label="icon label tabs example"
+              className={classes.tabs}
+            >
+              <Tab
+                icon={<QueryBuilderIcon />}
+                label="勤怠情報"
+                onClick={handlePageChangeToKintai}
+              />
+              <Tab
+                icon={<WorkIcon />}
+                label="プロジェクト"
+                onClick={handlePageChangeToProject}
+              />
+              <Tab
+                icon={<CheckCircleOutlineIcon />}
+                label="タスク"
+                onClick={handlePageChangeToTask}
+              />
+            </Tabs>
           </Box>
         </Grid>
       </Grid>

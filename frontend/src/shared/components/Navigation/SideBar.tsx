@@ -155,7 +155,7 @@ const SideBar = () => {
               <ListItemIcon className={classes.icon}>
                 <PersonIcon />
               </ListItemIcon>
-              <ListItemText primary="メンバー一覧" />
+              <ListItemText primary="メンバー管理" />
             </ListItem>
           </List>
           <MyProject />
