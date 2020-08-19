@@ -13,7 +13,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import HomeIcon from "@material-ui/icons/Home";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
-import PersonIcon from "@material-ui/icons/Person";
+import GroupIcon from "@material-ui/icons/Group";
 import Drawer from "@material-ui/core/Drawer";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -154,7 +154,7 @@ const SideBar = () => {
             </ListItem>
             <ListItem button component={NavLink} to="/members" exact>
               <ListItemIcon className={classes.icon}>
-                <PersonIcon />
+                <GroupIcon />
               </ListItemIcon>
               <ListItemText primary="メンバー管理" />
             </ListItem>
