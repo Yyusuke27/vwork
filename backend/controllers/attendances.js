@@ -16,6 +16,7 @@ exports.getAttendances = asyncHandler(async (req, res, next) => {
   let attendances;
   if (req.params.workspaceId && req.params.userId) {
     // workspaceのownerはworkspaceのmemberの勤怠を閲覧可能
+    // ownerのみ閲覧可能。owner画面のユーザー管理で使用
     const workspace = await Workspace.findById(req.params.workspaceId);
     const isOwnerInWorkspace = workspace.owners.includes(req.user.id);
     if (!isOwnerInWorkspace) {
@@ -35,6 +36,7 @@ exports.getAttendances = asyncHandler(async (req, res, next) => {
   } else if (req.params.workspaceId) {
     // 自分の全ての勤怠管理の閲覧
     if (req.query && req.query.year && req.query.month) {
+      //　月ごとに絞り込み処理
       const year = Number(req.query.year);
       const month = Number(req.query.month);
       const startDateOfTheMonth = moment(`${year}-${month}-01`)
@@ -54,6 +56,7 @@ exports.getAttendances = asyncHandler(async (req, res, next) => {
         },
       });
     } else {
+      // queryがなかったら今月の勤怠を表示
       const today = moment(Date.now());
       const year = today.format("YYYY");
       const month = today.format("MM");
