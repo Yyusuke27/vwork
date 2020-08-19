@@ -7,7 +7,12 @@ const {
 
 const { protect } = require("../middleware/auth");
 
+const projectRouter = require("./projects");
+
 const router = express.Router({ mergeParams: true });
+
+// 他のルーターに再度ルート
+router.use("/:userId/projects", projectRouter);
 
 router.route("/:id/profile").put(protect, updateUserAndProfile);
 

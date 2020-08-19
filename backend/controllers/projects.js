@@ -7,10 +7,30 @@ const User = require("../models/User");
 // @desc Get all Projects or specific Projects
 // @route Get /api/v1/projects
 // @route Get /api/v1/workspaces/:workspaceId/projects
+// @route Get /api/v1/workspaces/:workspaceId/users/:userId/projects
 // @access Public
 exports.getProjects = asyncHandler(async (req, res, next) => {
   let projects;
-  if (req.params.workspaceId) {
+  if (req.params.workspaceId && req.params.userId) {
+    // ownerのみ閲覧可能。owner画面のユーザー管理で使用
+    const workspace = await Workspace.findById(req.params.workspaceId);
+    const isOwnerInWorkspace = workspace.owners.includes(req.user.id);
+    if (!isOwnerInWorkspace) {
+      return next(new ErrorResponse("プロジェクトの閲覧権限がありません"));
+    }
+
+    projects = await Project.find({
+      members: req.params.userId,
+      workspace: req.params.workspaceId,
+    });
+  } else if (req.params.workspaceId) {
+    // ownerのみ閲覧可能。owner画面のユーザー管理で使用
+    const workspace = await Workspace.findById(req.params.workspaceId);
+    const isOwnerInWorkspace = workspace.owners.includes(req.user.id);
+    if (!isOwnerInWorkspace) {
+      return next(new ErrorResponse("プロジェクトの閲覧権限がありません"));
+    }
+
     projects = await Project.find({
       members: req.user.id,
       workspace: req.params.workspaceId,
@@ -50,16 +70,16 @@ exports.getProject = asyncHandler(async (req, res, next) => {
     );
   }
 
-  // ユーザーがプロジェクトのメンバーではなかったら表示しない
-  // const isMemberInProject = project.members.includes(req.user.id);
-  const isMemberInProject = project.members.find(
-    (member) => member._id.toString() === req.user.id
-  );
+  const workspace = await Workspace.findById(project.workspace);
+  const isOwnerInWorkspace = workspace.owners.includes(req.user.id);
 
-  if (!isMemberInProject) {
+  // ユーザーがプロジェクトのメンバー or workspaceのオーナーではなかったら表示しない
+  const isMemberInProject = project.members.includes(req.user.id);
+
+  if (!isMemberInProject && !isOwnerInWorkspace) {
     return next(
       new ErrorResponse(
-        `ID:${req.params.id}のプロジェクトのメンバーではありません`
+        `ID:${req.params.id}のプロジェクトの閲覧権限がありません`
       ),
       404
     );

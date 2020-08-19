@@ -5,10 +5,10 @@ const Users = require("../models/User");
 const UserProfile = require("../models/UserProfile");
 const Project = require("../models/Project");
 const Task = require("../models/Task");
+const Workspace = require("../models/Workspace");
 
 // @desc Update user
 // @route PUT /api/v1/users/:id
-// @access Private
 exports.updateUser = asyncHandler(async (req, res, next) => {
   const isThisUser = req.params.id === req.user.id;
   const isAdmin = req.user.role === "admin";
@@ -30,7 +30,6 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
 
 // @desc Update user
 // @route PUT /api/v1/workspaces/:workspaceId/users/:id/profile
-// @access Private
 exports.updateUserAndProfile = asyncHandler(async (req, res, next) => {
   const isThisUser = req.params.id === req.user.id;
   const isAdmin = req.user.role === "admin";
@@ -81,7 +80,6 @@ exports.updateUserAndProfile = asyncHandler(async (req, res, next) => {
 
 // @desc Get Project member
 // @route GET /api/v1/workspaces/:workspaceId/projects/:projectId/users/:id
-// @access Public
 exports.getProjectUser = asyncHandler(async (req, res, next) => {
   const isAdmin = req.user.role === "admin";
   let user, tasks, profile;
@@ -139,3 +137,25 @@ exports.getProjectUser = asyncHandler(async (req, res, next) => {
     profile,
   });
 });
+
+// @desc show workspace members
+// @route GET /api/v1/workspaces/:workspaceId/users/
+exports.getWorkspaceMembers = asyncHandler(async (req, res, next) => {
+  const workspace = await Workspace.findById(req.params.workspaceId);
+  const isOwnerInWorkspace = workspace.owners.includes(req.user.id);
+  if (!isOwnerInWorkspace) {
+    return next(new ErrorResponse("ユーザー一覧の閲覧権限がありません"));
+  }
+});
+
+// @desc show workspace single member
+// @route GET /api/v1/workspaces/:workspaceId/users/:id
+exports.getWorkspaceMember = asyncHandler(async (req, res, next) => {
+  const workspace = await Workspace.findById(req.params.workspaceId);
+  const isOwnerInWorkspace = workspace.owners.includes(req.user.id);
+  if (!isOwnerInWorkspace) {
+    return next(new ErrorResponse("ユーザーの閲覧権限がありません"));
+  }
+});
+
+//　TODO: 招待中でまだ未登録のユーザーを登録未完了ユーザーとして表示したい
