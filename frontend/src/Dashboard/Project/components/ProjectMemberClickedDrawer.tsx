@@ -12,7 +12,7 @@ import {
 } from "../../../appSlice";
 import { selectWorkspace } from "../../../Auth/authSlice";
 import {
-  fetchAsyncGetMember,
+  fetchAsyncGetProjectMember,
   selectProject,
   selectProjectMember,
   selectSelectedProjectMember,
@@ -47,7 +47,9 @@ const ProjectMemberClickedDrawer = () => {
 
   const getMember = useCallback(
     async (workspaces, projectId, userId) => {
-      await dispatch(fetchAsyncGetMember({ workspaces, projectId, userId }));
+      await dispatch(
+        fetchAsyncGetProjectMember({ workspaces, projectId, userId })
+      );
     },
     [dispatch]
   );

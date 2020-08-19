@@ -69,7 +69,7 @@ export const fetchAsyncGetNewMembers = createAsyncThunk(
   }
 );
 
-export const fetchAsyncGetMember = createAsyncThunk(
+export const fetchAsyncGetProjectMember = createAsyncThunk(
   "project/member",
   async (data: { workspaces: string; projectId: string; userId: string }) => {
     const res = await axios.get(
@@ -93,6 +93,22 @@ export const fetchAsyncAddMembers = createAsyncThunk(
       {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return res.data;
+  }
+);
+
+// メンバー管理でユーザーに紐づくプロジェクトを見られるようにする
+export const fetchAsyncGetMemberProjects = createAsyncThunk(
+  "project/memberProjects",
+  async (data: { workspaces: string; userId: string }) => {
+    const res = await axios.get(
+      `${apiUrl}api/v1/workspaces/${data.workspaces}/users/${data.userId}/projects`,
+      {
+        headers: {
           Authorization: `Bearer ${token}`,
         },
       }
@@ -213,7 +229,7 @@ const projectSlice = createSlice({
     builder.addCase(fetchAsyncGetNewMembers.fulfilled, (state, action) => {
       state.newMembers = action.payload.data;
     });
-    builder.addCase(fetchAsyncGetMember.fulfilled, (state, action) => {
+    builder.addCase(fetchAsyncGetProjectMember.fulfilled, (state, action) => {
       state.member.user = action.payload.user;
       state.member.profile = action.payload.profile;
       state.member.tasks = action.payload.tasks;
@@ -222,6 +238,9 @@ const projectSlice = createSlice({
       toast.info("プロジェクトにメンバーを追加しました", {
         position: toast.POSITION.TOP_CENTER,
       });
+    });
+    builder.addCase(fetchAsyncGetMemberProjects.fulfilled, (state, action) => {
+      console.log(action.payload);
     });
   },
 });
