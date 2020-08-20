@@ -71,20 +71,36 @@ const TaskCardClickedDrawer = () => {
 
   const submitFunction = async (
     value: {
-      user: string;
-      name: string;
-      description: string;
-      startDateAt: string;
-      endDateAt: string;
-      state: number;
-      progress: number;
-      priority: number;
-      project: string | null;
-      todaysTask: boolean;
+      task: {
+        user: string;
+        name: string;
+        description: string;
+        startDateAt: string;
+        endDateAt: string;
+        state: number;
+        progress: number;
+        priority: number;
+        project: string | null;
+        todaysTask: boolean;
+      };
+      log: {
+        user?: string;
+        name?: string;
+        description?: string;
+        startDateAt?: string;
+        endDateAt?: string;
+        state?: number;
+        progress?: number;
+        priority?: number;
+        project?: string | null;
+        todaysTask?: boolean;
+      };
     },
     workspace: string
   ) => {
-    await dispatch(fetchAsyncUpdateTask({ id: taskId, task: value }));
+    await dispatch(
+      fetchAsyncUpdateTask({ id: taskId, task: value.task, log: value.log })
+    );
     if (pathName.includes("project")) {
       await dispatch(fetchAsyncProjectTasks(project._id));
     } else if (pathName.includes("mytask")) {

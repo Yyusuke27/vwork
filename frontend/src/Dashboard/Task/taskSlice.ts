@@ -98,13 +98,29 @@ export const fetchAsyncUpdateTask = createAsyncThunk(
       project: string | null;
       todaysTask: boolean;
     };
+    log: {
+      user?: string;
+      name?: string;
+      description?: string;
+      startDateAt?: string;
+      endDateAt?: string;
+      state?: number;
+      progress?: number;
+      priority?: number;
+      project?: string | null;
+      todaysTask?: boolean;
+    };
   }) => {
-    const res = await axios.put(`${apiUrl}api/v1/tasks/${data.id}`, data.task, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await axios.put(
+      `${apiUrl}api/v1/tasks/${data.id}`,
+      { task: data.task, log: data.log },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return res.data;
   }
 );
@@ -261,6 +277,11 @@ const taskSlice = createSlice({
     });
     builder.addCase(fetchAsyncUpdateTask.fulfilled, (state, action) => {
       toast.info("タスクを更新しました。", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    });
+    builder.addCase(fetchAsyncUpdateTask.rejected, (state, action) => {
+      toast.error("更新に失敗しました。", {
         position: toast.POSITION.TOP_CENTER,
       });
     });

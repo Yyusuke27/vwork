@@ -5,10 +5,7 @@ const asyncHandler = require("../middleware/async");
 const Task = require("../models/Task");
 const Workspace = require("../models/Workspace");
 const Project = require("../models/Project");
-
-// TODO: 今日やるデータを取得するAPIを作成←一覧のところのresでtodayとか作って値を渡す。新しくAPIは作らない。
-// TODO: Workspaceに紐づくタスク一覧から今日やるを除く
-// TODO: Workspaceに紐づくタスク一覧でクエリが飛んで来た時の処理
+const Log = require("../models/Log");
 
 // @desc Get all tasks or specific tasks
 // @route Get /api/v1/tasks
@@ -268,10 +265,64 @@ exports.updateTask = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`タスクの編集権限がありません`));
   }
 
-  const updateTask = await Task.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
+  // logをDBに保管する形に整形
+  const logKey = Object.keys(req.body.log);
+  const logData = logKey.map((key) => {
+    if (key === "endDateAt" || key === "startDateAt") {
+      const dbDate = moment(task[key]);
+      const reqDate = moment(req.body.log[key]);
+      if (!reqDate.isSame(dbDate)) {
+        return {
+          type: key,
+          oldState: dbDate.utcOffset("+09:00").format("YYYY年MM月DD日"),
+          newState: reqDate.utcOffset("+09:00").format("YYYY年MM月DD日"),
+          task: task._id,
+          user: req.user.id,
+        };
+      } else {
+        return;
+      }
+    } else {
+      if (!task[key]) {
+        return {
+          type: key,
+          oldState: "",
+          newState: req.body.log[key].toString(),
+          task: task._id,
+          user: req.user.id,
+        };
+      }
+      if (task[key].toString() !== req.body.log[key].toString()) {
+        return {
+          type: key,
+          oldState: task[key].toString(),
+          newState: req.body.log[key].toString(),
+          task: task._id,
+          user: req.user.id,
+        };
+      } else {
+        return;
+      }
+    }
   });
+
+  // taskをupdate
+  const updateTask = await Task.findByIdAndUpdate(
+    req.params.id,
+    req.body.task,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  const createLogs = async () => {
+    await logData.forEach((log) => {
+      Log.create(log);
+    });
+  };
+
+  await createLogs();
 
   res.status(200).json({
     success: true,

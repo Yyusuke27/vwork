@@ -41,20 +41,34 @@ const NewTaskAddDrawer = () => {
 
   const submitFunction = async (
     value: {
-      user: string;
-      name: string;
-      description: string;
-      startDateAt: string;
-      endDateAt: string;
-      state: number;
-      progress: number;
-      priority: number;
-      project: string | null;
-      todaysTask: boolean;
+      task: {
+        user: string;
+        name: string;
+        description: string;
+        startDateAt: string;
+        endDateAt: string;
+        state: number;
+        progress: number;
+        priority: number;
+        project: string | null;
+        todaysTask: boolean;
+      };
+      log: {
+        user?: string;
+        name?: string;
+        description?: string;
+        startDateAt?: string;
+        endDateAt?: string;
+        state?: number;
+        progress?: number;
+        priority?: number;
+        project?: string | null;
+        todaysTask?: boolean;
+      };
     },
     workspace: string
   ) => {
-    await dispatch(fetchAsyncAddTask({ task: value, workspace }));
+    await dispatch(fetchAsyncAddTask({ task: value.task, workspace }));
     if (pathName.includes("project")) {
       await dispatch(fetchAsyncProjectTasks(project._id));
     } else if (pathName.includes("mytask")) {

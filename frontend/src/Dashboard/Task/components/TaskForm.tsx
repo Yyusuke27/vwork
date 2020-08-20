@@ -1,9 +1,10 @@
-// TODO: 追加 or 変更した時にsnackcbarを表示
 import React, { FC } from "react";
 import * as Yup from "yup";
 import { Field, Form, Formik } from "formik";
 import moment from "moment";
 import { useSelector } from "react-redux";
+
+import _ from "lodash";
 
 import { selectWorkspace } from "../../../Auth/authSlice";
 
@@ -67,16 +68,30 @@ interface TaskFormProps {
   projects: { id: string; name: string }[];
   submitFunction: (
     value: {
-      user: string;
-      name: string;
-      description: string;
-      startDateAt: string;
-      endDateAt: string;
-      state: number;
-      progress: number;
-      priority: number;
-      project: string | null;
-      todaysTask: boolean;
+      task: {
+        user: string;
+        name: string;
+        description: string;
+        startDateAt: string;
+        endDateAt: string;
+        state: number;
+        progress: number;
+        priority: number;
+        project: string | null;
+        todaysTask: boolean;
+      };
+      log: {
+        user?: string;
+        name?: string;
+        description?: string;
+        startDateAt?: string;
+        endDateAt?: string;
+        state?: number;
+        progress?: number;
+        priority?: number;
+        project?: string | null;
+        todaysTask?: boolean;
+      };
     },
     workspace: string
   ) => Promise<void>;
@@ -123,6 +138,7 @@ const TaskForm: FC<TaskFormProps> = ({
     priority: number;
     project: string | null;
     todaysTask: boolean;
+    [key: string]: string | number | boolean | null;
   }
 
   const initialValues: TaskFormValues = {
@@ -149,12 +165,21 @@ const TaskForm: FC<TaskFormProps> = ({
             .max(24, "24文字以内で入力してください")
             .required("タスク名は必須です。"),
         })}
-        onSubmit={async (value, actions) => {
+        onSubmit={async (values, actions) => {
           actions.setSubmitting(false);
 
-          let submitData = { ...value };
-          if (!submitData.project) {
-            submitData.project = null;
+          //変更箇所、内容の取得
+          const diff = _.omitBy(
+            values,
+            (value, key) => initialValues[key] === value
+          );
+
+          let submitData = {
+            task: { ...values },
+            log: diff,
+          };
+          if (!submitData.task.project) {
+            submitData.task.project = null;
           }
 
           await submitFunction(submitData, workspace);
