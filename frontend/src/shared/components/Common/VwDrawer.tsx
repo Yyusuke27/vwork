@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import Drawer from "@material-ui/core/Drawer";
 import Backdrop from "@material-ui/core/Backdrop";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
@@ -31,6 +31,16 @@ interface VwDrawerProps {
 
 const VwDrawer: FC<VwDrawerProps> = (props) => {
   const classes = useStyles();
+
+  // Drawer開いている時はbodyをスクロールさせない
+  useEffect(() => {
+    document.body.classList.add("drawer-active");
+
+    return function cleanup() {
+      document.body.classList.remove("drawer-active");
+    };
+  });
+
   return (
     <>
       <Backdrop
