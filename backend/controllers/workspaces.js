@@ -6,11 +6,8 @@ const Invite = require("../models/Invite");
 const User = require("../models/User");
 const sendEmail = require("../utils/sendEmail");
 
-//　TODO: 招待中でまだ未登録のユーザーを登録未完了ユーザーとして表示したい
-
 // @desc Get all Workspaces or specific Workspaces
 // @route Get /api/v1/workspaces
-// @access Public
 exports.getWorkspaces = asyncHandler(async (req, res, next) => {
   // admin user以外はuserに紐づけられたworkspaceのみ表示
   let workspaces;
@@ -28,7 +25,6 @@ exports.getWorkspaces = asyncHandler(async (req, res, next) => {
 
 // @desc Get single workspace
 // @route Get /api/v1/workspace/:id
-// @access Public
 exports.getWorkspace = asyncHandler(async (req, res, next) => {
   const workspace = await Workspace.findById(req.params.id);
 
@@ -53,7 +49,6 @@ exports.getWorkspace = asyncHandler(async (req, res, next) => {
 
 // @desc Create new workspace
 // @route POST /api/v1/workspaces
-// @access Private
 exports.createWorkspace = asyncHandler(async (req, res, next) => {
   // TODO: req.bodyにuserを追加
 
@@ -65,9 +60,9 @@ exports.createWorkspace = asyncHandler(async (req, res, next) => {
   });
 });
 
+// TODO: workspace設定- workspace名の変更。メンバーの権限編集。メンバーの削除
 // @desc Update workspace
 // @route PUT /api/v1/workspaces/:id
-// @access Private
 exports.updateWorkspace = asyncHandler(async (req, res, next) => {
   let workspace = await Workspace.findById(req.params.id);
 
@@ -85,10 +80,29 @@ exports.updateWorkspace = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`ワークスペースの編集権限がありません`));
   }
 
-  workspace = await Workspace.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  workspace = await Workspace.findById(req.params.id);
+
+  if (req.body.name) {
+    workspace.name = req.body.name;
+  }
+
+  if (req.body.toOwner) {
+    workspace.owners.push(req.body.toOwner);
+  }
+
+  if (req.body.toMember) {
+    workspace.owners.pull(req.body.toMember);
+  }
+
+  if (req.body.removeMember) {
+    const isOwner = workspace.owners.includes(req.body.removeMember);
+    if (isOwner) {
+      workspace.owners.pull(req.body.removeMember);
+    }
+    workspace.members.pull(req.body.removeMember);
+  }
+
+  await workspace.save();
 
   res.status(200).json({
     success: true,
@@ -98,7 +112,6 @@ exports.updateWorkspace = asyncHandler(async (req, res, next) => {
 
 // @desc Delete workspace
 // @route DELETE /api/v1/workspaces/:id
-// @access Private
 exports.deleteWorkspace = asyncHandler(async (req, res, next) => {
   const workspace = await Workspace.findById(req.params.id);
 
@@ -126,13 +139,18 @@ exports.deleteWorkspace = asyncHandler(async (req, res, next) => {
 
 // @desc show new members
 // @route GET /api/v1/workspaces/:workspaceId/members
-// @access Private
 exports.getMembers = asyncHandler(async (req, res, next) => {
   // メンバー一覧表示
-  // TODO: workspaceのowner and adminユーザーのみ閲覧可能
-  const workspace = await Workspace.findById(req.params.id);
+  const workspace = await Workspace.findById(req.params.workspaceId);
   if (!workspace) {
     return next(new ErrorResponse("ワークスペースが存在しません"), 404);
+  }
+
+  const isOwnerInWorkspace = workspace.owners.includes(req.user.id);
+  const idAdmin = req.user.role === "admin";
+
+  if (!isOwnerInWorkspace && !idAdmin) {
+    return next(new ErrorResponse("閲覧権限がありません。"));
   }
 
   const users = await User.find({ _id: { $in: workspace.members } });
@@ -145,7 +163,6 @@ exports.getMembers = asyncHandler(async (req, res, next) => {
 
 // @desc invite new members
 // @route POST /api/v1/workspaces/:workspaceId/members
-// @access Private
 exports.inviteNewMembers = asyncHandler(async (req, res, next) => {
   // メンバー招待
   // workspaceのメンバーのみ詳細できる
@@ -217,8 +234,3 @@ exports.inviteNewMembers = asyncHandler(async (req, res, next) => {
     data: "招待が完了しました",
   });
 });
-
-// @desc select workspace
-// @route POST /api/v1/workspaces/:workspaceId/select
-// @access Private
-// TODO: lastAccessWorkspaceをupdateする
