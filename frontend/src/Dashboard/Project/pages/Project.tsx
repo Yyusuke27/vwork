@@ -20,10 +20,10 @@ const Project = () => {
   const project = useSelector(selectProject);
   const tasks = useSelector(selectTasks);
 
-  interface PraramsType {
+  interface ParamsType {
     projectId: string;
   }
-  const projectId = useParams<PraramsType>().projectId;
+  const projectId = useParams<ParamsType>().projectId;
 
   const getProject = useCallback(
     async (projectId) => {
