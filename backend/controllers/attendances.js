@@ -39,10 +39,17 @@ exports.getAttendances = asyncHandler(async (req, res, next) => {
       //　月ごとに絞り込み処理
       const year = Number(req.query.year);
       const month = Number(req.query.month);
-      const startDateOfTheMonth = moment(`${year}-${month}-01`)
+
+      const makeMonthFormat = (m) => {
+        return ("0" + m).slice(-2);
+      };
+
+      const startDateOfTheMonth = moment(`${year}-${makeMonthFormat(month)}-01`)
         .utcOffset("+09:00")
         .toDate();
-      const endDateOfTheMonth = moment(`${year}-${month + 1}-01`)
+      const endDateOfTheMonth = moment(
+        `${year}-${makeMonthFormat(month + 1)}-01`
+      )
         .subtract(1, "day")
         .utcOffset("+09:00")
         .toDate();
