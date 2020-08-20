@@ -16,14 +16,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface MemberItemProps {
   name: string;
-  memberId: string;
+  _id: string;
 }
 
-const MemberItem: FC<MemberItemProps> = ({ name, memberId }) => {
+const MemberItem: FC<MemberItemProps> = ({ name = "", _id }) => {
   const classes = useStyles();
   const history = useHistory();
   const handlePageChange = () => {
-    history.push("/members/1");
+    history.push("/members/:id");
   };
   return (
     <>

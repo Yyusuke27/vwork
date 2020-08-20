@@ -39,7 +39,11 @@ export const fetchAsyncGetMember = createAsyncThunk(
 );
 
 interface memberState {
-  members: {}[];
+  members: {
+    name: string;
+    email: string;
+    _id: string;
+  }[];
   member: {
     user: {};
     profile: {};
@@ -54,13 +58,19 @@ const initialState: memberState = {
   },
 };
 
-const userSlice = createSlice({
+const memberSlice = createSlice({
   name: "member",
   initialState,
-  reducers: {},
+  reducers: {
+    setMembers(state, action) {
+      state.members = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncGetMembers.fulfilled, (state, action) => {
-      console.log(action.payload);
+      // console.log(action.payload.users);
+      // console.log(state.members);
+      state.members = action.payload.users;
     });
     builder.addCase(fetchAsyncGetMember.fulfilled, (state, action) => {
       console.log(action.payload);
@@ -69,5 +79,6 @@ const userSlice = createSlice({
 });
 
 export const selectMembers = (state: RootState) => state.member.members;
+export const { setMembers } = memberSlice.actions;
 
-export default userSlice.reducer;
+export default memberSlice.reducer;

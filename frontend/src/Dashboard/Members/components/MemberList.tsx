@@ -1,9 +1,8 @@
-import React from "react";
+import React, { FC } from "react";
 import Box from "@material-ui/core/Box";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import MemberItem from "./MemberItem";
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
@@ -13,19 +12,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-// interface MemberListProps {
-//   members: {
-//     active: boolean;
-//     email: string;
-//     name: string;
-//     registration: boolean;
-//     role: string;
-//     _id: string;
-//   }[];
-// }
-const members = [{ name: "Shogo", _id: "1" }];
+interface MemberListProps {
+  members: {
+    name: string;
+    _id: string;
+  }[];
+}
 
-const MemberList = () => {
+const MemberList: FC<MemberListProps> = ({ members }) => {
   const classes = useStyles();
 
   return (
@@ -37,11 +31,7 @@ const MemberList = () => {
         <Grid item>
           {members.map((member, index) => {
             return (
-              <MemberItem
-                name={member.name}
-                key={index}
-                memberId={member._id}
-              />
+              <MemberItem name={member.name} _id={member._id} key={index} />
             );
           })}
         </Grid>

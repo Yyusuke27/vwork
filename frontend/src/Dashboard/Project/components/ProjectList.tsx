@@ -74,7 +74,7 @@ const ProjectList: FC<ProjectListProps> = ({ title = "" }) => {
             </Grid>
           </Grid>
         </Box>
-        {projectData.map((data, index) => {
+        {projectData.map((data) => {
           return (
             <ProjectItem
               id={data._id}
