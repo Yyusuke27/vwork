@@ -57,7 +57,7 @@ const DatePickerArea = () => {
           </Grid>
         </Grid>
         <Box borderBottom={1}>
-          <Typography variant={"h5"}>{month}月の勤怠情報</Typography>
+          <Typography variant={"h5"}>{Number(month)}月の勤怠情報</Typography>
         </Box>
       </Box>
     </>
