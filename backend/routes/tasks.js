@@ -13,11 +13,13 @@ const {
 const router = express.Router({ mergeParams: true });
 
 const commentRouter = require("./comments");
+const historyRouter = require("./histories");
 
 const { protect } = require("../middleware/auth");
 
 // 他のルーターに再度ルート
 router.use("/:taskId/comments", commentRouter);
+router.use("/:taskId/histories", historyRouter);
 
 router.route("/").get(protect, getTasks).post(protect, createTask);
 

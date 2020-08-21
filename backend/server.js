@@ -26,6 +26,7 @@ const attendances = require("./routes/attendances");
 const registration = require("./routes/registration");
 const users = require("./routes/users");
 const comments = require("./routes/comments");
+const histories = require("./routes/histories");
 
 const app = express();
 
@@ -51,6 +52,7 @@ app.use("/api/v1/attendances", attendances);
 app.use("/api/v1/registration", registration);
 app.use("/api/v1/users", users);
 app.use("/api/v1/comments", comments);
+app.use("/api/v1/histories", histories);
 
 if (process.env.SHOW_BUILD_FRONTEND === "true") {
   app.use(express.static(path.join("public")));
