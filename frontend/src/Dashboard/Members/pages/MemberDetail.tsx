@@ -85,8 +85,6 @@ const MemberDetail = () => {
   // 勤怠情報のAPIと接続させるための処理
   const attendances = useSelector(selectAttenances);
 
-  const workspace = useSelector(selectWorkspace);
-
   const getAttendances = useCallback(
     async (workspace, userId) => {
       await dispatch(
@@ -97,13 +95,12 @@ const MemberDetail = () => {
   );
 
   useEffect(() => {
-    if (workspace) {
-      getAttendances(workspace, memberId);
+    if (workspaceId) {
+      getAttendances(workspaceId, memberId);
     }
-  }, [getAttendances, workspace, memberId]);
+  }, [getAttendances, workspaceId, memberId]);
 
   // プロジェクトのAPIと連携させるための処理
-  const workspaces = useSelector(selectWorkspace);
 
   const getProjects = useCallback(
     async (workspaces, userId) => {
@@ -115,10 +112,10 @@ const MemberDetail = () => {
   );
 
   useEffect(() => {
-    if (workspaces) {
-      getProjects(workspaces, memberId);
+    if (workspaceId) {
+      getProjects(workspaceId, memberId);
     }
-  }, [getProjects, workspaces, memberId]);
+  }, [getProjects, workspaceId, memberId]);
 
   // タスクのAPIと連結させるための処理
   const getTasks = useCallback(
@@ -131,10 +128,10 @@ const MemberDetail = () => {
   );
 
   useEffect(() => {
-    if (workspace) {
-      getTasks(workspace, memberId);
+    if (workspaceId) {
+      getTasks(workspaceId, memberId);
     }
-  }, [getTasks, workspace, memberId]);
+  }, [getTasks, workspaceId, memberId]);
 
   const history = useHistory();
   const handlePageChangeToKintai = () => {
