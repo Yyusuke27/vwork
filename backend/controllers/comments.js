@@ -3,6 +3,8 @@ const asyncHandler = require("../middleware/async");
 const Comment = require("../models/Comment");
 const Task = require("../models/Task");
 const Workspace = require("../models/Workspace");
+const Notification = require("../models/Notification");
+const User = require("../models/User");
 
 // @desc Create new comment
 // @route POST /api/v1/tasks/:taskId/comments
@@ -27,6 +29,28 @@ exports.createComment = asyncHandler(async (req, res, next) => {
     task: req.params.taskId,
     comment: req.body.comment,
   });
+
+  // タスクのユーザーとリクエストのユーザーが違う場合は
+  // 通知処理
+  if (task.user.toString() !== req.user.id) {
+    await Notification.create({
+      type: 1,
+      user: task.user,
+      task: task._id,
+      unread: true,
+    });
+
+    await User.findByIdAndUpdate(
+      task.user,
+      {
+        unread: true,
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+  }
 
   res.status(201).json({
     success: true,

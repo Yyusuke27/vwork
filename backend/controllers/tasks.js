@@ -6,6 +6,8 @@ const Task = require("../models/Task");
 const Workspace = require("../models/Workspace");
 const Project = require("../models/Project");
 const Log = require("../models/Log");
+const User = require("../models/User");
+const Notification = require("../models/Notification");
 
 // @desc Get all tasks or specific tasks
 // @route Get /api/v1/tasks
@@ -323,6 +325,28 @@ exports.updateTask = asyncHandler(async (req, res, next) => {
   };
 
   await createLogs();
+
+  // タスクのユーザーとリクエストのユーザーが違う場合は
+  // 通知処理
+  if (task.user.toString() !== req.user.id) {
+    await Notification.create({
+      type: 1,
+      user: task.user,
+      task: task._id,
+      unread: true,
+    });
+
+    await User.findByIdAndUpdate(
+      task.user,
+      {
+        unread: true,
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+  }
 
   res.status(200).json({
     success: true,

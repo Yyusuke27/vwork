@@ -28,6 +28,10 @@ const UserSchema = new mongoose.Schema(
       enum: ["normal"],
       default: "normal",
     },
+    unread: {
+      type: Boolean,
+      default: false,
+    },
     password: {
       type: String,
       required: [true, "パスワードを入力してください"],
