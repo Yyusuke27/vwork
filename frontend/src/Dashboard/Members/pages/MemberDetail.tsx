@@ -20,6 +20,7 @@ import AttendanceList from "../../Attendance/components/AttendanceList";
 import { selectAttenances } from "../../Attendance/attendanceSlice";
 import ProjectList from "../../Project/components/ProjectList";
 import TaskList from "../../Task/components/TaskList";
+import { fetchAsyncGetMemberProjects } from "../../Project/projectSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -109,6 +110,24 @@ const MemberDetail = () => {
       getAttendances(workspace, memberId);
     }
   }, [getAttendances, workspace, memberId]);
+
+  const workspaces = useSelector(selectWorkspace);
+
+  const getProjects = useCallback(
+    async (workspaces, userId) => {
+      await dispatch(
+        fetchAsyncGetMemberProjects({ workspaces: workspaces, userId: userId })
+      );
+    },
+    [dispatch]
+  );
+
+  useEffect(() => {
+    if (workspaces) {
+      getProjects(workspaces, memberId);
+    }
+  }, [getProjects, workspaces, memberId]);
+
   return (
     <>
       <MainHeader title="メンバー管理" />
