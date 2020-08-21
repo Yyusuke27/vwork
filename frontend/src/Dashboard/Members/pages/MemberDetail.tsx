@@ -21,6 +21,7 @@ import { selectAttenances } from "../../Attendance/attendanceSlice";
 import ProjectList from "../../Project/components/ProjectList";
 import TaskList from "../../Task/components/TaskList";
 import { fetchAsyncGetMemberProjects } from "../../Project/projectSlice";
+import { fetchAsyncMemberTasks } from "../../Task/taskSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -70,6 +71,8 @@ const MemberDetail = () => {
   const handlePageChangeToTask = () => {
     history.push("/members/:memberId/task");
   };
+
+  // ユーザー情報のAPIと接続させるための処理
   const member = useSelector(selectMember);
 
   interface ParamsType {
@@ -92,6 +95,7 @@ const MemberDetail = () => {
     }
   }, [getMembers, workspaceId]);
 
+  // 勤怠情報のAPIと接続させるための処理
   const attendances = useSelector(selectAttenances);
 
   const workspace = useSelector(selectWorkspace);
@@ -111,6 +115,7 @@ const MemberDetail = () => {
     }
   }, [getAttendances, workspace, memberId]);
 
+  // プロジェクトのAPIと連携させるための処理
   const workspaces = useSelector(selectWorkspace);
 
   const getProjects = useCallback(
@@ -127,6 +132,22 @@ const MemberDetail = () => {
       getProjects(workspaces, memberId);
     }
   }, [getProjects, workspaces, memberId]);
+
+  // タスクのAPIと連結させるための処理
+  const getTasks = useCallback(
+    async (workspace, userId) => {
+      await dispatch(
+        fetchAsyncMemberTasks({ workspace: workspace, userId: userId })
+      );
+    },
+    [dispatch]
+  );
+
+  useEffect(() => {
+    if (workspace) {
+      getTasks(workspace, memberId);
+    }
+  }, [getTasks, workspace, memberId]);
 
   return (
     <>

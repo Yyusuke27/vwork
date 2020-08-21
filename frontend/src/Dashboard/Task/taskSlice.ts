@@ -301,7 +301,7 @@ const taskSlice = createSlice({
       state.nearDeadlineTasks = action.payload.data;
     });
     builder.addCase(fetchAsyncMemberTasks.fulfilled, (state, action) => {
-      console.log(action.payload);
+      state.task = action.payload.data;
     });
   },
 });
