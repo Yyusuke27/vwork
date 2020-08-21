@@ -13,9 +13,9 @@ const ProjectInMemberManage = () => {
   const workspaceId = useSelector(selectWorkspace);
   const dispatch = useDispatch();
   const getProjects = useCallback(
-    async (workspaces, userId) => {
+    async (workspace, userId) => {
       await dispatch(
-        fetchAsyncGetMemberProjects({ workspaces: workspaces, userId: userId })
+        fetchAsyncGetMemberProjects({ workspace: workspace, userId: userId })
       );
     },
     [dispatch]

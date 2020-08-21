@@ -104,9 +104,9 @@ export const fetchAsyncAddMembers = createAsyncThunk(
 // メンバー管理でユーザーに紐づくプロジェクトを見られるようにする
 export const fetchAsyncGetMemberProjects = createAsyncThunk(
   "project/memberProjects",
-  async (data: { workspaces: string; userId: string }) => {
+  async (data: { workspace: string; userId: string }) => {
     const res = await axios.get(
-      `${apiUrl}api/v1/workspaces/${data.workspaces}/users/${data.userId}/projects`,
+      `${apiUrl}api/v1/workspaces/${data.workspace}/users/${data.userId}/projects`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
