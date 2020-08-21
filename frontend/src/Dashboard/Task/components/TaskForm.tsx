@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import * as Yup from "yup";
 import { Field, Form, Formik } from "formik";
 import moment from "moment";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import _ from "lodash";
 
@@ -30,6 +30,7 @@ import HighlightIcon from "@material-ui/icons/Highlight";
 import SubjectIcon from "@material-ui/icons/Subject";
 import { selectSelectedMembers } from "../../dashboardSlice";
 import { selectProject } from "../../Project/projectSlice";
+import { toggleLoading } from "../../../appSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -127,6 +128,8 @@ const TaskForm: FC<TaskFormProps> = ({
     }
   }
 
+  const dispatch = useDispatch();
+
   interface TaskFormValues {
     user: string;
     name: string;
@@ -167,7 +170,7 @@ const TaskForm: FC<TaskFormProps> = ({
         })}
         onSubmit={async (values, actions) => {
           actions.setSubmitting(false);
-
+          dispatch(toggleLoading(true));
           //変更箇所、内容の取得
           const diff = _.omitBy(
             values,
@@ -183,6 +186,7 @@ const TaskForm: FC<TaskFormProps> = ({
           }
 
           await submitFunction(submitData, workspace);
+          dispatch(toggleLoading(false));
         }}
       >
         {(props) => (
