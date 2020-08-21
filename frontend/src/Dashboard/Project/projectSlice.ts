@@ -11,6 +11,21 @@ export const fetchAsyncAllMyProjects = createAsyncThunk(
   "project/allMyProjects",
   async (workspace: string) => {
     const res = await axios.get(
+      `${apiUrl}api/v1/workspaces/${workspace}/projects/me`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return res.data;
+  }
+);
+
+export const fetchAsyncAllProjects = createAsyncThunk(
+  "project/allProjects",
+  async (workspace: string) => {
+    const res = await axios.get(
       `${apiUrl}api/v1/workspaces/${workspace}/projects`,
       {
         headers: {
@@ -214,6 +229,9 @@ const projectSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncAllMyProjects.fulfilled, (state, action) => {
+      state.projects = action.payload.data;
+    });
+    builder.addCase(fetchAsyncAllProjects.fulfilled, (state, action) => {
       state.projects = action.payload.data;
     });
     builder.addCase(fetchAsyncAllMyProjects.rejected, (state, action) => {});

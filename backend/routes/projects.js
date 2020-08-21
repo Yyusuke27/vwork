@@ -8,6 +8,7 @@ const {
   getMembers,
   getNewMembers,
   addMemeber,
+  getMyProjects,
 } = require("../controllers/projects");
 
 const { protect } = require("../middleware/auth");
@@ -20,6 +21,8 @@ const router = express.Router({ mergeParams: true });
 router.use("/:projectId/tasks", taskRouter);
 
 router.route("/").get(protect, getProjects).post(protect, createProject);
+
+router.route("/me").get(protect, getMyProjects);
 
 router.route("/:projectId/members/new").get(protect, getNewMembers);
 router

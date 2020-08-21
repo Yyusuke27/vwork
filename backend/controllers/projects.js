@@ -23,7 +23,7 @@ exports.getProjects = asyncHandler(async (req, res, next) => {
       workspace: req.params.workspaceId,
     });
   } else if (req.params.workspaceId) {
-    // ownerのみ閲覧可能。owner画面のユーザー管理で使用
+    // ownerのみ閲覧可能。owner画面のプロジェクト管理で使用
     const workspace = await Workspace.findById(req.params.workspaceId);
     const isOwnerInWorkspace = workspace.owners.includes(req.user.id);
     if (!isOwnerInWorkspace) {
@@ -31,7 +31,6 @@ exports.getProjects = asyncHandler(async (req, res, next) => {
     }
 
     projects = await Project.find({
-      members: req.user.id,
       workspace: req.params.workspaceId,
     });
   } else {
@@ -40,6 +39,31 @@ exports.getProjects = asyncHandler(async (req, res, next) => {
     } else {
       projects = await Project.find({ members: req.user.id });
     }
+  }
+
+  res.status(200).json({
+    success: true,
+    count: projects.length,
+    data: projects,
+  });
+});
+
+// @desc Get all Projects or specific Projects
+// @route Get /api/v1/projects
+// @route Get /api/v1/workspaces/:workspaceId/projects/me
+exports.getMyProjects = asyncHandler(async (req, res, next) => {
+  let projects;
+  if (req.params.workspaceId) {
+    const workspace = await Workspace.findById(req.params.workspaceId);
+    const isMemberInWorkspace = workspace.members.includes(req.user.id);
+    if (!isMemberInWorkspace) {
+      return next(new ErrorResponse("プロジェクトの閲覧権限がありません"));
+    }
+
+    projects = await Project.find({
+      members: req.user.id,
+      workspace: req.params.workspaceId,
+    });
   }
 
   res.status(200).json({
