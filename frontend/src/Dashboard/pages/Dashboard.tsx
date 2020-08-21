@@ -37,9 +37,7 @@ import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 import MemberDetail from "../Members/pages/MemberDetail";
-import Container from "@material-ui/core/Container";
-import ProjectList from "../Project/components/ProjectList";
-import MainHeader from "../../shared/components/Navigation/MainHeader";
+import ProjectManage from "../Project/pages/ProjectManage";
 
 const drawerWidth = 240;
 
@@ -160,10 +158,7 @@ const Dashboard = () => {
             <MemberDetail />
           </Route>
           <Route path="/project_manage" exact>
-            <MainHeader title="プロジェクト管理" />
-            <Container>
-              <ProjectList title="全てのプロジェクト" />
-            </Container>
+            <ProjectManage />
           </Route>
           <Route path="/project/:projectId" exact>
             <Project />
