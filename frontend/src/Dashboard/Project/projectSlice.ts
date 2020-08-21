@@ -240,7 +240,7 @@ const projectSlice = createSlice({
       });
     });
     builder.addCase(fetchAsyncGetMemberProjects.fulfilled, (state, action) => {
-      state.project = action.payload.data;
+      state.projects = action.payload.data;
     });
   },
 });

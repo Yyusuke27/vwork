@@ -156,7 +156,7 @@ const Dashboard = () => {
           <Route path="/members" exact>
             <Members />
           </Route>
-          <Route path="/members/:memberId" exact>
+          <Route path="/members/:memberId">
             <MemberDetail />
           </Route>
           <Route path="/project_manage" exact>

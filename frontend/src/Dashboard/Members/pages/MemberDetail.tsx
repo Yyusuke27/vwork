@@ -1,4 +1,7 @@
 import React, { useCallback, useEffect } from "react";
+import { Switch, useHistory } from "react-router";
+import { Route, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
@@ -8,12 +11,9 @@ import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import WorkIcon from "@material-ui/icons/Work";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { Box } from "@material-ui/core";
-import { Switch, useHistory } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
 import { selectWorkspace } from "../../../Auth/authSlice";
 import { fetchAsyncGetMember, selectMember } from "../memberSlice";
 import { fetchAsyncGetMemberAttendance } from "../../Attendance/attendanceSlice";
-import { Route, useParams } from "react-router-dom";
 import MainHeader from "../../../shared/components/Navigation/MainHeader";
 import DatePickerArea from "../../Attendance/components/DatePickerArea";
 import AttendanceList from "../../Attendance/components/AttendanceList";
@@ -57,19 +57,6 @@ const MemberDetail = () => {
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
-  };
-
-  const history = useHistory();
-  const handlePageChangeToKintai = () => {
-    history.push("/members/:memberId");
-  };
-
-  const handlePageChangeToProject = () => {
-    history.push("/members/:memberId/project");
-  };
-
-  const handlePageChangeToTask = () => {
-    history.push("/members/:memberId/task");
   };
 
   // ユーザー情報のAPIと接続させるための処理
@@ -149,6 +136,19 @@ const MemberDetail = () => {
     }
   }, [getTasks, workspace, memberId]);
 
+  const history = useHistory();
+  const handlePageChangeToKintai = () => {
+    history.push(`/members/${memberId}`);
+  };
+
+  const handlePageChangeToProject = () => {
+    history.push(`/members/${memberId}/project`);
+  };
+
+  const handlePageChangeToTask = () => {
+    history.push(`/members/${memberId}/task`);
+  };
+
   return (
     <>
       <MainHeader title="メンバー管理" />
@@ -208,7 +208,7 @@ const MemberDetail = () => {
               </Tabs>
             </Box>
             <Switch>
-              <Route Route path="/members/:memberId" exact>
+              <Route path="/members/:memberId" exact>
                 <DatePickerArea />
                 <AttendanceList attendances={attendances} />
               </Route>
