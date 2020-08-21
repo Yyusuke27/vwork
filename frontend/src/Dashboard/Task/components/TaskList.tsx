@@ -14,8 +14,6 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputBase from "@material-ui/core/InputBase";
 import MenuItem from "@material-ui/core/MenuItem";
-import { useSelector } from "react-redux";
-import { selectTasks } from "../../Task/taskSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -89,25 +87,25 @@ const TaskList: FC<TaskListProps> = ({
   };
 
   // TODO:　全てのTaskListを使っているところとAPIを連携させたらここを削除
-  // const tasks: {
-  //   name: string;
-  //   project: { _id: string; name: string };
-  //   endDateAt: string;
-  //   _id: string;
-  //   user: { _id: string; name: string };
-  // }[] = taskData
-  //   ? taskData
-  //   : [
-  //       {
-  //         name: "タスク",
-  //         project: { name: "プロジェクト", _id: "12345" },
-  //         endDateAt: "2020-10-10",
-  //         _id: "12345",
-  //         user: { name: "太郎", _id: "12345" },
-  //       },
-  //     ];
+  const tasks: {
+    name: string;
+    project: { _id: string; name: string };
+    endDateAt: string;
+    _id: string;
+    user: { _id: string; name: string };
+  }[] = taskData
+    ? taskData
+    : [
+        {
+          name: "タスク",
+          project: { name: "プロジェクト", _id: "12345" },
+          endDateAt: "2020-10-10",
+          _id: "12345",
+          user: { name: "太郎", _id: "12345" },
+        },
+      ];
 
-  const tasks = useSelector(selectTasks);
+  // const tasks = useSelector(selectTasks);
 
   return (
     <>
@@ -149,7 +147,7 @@ const TaskList: FC<TaskListProps> = ({
         </Grid>
         <Box mt={2}>
           <Grid container direction="column" justify="flex-start">
-            {tasks.data.map((data, index) => {
+            {tasks.map((data, index) => {
               return <TaskItem data={data} iconType={iconType} key={index} />;
             })}
           </Grid>
