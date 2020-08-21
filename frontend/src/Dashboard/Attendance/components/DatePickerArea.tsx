@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import DateFnsUtils from "@date-io/date-fns";
@@ -9,9 +9,16 @@ import moment from "moment";
 import Typography from "@material-ui/core/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import { selectWorkspace } from "../../../Auth/authSlice";
-import { fetchAsyncGetMyAttendances } from "../attendanceSlice";
+import {
+  fetchAsyncGetMemberAttendance,
+  fetchAsyncGetMyAttendances,
+} from "../attendanceSlice";
 
-const DatePickerArea = () => {
+interface DatePickerProps {
+  userId?: string;
+}
+
+const DatePickerArea: FC<DatePickerProps> = ({ userId }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [month, setMonth] = useState(moment().format("M"));
 
@@ -19,13 +26,25 @@ const DatePickerArea = () => {
 
   const dispatch = useDispatch();
 
+  const path = window.location.pathname;
+
   const getAttendance = useCallback(
     async (workspace, year, month) => {
-      await dispatch(
-        fetchAsyncGetMyAttendances({ workspace, query: { year, month } })
-      );
+      if (path.includes("members")) {
+        await dispatch(
+          fetchAsyncGetMemberAttendance({
+            userId: userId ? userId : "",
+            workspace,
+            query: { year, month },
+          })
+        );
+      } else {
+        await dispatch(
+          fetchAsyncGetMyAttendances({ workspace, query: { year, month } })
+        );
+      }
     },
-    [dispatch]
+    [dispatch, userId, path]
   );
 
   const handleDateChange = (date: Date | null) => {

@@ -33,7 +33,7 @@ const AttendanceInfoInMemberManage = () => {
   }, [getAttendances, workspaceId, memberId]);
   return (
     <>
-      <DatePickerArea />
+      <DatePickerArea userId={memberId} />
       <AttendanceList attendances={attendances} />
     </>
   );

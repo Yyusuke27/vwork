@@ -90,9 +90,17 @@ export const fetchAsyncGetAttendance = createAsyncThunk(
 // メンバー管理のユーザーの勤怠情報一覧
 export const fetchAsyncGetMemberAttendance = createAsyncThunk(
   "attendance/memberAttendance",
-  async (data: { userId: string; workspace: string }) => {
+  async (data: {
+    userId: string;
+    workspace: string;
+    query?: { year: string; month: string };
+  }) => {
     const res = await axios.get(
-      `${apiUrl}api/v1/workspaces/${data.workspace}/users/${data.userId}/attendances`,
+      `${apiUrl}api/v1/workspaces/${data.workspace}/users/${
+        data.userId
+      }/attendances${
+        data.query ? `?year=${data.query.year}&month=${data.query.month}` : ""
+      }`,
       {
         headers: {
           "Content-Type": "application/json",

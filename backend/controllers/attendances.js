@@ -14,6 +14,9 @@ const moment = require("moment");
 // @access Public
 exports.getAttendances = asyncHandler(async (req, res, next) => {
   let attendances;
+
+  // TODO: クエリのところまとめる
+
   if (req.params.workspaceId && req.params.userId) {
     // workspaceのownerはworkspaceのmemberの勤怠を閲覧可能
     // ownerのみ閲覧可能。owner画面のユーザー管理で使用
@@ -22,17 +25,55 @@ exports.getAttendances = asyncHandler(async (req, res, next) => {
     if (!isOwnerInWorkspace) {
       return next(new ErrorResponse("勤怠情報の閲覧権限がありません"));
     }
-    attendances = await Attendance.find({
-      workspace: req.params.workspaceId,
-      user: req.params.userId,
-      createdAt: {
-        $lt: moment(Date.now())
-          .utcOffset("+09:00")
-          .hour(0)
-          .minute(0)
-          .seconds(0),
-      },
-    });
+
+    if (req.query && req.query.year && req.query.month) {
+      //　月ごとに絞り込み処理
+      const year = Number(req.query.year);
+      const month = Number(req.query.month);
+
+      const makeMonthFormat = (m) => {
+        return ("0" + m).slice(-2);
+      };
+
+      const startDateOfTheMonth = moment(`${year}-${makeMonthFormat(month)}-01`)
+        .utcOffset("+09:00")
+        .toDate();
+      const endDateOfTheMonth = moment(
+        `${year}-${makeMonthFormat(month + 1)}-01`
+      )
+        .subtract(1, "day")
+        .utcOffset("+09:00")
+        .toDate();
+
+      attendances = await Attendance.find({
+        user: req.params.userId,
+        workspace: req.params.workspaceId,
+        createdAt: {
+          $gte: startDateOfTheMonth,
+          $lte: endDateOfTheMonth,
+        },
+      });
+    } else {
+      // queryがなかったら今月の勤怠を表示
+      const today = moment(Date.now());
+      const year = today.format("YYYY");
+      const month = today.format("MM");
+      const startDateOfThisMonth = moment(`${year}-${month}-01`)
+        .utcOffset("+09:00")
+        .toDate();
+      attendances = await Attendance.find({
+        user: req.params.userId,
+        workspace: req.params.workspaceId,
+        createdAt: {
+          $gte: startDateOfThisMonth,
+          $lt: moment(Date.now())
+            .utcOffset("+09:00")
+            .hour(0)
+            .minute(0)
+            .seconds(0),
+        },
+      });
+    }
   } else if (req.params.workspaceId) {
     // 自分の全ての勤怠管理の閲覧
     if (req.query && req.query.year && req.query.month) {
