@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect } from "react";
+import React from "react";
 import { Switch, useHistory } from "react-router";
 import { Route, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
@@ -11,36 +10,14 @@ import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import WorkIcon from "@material-ui/icons/Work";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { Box } from "@material-ui/core";
-import { selectWorkspace } from "../../../Auth/authSlice";
-import { fetchAsyncGetMember, selectMember } from "../memberSlice";
-import { fetchAsyncGetMemberAttendance } from "../../Attendance/attendanceSlice";
 import MainHeader from "../../../shared/components/Navigation/MainHeader";
-import DatePickerArea from "../../Attendance/components/DatePickerArea";
-import AttendanceList from "../../Attendance/components/AttendanceList";
-import { selectAttenances } from "../../Attendance/attendanceSlice";
-import ProjectList from "../../Project/components/ProjectList";
-import TaskList from "../../Task/components/TaskList";
-import { fetchAsyncGetMemberProjects } from "../../Project/projectSlice";
-import { fetchAsyncMemberTasks } from "../../Task/taskSlice";
+import AttendanceInfoInMemberManage from "../components/AttendanceInfoInMemberManage";
+import ProjectInMemberManage from "../components/ProjectInMemberManage";
+import TaskInMemberManage from "../components/TaskInMemberManage";
+import MemberInfo from "../components/MemberInfo";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    closeIcon: {
-      padding: 0,
-    },
-    profile: {
-      fontSize: 20,
-    },
-    profileTitle: {
-      color: "#9e9e9e",
-    },
-    profileItem: {
-      margin: 0,
-    },
-    root: {
-      flexGrow: 1,
-      maxWidth: "60%",
-    },
     tabs: {
       backgroundColor: "#fafafa",
       width: "60%",
@@ -51,87 +28,17 @@ const useStyles = makeStyles((theme: Theme) =>
 const MemberDetail = () => {
   const classes = useStyles();
 
-  const dispatch = useDispatch();
-
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
 
-  // ユーザー情報のAPIと接続させるための処理
-  const member = useSelector(selectMember);
-
   interface ParamsType {
     memberId: string;
   }
+
   const memberId = useParams<ParamsType>().memberId;
-
-  const workspaceId = useSelector(selectWorkspace);
-
-  const getMembers = useCallback(
-    async (workspaceId) => {
-      await dispatch(fetchAsyncGetMember({ workspaceId, id: memberId }));
-    },
-    [dispatch, memberId]
-  );
-
-  useEffect(() => {
-    if (workspaceId) {
-      getMembers(workspaceId);
-    }
-  }, [getMembers, workspaceId]);
-
-  // 勤怠情報のAPIと接続させるための処理
-  const attendances = useSelector(selectAttenances);
-
-  const getAttendances = useCallback(
-    async (workspace, userId) => {
-      await dispatch(
-        fetchAsyncGetMemberAttendance({ userId: userId, workspace: workspace })
-      );
-    },
-    [dispatch]
-  );
-
-  useEffect(() => {
-    if (workspaceId) {
-      getAttendances(workspaceId, memberId);
-    }
-  }, [getAttendances, workspaceId, memberId]);
-
-  // プロジェクトのAPIと連携させるための処理
-
-  const getProjects = useCallback(
-    async (workspaces, userId) => {
-      await dispatch(
-        fetchAsyncGetMemberProjects({ workspaces: workspaces, userId: userId })
-      );
-    },
-    [dispatch]
-  );
-
-  useEffect(() => {
-    if (workspaceId) {
-      getProjects(workspaceId, memberId);
-    }
-  }, [getProjects, workspaceId, memberId]);
-
-  // タスクのAPIと連結させるための処理
-  const getTasks = useCallback(
-    async (workspace, userId) => {
-      await dispatch(
-        fetchAsyncMemberTasks({ workspace: workspace, userId: userId })
-      );
-    },
-    [dispatch]
-  );
-
-  useEffect(() => {
-    if (workspaceId) {
-      getTasks(workspaceId, memberId);
-    }
-  }, [getTasks, workspaceId, memberId]);
 
   const history = useHistory();
   const handlePageChangeToKintai = () => {
@@ -152,30 +59,7 @@ const MemberDetail = () => {
 
       <Grid container direction="column">
         <Container>
-          <Grid item>
-            <Grid container direction="row" spacing={5}>
-              <Grid item className={classes.profile}>
-                <dl>
-                  <dt className={classes.profileTitle}>氏名</dt>
-                  <dd className={classes.profileItem}>{member.user.name}</dd>
-                </dl>
-              </Grid>
-              <Grid item className={classes.profile}>
-                <dl>
-                  <dt className={classes.profileTitle}>メールアドレス</dt>
-                  <dd className={classes.profileItem}>{member.user.email}</dd>
-                </dl>
-              </Grid>
-              <Grid item className={classes.profile}>
-                <dl>
-                  <dt className={classes.profileTitle}>役職・担当</dt>
-                  <dd className={classes.profileItem}>
-                    {member.profile && member.profile.position}
-                  </dd>
-                </dl>
-              </Grid>
-            </Grid>
-          </Grid>
+          <MemberInfo />
           <Grid item>
             <Box mt={5}>
               <Tabs
@@ -206,14 +90,13 @@ const MemberDetail = () => {
             </Box>
             <Switch>
               <Route path="/members/:memberId" exact>
-                <DatePickerArea />
-                <AttendanceList attendances={attendances} />
+                <AttendanceInfoInMemberManage />
               </Route>
               <Route path="/members/:memberId/project" exact>
-                <ProjectList title="参加しているプロジェクト" />
+                <ProjectInMemberManage />
               </Route>
               <Route path="/members/:memberId/task" exact>
-                <TaskList title="タスク一覧" />
+                <TaskInMemberManage />
               </Route>
             </Switch>
           </Grid>
