@@ -105,8 +105,6 @@ const TaskList: FC<TaskListProps> = ({
         },
       ];
 
-  // const tasks = useSelector(selectTasks);
-
   return (
     <>
       <Box mt={7}>
