@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect } from "react";
 import MemberList from "../components/MemberList";
 import Container from "@material-ui/core/Container";
 import MainHeader from "../../../shared/components/Navigation/MainHeader";
@@ -19,13 +19,9 @@ const Members = () => {
     [dispatch]
   );
 
-  const mounted = useRef(false);
-
   useEffect(() => {
-    if (mounted.current) {
+    if (workspaceId) {
       getMembers(workspaceId);
-    } else {
-      mounted.current = true;
     }
   }, [getMembers, workspaceId]);
 

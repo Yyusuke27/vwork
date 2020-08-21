@@ -33,7 +33,6 @@ const ProjectMemberItem: FC<ProjectMemberItemProps> = ({ name, memberId }) => {
           dispatch(setSelectedMember(memberId));
           dispatch(toggleMemberIconClicked(true));
         }}
-        data-testid="test"
       >
         <ListItemIcon>
           <Avatar className={classes.icon}>{name.slice(0, 1)}</Avatar>

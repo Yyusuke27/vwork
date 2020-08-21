@@ -33,18 +33,13 @@ import {
   fetchAsyncNearDeadlineTasks,
   fetchAsyncRecentTasks,
 } from "../Task/taskSlice";
-
 import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
-import MemberDetail from "../Members/components/MemberDetail";
-import DatePickerArea from "../Attendance/components/DatePickerArea";
-import AttendanceList from "../Attendance/components/AttendanceList";
+import MemberDetail from "../Members/pages/MemberDetail";
 import Container from "@material-ui/core/Container";
-import { selectAttenances } from "../Attendance/attendanceSlice";
 import ProjectList from "../Project/components/ProjectList";
 import MainHeader from "../../shared/components/Navigation/MainHeader";
-import TaskList from "../Task/components/TaskList";
 
 const drawerWidth = 240;
 
@@ -129,7 +124,6 @@ const Dashboard = () => {
   const addTaskButton = useSelector(selectAddTaskButton);
   const memberIconClicked = useSelector(selectMemberIconClicked);
   const kintaiCardClicked = useSelector(selectKintaiCardClicked);
-  const attendances = useSelector(selectAttenances);
 
   return (
     <div className={classes.root}>
@@ -162,27 +156,8 @@ const Dashboard = () => {
           <Route path="/members" exact>
             <Members />
           </Route>
-          <Route path="/members/1" exact>
-            <MainHeader title="メンバー管理" />
-            <Container>
-              <MemberDetail />
-              <DatePickerArea />
-              <AttendanceList attendances={attendances} />
-            </Container>
-          </Route>
-          <Route path="/members/1/project" exact>
-            <MainHeader title="メンバー管理" />
-            <Container>
-              <MemberDetail />
-              <ProjectList title="参加しているプロジェクト" />
-            </Container>
-          </Route>
-          <Route path="/members/1/task" exact>
-            <MainHeader title="メンバー管理" />
-            <Container>
-              <MemberDetail />
-              <TaskList title="一覧" />
-            </Container>
+          <Route path="/members/:memberId" exact>
+            <MemberDetail />
           </Route>
           <Route path="/project_manage" exact>
             <MainHeader title="プロジェクト管理" />

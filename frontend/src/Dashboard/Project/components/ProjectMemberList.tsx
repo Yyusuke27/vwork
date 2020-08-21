@@ -76,7 +76,6 @@ const ProjectMemberList: FC<ProjectMemberListProps> = ({ members }) => {
             button
             onClick={() => dispatch(toggleAddMemberButton(true))}
             style={{ paddingLeft: 0 }}
-            data-testid="testId"
           >
             <ListItemIcon>
               <AddCircleOutlineIcon className={classes.icon} />

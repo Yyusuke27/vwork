@@ -45,16 +45,16 @@ interface memberState {
     _id: string;
   }[];
   member: {
-    user: {};
-    profile: {};
+    user: { name: string; email: string };
+    profile: { position: string };
   };
 }
 
 const initialState: memberState = {
   members: [],
   member: {
-    user: {},
-    profile: {},
+    user: { name: "", email: "" },
+    profile: { position: "" },
   },
 };
 
@@ -65,20 +65,24 @@ const memberSlice = createSlice({
     setMembers(state, action) {
       state.members = action.payload;
     },
+    setMember(state, action) {
+      state.member = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncGetMembers.fulfilled, (state, action) => {
-      // console.log(action.payload.users);
-      // console.log(state.members);
       state.members = action.payload.users;
     });
     builder.addCase(fetchAsyncGetMember.fulfilled, (state, action) => {
-      console.log(action.payload);
+      state.member.user = action.payload.user;
+      state.member.profile = action.payload.profile;
     });
   },
 });
 
 export const selectMembers = (state: RootState) => state.member.members;
+export const selectMember = (state: RootState) => state.member.member;
 export const { setMembers } = memberSlice.actions;
+export const { setMember } = memberSlice.actions;
 
 export default memberSlice.reducer;

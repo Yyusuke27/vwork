@@ -4,7 +4,7 @@ import Avatar from "@material-ui/core/Avatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItem from "@material-ui/core/ListItem";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { useHistory } from "react-router";
+import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,13 +21,16 @@ interface MemberItemProps {
 
 const MemberItem: FC<MemberItemProps> = ({ name = "", _id }) => {
   const classes = useStyles();
-  const history = useHistory();
-  const handlePageChange = () => {
-    history.push("/members/:id");
-  };
+
   return (
     <>
-      <ListItem button style={{ paddingLeft: 0 }} onClick={handlePageChange}>
+      <ListItem
+        button
+        style={{ paddingLeft: 0 }}
+        component={NavLink}
+        to={`/members/${_id}`}
+        exact
+      >
         <ListItemIcon>
           <Avatar className={classes.icon}>{name.slice(0, 1)}</Avatar>
         </ListItemIcon>
