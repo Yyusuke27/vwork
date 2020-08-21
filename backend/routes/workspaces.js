@@ -15,6 +15,7 @@ const projectRouter = require("./projects");
 const taskRouter = require("./tasks");
 const attendanceRouter = require("./attendances");
 const userRouter = require("./users");
+const notificationRouter = require("./notifications");
 
 const router = express.Router();
 
@@ -25,6 +26,7 @@ router.use("/:workspaceId/tasks", taskRouter);
 router.use("/:workspaceId/attendances", attendanceRouter);
 router.use("/:workspaceId/users/:userId/attendances", attendanceRouter);
 router.use("/:workspaceId/users", userRouter);
+router.use("/:workspaceId/notifications", notificationRouter);
 
 router.route("/").get(protect, getWorkspaces).post(protect, createWorkspace);
 

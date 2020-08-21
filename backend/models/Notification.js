@@ -22,6 +22,11 @@ const NotificationSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    workspace: {
+      type: mongoose.Schema.ObjectId,
+      ref: "Workspace",
+      required: true,
+    },
   },
   {
     timestamps: true,
