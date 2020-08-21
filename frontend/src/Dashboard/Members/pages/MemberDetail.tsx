@@ -12,6 +12,7 @@ import { Switch, useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { selectWorkspace } from "../../../Auth/authSlice";
 import { fetchAsyncGetMember, selectMember } from "../memberSlice";
+import { fetchAsyncGetMemberAttendance } from "../../Attendance/attendanceSlice";
 import { Route, useParams } from "react-router-dom";
 import MainHeader from "../../../shared/components/Navigation/MainHeader";
 import DatePickerArea from "../../Attendance/components/DatePickerArea";
@@ -91,6 +92,23 @@ const MemberDetail = () => {
   }, [getMembers, workspaceId]);
 
   const attendances = useSelector(selectAttenances);
+
+  const workspace = useSelector(selectWorkspace);
+
+  const getAttendances = useCallback(
+    async (workspace, userId) => {
+      await dispatch(
+        fetchAsyncGetMemberAttendance({ userId: userId, workspace: workspace })
+      );
+    },
+    [dispatch]
+  );
+
+  useEffect(() => {
+    if (workspace) {
+      getAttendances(workspace, memberId);
+    }
+  }, [getAttendances, workspace, memberId]);
   return (
     <>
       <MainHeader title="メンバー管理" />

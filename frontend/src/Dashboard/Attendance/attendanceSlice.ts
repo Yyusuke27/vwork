@@ -209,7 +209,7 @@ const attendanceSlice = createSlice({
     builder.addCase(
       fetchAsyncGetMemberAttendance.fulfilled,
       (state, action) => {
-        console.log(action.payload);
+        state.attendance.data = action.payload.data;
       }
     );
   },
