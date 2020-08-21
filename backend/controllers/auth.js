@@ -4,6 +4,7 @@ const asyncHandler = require("../middleware/async");
 const User = require("../models/User");
 const Workspace = require("../models/Workspace");
 const UserProfile = require("../models/UserProfile");
+const Notification = require("../models/Notification");
 
 const sendEmail = require("../utils/sendEmail");
 
@@ -82,12 +83,19 @@ exports.currentUser = asyncHandler(async (req, res, next) => {
     });
   }
 
+  const notification = await Notification.find({
+    user: req.user.id,
+    unread: true,
+    workspace: workspace._id,
+  });
+
   res.status(200).json({
     success: true,
     data: user,
     workspace: { id: workspace.id, name: workspace.name },
     profile,
     owner,
+    unread: notification.length,
   });
 });
 
