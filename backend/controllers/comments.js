@@ -38,18 +38,8 @@ exports.createComment = asyncHandler(async (req, res, next) => {
       user: task.user,
       task: task._id,
       unread: true,
+      workspace: workspace._id,
     });
-
-    await User.findByIdAndUpdate(
-      task.user,
-      {
-        unread: true,
-      },
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
   }
 
   res.status(201).json({

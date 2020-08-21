@@ -339,18 +339,8 @@ exports.updateTask = asyncHandler(async (req, res, next) => {
       user: task.user,
       task: task._id,
       unread: true,
+      workspace: task.workspace,
     });
-
-    await User.findByIdAndUpdate(
-      task.user,
-      {
-        unread: true,
-      },
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
   }
 
   res.status(200).json({

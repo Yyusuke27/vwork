@@ -8,7 +8,6 @@ const User = require("../models/User");
 // @route Get /api/v1/projects
 // @route Get /api/v1/workspaces/:workspaceId/projects
 // @route Get /api/v1/workspaces/:workspaceId/users/:userId/projects
-// @access Public
 exports.getProjects = asyncHandler(async (req, res, next) => {
   let projects;
   if (req.params.workspaceId && req.params.userId) {
@@ -52,7 +51,6 @@ exports.getProjects = asyncHandler(async (req, res, next) => {
 
 // @desc Get single project
 // @route Get /api/v1/projects/:id
-// @access Public
 exports.getProject = asyncHandler(async (req, res, next) => {
   const project = await Project.findById(req.params.id).populate({
     path: "members",
@@ -93,7 +91,6 @@ exports.getProject = asyncHandler(async (req, res, next) => {
 
 // @desc Create new project
 // @route POST /api/v1/workspaces/:workspaceId/projects
-// @access Private
 exports.createProject = asyncHandler(async (req, res, next) => {
   const workspace = await Workspace.findById(req.params.workspaceId);
 
@@ -146,7 +143,6 @@ exports.createProject = asyncHandler(async (req, res, next) => {
 
 // @desc Update project
 // @route PUT /api/v1/projects/:id
-// @access Private
 exports.updateProject = asyncHandler(async (req, res, next) => {
   let project = await Project.findById(req.params.id);
 
@@ -184,7 +180,6 @@ exports.updateProject = asyncHandler(async (req, res, next) => {
 
 // @desc Delete project
 // @route DELETE /api/v1/projects/:id
-// @access Private
 exports.deleteProject = asyncHandler(async (req, res, next) => {
   const project = await Project.findById(req.params.id);
 
@@ -218,7 +213,6 @@ exports.deleteProject = asyncHandler(async (req, res, next) => {
 
 // @desc Get members
 // @route GET /api/v1/projects/:projectId/members
-// @access Public
 exports.getMembers = asyncHandler(async (req, res, next) => {
   // Project内のメンバーを取得
   const project = await Project.findById(req.params.projectId);
@@ -243,7 +237,6 @@ exports.getMembers = asyncHandler(async (req, res, next) => {
 // @desc Get members
 // @route GET /api/v1/projects/:projectId/members/new
 // @route GET /api/v1/workspaces/:workspaceId/projects/:projectId/members/new
-// @access Public
 exports.getNewMembers = asyncHandler(async (req, res, next) => {
   // Project外のメンバーを取得
   const project = await Project.findById(req.params.projectId);
@@ -275,7 +268,6 @@ exports.getNewMembers = asyncHandler(async (req, res, next) => {
 
 // @desc Add member
 // @route PUT /api/v1/projects/:projectId/members
-// @access Private
 exports.addMemeber = asyncHandler(async (req, res, next) => {
   // Project内のメンバーであればユーザーを追加できる。
   // req.bodyのmembersはarray
