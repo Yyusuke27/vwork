@@ -227,10 +227,15 @@ exports.createTask = asyncHandler(async (req, res, next) => {
     req.body.workspace = project.workspace;
   }
 
-  // ユーザーをbodyに追加
-  // req.body.user = req.user.id;
-
   const task = await Task.create(req.body);
+
+  // logを追加
+  await Log.create({
+    type: "create",
+    newState: "タスクを作成しました",
+    task: task._id,
+    user: req.user.id,
+  });
 
   res.status(201).json({
     success: true,

@@ -6,6 +6,7 @@ const LogSchema = new mongoose.Schema(
     type: {
       type: String,
       enum: [
+        "create",
         "name",
         "description",
         "startDateAt",
