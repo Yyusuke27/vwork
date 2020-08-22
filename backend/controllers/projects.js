@@ -96,7 +96,9 @@ exports.getProject = asyncHandler(async (req, res, next) => {
   const isOwnerInWorkspace = workspace.owners.includes(req.user.id);
 
   // ユーザーがプロジェクトのメンバー or workspaceのオーナーではなかったら表示しない
-  const isMemberInProject = project.members.includes(req.user.id);
+  const isMemberInProject = project.members.find(
+    (member) => member._id.toString() === req.user.id
+  );
 
   if (!isMemberInProject && !isOwnerInWorkspace) {
     return next(
