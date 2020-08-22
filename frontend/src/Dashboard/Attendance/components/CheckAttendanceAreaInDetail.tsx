@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       borderRadius: 10,
       backgroundColor: Color.VWORK_LIGHT_BLUE,
-      height: 185,
+      height: 235,
       marginTop: 25,
       width: "60%",
     },
@@ -33,6 +33,26 @@ const CheckAttendanceAreaInDetail = () => {
   const dispatch = useDispatch();
 
   const attendance = useSelector(selectAttendance);
+
+  let hour;
+  let minutes;
+
+  if (attendance.data) {
+    //　勤務時間
+    const start = moment(attendance.data.startedAt).utcOffset("+09:00");
+    const end = moment(attendance.data.endedAt).utcOffset("+09:00");
+    const diff = Math.round(end.diff(start, "minute", true));
+
+    // 休憩時間を引く
+    const restStart = moment(attendance.data.restStartedAt).utcOffset("+09:00");
+    const restEnd = moment(attendance.data.restEndedAt).utcOffset("+09:00");
+    const restDiff = Math.round(restEnd.diff(restStart, "minute", true));
+
+    const totalDiff = diff - restDiff;
+
+    hour = Math.round(totalDiff / 60);
+    minutes = totalDiff % 60;
+  }
 
   return (
     <>
@@ -93,6 +113,15 @@ const CheckAttendanceAreaInDetail = () => {
                               .utcOffset("+09:00")
                               .format("HH:mm")
                           : ""}
+                      </Grid>
+                    </Box>
+                    <Box mt={3} ml={2}>
+                      <Grid item>
+                        <span style={{ fontWeight: 600 }}>【勤務時間</span>:
+                        {hour && minutes
+                          ? `${hour}時間${minutes}分`
+                          : "0時間0分"}
+                        】
                       </Grid>
                     </Box>
                   </Grid>
