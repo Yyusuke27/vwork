@@ -73,9 +73,15 @@ const memberSlice = createSlice({
     builder.addCase(fetchAsyncGetMembers.fulfilled, (state, action) => {
       state.members = action.payload.users;
     });
+    builder.addCase(fetchAsyncGetMembers.rejected, (state, action) => {
+      window.location.href = "/";
+    });
     builder.addCase(fetchAsyncGetMember.fulfilled, (state, action) => {
       state.member.user = action.payload.user;
       state.member.profile = action.payload.profile;
+    });
+    builder.addCase(fetchAsyncGetMember.rejected, (state, action) => {
+      window.location.href = "/";
     });
   },
 });

@@ -234,6 +234,9 @@ const projectSlice = createSlice({
     builder.addCase(fetchAsyncAllProjects.fulfilled, (state, action) => {
       state.projects = action.payload.data;
     });
+    builder.addCase(fetchAsyncAllProjects.rejected, (state, action) => {
+      window.location.href = "/";
+    });
     builder.addCase(fetchAsyncAllMyProjects.rejected, (state, action) => {});
     builder.addCase(fetchAsyncGetProject.fulfilled, (state, action) => {
       state.project = action.payload.data;
@@ -259,6 +262,9 @@ const projectSlice = createSlice({
     });
     builder.addCase(fetchAsyncGetMemberProjects.fulfilled, (state, action) => {
       state.projects = action.payload.data;
+    });
+    builder.addCase(fetchAsyncGetMemberProjects.rejected, (state, action) => {
+      window.location.href = "/";
     });
   },
 });

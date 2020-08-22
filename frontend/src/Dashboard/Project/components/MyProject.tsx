@@ -43,7 +43,7 @@ const MyProject = () => {
   const dispatch = useDispatch();
   return (
     <>
-      <Box borderBottom={1} mt={10} mx={2} mb={2} className={classes.title}>
+      <Box borderBottom={1} mt={3} mx={2} mb={2} className={classes.title}>
         <Grid
           container
           direction="row"
@@ -64,7 +64,9 @@ const MyProject = () => {
           </Grid>
         </Grid>
       </Box>
-      <SideProjectList />
+      <Box mb={5}>
+        <SideProjectList />
+      </Box>
     </>
   );
 };

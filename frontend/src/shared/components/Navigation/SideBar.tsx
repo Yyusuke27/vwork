@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
@@ -15,14 +16,21 @@ import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import GroupIcon from "@material-ui/icons/Group";
 import WorkIcon from "@material-ui/icons/Work";
+import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
+import SettingsIcon from "@material-ui/icons/Settings";
 import Drawer from "@material-ui/core/Drawer";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
+
 import { selectOpenMenu, toggleOpenMenu } from "../../../appSlice";
-import { selectWorkspaceName } from "../../../Auth/authSlice";
+import {
+  selectIsWorkspaceOwner,
+  selectWorkspaceName,
+} from "../../../Auth/authSlice";
 import MyProject from "../../../Dashboard/Project/components/MyProject";
+
 import Color from "../../util/color";
 
 const drawerWidth = 240;
@@ -80,6 +88,8 @@ const SideBar = () => {
   const openMenu = useSelector(selectOpenMenu);
 
   const workspaceName = useSelector(selectWorkspaceName);
+
+  const isWorkspaceOwner = useSelector(selectIsWorkspaceOwner);
 
   return (
     <div className={classes.root}>
@@ -154,18 +164,36 @@ const SideBar = () => {
               </ListItemIcon>
               <ListItemText primary="勤怠管理" />
             </ListItem>
-            <ListItem button component={NavLink} to="/members" exact>
-              <ListItemIcon className={classes.icon}>
-                <GroupIcon />
-              </ListItemIcon>
-              <ListItemText primary="メンバー管理" />
-            </ListItem>
-            <ListItem button component={NavLink} to="/project_manage" exact>
-              <ListItemIcon className={classes.icon}>
-                <WorkIcon />
-              </ListItemIcon>
-              <ListItemText primary="プロジェクト管理" />
-            </ListItem>
+            {isWorkspaceOwner ? (
+              <>
+                <ListItem button>
+                  <ListItemIcon className={classes.icon}>
+                    <NotificationsNoneIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="受信ボックス" />
+                </ListItem>
+                <ListItem button component={NavLink} to="/members" exact>
+                  <ListItemIcon className={classes.icon}>
+                    <GroupIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="メンバー管理" />
+                </ListItem>
+                <ListItem button component={NavLink} to="/project_manage" exact>
+                  <ListItemIcon className={classes.icon}>
+                    <WorkIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="プロジェクト管理" />
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon className={classes.icon}>
+                    <SettingsIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="ワークスペース管理" />
+                </ListItem>
+              </>
+            ) : (
+              ""
+            )}
           </List>
           <MyProject />
         </Drawer>

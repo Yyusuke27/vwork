@@ -255,6 +255,7 @@ export const selectUserRegistration = (state: RootState) =>
 export const selectWorkspaceName = (state: RootState) => state.auth.workspace;
 export const selectErrorMessage = (state: RootState) => state.auth.errorMessage;
 export const selectErrorOpen = (state: RootState) => state.auth.errorOpen;
+export const selectIsWorkspaceOwner = (state: RootState) => state.auth.owner;
 
 export const { setErrorOpen, setUser } = authSlice.actions;
 
