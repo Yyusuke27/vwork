@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     mainTitle: {
       fontSize: 30,
-      paddingLeft: 2,
+      paddingLeft: "5px",
     },
     drawerHeader: {
       display: "flex",
@@ -109,12 +109,14 @@ const SideBar = () => {
                   className={classes.title}
                 >
                   <Grid item>
-                    <img
-                      src={`${process.env.PUBLIC_URL}/images/logo192.png`}
-                      style={{ height: 25 }}
-                      className="imgstyle"
-                      alt="icon"
-                    />
+                    <Box display="flex">
+                      <img
+                        src={`${process.env.PUBLIC_URL}/images/logo192.png`}
+                        style={{ height: 25 }}
+                        className="imgstyle"
+                        alt="icon"
+                      />
+                    </Box>
                   </Grid>
                   <Grid item className={clsx(classes.mainTitle, "logo")}>
                     VWORK
