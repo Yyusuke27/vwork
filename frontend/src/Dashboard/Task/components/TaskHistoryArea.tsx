@@ -57,16 +57,12 @@ const TaskHistoryArea: FC<TaskHistoryAreaProps> = ({ taskId }) => {
     ? historyAreaRef.current.scrollHeight
     : 0;
 
-  const mounted = useRef(false);
+  // const mounted = useRef(false);
 
   useEffect(() => {
-    if (mounted.current) {
-      if (historyAreaHeight) {
-        historyAreaRef.current &&
-          historyAreaRef.current.scrollIntoView({ block: "end" });
-      }
-    } else {
-      mounted.current = true;
+    if (historyAreaHeight) {
+      historyAreaRef.current &&
+        historyAreaRef.current.scrollIntoView({ block: "end" });
     }
   }, [historyAreaHeight]);
 
