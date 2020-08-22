@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Switch, useHistory } from "react-router";
 import { Route, useParams } from "react-router-dom";
+
 import Grid from "@material-ui/core/Grid";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
@@ -10,11 +12,14 @@ import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import WorkIcon from "@material-ui/icons/Work";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { Box } from "@material-ui/core";
+
 import MainHeader from "../../../shared/components/Navigation/MainHeader";
 import AttendanceInfoInMemberManage from "../components/AttendanceInfoInMemberManage";
 import ProjectInMemberManage from "../components/ProjectInMemberManage";
 import TaskInMemberManage from "../components/TaskInMemberManage";
 import MemberInfo from "../components/MemberInfo";
+
+import { setAttendances } from "../../Attendance/attendanceSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,6 +32,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const MemberDetail = () => {
   const classes = useStyles();
+
+  const dispatch = useDispatch();
 
   const [value, setValue] = React.useState(0);
 
@@ -41,6 +48,7 @@ const MemberDetail = () => {
   const memberId = useParams<ParamsType>().memberId;
 
   const history = useHistory();
+
   const handlePageChangeToKintai = () => {
     history.push(`/members/${memberId}`);
   };
@@ -52,6 +60,12 @@ const MemberDetail = () => {
   const handlePageChangeToTask = () => {
     history.push(`/members/${memberId}/task`);
   };
+
+  useEffect(() => {
+    return function cleanup() {
+      dispatch(setAttendances([]));
+    };
+  });
 
   return (
     <>

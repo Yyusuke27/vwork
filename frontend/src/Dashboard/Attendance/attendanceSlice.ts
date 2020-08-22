@@ -193,6 +193,9 @@ const attendanceSlice = createSlice({
     setAttendance(state, action) {
       state.attendance = action.payload;
     },
+    setAttendances(state, action) {
+      state.attendances = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncTodaysAttendance.fulfilled, (state, action) => {
@@ -232,6 +235,10 @@ export const selectSelectedAttenances = (state: RootState) =>
 export const selectAttendance = (state: RootState) =>
   state.attendance.attendance;
 
-export const { setSelectedAttendance, setAttendance } = attendanceSlice.actions;
+export const {
+  setSelectedAttendance,
+  setAttendance,
+  setAttendances,
+} = attendanceSlice.actions;
 
 export default attendanceSlice.reducer;
