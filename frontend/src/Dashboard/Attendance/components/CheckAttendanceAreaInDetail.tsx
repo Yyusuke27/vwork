@@ -118,7 +118,7 @@ const CheckAttendanceAreaInDetail = () => {
                     <Box mt={3} ml={2}>
                       <Grid item>
                         <span style={{ fontWeight: 600 }}>【勤務時間</span>:
-                        {hour && minutes
+                        {hour || minutes
                           ? `${hour}時間${minutes}分`
                           : "0時間0分"}
                         】
