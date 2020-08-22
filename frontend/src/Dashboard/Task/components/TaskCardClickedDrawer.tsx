@@ -10,6 +10,7 @@ import {
   fetchAsyncProjectTasks,
   fetchAsyncRecentTasks,
   fetchAsyncTask,
+  fetchAsyncTaskHistory,
   fetchAsyncTasks,
   fetchAsyncUpdateTask,
   selectSelectedTask,
@@ -25,8 +26,35 @@ import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import TaskCommentForm from "./TaskCommentForm";
+import TaskHistoryArea from "./TaskHistoryArea";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    historyArea: {
+      position: "absolute",
+      bottom: 0,
+      width: "100%",
+      height: "calc(100vh - 640px) !important",
+      backgroundColor: "#F0F7F8",
+    },
+    historyOutputArea: {
+      height: "calc(100% - 90px)",
+      overflowY: "scroll",
+      overflowX: "hidden",
+    },
+    commentArea: {
+      position: "absolute",
+      bottom: 0,
+      width: "100%",
+    },
+  })
+);
 
 const TaskCardClickedDrawer = () => {
+  const classes = useStyles();
+
   const project = useSelector(selectProject);
 
   const dispatch = useDispatch();
@@ -103,6 +131,8 @@ const TaskCardClickedDrawer = () => {
     );
     if (pathName.includes("project")) {
       await dispatch(fetchAsyncProjectTasks(project._id));
+      await dispatch(fetchAsyncTask(taskId));
+      await dispatch(fetchAsyncTaskHistory(taskId));
     } else if (pathName.includes("mytask")) {
       await dispatch(fetchAsyncTasks({ workspace, query: taskQuery }));
     } else {
@@ -167,6 +197,14 @@ const TaskCardClickedDrawer = () => {
             taskData={taskData}
           />
         </Container>
+        <div className={classes.historyArea}>
+          <div className={classes.historyOutputArea}>
+            <TaskHistoryArea taskId={taskId} />
+          </div>
+          <div className={classes.commentArea}>
+            <TaskCommentForm taskId={taskId} />
+          </div>
+        </div>
       </VwDrawer>
     </>
   );

@@ -426,13 +426,13 @@ const TaskForm: FC<TaskFormProps> = ({
                     component={TextField}
                     name="description"
                     label="詳細"
-                    variant="filled"
+                    variant="outlined"
                     margin="none"
                     fullWidth
                     multiline
                     id="description"
                     value={props.values.description}
-                    rows={4}
+                    rows={3}
                   />
                 </FormControl>
               </Grid>

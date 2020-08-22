@@ -16,6 +16,7 @@ const LogSchema = new mongoose.Schema(
         "priority",
         "todaysTask",
         "project",
+        "user",
       ],
     },
     oldState: String,

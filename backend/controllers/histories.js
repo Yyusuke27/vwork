@@ -1,7 +1,5 @@
-const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
 const History = require("../models/History");
-const Comment = require("../models/Comment");
 
 // @desc Create new comment
 // @route Get /api/v1/tasks/:taskId/histories

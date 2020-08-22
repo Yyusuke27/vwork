@@ -174,6 +174,39 @@ export const fetchAsyncMemberTasks = createAsyncThunk(
   }
 );
 
+// タスクにコメント追加
+export const fetchAsyncTaskComment = createAsyncThunk(
+  "task/addComment",
+  async (data: { taskId: string; comment: string }) => {
+    const res = await axios.post(
+      `${apiUrl}api/v1/tasks/${data.taskId}/comments`,
+      {
+        comment: data.comment,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return res.data;
+  }
+);
+
+// タスクのログ、コメント表示
+export const fetchAsyncTaskHistory = createAsyncThunk(
+  "task/showHistory",
+  async (taskId: string) => {
+    const res = await axios.get(`${apiUrl}api/v1/tasks/${taskId}/histories`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  }
+);
+
 interface taskState {
   tasks: {
     _id: string;
@@ -223,6 +256,22 @@ interface taskState {
   }[];
   todaysDoneTasks: string[];
   query: string;
+  taskHistories: {
+    createdAt: string;
+    type: number;
+    log?: {
+      type: string;
+      oldState?: string;
+      newState: string;
+      user: { name: string };
+    };
+    comment?: {
+      comment: string;
+      user: {
+        name: string;
+      };
+    };
+  }[];
 }
 
 const initialState: taskState = {
@@ -250,6 +299,7 @@ const initialState: taskState = {
   nearDeadlineTasks: [],
   todaysDoneTasks: [],
   query: "",
+  taskHistories: [],
 };
 
 const taskSlice = createSlice({
@@ -303,6 +353,19 @@ const taskSlice = createSlice({
     builder.addCase(fetchAsyncMemberTasks.fulfilled, (state, action) => {
       state.tasks.data = action.payload.data;
     });
+    builder.addCase(fetchAsyncTaskComment.fulfilled, (state, action) => {
+      toast.info("コメントを追加しました。", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    });
+    builder.addCase(fetchAsyncTaskComment.rejected, (state, action) => {
+      toast.error("コメントに失敗しました。", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    });
+    builder.addCase(fetchAsyncTaskHistory.fulfilled, (state, action) => {
+      state.taskHistories = action.payload.data;
+    });
   },
 });
 
@@ -315,6 +378,7 @@ export const selectNearDeadlineTasks = (state: RootState) =>
 export const selectTodaysDoneTasks = (state: RootState) =>
   state.task.todaysDoneTasks;
 export const selectTaskQuery = (state: RootState) => state.task.query;
+export const selectTaskHistory = (state: RootState) => state.task.taskHistories;
 
 export const {
   setSelectedTask,
