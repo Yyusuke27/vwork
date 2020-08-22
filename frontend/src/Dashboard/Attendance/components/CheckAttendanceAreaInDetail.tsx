@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Color from "../../../shared/util/color";
 import TaskList from "../../Task/components/TaskList";
@@ -12,6 +12,7 @@ import { toggleKintaiCardClicked } from "../../../appSlice";
 import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
 import { selectAttendance } from "../attendanceSlice";
 import moment from "moment";
+import { setAttendance } from "../attendanceSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,6 +54,28 @@ const CheckAttendanceAreaInDetail = () => {
     hour = Math.round(totalDiff / 60);
     minutes = totalDiff % 60;
   }
+
+  useEffect(() => {
+    return function cleanup() {
+      dispatch(
+        setAttendance({
+          data: {
+            tasks: [],
+            _id: "",
+            user: "",
+            workspace: "",
+            createdAt: "",
+            startedAt: "",
+            endedAt: "",
+            restStartedAt: "",
+            restEndedAt: "",
+            comment: "",
+          },
+          tasks: [],
+        })
+      );
+    };
+  }, [dispatch]);
 
   return (
     <>
