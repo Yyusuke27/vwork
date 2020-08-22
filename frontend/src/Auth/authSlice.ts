@@ -117,6 +117,7 @@ interface AuthState {
   errorMessage: string;
   errorOpen: boolean;
   profile: { _id: string; position: string };
+  unread: number;
 }
 
 const initialState: AuthState = {
@@ -138,6 +139,7 @@ const initialState: AuthState = {
     _id: "",
     position: "",
   },
+  unread: 0,
 };
 
 export const authSlice = createSlice({
@@ -171,6 +173,7 @@ export const authSlice = createSlice({
       state.errorMessage = "";
       state.token = localStorage.token;
       state.user = action.payload.data;
+      state.unread = action.payload.unread;
 
       state.profile = action.payload.profile;
       state.workspace = action.payload.workspace;
@@ -256,6 +259,7 @@ export const selectWorkspaceName = (state: RootState) => state.auth.workspace;
 export const selectErrorMessage = (state: RootState) => state.auth.errorMessage;
 export const selectErrorOpen = (state: RootState) => state.auth.errorOpen;
 export const selectIsWorkspaceOwner = (state: RootState) => state.auth.owner;
+export const selectUnreadNotification = (state: RootState) => state.auth.unread;
 
 export const { setErrorOpen, setUser } = authSlice.actions;
 

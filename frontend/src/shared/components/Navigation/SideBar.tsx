@@ -23,10 +23,12 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
+import Badge from "@material-ui/core/Badge";
 
 import { selectOpenMenu, toggleOpenMenu } from "../../../appSlice";
 import {
   selectIsWorkspaceOwner,
+  selectUnreadNotification,
   selectWorkspaceName,
 } from "../../../Auth/authSlice";
 import MyProject from "../../../Dashboard/Project/components/MyProject";
@@ -86,6 +88,8 @@ const SideBar = () => {
 
   const dispatch = useDispatch();
   const openMenu = useSelector(selectOpenMenu);
+
+  const unreadNotifications = useSelector(selectUnreadNotification);
 
   const workspaceName = useSelector(selectWorkspaceName);
 
@@ -166,11 +170,13 @@ const SideBar = () => {
             </ListItem>
             {isWorkspaceOwner ? (
               <>
-                <ListItem button>
+                <ListItem button component={NavLink} to="/notification" exact>
                   <ListItemIcon className={classes.icon}>
                     <NotificationsNoneIcon />
                   </ListItemIcon>
-                  <ListItemText primary="受信ボックス" />
+                  <Badge badgeContent={unreadNotifications} color="primary">
+                    <ListItemText primary="受信ボックス" />
+                  </Badge>
                 </ListItem>
                 <ListItem button component={NavLink} to="/members" exact>
                   <ListItemIcon className={classes.icon}>
@@ -184,7 +190,12 @@ const SideBar = () => {
                   </ListItemIcon>
                   <ListItemText primary="プロジェクト管理" />
                 </ListItem>
-                <ListItem button>
+                <ListItem
+                  button
+                  component={NavLink}
+                  to="/workspace_manage"
+                  exact
+                >
                   <ListItemIcon className={classes.icon}>
                     <SettingsIcon />
                   </ListItemIcon>

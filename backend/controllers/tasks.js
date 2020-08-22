@@ -335,7 +335,7 @@ exports.updateTask = asyncHandler(async (req, res, next) => {
   // 通知処理
   if (task.user.toString() !== req.user.id) {
     await Notification.create({
-      type: 1,
+      type: 0,
       user: task.user,
       task: task._id,
       unread: true,

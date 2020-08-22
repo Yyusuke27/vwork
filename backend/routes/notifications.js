@@ -6,7 +6,7 @@ const {
 
 const { protect } = require("../middleware/auth");
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 router.route("/").get(protect, getNotifications);
 

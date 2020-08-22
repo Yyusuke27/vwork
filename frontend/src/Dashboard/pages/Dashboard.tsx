@@ -38,6 +38,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import MemberDetail from "../Members/pages/MemberDetail";
 import ProjectManage from "../Project/pages/ProjectManage";
+import WorkspaceManage from "../WorkSpace/pages/WorkspaceManage";
+import Notification from "../Notification/pages/Notification";
 
 const drawerWidth = 240;
 
@@ -162,6 +164,12 @@ const Dashboard = () => {
           </Route>
           <Route path="/project/:projectId" exact>
             <Project />
+          </Route>
+          <Route path="/workspace_manage" exact>
+            <WorkspaceManage />
+          </Route>
+          <Route path="/notification" exact>
+            <Notification />
           </Route>
         </Switch>
       </main>

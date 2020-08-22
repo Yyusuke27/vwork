@@ -8,6 +8,9 @@ exports.getNotifications = asyncHandler(async (req, res, next) => {
   const notifications = await Notification.find({
     workspace: req.params.workspaceId,
     user: req.user.id,
+  }).populate({
+    path: "task",
+    populate: { path: "project", select: "name" },
   });
 
   res.status(200).json({

@@ -8,6 +8,7 @@ import taskReducer from "./Dashboard/Task/taskSlice";
 import workspaceReducer from "./WorkSpaces/workspaceSlice";
 import attendanceReducer from "./Dashboard/Attendance/attendanceSlice";
 import memberReducer from "./Dashboard/Members/memberSlice";
+import notificationReducer from "./Dashboard/Notification/notificationSlice";
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
     workspace: workspaceReducer,
     attendance: attendanceReducer,
     member: memberReducer,
+    notification: notificationReducer,
   },
 });
 
