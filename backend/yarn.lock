@@ -1068,6 +1068,11 @@ has-yarn@^2.1.0:
   resolved "https://registry.yarnpkg.com/has-yarn/-/has-yarn-2.1.0.tgz#137e11354a7b5bf11aa5cb649cf0c6f3ff2b2e77"
   integrity sha512-UqBRqi4ju7T+TqGNdqAO0PaSVGsDGJUBQvk9eUWNGRY1CFGDzYhLWoM7JQEemnlvVcv/YEmc2wNW8BC24EnUsw==
 
+helmet@4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/helmet/-/helmet-4.1.0.tgz#6f3a34e8f18502d6e52518428b23aa4ddaf84b38"
+  integrity sha512-KWy75fYN8hOG2Rhl8e5B3WhOzb0by1boQum85TiddIE9iu6gV+TXbUjVC17wfej0o/ZUpqB9kxM0NFCZRMzf+Q==
+
 htmlparser2@^3.9.1:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/htmlparser2/-/htmlparser2-3.10.1.tgz#bd679dc3f59897b6a34bb10749c855bb53a9392f"
@@ -2462,3 +2467,15 @@ xdg-basedir@^4.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/xml-name-validator/-/xml-name-validator-2.0.1.tgz#4d8b8f1eccd3419aa362061becef515e1e559635"
   integrity sha1-TYuPHszTQZqjYgYb7O9RXh5VljU=
+
+xss-clean@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/xss-clean/-/xss-clean-0.1.1.tgz#d3ba684d85ccd52054963d01ad6ab36d662db1a5"
+  integrity sha1-07poTYXM1SBUlj0BrWqzbWYtsaU=
+  dependencies:
+    xss-filters "1.2.6"
+
+xss-filters@1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/xss-filters/-/xss-filters-1.2.6.tgz#68b39089cb1dff8b9dbc889484839b2f507f5c55"
+  integrity sha1-aLOQicsd/4udvIiUhIObL1B/XFU=

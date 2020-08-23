@@ -6,6 +6,8 @@ const errorHandler = require("./middleware/error");
 const cors = require("cors");
 const path = require("path");
 const mongoSanitize = require("express-mongo-sanitize");
+const helmet = require("helmet");
+const xss = require("xss-clean");
 
 // 開発環境用のログ
 if (process.env.USE_MORGAN === "true") {
@@ -47,6 +49,12 @@ app.use(express.json());
 
 // Sanitize data
 app.use(mongoSanitize());
+
+// Security Header設定
+app.use(helmet());
+
+// XSS対策
+app.use(xss());
 
 // route設定
 app.use("/api/v1/auth", auth);
