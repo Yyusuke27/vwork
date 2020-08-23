@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       fontSize: 20,
     },
+    comment: {
+      fontSize: 14,
+    },
   })
 );
 // TODO: タスクDrawerから勤怠Drawerに戻るボタンが欲しい
@@ -168,9 +171,9 @@ const CheckAttendanceAreaInDetail = () => {
                   </Grid>
                   <Box mt={1}>
                     <Grid item>
-                      <Typography variant="body1">
+                      <pre className={classes.comment}>
                         {attendance.data && attendance.data.comment}
-                      </Typography>
+                      </pre>
                     </Grid>
                   </Box>
                 </Grid>
