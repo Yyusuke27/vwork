@@ -195,6 +195,8 @@ const TaskCardClickedDrawer = () => {
             projects={projectData}
             submitFunction={submitFunction}
             taskData={taskData}
+            update={true}
+            members={project.members}
           />
         </Container>
         <div className={classes.historyArea}>

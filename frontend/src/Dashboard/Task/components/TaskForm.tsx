@@ -67,6 +67,15 @@ interface TaskFormProps {
     todaysTask: boolean;
   };
   projects: { id: string; name: string }[];
+  members?: {
+    active: boolean;
+    email: string;
+    name: string;
+    registration: boolean;
+    role: string;
+    _id: string;
+  }[];
+  update?: boolean;
   submitFunction: (
     value: {
       task: {
@@ -102,12 +111,16 @@ const TaskForm: FC<TaskFormProps> = ({
   projects,
   submitFunction,
   taskData,
+  update,
+  members,
 }) => {
   const classes = useStyles();
   const workspace = useSelector(selectWorkspace);
   const project = useSelector(selectProject);
 
-  const members = useSelector(selectSelectedMembers);
+  const selectedMembers = useSelector(selectSelectedMembers);
+
+  const taskMembers = members ? members : selectedMembers;
 
   if (!taskData.startDateAt) {
     taskData.startDateAt = moment().toString();
@@ -245,8 +258,8 @@ const TaskForm: FC<TaskFormProps> = ({
                     <MenuItem value="">
                       <em>未選択</em>
                     </MenuItem>
-                    {members &&
-                      members.map((user, index) => {
+                    {taskMembers &&
+                      taskMembers.map((user, index) => {
                         return (
                           <MenuItem value={user._id.toString()} key={index}>
                             {user.name.toString()}
@@ -309,6 +322,7 @@ const TaskForm: FC<TaskFormProps> = ({
                   <InputLabel htmlFor="project">プロジェクト</InputLabel>
                   <Field
                     component={Select}
+                    disabled={update}
                     name="project"
                     id="project"
                     as="select"

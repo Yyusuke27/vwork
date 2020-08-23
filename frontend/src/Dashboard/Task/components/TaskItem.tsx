@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 
@@ -16,6 +16,7 @@ import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import Avatar from "@material-ui/core/Avatar";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import Chip from "@material-ui/core/Chip";
+import { fetchAsyncGetProject } from "../../Project/projectSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,6 +51,13 @@ const TaskItem: FC<TaskItemProps> = ({ iconType = "", data }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const getProject = useCallback(
+    async (projectId) => {
+      await dispatch(fetchAsyncGetProject(projectId));
+    },
+    [dispatch]
+  );
+
   return (
     <>
       <Card className={classes.root}>
@@ -57,6 +65,9 @@ const TaskItem: FC<TaskItemProps> = ({ iconType = "", data }) => {
           className={classes.cardActionArea}
           onClick={() => {
             dispatch(setSelectedTask(data._id));
+            if (data.project && data.project._id) {
+              getProject(data.project._id);
+            }
             dispatch(toggleTaskCardClicked(true));
           }}
           data-testid="test"
