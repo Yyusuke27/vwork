@@ -14,7 +14,7 @@ const WorkspaceManage = () => {
       <Box>
         <WorkspaceBasicEdit />
       </Box>
-      <Box>
+      <Box mt={5}>
         <WorkspaceMembersEdit />
       </Box>
     </Container>

@@ -112,7 +112,7 @@ interface AuthState {
     lastAccessWorkspace: string;
   };
   workspaceCount: number;
-  workspace: { id: string; name: string };
+  workspace: { id: string; name: string; owners: string[] };
   owner: boolean;
   errorMessage: string;
   errorOpen: boolean;
@@ -131,7 +131,7 @@ const initialState: AuthState = {
     lastAccessWorkspace: "",
   },
   workspaceCount: 0,
-  workspace: { id: "", name: "" },
+  workspace: { id: "", name: "", owners: [] },
   owner: false,
   errorMessage: "",
   errorOpen: false,
@@ -260,6 +260,8 @@ export const selectErrorMessage = (state: RootState) => state.auth.errorMessage;
 export const selectErrorOpen = (state: RootState) => state.auth.errorOpen;
 export const selectIsWorkspaceOwner = (state: RootState) => state.auth.owner;
 export const selectUnreadNotification = (state: RootState) => state.auth.unread;
+export const selectWorkspaceOwners = (state: RootState) =>
+  state.auth.workspace.owners;
 
 export const { setErrorOpen, setUser } = authSlice.actions;
 

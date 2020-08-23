@@ -92,7 +92,7 @@ exports.currentUser = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     data: user,
-    workspace: { id: workspace.id, name: workspace.name },
+    workspace,
     profile,
     owner,
     unread: notification.length,

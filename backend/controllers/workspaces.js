@@ -60,7 +60,6 @@ exports.createWorkspace = asyncHandler(async (req, res, next) => {
   });
 });
 
-// TODO: workspace設定- workspace名の変更。メンバーの権限編集。メンバーの削除
 // @desc Update workspace
 // @route PUT /api/v1/workspaces/:id
 exports.updateWorkspace = asyncHandler(async (req, res, next) => {
@@ -91,6 +90,9 @@ exports.updateWorkspace = asyncHandler(async (req, res, next) => {
   }
 
   if (req.body.toMember) {
+    if (workspace.owners.length === 1) {
+      return next(new ErrorResponse(`管理者は最低1人必要です。`));
+    }
     workspace.owners.pull(req.body.toMember);
   }
 
