@@ -19,13 +19,13 @@ import {
   setTask,
 } from "../taskSlice";
 import TaskForm from "./TaskForm";
-import { selectProject, selectProjects } from "../../Project/projectSlice";
+import {
+  selectProject,
+  selectProjects,
+  setProject,
+} from "../../Project/projectSlice";
 
 import { Box, Container } from "@material-ui/core";
-import IconButton from "@material-ui/core/IconButton";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import TaskCommentForm from "./TaskCommentForm";
 import TaskHistoryArea from "./TaskHistoryArea";
@@ -77,20 +77,26 @@ const TaskCardClickedDrawer = () => {
     getTask(taskId);
   }, [getTask, taskId]);
 
+  useEffect(() => {
+    return function cleanup() {
+      dispatch(
+        setProject({
+          _id: "",
+          name: "",
+          color: 0,
+          icon: 0,
+          description: "",
+          members: [],
+          tasks: [],
+        })
+      );
+    };
+  }, [dispatch]);
+
   const projects = useSelector(selectProjects);
   const projectData = projects.map((data) => {
     return { id: data._id, name: data.name };
   });
-
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   // taskはreadonly propertyだから新しい変数に渡す
   const taskData = { ...task };
@@ -166,40 +172,15 @@ const TaskCardClickedDrawer = () => {
         }}
       >
         <Container maxWidth="md">
-          <Box textAlign="right" mt={2}>
-            <IconButton
-              aria-controls="simple-menu"
-              aria-haspopup="true"
-              aria-label="more"
-              onClick={handleClick}
-            >
-              <MoreVertIcon />
-            </IconButton>
-            <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem
-                onClick={() => {
-                  if (window.confirm("削除してもよろしいですか？")) {
-                    console.log("削除した");
-                  }
-                }}
-              >
-                削除
-              </MenuItem>
-            </Menu>
+          <Box mt={5}>
+            <TaskForm
+              projects={projectData}
+              submitFunction={submitFunction}
+              taskData={taskData}
+              update={update}
+              members={project.members}
+            />
           </Box>
-          <TaskForm
-            projects={projectData}
-            submitFunction={submitFunction}
-            taskData={taskData}
-            update={update}
-            members={project.members}
-          />
         </Container>
         <div className={classes.historyArea}>
           <div className={classes.historyOutputArea}>
