@@ -37,14 +37,12 @@ const notifications = require("./routes/notifications");
 const app = express();
 
 // Setting CORS
-if (process.env.USE_CORS === "true") {
-  app.use(
-    cors({
-      origin: "http://localhost:3000",
-      optionsSuccessStatus: 200,
-    })
-  );
-}
+app.use(
+  cors({
+    origin: process.env.CORS_URL,
+    optionsSuccessStatus: 200,
+  })
+);
 
 // Body parser
 app.use(express.json());
@@ -79,13 +77,6 @@ app.use("/api/v1/users", users);
 app.use("/api/v1/comments", comments);
 app.use("/api/v1/histories", histories);
 app.use("/api/v1/notifications", notifications);
-
-if (process.env.SHOW_BUILD_FRONTEND === "true") {
-  app.use(express.static(path.join("public")));
-  app.use((req, res, next) => {
-    res.sendFile(path.resolve(__dirname, "public", "index.html"));
-  });
-}
 
 app.use(errorHandler);
 
