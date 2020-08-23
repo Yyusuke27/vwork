@@ -40,8 +40,8 @@ const MemberDetail = () => {
 
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setValue(newValue);
+  const handleChange = (event: React.ChangeEvent<{}>, value: number) => {
+    setValue(value);
   };
 
   interface ParamsType {

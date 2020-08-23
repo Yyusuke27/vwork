@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import TaskList from "../../Task/components/TaskList";
-import { fetchAsyncMemberTasks } from "../../Task/taskSlice";
+import { fetchAsyncMemberTasks, setTasks } from "../../Task/taskSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { selectWorkspace } from "../../../Auth/authSlice";
@@ -28,6 +28,23 @@ const TaskInMemberManage = () => {
       getTasks(workspaceId, memberId);
     }
   }, [getTasks, workspaceId, memberId]);
+
+  useEffect(() => {
+    return function cleanup() {
+      dispatch(
+        setTasks({
+          tasks: {
+            _id: "",
+            count: 0,
+            countTodaysTask: 0,
+            data: [],
+            todaysTasks: [],
+          },
+        })
+      );
+    };
+  }, [dispatch]);
+
   return (
     <>
       <TaskList title="タスク一覧" taskData={taskData.data} />

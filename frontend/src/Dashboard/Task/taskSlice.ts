@@ -309,6 +309,9 @@ const taskSlice = createSlice({
     setTask(state, action) {
       state.task = action.payload;
     },
+    setTasks(state, action) {
+      state.tasks = action.payload;
+    },
     setSelectedTask(state, action) {
       state.selectedTask = action.payload;
     },
@@ -383,6 +386,7 @@ export const selectTaskHistory = (state: RootState) => state.task.taskHistories;
 export const {
   setSelectedTask,
   setTodaysDoneTasks,
+  setTasks,
   setTask,
   setQuery,
 } = taskSlice.actions;
