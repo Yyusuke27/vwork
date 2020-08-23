@@ -71,9 +71,6 @@ const StepFour = () => {
           description: Yup.string().required("プロジェクト詳細は必須です。"),
         })}
         onSubmit={async (value) => {
-          // TODO: workspaceが空だったら最初からやり直し
-          // TODO: アラートを出してあげる「登録内容に不備があります」
-          // TODO: ここの処理はredux側でやる
           const updatedRegist = { ...regist };
           updatedRegist.project = value;
           dispatch(toggleLoading(true));

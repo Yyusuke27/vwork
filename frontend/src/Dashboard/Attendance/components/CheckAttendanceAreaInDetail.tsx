@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-// TODO: タスクDrawerから勤怠Drawerに戻るボタンが欲しい
 const CheckAttendanceAreaInDetail = () => {
   const classes = useStyles();
   const dispatch = useDispatch();

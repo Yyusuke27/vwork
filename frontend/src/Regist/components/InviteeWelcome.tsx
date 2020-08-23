@@ -15,8 +15,6 @@ import Typography from "@material-ui/core/Typography";
 import { Box } from "@material-ui/core";
 import { toggleLoading } from "../../appSlice";
 
-// TODO: signup画面にリダイレクトされる
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {

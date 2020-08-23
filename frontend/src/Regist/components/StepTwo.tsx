@@ -63,8 +63,6 @@ const StepTwo = () => {
           position: Yup.string().required("役職・担当は必須です。"),
         })}
         onSubmit={(value) => {
-          // TODO: workspaceが空だったら最初からやり直し
-          // TODO: アラートを出してあげる「登録内容に不備があります」
           dispatch(editUser(value));
           history.push("/regist/step/3");
         }}

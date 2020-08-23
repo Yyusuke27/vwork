@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-// TODO: mapけい直す
 const NewTaskAddAfterWorkDrawer = () => {
   const classes = useStyles();
   const dispatch = useDispatch();

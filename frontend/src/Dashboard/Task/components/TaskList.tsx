@@ -86,7 +86,6 @@ const TaskList: FC<TaskListProps> = ({
     setText(event.target.value as string);
   };
 
-  // TODO:　全てのTaskListを使っているところとAPIを連携させたらここを削除
   const tasks: {
     name: string;
     project: { _id: string; name: string };
@@ -97,11 +96,11 @@ const TaskList: FC<TaskListProps> = ({
     ? taskData
     : [
         {
-          name: "タスク",
-          project: { name: "プロジェクト", _id: "12345" },
-          endDateAt: "2020-10-10",
-          _id: "12345",
-          user: { name: "太郎", _id: "12345" },
+          name: "",
+          project: { name: "", _id: "" },
+          endDateAt: "",
+          _id: "",
+          user: { name: "", _id: "" },
         },
       ];
 

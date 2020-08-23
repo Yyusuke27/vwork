@@ -63,8 +63,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
   },
 }));
-// TODO: メールアドレスが同じだった時の処理を追加
-// TODO: loadingがうまく動作していない
 
 const Signup = () => {
   const classes = useStyles();

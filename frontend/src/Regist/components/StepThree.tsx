@@ -79,8 +79,6 @@ const StepThree = () => {
           ),
         })}
         onSubmit={(values) => {
-          // TODO: workspaceが空だったら最初からやり直し
-          // TODO: アラートを出してあげる「登録内容に不備があります」
           dispatch(editInvitations(values.invitations));
           history.push("/regist/step/4");
         }}
