@@ -1,10 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import * as Yup from "yup";
 import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-material-ui";
-
 import NewTaskAddAfterWorkDrawer from "../../Task/components/TaskAddButtonAfetrWorkDrawer";
 import AddedTaskTextAfterWorkDrawer from "../../Task/components/AddedTaskTextAfterWorkDrawer";
 import {
@@ -16,9 +14,7 @@ import {
   fetchAsyncUpdateTodaysAttendance,
   selectTodaysAttendance,
 } from "../attendanceSlice";
-
 import Color from "../../../shared/util/color";
-
 import Box from "@material-ui/core/Box";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -35,7 +31,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Button from "@material-ui/core/Button";
-
 import FormControl from "@material-ui/core/FormControl";
 import { selectTodaysDoneTasks } from "../../Task/taskSlice";
 
@@ -73,9 +68,6 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: 10,
       width: "10%",
       fontSize: 20,
-    },
-    todayUpdate: {
-      marginBottom: 10,
     },
     textField: {
       width: "85%",

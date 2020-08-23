@@ -21,14 +21,14 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: 10,
       marginTop: 25,
     },
+    space: {
+      marginTop: 20,
+    },
     title: {
       fontSize: 18,
     },
     time: {
       marginRight: 30,
-    },
-    space: {
-      marginTop: 20,
     },
     task: {
       fontSize: 20,
