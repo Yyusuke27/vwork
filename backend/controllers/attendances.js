@@ -118,6 +118,7 @@ exports.getAttendances = asyncHandler(async (req, res, next) => {
           $gte: startDateOfThisMonth,
           $lt: moment(Date.now())
             .utcOffset("+09:00")
+            .add(1, "day")
             .hour(0)
             .minute(0)
             .seconds(0),
