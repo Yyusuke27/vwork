@@ -72,22 +72,26 @@ exports.currentUser = asyncHandler(async (req, res, next) => {
     "name owners"
   );
 
-  const owner = workspace.owners.includes(req.user.id);
+  let owner = false;
 
   let profile;
+
+  let notifications = 0;
 
   if (workspace) {
     profile = await UserProfile.findOne({
       user: user._id,
       workspace: workspace._id,
     });
-  }
 
-  const notification = await Notification.find({
-    user: req.user.id,
-    unread: true,
-    workspace: workspace._id,
-  });
+    owner = workspace.owners.includes(req.user.id);
+
+    notifications = await Notification.find({
+      user: req.user.id,
+      unread: true,
+      workspace: workspace._id,
+    });
+  }
 
   res.status(200).json({
     success: true,
@@ -95,7 +99,7 @@ exports.currentUser = asyncHandler(async (req, res, next) => {
     workspace,
     profile,
     owner,
-    unread: notification.length,
+    unread: notifications.length,
   });
 });
 
