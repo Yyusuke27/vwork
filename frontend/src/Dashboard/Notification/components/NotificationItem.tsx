@@ -16,7 +16,11 @@ import {
   fetchAsyncGetNotifications,
   fetchAsyncUpdateNotification,
 } from "../notificationSlice";
-import { selectUser, selectWorkspace } from "../../../Auth/authSlice";
+import {
+  fetchAsyncCurrentUser,
+  selectUser,
+  selectWorkspace,
+} from "../../../Auth/authSlice";
 import { setSelectedMembers } from "../../dashboardSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -69,6 +73,10 @@ const NotificationItem: FC<NotificationItemProps> = ({ data }) => {
     await dispatch(fetchAsyncGetNotifications(workspaceId));
   }, [dispatch, workspaceId, data]);
 
+  const updateCurrentUserInfo = useCallback(async () => {
+    await dispatch(fetchAsyncCurrentUser());
+  }, [dispatch]);
+
   return (
     <>
       <Card className={classes.root}>
@@ -79,6 +87,7 @@ const NotificationItem: FC<NotificationItemProps> = ({ data }) => {
             dispatch(setSelectedMembers([user]));
             dispatch(setSelectedTask(data.task._id));
             dispatch(toggleTaskCardClicked(true));
+            updateCurrentUserInfo();
           }}
           data-testid="test"
         >
