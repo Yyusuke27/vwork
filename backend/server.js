@@ -8,6 +8,8 @@ const path = require("path");
 const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
 const xss = require("xss-clean");
+const rateLimit = require("express-rate-limit");
+const hpp = require("hpp");
 
 // 開発環境用のログ
 if (process.env.USE_MORGAN === "true") {
@@ -55,6 +57,16 @@ app.use(helmet());
 
 // XSS対策
 app.use(xss());
+
+// レート制限
+const limiter = rateLimit({
+  windowMs: 5 * 60 * 1000,
+  max: 100,
+});
+app.use(limiter);
+
+// HPP対策
+app.use(hpp());
 
 // route設定
 app.use("/api/v1/auth", auth);
