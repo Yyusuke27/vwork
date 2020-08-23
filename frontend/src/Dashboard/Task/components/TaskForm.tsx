@@ -120,7 +120,7 @@ const TaskForm: FC<TaskFormProps> = ({
 
   const selectedMembers = useSelector(selectSelectedMembers);
 
-  const taskMembers = members ? members : selectedMembers;
+  const taskMembers = members && members.length > 0 ? members : selectedMembers;
 
   if (!taskData.startDateAt) {
     taskData.startDateAt = moment().toString();

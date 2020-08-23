@@ -16,7 +16,7 @@ import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import Avatar from "@material-ui/core/Avatar";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import Chip from "@material-ui/core/Chip";
-import { fetchAsyncGetProject } from "../../Project/projectSlice";
+import { fetchAsyncGetProject, setProject } from "../../Project/projectSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -67,6 +67,18 @@ const TaskItem: FC<TaskItemProps> = ({ iconType = "", data }) => {
             dispatch(setSelectedTask(data._id));
             if (data.project && data.project._id) {
               getProject(data.project._id);
+            } else {
+              dispatch(
+                setProject({
+                  _id: "",
+                  name: "",
+                  color: 0,
+                  icon: 0,
+                  description: "",
+                  members: [],
+                  tasks: [],
+                })
+              );
             }
             dispatch(toggleTaskCardClicked(true));
           }}

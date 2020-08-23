@@ -95,6 +95,8 @@ const TaskCardClickedDrawer = () => {
   // taskはreadonly propertyだから新しい変数に渡す
   const taskData = { ...task };
 
+  const update = taskData.project ? true : false;
+
   const pathName = window.location.pathname;
 
   const submitFunction = async (
@@ -195,7 +197,7 @@ const TaskCardClickedDrawer = () => {
             projects={projectData}
             submitFunction={submitFunction}
             taskData={taskData}
-            update={true}
+            update={update}
             members={project.members}
           />
         </Container>
