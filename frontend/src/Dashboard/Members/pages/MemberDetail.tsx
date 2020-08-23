@@ -22,6 +22,7 @@ import TaskInMemberManage from "../components/TaskInMemberManage";
 import MemberInfo from "../components/MemberInfo";
 
 import { setAttendances } from "../../Attendance/attendanceSlice";
+import { setSelectedProject } from "../../Project/projectSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -72,6 +73,12 @@ const MemberDetail = () => {
   const backPage = () => {
     history.push("/members");
   };
+
+  useEffect(() => {
+    return function cleanup() {
+      dispatch(setSelectedProject([]));
+    };
+  }, [dispatch]);
 
   return (
     <>

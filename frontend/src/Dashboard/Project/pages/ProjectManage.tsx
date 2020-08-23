@@ -3,7 +3,7 @@ import Container from "@material-ui/core/Container";
 import MainHeader from "../../../shared/components/Navigation/MainHeader";
 import ProjectList from "../components/ProjectList";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAsyncAllProjects } from "../projectSlice";
+import { fetchAsyncAllProjects, setSelectedProject } from "../projectSlice";
 import { selectWorkspace } from "../../../Auth/authSlice";
 
 const ProjectManage = () => {
@@ -19,6 +19,12 @@ const ProjectManage = () => {
       getProjects();
     }
   }, [getProjects, workspace]);
+
+  useEffect(() => {
+    return function cleanup() {
+      dispatch(setSelectedProject([]));
+    };
+  }, [dispatch]);
 
   return (
     <>

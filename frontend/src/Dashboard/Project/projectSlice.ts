@@ -236,6 +236,9 @@ const projectSlice = createSlice({
     setProject(state, action) {
       state.project = action.payload;
     },
+    setSelectedProject(state, action) {
+      state.selectedProjects = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncAllMyProjects.fulfilled, (state, action) => {
@@ -292,6 +295,7 @@ export const {
   setSelectedMember,
   setProjectMember,
   setProject,
+  setSelectedProject,
 } = projectSlice.actions;
 
 export default projectSlice.reducer;
