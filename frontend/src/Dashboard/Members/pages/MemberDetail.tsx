@@ -38,10 +38,8 @@ const MemberDetail = () => {
 
   const dispatch = useDispatch();
 
-  const [value, setValue] = React.useState(0);
-
   const handleChange = (event: React.ChangeEvent<{}>, value: number) => {
-    setValue(value);
+    return {};
   };
 
   interface ParamsType {
@@ -80,6 +78,16 @@ const MemberDetail = () => {
     };
   }, [dispatch]);
 
+  let tabNum;
+  const pathName = window.location.pathname;
+  if (pathName.includes("project")) {
+    tabNum = 1;
+  } else if (pathName.includes("task")) {
+    tabNum = 2;
+  } else {
+    tabNum = 0;
+  }
+
   return (
     <>
       <MainHeader title="メンバー管理" />
@@ -92,7 +100,7 @@ const MemberDetail = () => {
           <Grid item>
             <Box mt={5}>
               <Tabs
-                value={value}
+                value={tabNum}
                 onChange={handleChange}
                 variant="fullWidth"
                 indicatorColor="secondary"
