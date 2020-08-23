@@ -1,7 +1,14 @@
 import React, { useEffect, useRef, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import clsx from "clsx";
 import Home from "./Home";
+import MemberDetail from "../Members/pages/MemberDetail";
+import ProjectManage from "../Project/pages/ProjectManage";
+import WorkspaceManage from "../WorkSpace/pages/WorkspaceManage";
+import Notification from "../Notification/pages/Notification";
 import MyTask from "../Task/pages/MyTask";
 import Members from "../Members/pages/Members";
 import MyAttendance from "../Attendance/pages/MyAttendance";
@@ -9,14 +16,14 @@ import Project from "../Project/pages/Project";
 import MainNavigation from "../../shared/components/Navigation/MainNavigation";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { fetchAsyncCurrentUser, selectWorkspace } from "../../Auth/authSlice";
-import { useDispatch, useSelector } from "react-redux";
 import NewProjectDrawer from "../Project/components/NewProjectDrawer";
 import InviteMemberInAddIconDrawer from "../components/InviteMemberInAddIconDrawer";
+import ProjectMemberClickedDrawer from "../Project/components/ProjectMemberClickedDrawer";
 import SetProfileInAvatarIconDrawer from "../Project/components/SetProfileInAvatarIconDrawer";
 import TaskCardClickedDrawer from "../Task/components/TaskCardClickedDrawer";
 import NewTaskAddDrawer from "../Task/components/NewTaskAddDrawer";
 import KintaiCardClickedDrawer from "../Attendance/components/KintaiCardClickedDrawer";
+import { fetchAsyncCurrentUser, selectWorkspace } from "../../Auth/authSlice";
 import { fetchAsyncAllMyProjects } from "../Project/projectSlice";
 import {
   selectOpenMenu,
@@ -28,18 +35,10 @@ import {
   selectMemberIconClicked,
   selectKintaiCardClicked,
 } from "../../appSlice";
-import ProjectMemberClickedDrawer from "../Project/components/ProjectMemberClickedDrawer";
 import {
   fetchAsyncNearDeadlineTasks,
   fetchAsyncRecentTasks,
 } from "../Task/taskSlice";
-import { ToastContainer } from "react-toastify";
-
-import "react-toastify/dist/ReactToastify.css";
-import MemberDetail from "../Members/pages/MemberDetail";
-import ProjectManage from "../Project/pages/ProjectManage";
-import WorkspaceManage from "../WorkSpace/pages/WorkspaceManage";
-import Notification from "../Notification/pages/Notification";
 
 const drawerWidth = 240;
 
