@@ -12,6 +12,8 @@ import QueryBuilderIcon from "@material-ui/icons/QueryBuilder";
 import WorkIcon from "@material-ui/icons/Work";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { Box } from "@material-ui/core";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import IconButton from "@material-ui/core/IconButton";
 
 import MainHeader from "../../../shared/components/Navigation/MainHeader";
 import AttendanceInfoInMemberManage from "../components/AttendanceInfoInMemberManage";
@@ -67,10 +69,16 @@ const MemberDetail = () => {
     };
   });
 
+  const backPage = () => {
+    history.push("/members");
+  };
+
   return (
     <>
       <MainHeader title="メンバー管理" />
-
+      <IconButton onClick={backPage}>
+        <ArrowBackIosIcon />
+      </IconButton>
       <Grid container direction="column">
         <Container>
           <MemberInfo />
