@@ -26,9 +26,10 @@ const ProjectInMemberManage = () => {
       getProjects(workspaceId, memberId);
     }
   }, [getProjects, workspaceId, memberId]);
+
   return (
     <>
-      <ProjectList title="参加しているプロジェクト" />
+      <ProjectList title="参加しているプロジェクト" selected={true} />
     </>
   );
 };

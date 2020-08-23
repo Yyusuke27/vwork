@@ -139,6 +139,12 @@ interface projectState {
     color: number;
     icon: number;
   }[];
+  selectedProjects: {
+    _id: string;
+    name: string;
+    color: number;
+    icon: number;
+  }[];
   project: {
     _id: string;
     name: string;
@@ -191,6 +197,7 @@ interface projectState {
 
 const initialState: projectState = {
   projects: [],
+  selectedProjects: [],
   project: {
     _id: "",
     name: "",
@@ -235,7 +242,7 @@ const projectSlice = createSlice({
       state.projects = action.payload.data;
     });
     builder.addCase(fetchAsyncAllProjects.fulfilled, (state, action) => {
-      state.projects = action.payload.data;
+      state.selectedProjects = action.payload.data;
     });
     builder.addCase(fetchAsyncAllProjects.rejected, (state, action) => {
       window.location.href = "/";
@@ -264,7 +271,7 @@ const projectSlice = createSlice({
       });
     });
     builder.addCase(fetchAsyncGetMemberProjects.fulfilled, (state, action) => {
-      state.projects = action.payload.data;
+      state.selectedProjects = action.payload.data;
     });
     builder.addCase(fetchAsyncGetMemberProjects.rejected, (state, action) => {
       window.location.href = "/";
@@ -273,6 +280,8 @@ const projectSlice = createSlice({
 });
 
 export const selectProjects = (state: RootState) => state.project.projects;
+export const selectSelectedProjects = (state: RootState) =>
+  state.project.selectedProjects;
 export const selectProject = (state: RootState) => state.project.project;
 export const selectSelectedProjectMember = (state: RootState) =>
   state.project.selectedMember;

@@ -7,7 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import AddIcon from "@material-ui/icons/Add";
-import { selectProjects } from "../projectSlice";
+import { selectProjects, selectSelectedProjects } from "../projectSlice";
 import { PROJECT_COLORS } from "../../../shared/util/color";
 import { toggleAddProjectButton } from "../../../appSlice";
 
@@ -36,13 +36,17 @@ const useStyles = makeStyles({
 
 interface ProjectListProps {
   title: string;
+  selected?: boolean;
 }
 
-const ProjectList: FC<ProjectListProps> = ({ title = "" }) => {
+const ProjectList: FC<ProjectListProps> = ({ title = "", selected }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const projectData = useSelector(selectProjects);
+  const selectedProjects = useSelector(selectSelectedProjects);
+  const projects = useSelector(selectProjects);
+
+  const projectData = selected ? selectedProjects : projects;
 
   return (
     <>

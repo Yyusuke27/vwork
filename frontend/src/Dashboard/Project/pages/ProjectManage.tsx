@@ -24,7 +24,7 @@ const ProjectManage = () => {
     <>
       <MainHeader title="プロジェクト管理" />
       <Container>
-        <ProjectList title="全てのプロジェクト" />
+        <ProjectList title="全てのプロジェクト" selected={true} />
       </Container>
     </>
   );
