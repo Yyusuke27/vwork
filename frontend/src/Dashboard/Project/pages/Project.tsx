@@ -9,7 +9,11 @@ import AddButtonInProject from "../components/AddButtonInProject";
 import ProjectMemberList from "../components/ProjectMemberList";
 import TaskList from "../../Task/components/TaskList";
 import MainHeader from "../../../shared/components/Navigation/MainHeader";
-import { fetchAsyncGetProject, selectProject } from "../projectSlice";
+import {
+  fetchAsyncGetProject,
+  selectProject,
+  setProject,
+} from "../projectSlice";
 import { fetchAsyncProjectTasks, selectTasks } from "../../Task/taskSlice";
 import { setSelectedMembers } from "../../dashboardSlice";
 
@@ -59,6 +63,23 @@ const Project = () => {
     getProject(projectId);
     getTasks(projectId);
   }, [getProject, getTasks, projectId]);
+
+  // アンマウント時にprojectを空にする
+  useEffect(() => {
+    return function cleanup() {
+      dispatch(
+        setProject({
+          _id: "",
+          name: "",
+          color: 0,
+          icon: 0,
+          description: "",
+          members: [],
+          tasks: [],
+        })
+      );
+    };
+  }, [dispatch]);
 
   return (
     <>
