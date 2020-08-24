@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Switch, useHistory } from "react-router";
 import { Route, useParams } from "react-router-dom";
-
 import Grid from "@material-ui/core/Grid";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
@@ -14,13 +13,11 @@ import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { Box } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import IconButton from "@material-ui/core/IconButton";
-
 import MainHeader from "../../../shared/components/Navigation/MainHeader";
 import AttendanceInfoInMemberManage from "../components/AttendanceInfoInMemberManage";
 import ProjectInMemberManage from "../components/ProjectInMemberManage";
 import TaskInMemberManage from "../components/TaskInMemberManage";
 import MemberInfo from "../components/MemberInfo";
-
 import { setAttendances } from "../../Attendance/attendanceSlice";
 import { setSelectedProject } from "../../Project/projectSlice";
 

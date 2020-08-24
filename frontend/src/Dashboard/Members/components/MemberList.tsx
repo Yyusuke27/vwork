@@ -3,6 +3,7 @@ import Box from "@material-ui/core/Box";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import MemberItem from "./MemberItem";
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {

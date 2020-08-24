@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { useDispatch, useSelector } from "react-redux";
 import { fetchAsyncGetMember, selectMember } from "../memberSlice";
-import { useParams } from "react-router-dom";
 import { selectWorkspace } from "../../../Auth/authSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
