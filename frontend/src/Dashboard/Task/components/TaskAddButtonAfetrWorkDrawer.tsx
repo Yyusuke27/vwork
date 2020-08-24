@@ -151,7 +151,10 @@ const NewTaskAddAfterWorkDrawer = () => {
                                 name="tasks"
                                 type="checkbox"
                                 value={task._id}
-                                checked={values.tasks.includes(task._id)}
+                                checked={
+                                  todaysDoneTasks.includes(task._id) ||
+                                  values.tasks.includes(task._id)
+                                }
                                 onChange={(
                                   e: React.ChangeEvent<HTMLInputElement>
                                 ) => {
