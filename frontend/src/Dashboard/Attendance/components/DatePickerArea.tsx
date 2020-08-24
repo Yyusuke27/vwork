@@ -5,7 +5,6 @@ import DateFnsUtils from "@date-io/date-fns";
 import { ja } from "date-fns/locale";
 import { DatePicker } from "@material-ui/pickers";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
-import moment from "moment";
 import Typography from "@material-ui/core/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import { selectWorkspace } from "../../../Auth/authSlice";
@@ -13,6 +12,7 @@ import {
   fetchAsyncGetMemberAttendance,
   fetchAsyncGetMyAttendances,
 } from "../attendanceSlice";
+import moment from "moment";
 
 interface DatePickerProps {
   userId?: string;
