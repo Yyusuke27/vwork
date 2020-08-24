@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Container from "@material-ui/core/Container";
 import MainHeader from "../../../shared/components/Navigation/MainHeader";
 import ProjectList from "../components/ProjectList";
-import { useDispatch, useSelector } from "react-redux";
 import { fetchAsyncAllProjects, setSelectedProject } from "../projectSlice";
 import { selectWorkspace } from "../../../Auth/authSlice";
 

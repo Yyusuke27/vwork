@@ -14,8 +14,6 @@ import {
   toggleAddMemberButton,
 } from "../../../appSlice";
 
-const drawerWidth = "50%";
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
@@ -24,27 +22,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     icon: {
       fontSize: 45,
-    },
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: "#fff",
-    },
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-    drawerPaper: {
-      width: drawerWidth,
-    },
-    closeIcon: {
-      padding: 0,
-    },
-    drawerTitle: {
-      fontSize: 25,
-      width: "85%",
-    },
-    button: {
-      width: 300,
     },
   })
 );

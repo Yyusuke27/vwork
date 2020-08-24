@@ -1,20 +1,20 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { Field, FieldArray, Form, Formik } from "formik";
 import { Box } from "@material-ui/core";
 import { CheckboxWithLabel } from "formik-material-ui";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
-import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAsyncAddMembers,
   fetchAsyncGetProject,
   selectNewMembers,
   selectProject,
 } from "../projectSlice";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { toggleAddMemberButton, toggleLoading } from "../../../appSlice";
 
 const useStyles = makeStyles((theme: Theme) =>

@@ -1,32 +1,27 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Field, Form, Formik } from "formik";
+import * as Yup from "yup";
+import { TextField } from "formik-material-ui";
 import VwDrawer from "../../../shared/components/Common/VwDrawer";
-import {
-  selectSetProfileClicked,
-  toggleLoading,
-  toggleSetProfileClicked,
-} from "../../../appSlice";
 import Container from "@material-ui/core/Container";
 import { Box } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import { Field, Form, Formik } from "formik";
-import * as Yup from "yup";
-import { TextField } from "formik-material-ui";
-import Color from "../../../shared/util/color";
 import { fetchAsyncUpdateUserProfile } from "../../../Dashboard/dashboardSlice";
 import {
   selectProfile,
   selectUser,
   selectWorkspace,
 } from "../../../Auth/authSlice";
+import {
+  selectSetProfileClicked,
+  toggleLoading,
+  toggleSetProfileClicked,
+} from "../../../appSlice";
 
 const useStyles = makeStyles((theme) => ({
-  formArea: {
-    backgroundColor: Color.VWORK_BLACK,
-    paddingTop: theme.spacing(8),
-  },
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),

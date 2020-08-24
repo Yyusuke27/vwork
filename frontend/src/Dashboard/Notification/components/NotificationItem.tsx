@@ -1,6 +1,5 @@
 import React, { FC, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Color from "../../../shared/util/color";
 import moment from "moment";
 import Grid from "@material-ui/core/Grid";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";

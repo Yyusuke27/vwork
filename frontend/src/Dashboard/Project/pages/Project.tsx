@@ -1,18 +1,17 @@
 import React, { useCallback, useEffect, useRef } from "react";
-import AddButtonInProject from "../components/AddButtonInProject";
-import ProjectMemberList from "../components/ProjectMemberList";
-import TaskList from "../../Task/components/TaskList";
-import MainHeader from "../../../shared/components/Navigation/MainHeader";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAsyncGetProject, selectProject } from "../projectSlice";
 import { useParams } from "react-router-dom";
-import { fetchAsyncProjectTasks, selectTasks } from "../../Task/taskSlice";
-import { setSelectedMembers } from "../../dashboardSlice";
-
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { Box } from "@material-ui/core";
+import AddButtonInProject from "../components/AddButtonInProject";
+import ProjectMemberList from "../components/ProjectMemberList";
+import TaskList from "../../Task/components/TaskList";
+import MainHeader from "../../../shared/components/Navigation/MainHeader";
+import { fetchAsyncGetProject, selectProject } from "../projectSlice";
+import { fetchAsyncProjectTasks, selectTasks } from "../../Task/taskSlice";
+import { setSelectedMembers } from "../../dashboardSlice";
 
 const Project = () => {
   const dispatch = useDispatch();

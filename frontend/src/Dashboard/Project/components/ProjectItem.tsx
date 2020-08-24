@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
-
 import clsx from "clsx";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -19,13 +18,13 @@ const useStyles = makeStyles({
   icon: {
     fontSize: 55,
   },
+  contentWidth: {
+    width: 150,
+  },
   iconArea: {
     color: "white",
     height: 150,
     borderRadius: 8,
-  },
-  contentWidth: {
-    width: 150,
   },
 });
 

@@ -21,9 +21,6 @@ import {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    closeIcon: {
-      padding: 0,
-    },
     profile: {
       fontSize: 20,
     },

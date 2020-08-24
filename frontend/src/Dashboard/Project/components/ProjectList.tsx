@@ -1,6 +1,7 @@
 import React, { FC } from "react";
-import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
+import clsx from "clsx";
+import { PROJECT_COLORS } from "../../../shared/util/color";
 import ProjectItem from "./ProjectItem";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
@@ -8,7 +9,6 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import AddIcon from "@material-ui/icons/Add";
 import { selectProjects, selectSelectedProjects } from "../projectSlice";
-import { PROJECT_COLORS } from "../../../shared/util/color";
 import { toggleAddProjectButton } from "../../../appSlice";
 
 const useStyles = makeStyles({
@@ -18,9 +18,6 @@ const useStyles = makeStyles({
   },
   contentWidth: {
     width: 150,
-  },
-  icon: {
-    fontSize: 55,
   },
   iconStyle: {
     borderStyle: "dotted",

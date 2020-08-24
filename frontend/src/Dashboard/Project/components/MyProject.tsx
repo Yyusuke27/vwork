@@ -10,23 +10,10 @@ import SideProjectList from "./SideProjectList";
 import Color from "../../../shared/util/color";
 import { toggleAddProjectButton } from "../../../appSlice";
 
-const DrawerWith = "50%";
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
       fontSize: 15,
-    },
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: "#fff",
-    },
-    drawer: {
-      width: DrawerWith,
-      flexShrink: 0,
-    },
-    drawerPaper: {
-      width: DrawerWith,
     },
     iconStyle: {
       color: Color.VWORK_WHITE,
