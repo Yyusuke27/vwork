@@ -62,7 +62,9 @@ const NewProjectDrawer = () => {
           <Formik
             initialValues={initialValues}
             validationSchema={Yup.object().shape({
-              name: Yup.string().required("プロジェクト名を入力してください。"),
+              name: Yup.string()
+                .max(18, "18字以内で入力してください。")
+                .required("プロジェクト名を入力してください。"),
               description: Yup.string().required(
                 "プロジェクトの詳細を入力してください。"
               ),
