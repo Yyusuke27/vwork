@@ -1,9 +1,10 @@
 import React from "react";
-import clsx from "clsx";
-import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-
+import { NavLink } from "react-router-dom";
+import clsx from "clsx";
+import Color from "../../util/color";
+import MyProject from "../../../Dashboard/Project/components/MyProject";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
@@ -24,16 +25,12 @@ import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Badge from "@material-ui/core/Badge";
-
 import { selectOpenMenu, toggleOpenMenu } from "../../../appSlice";
 import {
   selectIsWorkspaceOwner,
   selectUnreadNotification,
   selectWorkspaceName,
 } from "../../../Auth/authSlice";
-import MyProject from "../../../Dashboard/Project/components/MyProject";
-
-import Color from "../../util/color";
 
 const drawerWidth = 240;
 

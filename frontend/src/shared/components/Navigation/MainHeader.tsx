@@ -1,13 +1,14 @@
 import React, { FC } from "react";
-import { Link } from "react-router-dom";
+import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import Color from "../../../shared/util/color";
 import { withStyles } from "@material-ui/core/styles";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import clsx from "clsx";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
@@ -15,7 +16,6 @@ import Avatar from "@material-ui/core/Avatar";
 import Menu, { MenuProps } from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Container from "@material-ui/core/Container";
-import Color from "../../../shared/util/color";
 import { fetchAsyncLogout, selectUser } from "../../../Auth/authSlice";
 import {
   selectOpenMenu,
@@ -60,9 +60,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     addIcon: {
       fontSize: 45,
-    },
-    icon: {
-      paddingLeft: 0,
     },
   })
 );

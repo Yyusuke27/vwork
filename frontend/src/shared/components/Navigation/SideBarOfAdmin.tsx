@@ -1,6 +1,8 @@
 import React, { FC } from "react";
-import clsx from "clsx";
 import { NavLink } from "react-router-dom";
+import clsx from "clsx";
+import Color from "../../util/color";
+import "../../../App.css";
 import Box from "@material-ui/core/Box";
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
@@ -15,8 +17,6 @@ import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import Drawer from "@material-ui/core/Drawer";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import Color from "../../util/color";
-import "../../../App.css";
 
 const drawerWidth = 240;
 

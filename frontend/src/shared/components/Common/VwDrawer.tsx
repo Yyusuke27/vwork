@@ -18,9 +18,6 @@ const useStyles = makeStyles((theme: Theme) =>
     drawerPaper: {
       width: DrawerWith,
     },
-    workSpaceIcon: {
-      marginTop: 10,
-    },
   })
 );
 
