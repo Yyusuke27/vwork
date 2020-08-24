@@ -50,7 +50,6 @@ export const fetchAsyncRegistUser = createAsyncThunk(
 export const fetchAsyncInvitation = createAsyncThunk(
   "regist/invitation",
   async (queryToken: string) => {
-    console.log(queryToken);
     if (!queryToken) {
       queryToken = inviteeToken;
     }
