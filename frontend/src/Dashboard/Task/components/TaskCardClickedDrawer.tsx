@@ -72,26 +72,6 @@ const TaskCardClickedDrawer = () => {
     [dispatch]
   );
 
-  useEffect(() => {
-    getTask(taskId);
-  }, [getTask, taskId]);
-
-  useEffect(() => {
-    return function cleanup() {
-      dispatch(
-        setProject({
-          _id: "",
-          name: "",
-          color: 0,
-          icon: 0,
-          description: "",
-          members: [],
-          tasks: [],
-        })
-      );
-    };
-  }, [dispatch]);
-
   const projects = useSelector(selectProjects);
   const projectData = projects.map((data) => {
     return { id: data._id, name: data.name };
@@ -103,6 +83,28 @@ const TaskCardClickedDrawer = () => {
   const update = taskData.project ? true : false;
 
   const pathName = window.location.pathname;
+
+  useEffect(() => {
+    getTask(taskId);
+  }, [getTask, taskId]);
+
+  useEffect(() => {
+    return function cleanup() {
+      if (!pathName.includes("project")) {
+        dispatch(
+          setProject({
+            _id: "",
+            name: "",
+            color: 0,
+            icon: 0,
+            description: "",
+            members: [],
+            tasks: [],
+          })
+        );
+      }
+    };
+  }, [dispatch, pathName]);
 
   const submitFunction = async (
     value: {
