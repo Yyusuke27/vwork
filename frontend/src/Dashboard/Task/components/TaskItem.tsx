@@ -1,11 +1,7 @@
 import React, { FC, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import moment from "moment";
-
-import { toggleTaskCardClicked } from "../../../appSlice";
-import { setSelectedTask } from "../taskSlice";
 import Color from "../../../shared/util/color";
-
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -17,6 +13,8 @@ import Avatar from "@material-ui/core/Avatar";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import Chip from "@material-ui/core/Chip";
 import { fetchAsyncGetProject, setProject } from "../../Project/projectSlice";
+import { toggleTaskCardClicked } from "../../../appSlice";
+import { setSelectedTask } from "../taskSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

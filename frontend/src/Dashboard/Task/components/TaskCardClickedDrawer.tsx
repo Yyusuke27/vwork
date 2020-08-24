@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import VwDrawer from "../../../shared/components/Common/VwDrawer";
+import { Box, Container } from "@material-ui/core";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import {
   selectTaskCardClicked,
   toggleTaskCardClicked,
@@ -18,15 +20,12 @@ import {
   selectTaskQuery,
   setTask,
 } from "../taskSlice";
-import TaskForm from "./TaskForm";
 import {
   selectProject,
   selectProjects,
   setProject,
 } from "../../Project/projectSlice";
-
-import { Box, Container } from "@material-ui/core";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import TaskForm from "./TaskForm";
 import TaskCommentForm from "./TaskCommentForm";
 import TaskHistoryArea from "./TaskHistoryArea";
 

@@ -7,9 +7,9 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Color from "../../../shared/util/color";
-import { toggleAddTaskButton } from "../../../appSlice";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
+import { toggleAddTaskButton } from "../../../appSlice";
 import { fetchAsyncTasks, selectTaskQuery, setQuery } from "../taskSlice";
 import { selectWorkspace } from "../../../Auth/authSlice";
 

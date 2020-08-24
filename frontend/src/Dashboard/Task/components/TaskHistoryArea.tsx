@@ -1,36 +1,32 @@
 import React, { FC, useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAsyncTaskHistory, selectTaskHistory } from "../taskSlice";
-
+import Color from "../../../shared/util/color";
 import { outputLog } from "../../../shared/util/log";
-
 import moment from "moment";
-
 import Container from "@material-ui/core/Container";
 import Avatar from "@material-ui/core/Avatar";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-
-import Color from "../../../shared/util/color";
 import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    commentArea: {
-      backgroundColor: Color.VWORK_WHITE,
-      borderRadius: "5px",
-      padding: "5px 3px",
-      marginLeft: theme.spacing(3),
+    icon: {
+      fontSize: "18px",
+      width: theme.spacing(3),
+      height: theme.spacing(3),
     },
     logArea: {
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(2),
       marginLeft: theme.spacing(3),
     },
-    icon: {
-      fontSize: "18px",
-      width: theme.spacing(3),
-      height: theme.spacing(3),
+    commentArea: {
+      backgroundColor: Color.VWORK_WHITE,
+      borderRadius: "5px",
+      padding: "5px 3px",
+      marginLeft: theme.spacing(3),
     },
   })
 );

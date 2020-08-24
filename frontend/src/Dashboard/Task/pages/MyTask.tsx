@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import Container from "@material-ui/core/Container";
 import TaskAddButton from "../components/TaskAddButton";
 import TaskList from "../components/TaskList";
 import MainHeader from "../../../shared/components/Navigation/MainHeader";
@@ -11,8 +11,6 @@ import {
   selectTasks,
   setQuery,
 } from "../taskSlice";
-
-import Container from "@material-ui/core/Container";
 import { setSelectedMembers } from "../../dashboardSlice";
 
 const TASK_STATE = ["TODO", "進行中", "完了"];

@@ -1,25 +1,23 @@
 import React, { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import * as Yup from "yup";
+import { Field, Form, Formik, FieldArray } from "formik";
+import { CheckboxWithLabel } from "formik-material-ui";
 import VwDrawer from "../../../shared/components/Common/VwDrawer";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
-// import Grid from "@material-ui/core/Grid";
-// import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+import DialogActions from "@material-ui/core/DialogActions";
+import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
+import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { Box } from "@material-ui/core";
 import {
   selectAddButtonAfterTask,
   toggleAddButtonAfterTask,
 } from "../../../appSlice";
 import { selectWorkspace } from "../../../Auth/authSlice";
 import { fetchAsyncTasks, selectTasks, setTodaysDoneTasks } from "../taskSlice";
-import * as Yup from "yup";
-import { Field, Form, Formik, FieldArray } from "formik";
-import Button from "@material-ui/core/Button";
-import DialogActions from "@material-ui/core/DialogActions";
-import { CheckboxWithLabel } from "formik-material-ui";
-import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
-import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

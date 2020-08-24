@@ -1,21 +1,17 @@
 import React, { FC } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { Field, Form, Formik } from "formik";
 import moment from "moment";
-import { useDispatch, useSelector } from "react-redux";
-
 import _ from "lodash";
-
-import { selectWorkspace } from "../../../Auth/authSlice";
-
+import DateFnsUtils from "@date-io/date-fns";
+import { ja } from "date-fns/locale";
 import { TextField, Select, CheckboxWithLabel } from "formik-material-ui";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import { Box, Slider } from "@material-ui/core";
-import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { DatePicker } from "formik-material-ui-pickers";
-import { ja } from "date-fns/locale";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -31,21 +27,19 @@ import SubjectIcon from "@material-ui/icons/Subject";
 import { selectSelectedMembers } from "../../dashboardSlice";
 import { selectProject } from "../../Project/projectSlice";
 import { toggleLoading } from "../../../appSlice";
+import { selectWorkspace } from "../../../Auth/authSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: "100%",
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
+    formContent: {
+      marginBottom: theme.spacing(1),
     },
     labelIcon: {
       marginRight: theme.spacing(1),
     },
-    formContent: {
-      marginBottom: theme.spacing(1),
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: "100%",
     },
   })
 );

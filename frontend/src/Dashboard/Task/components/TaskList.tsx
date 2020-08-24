@@ -1,7 +1,5 @@
 import React, { FC } from "react";
-
 import TaskItem from "./TaskItem";
-
 import Box from "@material-ui/core/Box";
 import {
   createStyles,
