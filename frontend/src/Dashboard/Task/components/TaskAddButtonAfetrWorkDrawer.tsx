@@ -17,7 +17,12 @@ import {
   toggleAddButtonAfterTask,
 } from "../../../appSlice";
 import { selectWorkspace } from "../../../Auth/authSlice";
-import { fetchAsyncTasks, selectTasks, setTodaysDoneTasks } from "../taskSlice";
+import {
+  fetchAsyncTasks,
+  selectTasks,
+  setTodaysDoneTasks,
+  selectTodaysDoneTasks,
+} from "../taskSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,6 +37,8 @@ const NewTaskAddAfterWorkDrawer = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const addButtonAfterTask = useSelector(selectAddButtonAfterTask);
+
+  const todaysDoneTasks = useSelector(selectTodaysDoneTasks);
 
   const tasksData = useSelector(selectTasks);
   const workspace = useSelector(selectWorkspace);
@@ -76,16 +83,22 @@ const NewTaskAddAfterWorkDrawer = () => {
                     name="tasks"
                     render={(arrayHelpers) => (
                       <div>
-                        <Box
-                          borderBottom={1}
-                          width="80%"
-                          paddingBottom={1}
-                          marginBottom={2}
-                        >
-                          <Typography variant="h5" component="h5">
-                            今日のタスク
-                          </Typography>
-                        </Box>
+                        {tasksData.todaysTasks.length === 0 &&
+                          tasksData.data.length === 0 && (
+                            <p>タスクがありません。</p>
+                          )}
+                        {tasksData.todaysTasks.length > 0 && (
+                          <Box
+                            borderBottom={1}
+                            width="80%"
+                            paddingBottom={1}
+                            marginBottom={2}
+                          >
+                            <Typography variant="h5" component="h5">
+                              今日のタスク
+                            </Typography>
+                          </Box>
+                        )}
                         {tasksData.todaysTasks &&
                           tasksData.todaysTasks.map((todaysTask, index) => (
                             <div key={`todaysTask-${index}`}>
@@ -95,7 +108,10 @@ const NewTaskAddAfterWorkDrawer = () => {
                                 name="tasks"
                                 type="checkbox"
                                 value={todaysTask._id}
-                                checked={values.tasks.includes(todaysTask._id)}
+                                checked={
+                                  todaysDoneTasks.includes(todaysTask._id) ||
+                                  values.tasks.includes(todaysTask._id)
+                                }
                                 onChange={(
                                   e: React.ChangeEvent<HTMLInputElement>
                                 ) => {
@@ -114,16 +130,18 @@ const NewTaskAddAfterWorkDrawer = () => {
                             </div>
                           ))}
                         <br />
-                        <Box
-                          borderBottom={1}
-                          width="80%"
-                          paddingBottom={1}
-                          marginBottom={2}
-                        >
-                          <Typography variant="h5" component="h5">
-                            タスク一覧
-                          </Typography>
-                        </Box>
+                        {tasksData.data.length > 0 && (
+                          <Box
+                            borderBottom={1}
+                            width="80%"
+                            paddingBottom={1}
+                            marginBottom={2}
+                          >
+                            <Typography variant="h5" component="h5">
+                              タスク一覧
+                            </Typography>
+                          </Box>
+                        )}
                         {tasksData.data &&
                           tasksData.data.map((task, index) => (
                             <div key={`task-${index}`}>
