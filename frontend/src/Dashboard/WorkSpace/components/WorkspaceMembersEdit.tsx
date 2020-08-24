@@ -1,16 +1,16 @@
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Typography from "@material-ui/core/Typography";
+import { Box } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import { fetchAsyncUpdateWorkspace } from "../../../WorkSpaces/workspaceSlice";
 import { fetchAsyncGetMembers, selectMembers } from "../../Members/memberSlice";
 import {
   fetchAsyncCurrentUser,
   selectWorkspace,
   selectWorkspaceOwners,
 } from "../../../Auth/authSlice";
-import Typography from "@material-ui/core/Typography";
-import { Box } from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import { fetchAsyncUpdateWorkspace } from "../../../WorkSpaces/workspaceSlice";
 
 const WorkspaceMembersEdit = () => {
   const dispatch = useDispatch();

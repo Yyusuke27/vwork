@@ -1,11 +1,9 @@
 import React from "react";
-
 import MainHeader from "../../../shared/components/Navigation/MainHeader";
-
+import { Box } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import WorkspaceBasicEdit from "../components/WorkspaceBasicEdit";
 import WorkspaceMembersEdit from "../components/WorkspaceMembersEdit";
-import { Box } from "@material-ui/core";
 
 const WorkspaceManage = () => {
   return (
