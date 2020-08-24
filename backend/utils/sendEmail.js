@@ -1,16 +1,26 @@
 const nodemailer = require("nodemailer");
-
-// TODO: Sendgridで送るように修正する
+const sendGridTransport = require("nodemailer-sendgrid-transport");
 
 const sendEmail = async (options) => {
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT,
-    auth: {
-      user: process.env.SMTP_EMAIL,
-      pass: process.env.SMTP_PASSWORD,
-    },
-  });
+  let transporter;
+  if (process.env.NODE_ENV === "production") {
+    transporter = nodemailer.createTransport(
+      sendGridTransport({
+        auth: {
+          api_key: process.env.SENDGRID_API_KEY,
+        },
+      })
+    );
+  } else {
+    transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: process.env.SMTP_PORT,
+      auth: {
+        user: process.env.SMTP_EMAIL,
+        pass: process.env.SMTP_PASSWORD,
+      },
+    });
+  }
 
   const message = {
     from: `${process.env.FROM_NAME} <${process.env.FROM_EMAIL}>`,
