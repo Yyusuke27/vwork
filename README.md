@@ -41,6 +41,8 @@ https://v-work-2020.web.app/
   メールアドレス: sample-member@test.com
 
   PW: samplemember
+  
+※会員登録をして利用することも可能です。以下に記載してあるVWORKの機能を確認する際にサンプルデータをご活用ください。
 
 ### 推奨環境
 
