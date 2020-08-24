@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect } from "react";
-import NotificationItem from "./NotificationItem";
 import { useDispatch, useSelector } from "react-redux";
+import { Box } from "@material-ui/core";
+import NotificationItem from "./NotificationItem";
 import {
   fetchAsyncGetNotifications,
   selectNotifications,
 } from "../notificationSlice";
 import { selectWorkspace } from "../../../Auth/authSlice";
-import { Box } from "@material-ui/core";
 
 const NotificationList = () => {
   const dispatch = useDispatch();

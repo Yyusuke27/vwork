@@ -1,11 +1,9 @@
 import React from "react";
-
+import { Box } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
-
 import MainHeader from "../../../shared/components/Navigation/MainHeader";
 import NotificationList from "../components/NotificationList";
-import { Box } from "@material-ui/core";
 
 const Notification = () => {
   return (

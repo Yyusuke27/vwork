@@ -1,16 +1,14 @@
 import React, { FC, useCallback } from "react";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import Color from "../../../shared/util/color";
 import { useDispatch, useSelector } from "react-redux";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import { setSelectedTask } from "../../Task/taskSlice";
-import { toggleTaskCardClicked } from "../../../appSlice";
+import Color from "../../../shared/util/color";
+import moment from "moment";
 import Grid from "@material-ui/core/Grid";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import CardActionArea from "@material-ui/core/CardActionArea";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import FiberNewIcon from "@material-ui/icons/FiberNew";
 import Typography from "@material-ui/core/Typography";
 import Chip from "@material-ui/core/Chip";
-import moment from "moment";
 import Card from "@material-ui/core/Card";
 import {
   fetchAsyncGetNotifications,
@@ -22,6 +20,8 @@ import {
   selectWorkspace,
 } from "../../../Auth/authSlice";
 import { setSelectedMembers } from "../../dashboardSlice";
+import { setSelectedTask } from "../../Task/taskSlice";
+import { toggleTaskCardClicked } from "../../../appSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,9 +34,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     cardActionArea: {
       height: 80,
-    },
-    avatar: {
-      backgroundColor: Color.VWORK_RED,
     },
   })
 );
