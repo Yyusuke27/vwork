@@ -185,9 +185,7 @@ const registSlice = createSlice({
 export const {
   editWorkspace,
   editInvitations,
-  editProject,
   editUser,
-  editInviteToken,
   editInviteUser,
 } = registSlice.actions;
 

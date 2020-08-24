@@ -88,6 +88,5 @@ const memberSlice = createSlice({
 
 export const selectMembers = (state: RootState) => state.member.members;
 export const selectMember = (state: RootState) => state.member.member;
-export const { setMembers, setMember } = memberSlice.actions;
 
 export default memberSlice.reducer;

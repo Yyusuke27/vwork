@@ -253,8 +253,6 @@ export const selectToken = (state: RootState) => state.auth.token;
 export const selectProfile = (state: RootState) => state.auth.profile;
 export const selectWorkspace = (state: RootState) =>
   state.auth.user.lastAccessWorkspace;
-export const selectUserRegistration = (state: RootState) =>
-  state.auth.user.registration;
 export const selectWorkspaceName = (state: RootState) => state.auth.workspace;
 export const selectErrorMessage = (state: RootState) => state.auth.errorMessage;
 export const selectErrorOpen = (state: RootState) => state.auth.errorOpen;
@@ -263,6 +261,6 @@ export const selectUnreadNotification = (state: RootState) => state.auth.unread;
 export const selectWorkspaceOwners = (state: RootState) =>
   state.auth.workspace.owners;
 
-export const { setErrorOpen, setUser } = authSlice.actions;
+export const { setErrorOpen } = authSlice.actions;
 
 export default authSlice.reducer;

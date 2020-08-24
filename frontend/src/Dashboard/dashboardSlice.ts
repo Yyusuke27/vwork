@@ -94,9 +94,7 @@ const dashboardSlice = createSlice({
   },
 });
 
-export const { setWorkspace, setSelectedMembers } = dashboardSlice.actions;
-export const selectNowWorkspace = (state: RootState) =>
-  state.dashboard.workspace;
+export const { setSelectedMembers } = dashboardSlice.actions;
 export const selectSelectedMembers = (state: RootState) =>
   state.dashboard.selectedMembers;
 
