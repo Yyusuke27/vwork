@@ -1,6 +1,5 @@
 import React from "react";
 import { useHistory } from "react-router";
-
 import Color from "../../shared/util/color";
 import Typography from "@material-ui/core/Typography";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";

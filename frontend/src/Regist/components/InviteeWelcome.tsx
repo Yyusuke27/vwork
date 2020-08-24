@@ -1,42 +1,29 @@
 import React, { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-
-import { fetchAsyncInvitation } from "../registSlice";
-
+import Color from "../../shared/util/color";
 import Button from "@material-ui/core/Button";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import Color from "../../shared/util/color";
 import Typography from "@material-ui/core/Typography";
 import { Box } from "@material-ui/core";
 import { toggleLoading } from "../../appSlice";
+import { fetchAsyncInvitation } from "../registSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    title: {
-      fontSize: 100,
-    },
     button: {
       position: "absolute",
       fontSize: 30,
-
       width: 200,
       borderRadius: 15,
       right: "0%",
       bottom: "0%",
       marginBottom: 40,
       marginRight: 80,
-    },
-    style: {
-      marginTop: "40%",
-      marginRight: "10%",
-    },
-    dialog: {
-      position: "relative",
     },
   })
 );

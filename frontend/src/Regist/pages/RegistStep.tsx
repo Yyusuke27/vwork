@@ -1,11 +1,10 @@
 import React from "react";
-
+import { Switch, Route } from "react-router-dom";
 import StepOne from "../components/StepOne";
 import StepTwo from "../components/StepTwo";
 import StepThree from "../components/StepThree";
 import StepFour from "../components/StepFour";
 import StepFinish from "../components/StepFinish";
-import { Switch, Route } from "react-router-dom";
 
 const RegistStep = () => {
   return (

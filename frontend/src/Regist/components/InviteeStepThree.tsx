@@ -1,12 +1,11 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
+import Color from "../../shared/util/color";
 import Button from "@material-ui/core/Button";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import Color from "../../shared/util/color";
-import { useHistory } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
-
 import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -17,7 +16,6 @@ const useStyles = makeStyles((theme: Theme) =>
     button: {
       position: "absolute",
       fontSize: 30,
-
       width: 200,
       borderRadius: 15,
       right: "0%",

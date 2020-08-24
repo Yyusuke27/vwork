@@ -1,12 +1,9 @@
 import React from "react";
-import * as Yup from "yup";
-import { fetchAsyncRegistUser } from "../registSlice";
-import { Field, Form, Formik } from "formik";
-import { TextField } from "formik-material-ui";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { selectRegist } from "../registSlice";
-
+import * as Yup from "yup";
+import { Field, Form, Formik } from "formik";
+import { TextField } from "formik-material-ui";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
@@ -14,11 +11,18 @@ import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import { toggleLoading } from "../../appSlice";
+import { fetchAsyncRegistUser } from "../registSlice";
+import { selectRegist } from "../registSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: "100%",
+    },
+    formArea: {
+      overflowY: "scroll",
+      overflowX: "hidden",
+      height: "33vh",
     },
     button: {
       position: "absolute",
@@ -29,11 +33,6 @@ const useStyles = makeStyles((theme: Theme) =>
       bottom: "0%",
       marginBottom: 40,
       marginRight: 80,
-    },
-    formArea: {
-      overflowY: "scroll",
-      overflowX: "hidden",
-      height: "33vh",
     },
   })
 );

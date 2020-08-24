@@ -1,18 +1,16 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 import { Form, Field, Formik } from "formik";
 import { TextField } from "formik-material-ui";
 import * as Yup from "yup";
-import { useHistory } from "react-router";
-import { useDispatch } from "react-redux";
-
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-
-import { editWorkspace } from "../registSlice";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
+import { editWorkspace } from "../registSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

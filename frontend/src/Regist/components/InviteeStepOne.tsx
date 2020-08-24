@@ -1,4 +1,9 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import * as Yup from "yup";
+import { Field, Form, Formik } from "formik";
+import { TextField } from "formik-material-ui";
 import Button from "@material-ui/core/Button";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -6,25 +11,18 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-
 import { Box } from "@material-ui/core";
-import * as Yup from "yup";
 import {
   editInviteUser,
   selectInviteUser,
   selectInviteUserMail,
 } from "../registSlice";
-import { Field, Form, Formik } from "formik";
-import { TextField } from "formik-material-ui";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     button: {
       position: "absolute",
       fontSize: 30,
-
       width: 200,
       borderRadius: 15,
       right: "0%",

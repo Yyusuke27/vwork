@@ -2,25 +2,29 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import * as Yup from "yup";
-import { editInvitations } from "../registSlice";
 import { Field, Form, Formik, FieldArray } from "formik";
-
+import { TextField } from "formik-material-ui";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
-import { TextField } from "formik-material-ui";
 import { Box } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import DialogActions from "@material-ui/core/DialogActions";
+import { editInvitations } from "../registSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: "100%",
+    },
+    formArea: {
+      overflowY: "scroll",
+      overflowX: "hidden",
+      height: "33vh",
     },
     button: {
       position: "absolute",
@@ -31,11 +35,6 @@ const useStyles = makeStyles((theme: Theme) =>
       bottom: "0%",
       marginBottom: 40,
       marginRight: 80,
-    },
-    formArea: {
-      overflowY: "scroll",
-      overflowX: "hidden",
-      height: "33vh",
     },
   })
 );

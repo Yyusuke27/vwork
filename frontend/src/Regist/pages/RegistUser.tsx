@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import Welcome from "../components/Welcome";
 import RegistStep from "./RegistStep";
-import { useDispatch } from "react-redux";
 import { fetchAsyncCurrentUser } from "../../Auth/authSlice";
 
 const RegistUser = () => {
