@@ -1,29 +1,13 @@
+import React, { FC } from "react";
+import { Link } from "react-router-dom";
+import Color from "../../shared/util/color";
 import { Box } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
 import Container from "@material-ui/core/Container";
-import React, { FC } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Color from "../../shared/util/color";
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    height: "70vh",
-    padding: theme.spacing(10, 4),
-    marginTop: theme.spacing(3),
-    display: "flex",
-    flexDirection: "column",
-    backgroundColor: Color.VWORK_WHITE,
-    borderRadius: 20,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
   logoIcon: {
     display: "inline-block",
     height: 32,
@@ -32,6 +16,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: "contain",
     backgroundRepeat: "no-repeat",
     marginRight: theme.spacing(1),
+  },
+  paper: {
+    height: "70vh",
+    padding: theme.spacing(10, 4),
+    marginTop: theme.spacing(3),
+    display: "flex",
+    flexDirection: "column",
+    backgroundColor: Color.VWORK_WHITE,
+    borderRadius: 20,
   },
 }));
 

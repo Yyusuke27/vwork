@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-
+import Snackbar from "@material-ui/core/Snackbar";
+import Alert from "@material-ui/lab/Alert";
 import SignUp from "./SignUp";
 import Login from "./Login";
-import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAsyncCurrentUser,
   selectErrorMessage,
@@ -11,9 +12,6 @@ import {
   selectErrorOpen,
 } from "../authSlice";
 import { toggleLoading } from "../../appSlice";
-
-import Snackbar from "@material-ui/core/Snackbar";
-import Alert from "@material-ui/lab/Alert";
 import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
 import DoneForgotPassword from "./DoneForgotPassword";

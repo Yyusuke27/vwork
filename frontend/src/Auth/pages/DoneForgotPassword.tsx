@@ -1,13 +1,11 @@
 import React from "react";
-
+import Color from "../../shared/util/color";
+import FormArea from "../components/FormArea";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-
-import Color from "../../shared/util/color";
-import FormArea from "../components/FormArea";
 import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,35 +22,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: Color.VWORK_WHITE,
     backgroundSize: "60%",
     backgroundPosition: "center",
-  },
-  paper: {
-    height: "70vh",
-    padding: theme.spacing(10, 4),
-    marginTop: theme.spacing(3),
-    display: "flex",
-    flexDirection: "column",
-    backgroundColor: Color.VWORK_WHITE,
-    borderRadius: 20,
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  logoIcon: {
-    display: "inline-block",
-    height: 32,
-    width: 32,
-    backgroundImage: `url(${process.env.PUBLIC_URL}/images/logo192.png)`,
-    backgroundSize: "contain",
-    backgroundRepeat: "no-repeat",
-    marginRight: theme.spacing(1),
   },
 }));
 
