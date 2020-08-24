@@ -313,7 +313,7 @@ const TaskForm: FC<TaskFormProps> = ({
               </Grid>
               <Grid item xs={8}>
                 <FormControl className={classes.formControl}>
-                  <InputLabel htmlFor="project">プロジェクト</InputLabel>
+                  <InputLabel htmlFor="project">プロジェクト選択</InputLabel>
                   <Field
                     component={Select}
                     disabled={update}
