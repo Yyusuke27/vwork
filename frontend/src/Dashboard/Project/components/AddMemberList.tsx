@@ -16,6 +16,7 @@ import {
   selectProject,
 } from "../projectSlice";
 import { toggleAddMemberButton, toggleLoading } from "../../../appSlice";
+import { FormHelperText } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,7 +44,9 @@ const AddMemberList = () => {
     <>
       <Formik
         initialValues={initialValues}
-        validationSchema={Yup.object().shape({})}
+        validationSchema={Yup.object().shape({
+          members: Yup.array().required("メンバーを選択してください"),
+        })}
         onSubmit={async (values, actions) => {
           actions.setSubmitting(false);
           dispatch(toggleLoading(true));
@@ -58,7 +61,7 @@ const AddMemberList = () => {
           dispatch(toggleAddMemberButton(false));
         }}
       >
-        {({ values }) => (
+        {({ values, errors }) => (
           <Form>
             <FieldArray
               name="members"
@@ -89,6 +92,7 @@ const AddMemberList = () => {
                         />
                       </div>
                     ))}
+                  <FormHelperText error={true}>{errors.members}</FormHelperText>
                   <DialogActions>
                     <Box
                       mt={5}
