@@ -7,7 +7,6 @@ import {
   Switch,
 } from "react-router-dom";
 import { theme } from "./shared/util/theme";
-import Admin from "./Admin/pages/Admin";
 import Regist from "./Regist/pages/Regist";
 import WorkSpaces from "./WorkSpaces/pages/WorkSpaces";
 import Dashboard from "./Dashboard/pages/Dashboard";
@@ -50,10 +49,6 @@ const App = () => {
           </Route>
           <Route path="/regist">
             <Regist />
-          </Route>
-          <Route path="/admin">
-            {token ? <Admin /> : <Redirect to="/auth/login" />}
-            <Admin />
           </Route>
           <Route path="/workspaces">
             {token ? <WorkSpaces /> : <Redirect to="/auth/login" />}
