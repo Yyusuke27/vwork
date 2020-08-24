@@ -1,20 +1,27 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import VwDrawer from "../../../shared/components/Common/VwDrawer";
+import {
+  selectAddProjectButton,
+  toggleAddProjectButton,
+  toggleLoading,
+} from "../../../appSlice";
+import {
+  fetchAsyncAllMyProjects,
+  fetchAsyncAllProjects,
+  fetchAsyncCreateProject,
+} from "../projectSlice";
+import { selectWorkspace } from "../../../Auth/authSlice";
+
 import * as Yup from "yup";
 import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-material-ui";
+
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import { Box } from "@material-ui/core";
-import { fetchAsyncCreateProject } from "../projectSlice";
-import { selectWorkspace } from "../../../Auth/authSlice";
-import {
-  selectAddProjectButton,
-  toggleAddProjectButton,
-} from "../../../appSlice";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -61,6 +68,7 @@ const NewProjectDrawer = () => {
               ),
             })}
             onSubmit={async (values, actions) => {
+              dispatch(toggleLoading(true));
               await dispatch(
                 fetchAsyncCreateProject({
                   workspace: workspace,
@@ -70,7 +78,10 @@ const NewProjectDrawer = () => {
                   },
                 })
               );
+              await dispatch(fetchAsyncAllMyProjects(workspace));
+              await dispatch(fetchAsyncAllProjects(workspace));
               dispatch(toggleAddProjectButton(false));
+              dispatch(toggleLoading(false));
             }}
           >
             <Form className={classes.form}>
