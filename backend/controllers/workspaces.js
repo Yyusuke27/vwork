@@ -217,7 +217,7 @@ exports.inviteNewMembers = asyncHandler(async (req, res, next) => {
     try {
       await sendEmail({
         email: invitee.email,
-        subject: `[vwork]${workspace.name}に招待されました`,
+        subject: `[VWORK]${workspace.name}に招待されました`,
         message,
         html,
       });
