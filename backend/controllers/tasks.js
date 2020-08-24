@@ -21,7 +21,10 @@ exports.getTasks = asyncHandler(async (req, res, next) => {
   if (req.params.projectId) {
     const project = await Project.findById(req.params.projectId);
     const isMember = project.members.includes(req.user.id);
-    if (!isMember) {
+
+    const workspace = await Workspace.findById(project.workspace);
+    const isOwnerInWorkspace = workspace.owners.includes(req.user.id);
+    if (!isMember && !isOwnerInWorkspace) {
       return next(new ErrorResponse("タスクの閲覧権限がありません"));
     }
     tasks = await Task.find({ project: req.params.projectId })
