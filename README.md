@@ -126,6 +126,8 @@ Safari
 - Express.js
 - MongoDB
 
+### フロントエンド
+
 - React
 - Redux
 - TypeScript
