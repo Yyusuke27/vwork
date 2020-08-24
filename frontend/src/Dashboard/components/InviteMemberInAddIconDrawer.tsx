@@ -6,13 +6,13 @@ import {
   toggleInviteMemberClicked,
   toggleLoading,
 } from "../../appSlice";
-
+import { selectWorkspace } from "../../Auth/authSlice";
+import { fetchAsyncInviteMember } from "../dashboardSlice";
 import { Field, Form, Formik, FieldArray } from "formik";
 import * as Yup from "yup";
-
+import { TextField } from "formik-material-ui";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import { TextField } from "formik-material-ui";
 import { Box } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -20,14 +20,9 @@ import Button from "@material-ui/core/Button";
 import DialogActions from "@material-ui/core/DialogActions";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { selectWorkspace } from "../../Auth/authSlice";
-import { fetchAsyncInviteMember } from "../dashboardSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      width: "100%",
-    },
     formArea: {
       overflowY: "scroll",
       overflowX: "hidden",
