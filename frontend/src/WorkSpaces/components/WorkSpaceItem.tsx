@@ -1,17 +1,18 @@
 import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import { fetchAsyncUpdateUser, selectUser } from "../../Auth/authSlice";
-
 import Grid from "@material-ui/core/Grid";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
+import { fetchAsyncUpdateUser, selectUser } from "../../Auth/authSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    cardActionArea: {
+      height: 80,
+    },
     root: {
       width: "100%",
       borderRadius: 10,
@@ -22,9 +23,6 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       fontSize: 20,
       paddingLeft: 10,
-    },
-    cardActionArea: {
-      height: 80,
     },
   })
 );

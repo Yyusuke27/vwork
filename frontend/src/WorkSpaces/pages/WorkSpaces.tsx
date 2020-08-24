@@ -1,12 +1,10 @@
 import React, { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
-
+import Dialog from "@material-ui/core/Dialog";
+import Container from "@material-ui/core/Container";
 import SideBarOfWorkSpaces from "../../shared/components/Navigation/SideBarOfWorkSpaces";
 import WorkSpaceList from "../components/WorkSpaceList";
 import { fetchAsyncCurrentUser } from "../../Auth/authSlice";
-
-import Dialog from "@material-ui/core/Dialog";
-import Container from "@material-ui/core/Container";
 
 const WorkSpaces = () => {
   const dispatch = useDispatch();
