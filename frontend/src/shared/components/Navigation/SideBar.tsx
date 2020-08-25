@@ -165,16 +165,16 @@ const SideBar = () => {
               </ListItemIcon>
               <ListItemText primary="勤怠管理" />
             </ListItem>
+            <ListItem button component={NavLink} to="/notification" exact>
+              <ListItemIcon className={classes.icon}>
+                <NotificationsNoneIcon />
+              </ListItemIcon>
+              <Badge badgeContent={unreadNotifications} color="primary">
+                <ListItemText primary="受信ボックス" />
+              </Badge>
+            </ListItem>
             {isWorkspaceOwner ? (
               <>
-                <ListItem button component={NavLink} to="/notification" exact>
-                  <ListItemIcon className={classes.icon}>
-                    <NotificationsNoneIcon />
-                  </ListItemIcon>
-                  <Badge badgeContent={unreadNotifications} color="primary">
-                    <ListItemText primary="受信ボックス" />
-                  </Badge>
-                </ListItem>
                 <ListItem button component={NavLink} to="/members" exact>
                   <ListItemIcon className={classes.icon}>
                     <GroupIcon />
