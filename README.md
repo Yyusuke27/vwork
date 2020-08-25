@@ -34,7 +34,7 @@ https://v-work-2020.web.app/
 
   メールアドレス: sample-owner@test.com
 
-  PW: sample owner
+  PW: sampleowner
 
 - メンバーとしてログイン
 
