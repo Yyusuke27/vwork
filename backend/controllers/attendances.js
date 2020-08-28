@@ -15,7 +15,37 @@ const moment = require("moment");
 exports.getAttendances = asyncHandler(async (req, res, next) => {
   let attendances;
 
-  // TODO: クエリのところまとめる
+  // クエリが合った時に使う変数
+  let startDateOfTheMonth, endDateOfTheMonth;
+  // クエリがなかった時に使う変数
+  let today, year, month, startDateOfThisMonth;
+  if (req.params.workspaceId) {
+    if (req.query && req.query.year && req.query.month) {
+      // クエリが合った時に絞り込みで使用
+      const year = Number(req.query.year);
+      const month = Number(req.query.month);
+
+      const makeMonthFormat = (m) => {
+        return ("0" + m).slice(-2);
+      };
+
+      startDateOfTheMonth = moment(`${year}-${makeMonthFormat(month)}-01`)
+        .utcOffset("+09:00")
+        .toDate();
+      endDateOfTheMonth = moment(`${year}-${makeMonthFormat(month + 1)}-01`)
+        .subtract(1, "day")
+        .utcOffset("+09:00")
+        .toDate();
+    } else {
+      // クエリがなかった時に絞り込みで使用
+      today = moment(Date.now());
+      year = today.format("YYYY");
+      month = today.format("MM");
+      startDateOfThisMonth = moment(`${year}-${month}-01`)
+        .utcOffset("+09:00")
+        .toDate();
+    }
+  }
 
   if (req.params.workspaceId && req.params.userId) {
     // workspaceのownerはworkspaceのmemberの勤怠を閲覧可能
@@ -27,24 +57,6 @@ exports.getAttendances = asyncHandler(async (req, res, next) => {
     }
 
     if (req.query && req.query.year && req.query.month) {
-      //　月ごとに絞り込み処理
-      const year = Number(req.query.year);
-      const month = Number(req.query.month);
-
-      const makeMonthFormat = (m) => {
-        return ("0" + m).slice(-2);
-      };
-
-      const startDateOfTheMonth = moment(`${year}-${makeMonthFormat(month)}-01`)
-        .utcOffset("+09:00")
-        .toDate();
-      const endDateOfTheMonth = moment(
-        `${year}-${makeMonthFormat(month + 1)}-01`
-      )
-        .subtract(1, "day")
-        .utcOffset("+09:00")
-        .toDate();
-
       attendances = await Attendance.find({
         user: req.params.userId,
         workspace: req.params.workspaceId,
@@ -55,12 +67,6 @@ exports.getAttendances = asyncHandler(async (req, res, next) => {
       });
     } else {
       // queryがなかったら今月の勤怠を表示
-      const today = moment(Date.now());
-      const year = today.format("YYYY");
-      const month = today.format("MM");
-      const startDateOfThisMonth = moment(`${year}-${month}-01`)
-        .utcOffset("+09:00")
-        .toDate();
       attendances = await Attendance.find({
         user: req.params.userId,
         workspace: req.params.workspaceId,
@@ -79,23 +85,6 @@ exports.getAttendances = asyncHandler(async (req, res, next) => {
     // 自分の全ての勤怠管理の閲覧
     if (req.query && req.query.year && req.query.month) {
       //　月ごとに絞り込み処理
-      const year = Number(req.query.year);
-      const month = Number(req.query.month);
-
-      const makeMonthFormat = (m) => {
-        return ("0" + m).slice(-2);
-      };
-
-      const startDateOfTheMonth = moment(`${year}-${makeMonthFormat(month)}-01`)
-        .utcOffset("+09:00")
-        .toDate();
-      const endDateOfTheMonth = moment(
-        `${year}-${makeMonthFormat(month + 1)}-01`
-      )
-        .subtract(1, "day")
-        .utcOffset("+09:00")
-        .toDate();
-
       attendances = await Attendance.find({
         user: req.user.id,
         workspace: req.params.workspaceId,
@@ -106,12 +95,6 @@ exports.getAttendances = asyncHandler(async (req, res, next) => {
       });
     } else {
       // queryがなかったら今月の勤怠を表示
-      const today = moment(Date.now());
-      const year = today.format("YYYY");
-      const month = today.format("MM");
-      const startDateOfThisMonth = moment(`${year}-${month}-01`)
-        .utcOffset("+09:00")
-        .toDate();
       attendances = await Attendance.find({
         user: req.user.id,
         workspace: req.params.workspaceId,
