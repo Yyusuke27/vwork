@@ -63,7 +63,7 @@ const MemberDetail = () => {
     return function cleanup() {
       dispatch(setAttendances([]));
     };
-  });
+  }, [dispatch]);
 
   const backPage = () => {
     history.push("/members");
