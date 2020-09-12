@@ -1,0 +1,15 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+
+AllCops:
+  Exclude:
+    - db/schema.rb
+    - 'vendor/**/*'
+
+Rails:
+  Enabled: true
+
+AsciiComments:
+  Enabled: false
+  
