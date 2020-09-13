@@ -34,7 +34,7 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[6.0]
       t.string :email
       t.boolean :registration, default: false
       t.boolean :active, default: false
-      t.integer :role
+      t.integer :role, default: 0
       t.boolean :has_unread, default: false
 
       ## Tokens
