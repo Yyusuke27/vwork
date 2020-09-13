@@ -10,7 +10,7 @@
 #
 FactoryBot.define do
   factory :workspace do
-    name { "MyString" }
+    name { 'MyString' }
     active { false }
   end
 end
