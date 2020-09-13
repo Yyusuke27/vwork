@@ -10,7 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_13_124002) do
+ActiveRecord::Schema.define(version: 2020_09_13_130508) do
+
+  create_table "invites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "workspace_id", null: false
+    t.string "invitationToken"
+    t.datetime "invitationExpire"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_invites_on_user_id"
+    t.index ["workspace_id"], name: "index_invites_on_workspace_id"
+  end
+
+  create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description", null: false
+    t.integer "color", default: 0
+    t.integer "icon", default: 0
+    t.bigint "workspace_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["workspace_id"], name: "index_projects_on_workspace_id"
+  end
 
   create_table "user_profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -52,6 +74,14 @@ ActiveRecord::Schema.define(version: 2020_09_13_124002) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  create_table "workspace_members", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "workspace_id", null: false
+    t.bigint "member_id", null: false
+    t.integer "role", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "workspaces", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
     t.boolean "active"
@@ -59,6 +89,9 @@ ActiveRecord::Schema.define(version: 2020_09_13_124002) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "invites", "users"
+  add_foreign_key "invites", "workspaces"
+  add_foreign_key "projects", "workspaces"
   add_foreign_key "user_profiles", "users"
   add_foreign_key "user_profiles", "workspaces"
 end

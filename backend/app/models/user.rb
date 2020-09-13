@@ -41,4 +41,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
+
+  has_many :workspace_members
+  has_many :workspaces, through: :workspace_members
 end

@@ -9,4 +9,6 @@
 #  updated_at :datetime         not null
 #
 class Workspace < ApplicationRecord
+  has_many :workspace_members
+  has_many :members, class_name: 'User', through: :workspace_members
 end
