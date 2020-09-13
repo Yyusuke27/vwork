@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_13_071345) do
+ActiveRecord::Schema.define(version: 2020_09_13_124002) do
+
+  create_table "user_profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "workspace_id", null: false
+    t.string "position"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id", "workspace_id"], name: "index_user_profiles_on_user_id_and_workspace_id", unique: true
+    t.index ["user_id"], name: "index_user_profiles_on_user_id"
+    t.index ["workspace_id"], name: "index_user_profiles_on_workspace_id"
+  end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "provider", default: "email", null: false
@@ -48,4 +59,6 @@ ActiveRecord::Schema.define(version: 2020_09_13_071345) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "user_profiles", "users"
+  add_foreign_key "user_profiles", "workspaces"
 end
