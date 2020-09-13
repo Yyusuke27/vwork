@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_13_130508) do
+ActiveRecord::Schema.define(version: 2020_09_13_155741) do
 
   create_table "invites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -21,6 +21,14 @@ ActiveRecord::Schema.define(version: 2020_09_13_130508) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_invites_on_user_id"
     t.index ["workspace_id"], name: "index_invites_on_workspace_id"
+  end
+
+  create_table "project_members", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "project_id", null: false
+    t.bigint "member_id", null: false
+    t.integer "role", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

@@ -21,4 +21,7 @@
 #
 class Project < ApplicationRecord
   belongs_to :workspace
+
+  has_many :project_members
+  has_many :members, class_name: 'User', through: :project_members
 end

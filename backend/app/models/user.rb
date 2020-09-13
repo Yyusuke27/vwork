@@ -44,4 +44,7 @@ class User < ActiveRecord::Base
 
   has_many :workspace_members
   has_many :workspaces, through: :workspace_members
+
+  has_many :project_members
+  has_many :projects, through: :project_members
 end
