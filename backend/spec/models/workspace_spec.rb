@@ -7,6 +7,11 @@
 #  name       :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  path_id    :string(191)
+#
+# Indexes
+#
+#  index_workspaces_on_path_id  (path_id)
 #
 require 'rails_helper'
 

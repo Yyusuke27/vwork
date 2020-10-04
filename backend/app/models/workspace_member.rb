@@ -3,7 +3,7 @@
 # Table name: workspace_members
 #
 #  id           :bigint           not null, primary key
-#  role         :integer          default(0)
+#  role         :integer          default("normal")
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  member_id    :bigint           not null
@@ -12,4 +12,6 @@
 class WorkspaceMember < ApplicationRecord
   belongs_to :workspace
   belongs_to :member, class_name: 'User'
+
+  enum role: %i[normal owner]
 end

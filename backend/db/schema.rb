@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_13_155741) do
+ActiveRecord::Schema.define(version: 2020_09_29_132645) do
 
   create_table "invites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -90,11 +90,13 @@ ActiveRecord::Schema.define(version: 2020_09_13_155741) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "workspaces", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "workspaces", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "path_id", limit: 191
     t.string "name"
     t.boolean "active"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["path_id"], name: "index_workspaces_on_path_id"
   end
 
   add_foreign_key "invites", "users"

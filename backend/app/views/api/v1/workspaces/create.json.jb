@@ -1,0 +1,8 @@
+json = {
+  success: true,
+  workspace: {
+    path_id: workspace.path_id
+  }
+}
+
+json
