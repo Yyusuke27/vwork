@@ -12,4 +12,6 @@
 class ProjectMember < ApplicationRecord
   belongs_to :project
   belongs_to :member, class_name: 'User'
+
+  enum role: %i[normal owner]
 end
