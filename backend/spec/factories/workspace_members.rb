@@ -11,8 +11,8 @@
 #
 FactoryBot.define do
   factory :workspace_member do
-    workspace { nil }
-    member { nil }
+    workspace { :workspace }
+    member { :member }
     role { 1 }
   end
 end

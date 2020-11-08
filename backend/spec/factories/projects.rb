@@ -21,10 +21,10 @@
 #
 FactoryBot.define do
   factory :project do
-    name { "MyString" }
-    description { "MyString" }
-    color { 1 }
-    icon { 1 }
-    workspace { nil }
+    name { 'プロジェクト1' }
+    description { 'プロジェクト1の詳細' }
+    color { 0 }
+    icon { 0 }
+    workspace { :workspace }
   end
 end

@@ -15,7 +15,7 @@
 #
 FactoryBot.define do
   factory :workspace do
-    name { 'MyString' }
-    active { false }
+    name { 'Workspace1' }
+    active { true }
   end
 end

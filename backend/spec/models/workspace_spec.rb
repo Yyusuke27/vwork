@@ -16,5 +16,25 @@
 require 'rails_helper'
 
 RSpec.describe Workspace, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'workspaceを作成する' do
+    context '正常に作成できる時' do
+      example 'nameが入力されていれば有効' do
+        workspace = build(:workspace)
+        expect(workspace).to be_valid
+      end
+
+      example '保存時にランダム15字のpath_idが追加されている' do
+        workspace = create(:workspace)
+        expect(workspace.path_id.length).to eq(15)
+      end
+    end
+
+    context '作成できない時' do
+      example 'nameがなければ無効' do
+        workspace = build(:workspace, name: nil)
+        workspace.valid?
+        expect(workspace.errors[:name]).to include("can't be blank")
+      end
+    end
+  end
 end

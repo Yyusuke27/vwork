@@ -22,8 +22,8 @@
 #
 FactoryBot.define do
   factory :user_profile do
-    user { nil }
-    workspace { nil }
-    position { "MyString" }
+    user { :user }
+    workspace { :workspace }
+    position { 'リーダー' }
   end
 end
