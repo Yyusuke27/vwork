@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: invites
+# Table name: invitations
 #
 #  id               :bigint           not null, primary key
 #  invitationExpire :datetime
@@ -12,19 +12,15 @@
 #
 # Indexes
 #
-#  index_invites_on_user_id       (user_id)
-#  index_invites_on_workspace_id  (workspace_id)
+#  index_invitations_on_user_id       (user_id)
+#  index_invitations_on_workspace_id  (workspace_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (user_id => users.id)
 #  fk_rails_...  (workspace_id => workspaces.id)
 #
-FactoryBot.define do
-  factory :invite do
-    user { nil }
-    workspace { nil }
-    invitationToken { "MyString" }
-    invitationExpire { "2020-09-13 22:01:15" }
-  end
+class Invitation < ApplicationRecord
+  belongs_to :user
+  belongs_to :workspace
 end
