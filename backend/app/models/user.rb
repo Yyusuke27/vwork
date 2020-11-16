@@ -21,7 +21,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string(255)
-#  role                   :integer          default(0)
+#  role                   :integer          default("normal")
 #  tokens                 :text(65535)
 #  uid                    :string(255)      default(""), not null
 #  unconfirmed_email      :string(255)
@@ -47,4 +47,7 @@ class User < ActiveRecord::Base
   has_many :project_members
   has_many :projects, through: :project_members
   has_many :user_profiles
+  has_many :invitations
+
+  enum role: %i[normal admin]
 end
