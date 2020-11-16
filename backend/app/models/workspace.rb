@@ -19,6 +19,7 @@ class Workspace < ApplicationRecord
   has_many :workspace_members
   has_many :members, class_name: 'User', through: :workspace_members
   has_many :projects
+  has_many :invitations
   accepts_nested_attributes_for :members
 
   validates :name, presence: true

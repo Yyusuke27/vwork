@@ -2,13 +2,13 @@
 #
 # Table name: invitations
 #
-#  id               :bigint           not null, primary key
-#  invitationExpire :datetime
-#  invitationToken  :string(255)
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  user_id          :bigint           not null
-#  workspace_id     :bigint           not null
+#  id                   :bigint           not null, primary key
+#  invitation_expire_at :datetime
+#  invitation_token     :string(255)
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  user_id              :bigint           not null
+#  workspace_id         :bigint           not null
 #
 # Indexes
 #

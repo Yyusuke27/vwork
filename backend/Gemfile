@@ -10,10 +10,13 @@ gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
 gem 'jb'
 # gem 'jbuilder', '~> 2.7'
 # gem 'redis', '~> 4.0'
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 # gem 'image_processing', '~> 1.2'
 
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'redis-namespace'
 
 # gem 'rack-cors'
 
@@ -22,6 +25,9 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'devise_token_auth'
 gem 'rails-i18n'
+
+gem 'slim-rails'
+gem 'html2slim'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -35,6 +41,8 @@ group :development do
   gem 'annotate'
 
   gem 'listen', '~> 3.2'
+  gem 'letter_opener'
+  gem 'letter_opener_web'
 
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
