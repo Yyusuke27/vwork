@@ -34,7 +34,7 @@
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #
 FactoryBot.define do
-  factory :user, aliases: [:member] do
+  factory :user, :aliases => [:member] do
     name { '田中太郎' }
     email { 'taro@test.com' }
     password { 'test1234' }
@@ -42,7 +42,7 @@ FactoryBot.define do
 
     after(:create) do |member|
       workspace = create(:workspace)
-      member.workspace_members << create(:workspace_member, member: member, workspace: workspace)
+      member.workspace_members << create(:workspace_member, :member => member, :workspace => workspace)
     end
   end
 end

@@ -1,11 +1,11 @@
 json = {
-  success: true
+  :success => true
 }
 
 json[:workspaces] = workspaces.map do |workspace|
   {
-    path_id: workspace.path_id,
-    name: workspace.name
+    :path_id => workspace.path_id,
+    :name => workspace.name
   }
 end
 

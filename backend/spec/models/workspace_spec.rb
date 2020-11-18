@@ -15,7 +15,7 @@
 #
 require 'rails_helper'
 
-RSpec.describe Workspace, type: :model do
+RSpec.describe Workspace, :type => :model do
   describe 'workspaceを作成する' do
     context '正常に作成できる時' do
       example 'nameが入力されていれば有効' do
@@ -31,7 +31,7 @@ RSpec.describe Workspace, type: :model do
 
     context '作成できない時' do
       example 'nameがなければ無効' do
-        workspace = build(:workspace, name: nil)
+        workspace = build(:workspace, :name => nil)
         workspace.valid?
         expect(workspace.errors[:name]).to include("can't be blank")
       end

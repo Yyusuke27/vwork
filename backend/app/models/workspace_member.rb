@@ -10,5 +10,5 @@
 #
 class WorkspaceMember < ApplicationRecord
   belongs_to :workspace
-  belongs_to :member, class_name: 'User'
+  belongs_to :member, :class_name => 'User'
 end

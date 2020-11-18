@@ -26,9 +26,9 @@ module Backend
 
     config.generators do |g|
       g.test_framework :rspec,
-      view_specs: false,
-      helper_specs: false,
-      routing_specs: false
+      :view_specs => false,
+      :helper_specs => false,
+      :routing_specs => false
     end
 
     config.active_job.queue_adapter = :sidekiq

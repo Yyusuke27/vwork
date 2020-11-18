@@ -11,7 +11,7 @@
 #
 class WorkspaceRole < ApplicationRecord
   belongs_to :workspace
-  belongs_to :member, class_name: 'User'
+  belongs_to :member, :class_name => 'User'
 
-  enum role: %i[normal owner]
+  enum :role => %i[normal owner]
 end

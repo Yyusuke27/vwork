@@ -10,6 +10,6 @@
 #
 require 'rails_helper'
 
-RSpec.describe WorkspaceMember, type: :model do
+RSpec.describe WorkspaceMember, :type => :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end

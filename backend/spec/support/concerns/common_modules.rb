@@ -3,7 +3,7 @@ include ActionController::RespondWith
 
 module SignInHelper
   def sign_in(user)
-    post api_v1_user_session_path, params: { email: user['email'], password: 'test1234' }
+    post api_v1_user_session_path, :params => { :email => user['email'], :password => 'test1234' }
     {
       'uid' => response.header['uid'],
       'client' => response.header['client'],
@@ -20,8 +20,8 @@ module SignInHelper
   
     # store client + token in user's token hash
     @current_user.tokens[token.client] = {
-      token:  token.token_hash,
-      expiry: token.expiry
+      :token => token.token_hash,
+      :expiry => token.expiry
     }
   
     # Now we have to pretend like an API user has already logged in.

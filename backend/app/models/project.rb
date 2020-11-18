@@ -22,8 +22,8 @@
 class Project < ApplicationRecord
   belongs_to :workspace
   has_many :project_members
-  has_many :members, class_name: 'User', through: :project_members
+  has_many :members, :class_name => 'User', :through => :project_members
   accepts_nested_attributes_for :members
 
-  validates :name, presence: true
+  validates :name, :presence => true
 end
