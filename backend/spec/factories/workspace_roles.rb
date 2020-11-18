@@ -9,6 +9,10 @@
 #  member_id    :bigint           not null
 #  workspace_id :bigint           not null
 #
+# Indexes
+#
+#  index_workspace_roles_on_workspace_id_and_member_id  (workspace_id,member_id)
+#
 FactoryBot.define do
   factory :workspace_role do
     workspace_id { "" }

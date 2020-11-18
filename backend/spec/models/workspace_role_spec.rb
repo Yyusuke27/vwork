@@ -9,6 +9,10 @@
 #  member_id    :bigint           not null
 #  workspace_id :bigint           not null
 #
+# Indexes
+#
+#  index_workspace_roles_on_workspace_id_and_member_id  (workspace_id,member_id)
+#
 require 'rails_helper'
 
 RSpec.describe WorkspaceRole, :type => :model do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_15_013138) do
+ActiveRecord::Schema.define(version: 2020_11_18_014611) do
 
   create_table "invitations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 2020_11_15_013138) do
     t.integer "role", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["workspace_id", "member_id"], name: "index_workspace_roles_on_workspace_id_and_member_id"
   end
 
   create_table "workspaces", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
