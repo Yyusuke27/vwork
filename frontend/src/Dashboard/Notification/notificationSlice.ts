@@ -43,12 +43,12 @@ export const fetchAsyncUpdateNotification = createAsyncThunk(
 
 interface notificationState {
   notifications: {
-    _id: string;
+    id: string;
     createdAt: string;
     type: number;
     unread: boolean;
     task: {
-      _id: string;
+      id: string;
       name: string;
       project: { name: string };
     };

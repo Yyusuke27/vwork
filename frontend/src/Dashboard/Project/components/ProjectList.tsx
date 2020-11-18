@@ -78,11 +78,11 @@ const ProjectList: FC<ProjectListProps> = ({ title = "", selected }) => {
         {projectData.map((data) => {
           return (
             <ProjectItem
-              id={data._id}
+              id={data.id}
               name={data.name}
               bgColor={PROJECT_COLORS[data.color]}
               iconNum={data.icon}
-              key={data._id}
+              key={data.id}
             />
           );
         })}

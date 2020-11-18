@@ -39,12 +39,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface NotificationItemProps {
   data: {
-    _id: string;
+    id: string;
     createdAt: string;
     type: number;
     unread: boolean;
     task: {
-      _id: string;
+      id: string;
       name: string;
       project: { name: string };
     };
@@ -62,7 +62,7 @@ const NotificationItem: FC<NotificationItemProps> = ({ data }) => {
     await dispatch(
       fetchAsyncUpdateNotification({
         workspaceId,
-        notificationId: data._id,
+        notificationId: data.id,
         bodyData: { unread: false },
       })
     );
@@ -81,7 +81,7 @@ const NotificationItem: FC<NotificationItemProps> = ({ data }) => {
           onClick={() => {
             updateNotification();
             dispatch(setSelectedMembers([user]));
-            dispatch(setSelectedTask(data.task._id));
+            dispatch(setSelectedTask(data.task.id));
             dispatch(toggleTaskCardClicked(true));
             updateCurrentUserInfo();
           }}

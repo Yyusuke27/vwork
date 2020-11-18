@@ -42,7 +42,7 @@ interface memberState {
   members: {
     name: string;
     email: string;
-    _id: string;
+    id: string;
   }[];
   member: {
     user: { name: string; email: string };

@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
 interface MemberListProps {
   members: {
     name: string;
-    _id: string;
+    id: string;
   }[];
 }
 
@@ -32,7 +32,7 @@ const MemberList: FC<MemberListProps> = ({ members }) => {
         <Grid item>
           {members.map((member, index) => {
             return (
-              <MemberItem name={member.name} _id={member._id} key={index} />
+              <MemberItem name={member.name} id={member.id} key={index} />
             );
           })}
         </Grid>

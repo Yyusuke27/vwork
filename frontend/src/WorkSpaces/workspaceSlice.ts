@@ -39,7 +39,7 @@ export const fetchAsyncUpdateWorkspace = createAsyncThunk(
 );
 
 interface workspaceState {
-  workspaces: { _id: string; name: string }[];
+  workspaces: { id: string; name: string }[];
 }
 
 const initialState: workspaceState = {

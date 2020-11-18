@@ -208,22 +208,22 @@ export const fetchAsyncTaskHistory = createAsyncThunk(
 
 interface taskState {
   tasks: {
-    _id: string;
+    id: string;
     count: number;
     countTodaysTask: number;
     data: {
       name: string;
-      project: { _id: string; name: string };
+      project: { id: string; name: string };
       endDateAt: string;
-      _id: string;
-      user: { _id: string; name: string };
+      id: string;
+      user: { id: string; name: string };
     }[];
     todaysTasks: {
       name: string;
-      project: { _id: string; name: string };
+      project: { id: string; name: string };
       endDateAt: string;
-      _id: string;
-      user: { _id: string; name: string };
+      id: string;
+      user: { id: string; name: string };
     }[];
   };
   task: {
@@ -241,17 +241,17 @@ interface taskState {
   selectedTask: string;
   recentTasks: {
     name: string;
-    project: { _id: string; name: string };
+    project: { id: string; name: string };
     endDateAt: string;
-    _id: string;
-    user: { _id: string; name: string };
+    id: string;
+    user: { id: string; name: string };
   }[];
   nearDeadlineTasks: {
     name: string;
-    project: { _id: string; name: string };
+    project: { id: string; name: string };
     endDateAt: string;
-    _id: string;
-    user: { _id: string; name: string };
+    id: string;
+    user: { id: string; name: string };
   }[];
   todaysDoneTasks: string[];
   query: string;
@@ -275,7 +275,7 @@ interface taskState {
 
 const initialState: taskState = {
   tasks: {
-    _id: "",
+    id: "",
     count: 0,
     countTodaysTask: 0,
     data: [],

@@ -16,10 +16,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface MemberItemProps {
   name: string;
-  _id: string;
+  id: string;
 }
 
-const MemberItem: FC<MemberItemProps> = ({ name = "", _id }) => {
+const MemberItem: FC<MemberItemProps> = ({ name = "", id }) => {
   const classes = useStyles();
 
   return (
@@ -28,7 +28,7 @@ const MemberItem: FC<MemberItemProps> = ({ name = "", _id }) => {
         button
         style={{ paddingLeft: 0 }}
         component={NavLink}
-        to={`/members/${_id}`}
+        to={`/members/${id}`}
         exact
       >
         <ListItemIcon>

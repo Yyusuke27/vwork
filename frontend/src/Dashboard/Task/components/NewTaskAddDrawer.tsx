@@ -21,7 +21,7 @@ const NewTaskAddDrawer = () => {
   const project = useSelector(selectProject);
   const projects = useSelector(selectProjects);
   const projectData = projects.map((data) => {
-    return { id: data._id, name: data.name };
+    return { id: data.id, name: data.name };
   });
 
   const taskData = {
@@ -70,7 +70,7 @@ const NewTaskAddDrawer = () => {
   ) => {
     await dispatch(fetchAsyncAddTask({ task: value.task, workspace }));
     if (pathName.includes("project")) {
-      await dispatch(fetchAsyncProjectTasks(project._id));
+      await dispatch(fetchAsyncProjectTasks(project.id));
     } else if (pathName.includes("mytask")) {
       await dispatch(fetchAsyncTasks({ workspace }));
     } else {

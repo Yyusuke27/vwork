@@ -48,7 +48,7 @@ const KintaiCardClickedDrawer = () => {
           dispatch(
             setAttendance({
               tasks: [],
-              _id: "",
+              id: "",
               user: "",
               workspace: "",
               createdAt: "",

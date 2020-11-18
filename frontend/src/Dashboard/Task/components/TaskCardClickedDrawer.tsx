@@ -74,7 +74,7 @@ const TaskCardClickedDrawer = () => {
 
   const projects = useSelector(selectProjects);
   const projectData = projects.map((data) => {
-    return { id: data._id, name: data.name };
+    return { id: data.id, name: data.name };
   });
 
   // taskはreadonly propertyだから新しい変数に渡す
@@ -93,7 +93,7 @@ const TaskCardClickedDrawer = () => {
       if (!pathName.includes("project")) {
         dispatch(
           setProject({
-            _id: "",
+            id: "",
             name: "",
             color: 0,
             icon: 0,
@@ -139,7 +139,7 @@ const TaskCardClickedDrawer = () => {
       fetchAsyncUpdateTask({ id: taskId, task: value.task, log: value.log })
     );
     if (pathName.includes("project")) {
-      await dispatch(fetchAsyncProjectTasks(project._id));
+      await dispatch(fetchAsyncProjectTasks(project.id));
     } else if (pathName.includes("mytask")) {
       await dispatch(fetchAsyncTasks({ workspace, query: taskQuery }));
     } else {

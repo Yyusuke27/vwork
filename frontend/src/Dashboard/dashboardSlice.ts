@@ -50,7 +50,7 @@ export const fetchAsyncUpdateUserProfile = createAsyncThunk(
 interface dashboardState {
   owner: boolean;
   workspace: string;
-  selectedMembers: { _id: string; name: string }[];
+  selectedMembers: { id: string; name: string }[];
 }
 
 const initialState: dashboardState = {

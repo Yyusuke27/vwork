@@ -43,7 +43,7 @@ const WorkSpaceList = () => {
       </Box>
       <Box flexDirection="column" className={classes.workspacesArea}>
         {workspaces.map((workspace, index) => (
-          <WorkSpaceItem name={workspace.name} id={workspace._id} key={index} />
+          <WorkSpaceItem name={workspace.name} id={workspace.id} key={index} />
         ))}
       </Box>
     </>

@@ -36,10 +36,10 @@ const useStyles = makeStyles((theme: Theme) =>
 interface TaskItemProps {
   data: {
     name: string;
-    project: { _id: string; name: string };
+    project: { id: string; name: string };
     endDateAt: string;
-    _id: string;
-    user: { _id: string; name: string };
+    id: string;
+    user: { id: string; name: string };
   };
   iconType?: string;
 }
@@ -61,13 +61,13 @@ const TaskItem: FC<TaskItemProps> = ({ iconType = "", data }) => {
         <CardActionArea
           className={classes.cardActionArea}
           onClick={() => {
-            dispatch(setSelectedTask(data._id));
-            if (data.project && data.project._id) {
-              getProject(data.project._id);
+            dispatch(setSelectedTask(data.id));
+            if (data.project && data.project.id) {
+              getProject(data.project.id);
             } else {
               dispatch(
                 setProject({
-                  _id: "",
+                  id: "",
                   name: "",
                   color: 0,
                   icon: 0,

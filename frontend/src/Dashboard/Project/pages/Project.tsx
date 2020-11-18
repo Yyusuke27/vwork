@@ -69,7 +69,7 @@ const Project = () => {
     return function cleanup() {
       dispatch(
         setProject({
-          _id: "",
+          id: "",
           name: "",
           color: 0,
           icon: 0,

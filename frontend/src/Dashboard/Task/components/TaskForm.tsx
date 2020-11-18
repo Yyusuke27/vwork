@@ -67,7 +67,7 @@ interface TaskFormProps {
     name: string;
     registration: boolean;
     role: string;
-    _id: string;
+    id: string;
   }[];
   update?: boolean;
   submitFunction: (
@@ -128,8 +128,8 @@ const TaskForm: FC<TaskFormProps> = ({
   }
 
   if (!taskData.project) {
-    if (project._id) {
-      taskData.project = project._id;
+    if (project.id) {
+      taskData.project = project.id;
     } else {
       taskData.project = "";
     }
@@ -255,7 +255,7 @@ const TaskForm: FC<TaskFormProps> = ({
                     {taskMembers &&
                       taskMembers.map((user, index) => {
                         return (
-                          <MenuItem value={user._id.toString()} key={index}>
+                          <MenuItem value={user.id.toString()} key={index}>
                             {user.name.toString()}
                           </MenuItem>
                         );

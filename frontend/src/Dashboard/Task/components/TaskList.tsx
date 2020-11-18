@@ -66,10 +66,10 @@ interface TaskListProps {
   iconType?: string;
   taskData?: {
     name: string;
-    project: { _id: string; name: string };
+    project: { id: string; name: string };
     endDateAt: string;
-    _id: string;
-    user: { _id: string; name: string };
+    id: string;
+    user: { id: string; name: string };
   }[];
 }
 
@@ -86,19 +86,19 @@ const TaskList: FC<TaskListProps> = ({
 
   const tasks: {
     name: string;
-    project: { _id: string; name: string };
+    project: { id: string; name: string };
     endDateAt: string;
-    _id: string;
-    user: { _id: string; name: string };
+    id: string;
+    user: { id: string; name: string };
   }[] = taskData
     ? taskData
     : [
         {
           name: "",
-          project: { name: "", _id: "" },
+          project: { name: "", id: "" },
           endDateAt: "",
-          _id: "",
-          user: { name: "", _id: "" },
+          id: "",
+          user: { name: "", id: "" },
         },
       ];
 

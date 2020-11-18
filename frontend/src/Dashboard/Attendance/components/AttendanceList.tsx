@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 interface AttendanceListProps {
   attendances: {
     tasks: string[];
-    _id: string;
+    id: string;
     user: string;
     workspace: string;
     createdAt: string;

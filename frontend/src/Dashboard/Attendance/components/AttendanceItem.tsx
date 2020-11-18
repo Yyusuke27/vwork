@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
 interface AttendanceItemProps {
   attendance: {
     tasks: string[];
-    _id: string;
+    id: string;
     user: string;
     workspace: string;
     createdAt: string;
@@ -75,7 +75,7 @@ const AttendanceItem: FC<AttendanceItemProps> = ({ attendance }) => {
       <Card className={classes.root}>
         <CardActionArea
           onClick={() => {
-            dispatch(setSelectedAttendance(attendance._id));
+            dispatch(setSelectedAttendance(attendance.id));
             dispatch(toggleKintaiCardClicked(true));
           }}
         >

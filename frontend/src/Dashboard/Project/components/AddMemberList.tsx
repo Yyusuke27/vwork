@@ -52,11 +52,11 @@ const AddMemberList = () => {
           dispatch(toggleLoading(true));
           await dispatch(
             fetchAsyncAddMembers({
-              projectId: project._id,
+              projectId: project.id,
               members: values.members,
             })
           );
-          await dispatch(fetchAsyncGetProject(project._id));
+          await dispatch(fetchAsyncGetProject(project.id));
           dispatch(toggleLoading(false));
           dispatch(toggleAddMemberButton(false));
         }}
@@ -75,15 +75,15 @@ const AddMemberList = () => {
                           Label={{ label: member.name }}
                           name="tasks"
                           type="checkbox"
-                          value={member._id}
-                          checked={values.members.includes(member._id)}
+                          value={member.id}
+                          checked={values.members.includes(member.id)}
                           onChange={(
                             e: React.ChangeEvent<HTMLInputElement>
                           ) => {
                             if (e.target.checked) {
-                              arrayHelpers.push(member._id);
+                              arrayHelpers.push(member.id);
                             } else {
-                              const idx = values.members.indexOf(member._id);
+                              const idx = values.members.indexOf(member.id);
                               arrayHelpers.remove(idx);
                             }
                           }}

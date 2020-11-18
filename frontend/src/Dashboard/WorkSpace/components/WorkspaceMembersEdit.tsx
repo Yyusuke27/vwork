@@ -69,14 +69,14 @@ const WorkspaceMembersEdit = () => {
                   <Typography variant="h6">{member.name}</Typography>
                 </Grid>
                 <Grid item>
-                  （{owners.includes(member._id) ? "管理者" : "メンバー"}）
+                  （{owners.includes(member.id) ? "管理者" : "メンバー"}）
                 </Grid>
-                {owners.includes(member._id) ? (
+                {owners.includes(member.id) ? (
                   <Grid item>
                     <Button
                       variant="outlined"
                       color="secondary"
-                      onClick={() => toMemberHandler(member._id)}
+                      onClick={() => toMemberHandler(member.id)}
                     >
                       メンバーに変更する
                     </Button>
@@ -86,7 +86,7 @@ const WorkspaceMembersEdit = () => {
                     <Button
                       variant="outlined"
                       color="primary"
-                      onClick={() => toOwnerHandler(member._id)}
+                      onClick={() => toOwnerHandler(member.id)}
                     >
                       管理者に変更する
                     </Button>

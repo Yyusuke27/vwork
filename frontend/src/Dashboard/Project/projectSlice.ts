@@ -133,19 +133,19 @@ export const fetchAsyncGetMemberProjects = createAsyncThunk(
 
 interface projectState {
   projects: {
-    _id: string;
+    id: string;
     name: string;
     color: number;
     icon: number;
   }[];
   selectedProjects: {
-    _id: string;
+    id: string;
     name: string;
     color: number;
     icon: number;
   }[];
   project: {
-    _id: string;
+    id: string;
     name: string;
     color: number;
     icon: number;
@@ -156,10 +156,10 @@ interface projectState {
       name: string;
       registration: boolean;
       role: string;
-      _id: string;
+      id: string;
     }[];
     tasks: {
-      _id: string;
+      id: string;
       user: string;
       name: string;
       description: string;
@@ -172,22 +172,21 @@ interface projectState {
       todaysTask: boolean;
     }[];
   };
-  newMembers: { name: string; _id: string }[];
+  newMembers: { name: string; id: string }[];
   member: {
     user: {
-      _id: string;
+      id: string;
       name: string;
       email: string;
       registration: boolean;
       role: string;
-      lastAccessWorkspace: string;
     };
     tasks: {
       name: string;
-      project: { _id: string; name: string };
+      project: { id: string; name: string };
       endDateAt: string;
-      _id: string;
-      user: { _id: string; name: string };
+      id: string;
+      user: { id: string; name: string };
     }[];
     profile: { position: string };
   };
@@ -198,7 +197,7 @@ const initialState: projectState = {
   projects: [],
   selectedProjects: [],
   project: {
-    _id: "",
+    id: "",
     name: "",
     color: 0,
     icon: 0,
@@ -209,12 +208,11 @@ const initialState: projectState = {
   newMembers: [],
   member: {
     user: {
-      _id: "",
+      id: "",
       name: "",
       email: "",
       registration: false,
       role: "",
-      lastAccessWorkspace: "",
     },
     tasks: [],
     profile: { position: "" },

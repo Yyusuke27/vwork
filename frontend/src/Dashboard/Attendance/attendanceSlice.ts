@@ -113,7 +113,7 @@ export const fetchAsyncGetMemberAttendance = createAsyncThunk(
 
 interface attendanceState {
   today: {
-    _id: string;
+    id: string;
     startedAt: string;
     endedAt: string;
     restStartedAt: string;
@@ -121,7 +121,7 @@ interface attendanceState {
   };
   attendances: {
     tasks: string[];
-    _id: string;
+    id: string;
     user: string;
     workspace: string;
     createdAt: string;
@@ -134,7 +134,7 @@ interface attendanceState {
   attendance: {
     data: {
       tasks: string[];
-      _id: string;
+      id: string;
       user: string;
       workspace: string;
       createdAt: string;
@@ -146,10 +146,10 @@ interface attendanceState {
     };
     tasks: {
       name: string;
-      project: { _id: string; name: string };
+      project: { id: string; name: string };
       endDateAt: string;
-      _id: string;
-      user: { _id: string; name: string };
+      id: string;
+      user: { id: string; name: string };
     }[];
   };
   selectedAttendance: string;
@@ -157,7 +157,7 @@ interface attendanceState {
 
 const initialState: attendanceState = {
   today: {
-    _id: "",
+    id: "",
     startedAt: "",
     endedAt: "",
     restStartedAt: "",
@@ -167,7 +167,7 @@ const initialState: attendanceState = {
   attendance: {
     data: {
       tasks: [],
-      _id: "",
+      id: "",
       user: "",
       workspace: "",
       createdAt: "",

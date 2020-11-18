@@ -10,10 +10,10 @@ import store from "../../../store";
 // TODO:　全てのTaskListを使っているところとAPIを連携させたらここを削除
 const data = {
   name: "",
-  project: { _id: "", name: "" },
+  project: { id: "", name: "" },
   endDateAt: "",
-  _id: "",
-  user: { _id: "", name: "" },
+  id: "",
+  user: { id: "", name: "" },
 };
 
 afterEach(() => {

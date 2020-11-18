@@ -33,7 +33,7 @@ const NewAddProjectMemberDrawer = () => {
   const addMemberButton = useSelector(selectAddMemberButton);
   const workspaces = useSelector(selectWorkspace);
   const project = useSelector(selectProject);
-  const projectId = project._id;
+  const projectId = project.id;
 
   const getNewMembers = useCallback(
     async (workspaces, projectId) => {

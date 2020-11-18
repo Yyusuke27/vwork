@@ -63,7 +63,7 @@ const CheckAttendanceAreaInDetail = () => {
         setAttendance({
           data: {
             tasks: [],
-            _id: "",
+            id: "",
             user: "",
             workspace: "",
             createdAt: "",

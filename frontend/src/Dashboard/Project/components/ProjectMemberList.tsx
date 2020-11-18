@@ -33,7 +33,7 @@ interface ProjectMemberListProps {
     name: string;
     registration: boolean;
     role: string;
-    _id: string;
+    id: string;
   }[];
 }
 
@@ -67,7 +67,7 @@ const ProjectMemberList: FC<ProjectMemberListProps> = ({ members }) => {
                 <ProjectMemberItem
                   name={member.name}
                   key={index}
-                  memberId={member._id}
+                  memberId={member.id}
                 />
               );
             })}

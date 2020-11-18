@@ -111,7 +111,7 @@ const CheckAttendanceArea = () => {
   const attendedClicked = async () => {
     await dispatch(
       fetchAsyncUpdateTodaysAttendance({
-        id: todaysAttendance._id,
+        id: todaysAttendance.id,
         attendance: { startedAt: moment() },
       })
     );
@@ -120,7 +120,7 @@ const CheckAttendanceArea = () => {
   const restStartedClicked = async () => {
     await dispatch(
       fetchAsyncUpdateTodaysAttendance({
-        id: todaysAttendance._id,
+        id: todaysAttendance.id,
         attendance: { restStartedAt: moment() },
       })
     );
@@ -130,7 +130,7 @@ const CheckAttendanceArea = () => {
     if (window.confirm("休憩を終了しますか？")) {
       await dispatch(
         fetchAsyncUpdateTodaysAttendance({
-          id: todaysAttendance._id,
+          id: todaysAttendance.id,
           attendance: { restEndedAt: moment() },
         })
       );
@@ -147,7 +147,7 @@ const CheckAttendanceArea = () => {
       <Box borderBottom={1} className={classes.mainTitle}>
         勤怠管理
       </Box>
-      {todaysAttendance._id ? (
+      {todaysAttendance.id ? (
         <>
           <Card className={classes.root}>
             <CardContent>
@@ -339,7 +339,7 @@ const CheckAttendanceArea = () => {
                           dispatch(toggleLoading(true));
                           await dispatch(
                             fetchAsyncUpdateTodaysAttendance({
-                              id: todaysAttendance._id,
+                              id: todaysAttendance.id,
                               attendance: {
                                 endedAt: moment(),
                                 comment: values.comment,

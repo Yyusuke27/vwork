@@ -13,8 +13,8 @@ const SideProjectList = () => {
           <SideProjectItem
             title={data.name}
             bgColor={PROJECT_COLORS[data.color]}
-            projectId={data._id}
-            key={data._id}
+            projectId={data.id}
+            key={data.id}
           />
         );
       })}

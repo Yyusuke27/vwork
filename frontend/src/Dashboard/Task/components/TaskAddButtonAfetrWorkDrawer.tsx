@@ -107,19 +107,19 @@ const NewTaskAddAfterWorkDrawer = () => {
                                 Label={{ label: todaysTask.name }}
                                 name="tasks"
                                 type="checkbox"
-                                value={todaysTask._id}
+                                value={todaysTask.id}
                                 checked={
-                                  todaysDoneTasks.includes(todaysTask._id) ||
-                                  values.tasks.includes(todaysTask._id)
+                                  todaysDoneTasks.includes(todaysTask.id) ||
+                                  values.tasks.includes(todaysTask.id)
                                 }
                                 onChange={(
                                   e: React.ChangeEvent<HTMLInputElement>
                                 ) => {
                                   if (e.target.checked) {
-                                    arrayHelpers.push(todaysTask._id);
+                                    arrayHelpers.push(todaysTask.id);
                                   } else {
                                     const idx = values.tasks.indexOf(
-                                      todaysTask._id
+                                      todaysTask.id
                                     );
                                     arrayHelpers.remove(idx);
                                   }
@@ -150,18 +150,18 @@ const NewTaskAddAfterWorkDrawer = () => {
                                 Label={{ label: task.name }}
                                 name="tasks"
                                 type="checkbox"
-                                value={task._id}
+                                value={task.id}
                                 checked={
-                                  todaysDoneTasks.includes(task._id) ||
-                                  values.tasks.includes(task._id)
+                                  todaysDoneTasks.includes(task.id) ||
+                                  values.tasks.includes(task.id)
                                 }
                                 onChange={(
                                   e: React.ChangeEvent<HTMLInputElement>
                                 ) => {
                                   if (e.target.checked) {
-                                    arrayHelpers.push(task._id);
+                                    arrayHelpers.push(task.id);
                                   } else {
-                                    const idx = values.tasks.indexOf(task._id);
+                                    const idx = values.tasks.indexOf(task.id);
                                     arrayHelpers.remove(idx);
                                   }
                                 }}

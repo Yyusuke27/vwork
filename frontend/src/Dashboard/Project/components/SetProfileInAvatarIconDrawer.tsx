@@ -74,7 +74,7 @@ const SetProfileInAvatarIconDrawer = () => {
               await dispatch(
                 fetchAsyncUpdateUserProfile({
                   workspace,
-                  userId: user._id,
+                  userId: user.id,
                   bodyData: values,
                 })
               );

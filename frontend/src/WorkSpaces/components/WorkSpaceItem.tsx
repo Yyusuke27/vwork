@@ -45,8 +45,8 @@ const WorkSpaceItem: FC<WorkSpaceItemProps> = ({ id, name }) => {
         onClick={async () => {
           await dispatch(
             fetchAsyncUpdateUser({
-              userId: userData._id,
-              postData: { lastAccessWorkspace: id },
+              userId: userData.id,
+              postData: { currentWorkspace: id },
             })
           );
           window.location.href = "/";

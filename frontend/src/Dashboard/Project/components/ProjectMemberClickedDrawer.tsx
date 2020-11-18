@@ -52,7 +52,7 @@ const ProjectMemberClickedDrawer = () => {
   );
 
   useEffect(() => {
-    getMember(workspace, project._id, selectedProjectMember);
+    getMember(workspace, project.id, selectedProjectMember);
   }, [getMember, workspace, project, selectedProjectMember]);
 
   return (
@@ -63,12 +63,11 @@ const ProjectMemberClickedDrawer = () => {
           dispatch(
             setProjectMember({
               user: {
-                _id: "",
+                id: "",
                 name: "",
                 email: "",
                 registration: false,
                 role: "",
-                lastAccessWorkspace: "",
               },
               tasks: [],
               profile: { position: "" },
