@@ -5,7 +5,19 @@ import { RootState } from "../store";
 import { toast } from "react-toastify";
 
 const apiUrl = process.env.REACT_APP_BACKEND_URL;
-const token = localStorage.token;
+
+let accessToken = ""
+let uid = ""
+let client = ""
+let expiry = ""
+let storeJsonData = localStorage.getItem('vwork')
+if (storeJsonData) {
+  const storedData = JSON.parse(storeJsonData);
+  accessToken = storedData.accessToken;
+  uid = storedData.uid;
+  client = storedData.client;
+  expiry = storedData.expiry;
+}
 
 export const fetchAsyncLogin = createAsyncThunk(
   "auth/login",
@@ -21,13 +33,13 @@ export const fetchAsyncLogin = createAsyncThunk(
 
 export const fetchAsyncSignup = createAsyncThunk(
   "auth/signup",
-  async (auth: { email: string; password: string }) => {
-    const res = await axios.post(`${apiUrl}api/v1/auth/signup`, auth, {
+  async (auth: { email: string; password: string; password_confirmation: string }) => {
+    const res = await axios.post(`${apiUrl}api/v1/auth`, auth, {
       headers: {
         "Content-Type": "application/json",
       },
     });
-    return res.data;
+    return res.headers;
   }
 );
 
@@ -35,9 +47,13 @@ export const fetchAsyncCurrentUser = createAsyncThunk(
   "auth/current",
   async () => {
     // これを各データの処理まえに呼び出す
-    const res = await axios.get(`${apiUrl}api/v1/auth/current`, {
+    const res = await axios.get(`${apiUrl}api/v1/users/current`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        "token-type": "Bearer",
+        "access-token": accessToken,
+        "client": client,
+        "expiry": expiry,
+        "uid": uid,
       },
     });
     return res.data;
@@ -53,7 +69,7 @@ export const fetchAsyncUpdateUser = createAsyncThunk(
   "auth/updateUser",
   async (data: {
     userId: string;
-    postData: { lastAccessWorkspace: string };
+    postData: { currentWorkspace: string };
   }) => {
     const res = await axios.put(
       `${apiUrl}api/v1/users/${data.userId}`,
@@ -61,7 +77,11 @@ export const fetchAsyncUpdateUser = createAsyncThunk(
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -102,41 +122,43 @@ export const fetchAsyncResetPassword = createAsyncThunk(
 );
 
 interface AuthState {
+  header: { uid: string, client: string, accessToken: string }
   token: number | string;
   user: {
-    _id: string;
+    id: string;
     name: string;
     email: string;
     registration: boolean;
     role: string;
-    lastAccessWorkspace: string;
   };
+  current_workspace: string;
   workspaceCount: number;
   workspace: { id: string; name: string; owners: string[] };
   owner: boolean;
   errorMessage: string;
   errorOpen: boolean;
-  profile: { _id: string; position: string };
+  profile: { id: string; position: string };
   unread: number;
 }
 
 const initialState: AuthState = {
+  header: { uid: "", client: "", accessToken: "" },
   token: "",
   user: {
-    _id: "",
+    id: "",
     name: "",
     email: "",
     registration: false,
     role: "",
-    lastAccessWorkspace: "",
   },
+  current_workspace: "",
   workspaceCount: 0,
   workspace: { id: "", name: "", owners: [] },
   owner: false,
   errorMessage: "",
   errorOpen: false,
   profile: {
-    _id: "",
+    id: "",
     position: "",
   },
   unread: 0,
@@ -151,6 +173,9 @@ export const authSlice = createSlice({
     },
     setUser(state, action) {
       state.user = action.payload;
+    },
+    setHeader(state, action) {
+      state.header = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -180,10 +205,6 @@ export const authSlice = createSlice({
       state.owner = action.payload.owner;
 
       state.workspaceCount = localStorage.wc;
-      localStorage.setItem(
-        "workspace",
-        action.payload.data.lastAccessWorkspace
-      );
 
       const path = window.location.pathname;
 
@@ -212,11 +233,23 @@ export const authSlice = createSlice({
     });
     builder.addCase(fetchAsyncSignup.fulfilled, (state, action) => {
       state.errorMessage = "";
-      localStorage.setItem("token", action.payload.token);
-      if (action.payload.token) {
-        console.log("welcom");
-        window.location.href = "/regist/welcome";
-      }
+
+      const accessToken = action.payload['access-token']
+      const uid = action.payload['uid']
+      const client = action.payload['client']
+      const expiry = action.payload['expiry']
+
+      localStorage.setItem(
+        'vwork',
+        JSON.stringify({
+          accessToken: accessToken,
+          uid: uid,
+          client: client,
+          expiry: expiry
+        })
+      );
+
+      window.location.href = "/regist/welcome"
     });
     builder.addCase(fetchAsyncSignup.rejected, (state, action) => {
       let message = "登録に失敗しました。";
@@ -250,9 +283,10 @@ export const authSlice = createSlice({
 
 export const selectUser = (state: RootState) => state.auth.user;
 export const selectToken = (state: RootState) => state.auth.token;
+export const selectHeader = (state: RootState) => state.auth.header;
 export const selectProfile = (state: RootState) => state.auth.profile;
 export const selectWorkspace = (state: RootState) =>
-  state.auth.user.lastAccessWorkspace;
+  state.auth.current_workspace;
 export const selectWorkspaceName = (state: RootState) => state.auth.workspace;
 export const selectErrorMessage = (state: RootState) => state.auth.errorMessage;
 export const selectErrorOpen = (state: RootState) => state.auth.errorOpen;
@@ -261,6 +295,6 @@ export const selectUnreadNotification = (state: RootState) => state.auth.unread;
 export const selectWorkspaceOwners = (state: RootState) =>
   state.auth.workspace.owners;
 
-export const { setErrorOpen } = authSlice.actions;
+export const { setErrorOpen, setHeader } = authSlice.actions;
 
 export default authSlice.reducer;
