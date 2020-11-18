@@ -64,7 +64,7 @@ const Signup = () => {
             会員登録
           </Typography>
           <Formik
-            initialValues={{ email: "", password: "" }}
+            initialValues={{ email: "", password: "", password_confirmation: "" }}
             validationSchema={Yup.object().shape({
               email: Yup.string()
                 .email("有効なメールアドレスを入力してください。")
@@ -72,6 +72,9 @@ const Signup = () => {
               password: Yup.string()
                 .min(6, "6字以上入力してください")
                 .required("パスワードは必須です。"),
+              password_confirmation: Yup.string()
+                .oneOf([Yup.ref('password')], 'passwordが一致しません。')
+                .required("パスワード(確認)は必須です。"),
             })}
             onSubmit={async (value) => {
               dispatch(toggleLoading(true));
@@ -100,6 +103,17 @@ const Signup = () => {
                 margin="normal"
                 name="password"
                 id="password"
+              />
+              <br />
+              <Field
+                component={TextField}
+                type="password"
+                label="パスワード(確認)*"
+                fullWidth
+                variant="outlined"
+                margin="normal"
+                name="password_confirmation"
+                id="password_confirmation"
               />
               <br />
               <Button
