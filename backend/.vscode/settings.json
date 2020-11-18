@@ -1,0 +1,11 @@
+{
+	"ruby.rubocop.onSave": false,
+	"solargraph.externalServer": {
+	
+		"host": "localhost",
+		"port": 7658
+	},
+	"ruby.lint": {
+		"rubocop": true
+	}
+}
