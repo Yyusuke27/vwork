@@ -22,12 +22,12 @@ if (storeJsonData) {
 export const fetchAsyncLogin = createAsyncThunk(
   "auth/login",
   async (auth: { email: string; password: string }) => {
-    const res = await axios.post(`${apiUrl}api/v1/auth/login`, auth, {
+    const res = await axios.post(`${apiUrl}api/v1/auth/sign_in`, auth, {
       headers: {
         "Content-Type": "application/json",
       },
     });
-    return res.data;
+    return res.headers;
   }
 );
 
@@ -56,6 +56,19 @@ export const fetchAsyncCurrentUser = createAsyncThunk(
         "uid": uid,
       },
     });
+
+    // if (res.status === 200) {
+    //   localStorage.setItem(
+    //     'vwork',
+    //     JSON.stringify({
+    //       accessToken: res.headers['access-token'],
+    //       uid: res.headers['uid'],
+    //       client: res.headers['client'],
+    //       expiry: res.headers['expiry']
+    //     })
+    //   );
+    // }
+
     return res.data;
   }
 );
@@ -181,13 +194,23 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncLogin.fulfilled, (state, action) => {
       state.errorMessage = "";
-      localStorage.setItem("token", action.payload.token);
-      if (action.payload.token) {
-        console.log("login success");
-        action.payload.workspaceCount > 1
-          ? (window.location.href = "/workspaces")
-          : (window.location.href = "/");
-      }
+
+      const accessToken = action.payload['access-token']
+      const uid = action.payload['uid']
+      const client = action.payload['client']
+      const expiry = action.payload['expiry']
+
+      localStorage.setItem(
+        'vwork',
+        JSON.stringify({
+          accessToken: accessToken,
+          uid: uid,
+          client: client,
+          expiry: expiry
+        })
+      );
+
+      window.location.href = "/workspaces"
     });
     builder.addCase(fetchAsyncLogin.rejected, (state, action) => {
       let message = "認証情報が間違っています。";
@@ -196,26 +219,23 @@ export const authSlice = createSlice({
     });
     builder.addCase(fetchAsyncCurrentUser.fulfilled, (state, action) => {
       state.errorMessage = "";
-      state.token = localStorage.token;
-      state.user = action.payload.data;
+
+      state.user = action.payload.user;
       state.unread = action.payload.unread;
 
       state.profile = action.payload.profile;
-      state.workspace = action.payload.workspace;
       state.owner = action.payload.owner;
-
-      state.workspaceCount = localStorage.wc;
 
       const path = window.location.pathname;
 
       if (!state.user.registration && !path.includes("/regist")) {
-        window.location.href = "/regist/welcome";
+        window.location.href = "/register/welcome";
       } else {
         if (path === "/auth/login" || path === "/auth/signup") {
           window.location.href = "/";
         }
 
-        //　登録済のユーザーは登録ステップの画面にランディングできない
+        // 登録済のユーザーは登録ステップの画面にランディングできない
         if (
           state.user.registration &&
           path.includes("/regist") &&
@@ -249,7 +269,7 @@ export const authSlice = createSlice({
         })
       );
 
-      window.location.href = "/regist/welcome"
+      window.location.href = "/register/welcome"
     });
     builder.addCase(fetchAsyncSignup.rejected, (state, action) => {
       let message = "登録に失敗しました。";
