@@ -1,0 +1,14 @@
+{
+  :user => {
+    :id => user.id,
+    :name => user.name,
+    :email => user.email,
+    :registration => user.registration,
+    :role => user.role
+  },
+  :unread => unread_count,
+  :profile => {
+    :position => profile&.position
+  },
+  :owner => is_owner
+}

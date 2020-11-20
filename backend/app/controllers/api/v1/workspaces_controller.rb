@@ -1,6 +1,4 @@
 class Api::V1::WorkspacesController < Api::ApiController
-  include Common
-
   def index
     workspaces = @current_user.workspaces
 
@@ -14,30 +12,31 @@ class Api::V1::WorkspacesController < Api::ApiController
 
   def create
     ActiveRecord::Base.transaction do
-      workspace = Workspace.new workspace_params
-      workspace.workspace_members.new(:member_id => @current_user.id, :role => 'owner')
+      @current_user.name = user_params[:name]
+      @current_user.save!
+
+      workspace = @current_user.workspaces.new workspace_params
       workspace.save!
+      workspace.members << @current_user
+
+      workspace_role = workspace.workspace_roles.new(:workspace_id => workspace.id, :member_id => @current_user.id, :role => 1)
+      workspace_role.save!
 
       project = workspace.projects.new project_params
-      project.project_members.new(:member_id => @current_user.id, :role => 'owner')
       project.save!
+      project.members << @current_user
 
-      user_profile = @current_user.user_profiles.new(user_profile_params.merge(:workspace_id => workspace.id))
+      project_role = project.project_roles.new(:project_id => project.id, :member_id => @current_user.id, :role => 1)
+      project_role.save!
+
+      user_profile = workspace.user_profiles.new(:position => user_params[:position], :user_id => @current_user.id)
       user_profile.save!
 
       if invitation_params.present?
-        invitation_params.each do |invitation|
-          password = get_random_password
-
-          invitee = User.new(:name => invitation.name, :email => invitation.email, :password => password, :password_confirmation => password)
-          invitee.save!
-
-          invitation_token = get_token
-          invitation_expire_at = get_expired_datetime
-          invitation = Invitation.new(:user_id => invitee.id, :workspace_id => workspace.id, :invitation_token => invitation_token, :invitation_expire_at => invitation_expire_at)
-          invitation.save!
-
-          InvitationWorker.perform_later user.id, invitee.id, invitation.id
+        invitations = invitation_params[:invitations]
+        invitations.each do |invitation|
+          Workspace.create_invitation(invitation, workspace)
+          # InvitationWorker.perform_later user.id, invitee.id, invitation.id
         end
       end
 
@@ -60,15 +59,15 @@ class Api::V1::WorkspacesController < Api::ApiController
   def workspace_params
     params
       .require(:workspace)
-      .permit(:name, :active)
+      .permit(:name)
   end
 
   def project_params
     params.require(:project).permit(:name, :description, :icon, :color)
   end
 
-  def user_profile_params
-    params.require(:user_profile).permit(:position)
+  def user_params
+    params.require(:user).permit(:name, :position)
   end
 
   def invitation_params

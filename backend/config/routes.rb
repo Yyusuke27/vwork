@@ -9,6 +9,12 @@ Rails.application.routes.draw do
     namespace 'v1' do
       resources :workspaces, :only => [:index, :create, :update]
 
+      resources :users, :only => [] do
+        collection do
+          get :current
+        end
+      end
+
       namespace :workspaces do
         resources :invitations, :only => [:index, :update] do
           member do

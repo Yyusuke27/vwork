@@ -14,15 +14,44 @@
 #  index_workspaces_on_path_id  (path_id)
 #
 class Workspace < ApplicationRecord
+  require 'securerandom'
+  require 'digest'
+
   before_create :set_path_id
 
   has_many :workspace_members
   has_many :members, :class_name => 'User', :through => :workspace_members
   has_many :projects
   has_many :invitations
+  has_many :workspace_roles
   accepts_nested_attributes_for :members
+  has_many :user_profiles
 
   validates :name, :presence => true
+
+  def self.create_invitation(invitation, workspace)
+    password = SecureRandom.hex(8)
+    invitee = User.new(
+      :name => invitation[:name],
+      :email => invitation[:email],
+      :password => password,
+      :password_confirmation => password
+    )
+    invitee.save!
+
+    random_hex = SecureRandom.hex(20)
+    invitation_token = Digest::SHA512.hexdigest(random_hex)
+
+    # トークンの期限を1時間後に設定
+    invitation_expire_at = Time.current + 60 * 60
+    invitation = Invitation.new(
+      :user_id => invitee.id,
+      :workspace_id => workspace.id,
+      :invitation_token => invitation_token,
+      :invitation_expire_at => invitation_expire_at
+    )
+    invitation.save!
+  end
 
   private
 
