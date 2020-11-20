@@ -5,20 +5,20 @@ import InviteeStepOne from "../components/InviteeStepOne";
 import InviteeStepTwo from "../components/InviteeStepTwo";
 import InviteeStepThree from "../components/InviteeStepThree";
 
-const RegistInvitee = () => {
+const RegisterInvitee = () => {
   return (
     <>
       <Switch>
-        <Route path="/regist/invitee/welcome">
+        <Route path="/register/invitee/welcome">
           <InviteeWelcome />
         </Route>
-        <Route path="/regist/invitee/step1" exact>
+        <Route path="/register/invitee/step1" exact>
           <InviteeStepOne />
         </Route>
-        <Route path="/regist/invitee/step2" exact>
+        <Route path="/register/invitee/step2" exact>
           <InviteeStepTwo />
         </Route>
-        <Route path="/regist/invitee/step3" exact>
+        <Route path="/register/invitee/step3" exact>
           <InviteeStepThree />
         </Route>
       </Switch>
@@ -26,4 +26,4 @@ const RegistInvitee = () => {
   );
 };
 
-export default RegistInvitee;
+export default RegisterInvitee;

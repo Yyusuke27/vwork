@@ -7,7 +7,7 @@ import {
   Switch,
 } from "react-router-dom";
 import { theme } from "./shared/util/theme";
-import Regist from "./Regist/pages/Regist";
+import Register from "./Register/pages/Register";
 import WorkSpaces from "./WorkSpaces/pages/WorkSpaces";
 import Dashboard from "./Dashboard/pages/Dashboard";
 import Auth from "./Auth/pages/Auth";
@@ -47,8 +47,8 @@ const App = () => {
           <Route path="/auth">
             <Auth />
           </Route>
-          <Route path="/regist">
-            <Regist />
+          <Route path="/register">
+            <Register />
           </Route>
           <Route path="/workspaces">
             {token ? <WorkSpaces /> : <Redirect to="/auth/login" />}

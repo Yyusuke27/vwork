@@ -14,7 +14,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import DialogActions from "@material-ui/core/DialogActions";
-import { editInvitations } from "../registSlice";
+import { editInvitations } from "../registerSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -79,7 +79,7 @@ const StepThree = () => {
         })}
         onSubmit={(values) => {
           dispatch(editInvitations(values.invitations));
-          history.push("/regist/step/4");
+          history.push("/register/step/4");
         }}
       >
         {({ values }) => (

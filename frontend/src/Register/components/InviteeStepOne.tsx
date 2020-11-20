@@ -1,7 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Field, Form, Formik } from "formik";
+import { useHistory } from "react-router";
 import * as Yup from "yup";
+import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-material-ui";
 import Button from "@material-ui/core/Button";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -12,11 +13,10 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { Box } from "@material-ui/core";
 import {
-  fetchAsyncRegistInvitee,
+  editInviteUser,
   selectInviteUser,
-  selectInviteUserName,
-} from "../registSlice";
-import { toggleLoading } from "../../appSlice";
+  selectInviteUserMail,
+} from "../registerSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,66 +33,71 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const InviteeStepTwo = () => {
+const InviteeStepOne = () => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const inviteUserState = useSelector(selectInviteUser);
-  const inviteeName = useSelector(selectInviteUserName);
 
-  const token = localStorage.Itoken;
+  const inviteeMail = useSelector(selectInviteUserMail);
+
+  if (inviteUserState.registration) {
+    history.push("/register/invitee/step2");
+  }
 
   return (
     <>
       <DialogTitle id="alert-dialog-slide-title">
         <Box mt={5}>
-          <Typography variant="h4">プロフィール設定</Typography>
+          <Typography variant="h4">基本設定</Typography>
         </Box>
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-slide-description"></DialogContentText>
       </DialogContent>
       <Formik
-        initialValues={{ name: inviteeName, position: "" }}
+        initialValues={{ email: inviteeMail, password: "" }}
         validationSchema={Yup.object().shape({
-          name: Yup.string().required("氏名は必須です。"),
+          email: Yup.string()
+            .email("有効なメールアドレスを入力してください。")
+            .required("emailは必須です。"),
+          password: Yup.string()
+            .min(6, "6字以上入力してください")
+            .required("パスワードは必須です。"),
         })}
-        onSubmit={async (value) => {
-          const user = {
+        onSubmit={(value) => {
+          const updateUserData = {
             ...inviteUserState,
             ...value,
           };
-          const registData = {
-            token,
-            user,
-          };
-          dispatch(toggleLoading(true));
-          await dispatch(fetchAsyncRegistInvitee(registData));
-          dispatch(toggleLoading(false));
+          dispatch(editInviteUser(updateUserData));
+          history.push("/register/invitee/step2");
         }}
       >
         <Form>
           <Field
             component={TextField}
-            name="name"
-            label="氏名*"
+            name="email"
+            type="email"
+            label="メールアドレス*"
             variant="outlined"
             margin="normal"
             fullWidth
-            id="name"
-            value={inviteeName}
+            id="email"
+            value={inviteeMail}
           />
           <br />
           <Field
             component={TextField}
-            name="position"
-            label="役職・担当"
-            placeholder="経営企画"
+            type="password"
+            label="パスワード*"
+            fullWidth
             variant="outlined"
             margin="normal"
-            fullWidth
-            id="position"
+            name="password"
+            id="password"
           />
           <DialogActions>
             <Button
@@ -102,7 +107,7 @@ const InviteeStepTwo = () => {
               className={classes.button}
               color="primary"
             >
-              登録
+              NEXT
             </Button>
           </DialogActions>
         </Form>
@@ -111,4 +116,4 @@ const InviteeStepTwo = () => {
   );
 };
 
-export default InviteeStepTwo;
+export default InviteeStepOne;

@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SideBarOfRegistration from "../../shared/components/Navigation/SideBarOfRegistration";
 import Dialog from "@material-ui/core/Dialog";
 import Container from "@material-ui/core/Container";
-import RegistUser from "./RegistUser";
-import RegistInvitee from "./RegistInvitee";
+import RegisterUser from "./RegisterUser";
+import RegisterInvitee from "./RegisterInvitee";
 
-import "./Regist.css";
+import "./Register.css";
 
-const Regist = () => {
+const Register = () => {
   return (
     <>
       <SideBarOfRegistration />
@@ -16,11 +16,11 @@ const Regist = () => {
         <Container maxWidth="md">
           <Router>
             <Switch>
-              <Route path="/regist/invitee">
-                <RegistInvitee />
+              <Route path="/register/invitee">
+                <RegisterInvitee />
               </Route>
-              <Route path="/regist">
-                <RegistUser />
+              <Route path="/register">
+                <RegisterUser />
               </Route>
             </Switch>
           </Router>
@@ -30,4 +30,4 @@ const Regist = () => {
   );
 };
 
-export default Regist;
+export default Register;

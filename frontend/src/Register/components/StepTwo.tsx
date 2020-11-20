@@ -10,7 +10,7 @@ import Button from "@material-ui/core/Button";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
-import { editUser } from "../registSlice";
+import { editUser } from "../registerSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -63,7 +63,7 @@ const StepTwo = () => {
         })}
         onSubmit={(value) => {
           dispatch(editUser(value));
-          history.push("/regist/step/3");
+          history.push("/register/step/3");
         }}
       >
         <Form>

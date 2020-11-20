@@ -1,7 +1,5 @@
-import React, { useCallback, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { Link } from "react-router-dom";
-import Color from "../../shared/util/color";
 import Button from "@material-ui/core/Button";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -10,11 +8,13 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { Box } from "@material-ui/core";
-import { toggleLoading } from "../../appSlice";
-import { fetchAsyncInvitation } from "../registSlice";
+import Color from "../../shared/util/color";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    span: {
+      color: Color.VWORK_RED,
+    },
     button: {
       position: "absolute",
       fontSize: 30,
@@ -28,33 +28,15 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const InviteeWelcome = () => {
+const Welcome = () => {
   const classes = useStyles();
-
-  const dispatch = useDispatch();
-
-  const getInvitation = useCallback(
-    async (query) => {
-      await dispatch(fetchAsyncInvitation(query));
-    },
-    [dispatch]
-  );
-
-  useEffect(() => {
-    localStorage.clear();
-    const query = window.location.search.slice(1);
-    localStorage.setItem("Itoken", query);
-    dispatch(toggleLoading(true));
-    getInvitation(query);
-    dispatch(toggleLoading(false));
-  }, [dispatch, getInvitation]);
 
   return (
     <>
       <DialogTitle id="alert-dialog-slide-title">
         <Box mt={5}>
-          <Typography variant="h2">
-            <span style={{ color: Color.VWORK_RED }}>VWORK</span>
+          <Typography variant="h2" component="h2">
+            <span className={classes.span}>VWORK</span>
             へようこそ
           </Typography>
         </Box>
@@ -69,7 +51,7 @@ const InviteeWelcome = () => {
         </Box>
       </DialogContent>
       <DialogActions>
-        <Link to="/regist/invitee/step1" style={{ textDecoration: "none" }}>
+        <Link to="/register/step/1">
           <Button
             variant="contained"
             className={classes.button}
@@ -83,4 +65,4 @@ const InviteeWelcome = () => {
   );
 };
 
-export default InviteeWelcome;
+export default Welcome;

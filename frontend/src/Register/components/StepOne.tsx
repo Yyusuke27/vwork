@@ -1,28 +1,21 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import * as Yup from "yup";
-import { Field, Form, Formik } from "formik";
+import { useHistory } from "react-router";
+import { Form, Field, Formik } from "formik";
 import { TextField } from "formik-material-ui";
+import * as Yup from "yup";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
-import { toggleLoading } from "../../appSlice";
-import { fetchAsyncRegistUser } from "../registSlice";
-import { selectRegist } from "../registSlice";
+import { editWorkspace } from "../registerSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: "100%",
-    },
-    formArea: {
-      overflowY: "scroll",
-      overflowX: "hidden",
-      height: "33vh",
     },
     button: {
       position: "absolute",
@@ -41,14 +34,12 @@ function getSteps() {
   return ["基本設定", "個人設定", "メンバー招待", "プロジェクト設定"];
 }
 
-const StepFour = () => {
+const StepOne = () => {
   const classes = useStyles();
   const steps = getSteps();
 
   const dispatch = useDispatch();
-
-  const regist = useSelector(selectRegist);
-
+  const history = useHistory();
   return (
     <>
       <div className={classes.root}>
@@ -64,39 +55,25 @@ const StepFour = () => {
         </Stepper>
       </div>
       <Formik
-        initialValues={{ name: "", description: "" }}
+        initialValues={{ workspace: "" }}
         validationSchema={Yup.object().shape({
-          name: Yup.string().required("プロジェクト名は必須です。"),
-          description: Yup.string().required("プロジェクト詳細は必須です。"),
+          workspace: Yup.string().required("ワークスペース名は必須です。"),
         })}
-        onSubmit={async (value) => {
-          const updatedRegist = { ...regist };
-          updatedRegist.project = value;
-          dispatch(toggleLoading(true));
-          await dispatch(fetchAsyncRegistUser(updatedRegist));
-          dispatch(toggleLoading(false));
+        onSubmit={(value) => {
+          dispatch(editWorkspace(value.workspace));
+          history.push("/register/step/2");
         }}
       >
-        <Form className={classes.formArea}>
+        <Form>
           <Field
             component={TextField}
-            name="name"
-            label="プロジェクト名*"
+            name="workspace"
+            label="ワークスペース名*"
+            placeholder="会社名・チーム名"
             variant="outlined"
             margin="normal"
             fullWidth
-            id="name"
-          />
-          <br />
-          <Field
-            component={TextField}
-            name="description"
-            label="プロジェクト詳細"
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            multiline
-            id="description"
+            id="workspace"
           />
           <DialogActions>
             <Button
@@ -106,7 +83,7 @@ const StepFour = () => {
               className={classes.button}
               color="primary"
             >
-              登録
+              NEXT
             </Button>
           </DialogActions>
         </Form>
@@ -115,4 +92,4 @@ const StepFour = () => {
   );
 };
 
-export default StepFour;
+export default StepOne;

@@ -2,10 +2,10 @@ import React, { useCallback, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import Welcome from "../components/Welcome";
-import RegistStep from "./RegistStep";
+import RegisterStep from "./RegisterStep";
 import { fetchAsyncCurrentUser } from "../../Auth/authSlice";
 
-const RegistUser = () => {
+const RegisterUser = () => {
   const dispatch = useDispatch();
 
   const fetchUser = useCallback(async () => {
@@ -25,15 +25,15 @@ const RegistUser = () => {
   return (
     <>
       <Switch>
-        <Route path="/regist/welcome">
+        <Route path="/register/welcome">
           <Welcome />
         </Route>
-        <Route path="/regist/step">
-          <RegistStep />
+        <Route path="/register/step">
+          <RegisterStep />
         </Route>
       </Switch>
     </>
   );
 };
 
-export default RegistUser;
+export default RegisterUser;
