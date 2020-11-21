@@ -316,7 +316,7 @@ DEPENDENCIES
   rubocop
   rubocop-performance
   rubocop-rails
-  sidekiq
+  sidekiq (~> 6.1)
   sinatra
   slim-rails
   spring

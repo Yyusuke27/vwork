@@ -21,6 +21,14 @@
 #  fk_rails_...  (workspace_id => workspaces.id)
 #
 class Invitation < ApplicationRecord
+  after_commit :send_invitation_mail
+
   belongs_to :user
   belongs_to :workspace
+
+  private
+
+  def send_invitation_mail
+    InvitationJob.perform_later self
+  end
 end

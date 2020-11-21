@@ -1,0 +1,9 @@
+= "#{@user.name}様"
+h1
+  | VWORKへようこそ！
+p
+  = "#{@workspace.name}に招待されました。以下のURLから登録お願いします。"
+= "#{@host}/register/invitee/?#{@invitation.invitation_token}"
+- invitation_path = "#{@host}/register/invitee/?#{@invitation.invitation_token}"
+p
+  a href=invitation_path 登録する

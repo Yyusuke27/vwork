@@ -36,7 +36,6 @@ class Api::V1::WorkspacesController < Api::ApiController
         invitations = invitation_params[:invitations]
         invitations.each do |invitation|
           Workspace.create_invitation(invitation, workspace)
-          # InvitationWorker.perform_later user.id, invitee.id, invitation.id
         end
       end
 
