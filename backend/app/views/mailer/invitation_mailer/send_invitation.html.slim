@@ -1,9 +1,18 @@
-= "#{@user.name}様"
-h1
-  | VWORKへようこそ！
-p
-  = "#{@workspace.name}に招待されました。以下のURLから登録お願いします。"
-= "#{@host}/register/invitee/?#{@invitation.invitation_token}"
-- invitation_path = "#{@host}/register/invitee/?#{@invitation.invitation_token}"
-p
-  a href=invitation_path 登録する
+doctype html
+html
+  head
+    meta content="text/html; charset=UTF-8" http-equiv='Content-Type'
+  body style="background-color: #F5F5F4;"
+    div style="width: 50%; margin: 0 auto; background-color: white;"
+      div style="display: flex; justify-content: start; align-items: center; background-color: #424242; height: 50px; color: #F50357; padding: 0 10px;"
+        | VWORK
+      div style="padding: 0 10px;"
+      p
+        = "#{@user.name}様"
+      h1
+        | VWORKへようこそ！
+      p
+        = "#{@workspace.name}に招待されました。以下のURLから登録お願いします。"
+      - invitation_path = "#{@host}/register/invitee/?#{@invitation.invitation_token}"
+      p
+        a href=invitation_path 登録する
