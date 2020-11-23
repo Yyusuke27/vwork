@@ -10,7 +10,7 @@ import Button from "@material-ui/core/Button";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
-import { editUser } from "../registerSlice";
+import { editUserProfile } from "../registerSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -62,7 +62,7 @@ const StepTwo = () => {
           position: Yup.string().required("役職・担当は必須です。"),
         })}
         onSubmit={(value) => {
-          dispatch(editUser(value));
+          dispatch(editUserProfile(value));
           history.push("/register/step/3");
         }}
       >

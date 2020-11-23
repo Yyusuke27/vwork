@@ -23,7 +23,7 @@ interface RegisterType {
   workspace: {
     name: string;
   };
-  user: {
+  userProfile: {
     name: string;
     position: string;
   };
@@ -110,7 +110,7 @@ interface RegisterState {
     workspace: {
       name: string;
     };
-    user: {
+    userProfile: {
       name: string;
       position: string;
     };
@@ -141,7 +141,7 @@ const initialState: RegisterState = {
     workspace: {
       name: "",
     },
-    user: {
+    userProfile: {
       name: "",
       position: "",
     },
@@ -171,8 +171,8 @@ const registerSlice = createSlice({
     editWorkspace(state, action) {
       state.register.workspace.name = action.payload;
     },
-    editUser(state, action) {
-      state.register.user = action.payload;
+    editUserProfile(state, action) {
+      state.register.userProfile = action.payload;
     },
     editProject(state, action) {
       state.register.project = action.payload;
@@ -217,7 +217,7 @@ const registerSlice = createSlice({
 export const {
   editWorkspace,
   editInvitations,
-  editUser,
+  editUserProfile,
   editInviteUser,
 } = registerSlice.actions;
 
