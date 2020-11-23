@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import InviteeAuth from '../components/InviteeAuth';
 import InviteeWelcome from '../components/InviteeWelcome';
 import InviteeStepOne from '../components/InviteeStepOne';
 import InviteeStepTwo from '../components/InviteeStepTwo';
