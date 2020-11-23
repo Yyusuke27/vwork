@@ -311,6 +311,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 6.0.3, >= 6.0.3.2)
   rails-i18n
+  redis
   redis-namespace
   rspec-rails
   rubocop
