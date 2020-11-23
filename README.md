@@ -24,9 +24,18 @@ VWORKはリモートでも会社、チームの仕事の管理を円滑に行う
 
 ## VWORKの使い方
 ### ローカル環境構築
-```docker-compose up```
-```docker-compose run backend rails db:create```
-```docker-compose run backend rails db:migrate```
+
+```
+docker-compose up
+```
+
+```
+docker-compose run backend rails db:create
+```
+
+```
+docker-compose run backend rails db:migrate
+```
 
 ### サイトURL
 
