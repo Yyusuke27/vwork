@@ -23,6 +23,9 @@ VWORKはリモートでも会社、チームの仕事の管理を円滑に行う
 
 
 ## VWORKの使い方
+`docker-compose up`
+`docker-compose run backend rails db:create`
+`docker-compose run backend rails db:migrate`
 
 ### サイトURL
 
@@ -128,9 +131,8 @@ Safari
 
 ### サーバーサイド
 
-- Node.js
-- Express.js
-- MongoDB
+- Ruby on Rails
+- MySQL
 
 ### フロントエンド
 
@@ -140,5 +142,5 @@ Safari
 
 ### インフラ
 
--  サーバーサイド：GCP(GAE)
-- フロントエンド：Firebase Hosting
+- サーバーサイド：
+- フロントエンド：
