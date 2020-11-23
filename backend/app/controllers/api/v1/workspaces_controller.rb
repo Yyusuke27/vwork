@@ -12,9 +12,6 @@ class Api::V1::WorkspacesController < Api::ApiController
 
   def create
     ActiveRecord::Base.transaction do
-      @current_user.name = user_params[:name]
-      @current_user.save!
-
       workspace = @current_user.workspaces.new workspace_params
       workspace.save!
       workspace.members << @current_user
@@ -29,7 +26,7 @@ class Api::V1::WorkspacesController < Api::ApiController
       project_role = project.project_roles.new(:project_id => project.id, :member_id => @current_user.id, :role => 1)
       project_role.save!
 
-      user_profile = workspace.user_profiles.new(:position => user_params[:position], :user_id => @current_user.id)
+      user_profile = workspace.user_profiles.new user_profile_params.merge(:user_id => @current_user.id)
       user_profile.save!
 
       if invitation_params.present?
@@ -65,8 +62,8 @@ class Api::V1::WorkspacesController < Api::ApiController
     params.require(:project).permit(:name, :description, :icon, :color)
   end
 
-  def user_params
-    params.require(:user).permit(:name, :position)
+  def user_profile_params
+    params.require(:userProfile).permit(:name, :position)
   end
 
   def invitation_params

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_18_014611) do
+ActiveRecord::Schema.define(version: 2020_11_22_130111) do
 
   create_table "invitations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2020_11_18_014611) do
     t.string "position"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
     t.index ["user_id", "workspace_id"], name: "index_user_profiles_on_user_id_and_workspace_id", unique: true
     t.index ["user_id"], name: "index_user_profiles_on_user_id"
     t.index ["workspace_id"], name: "index_user_profiles_on_workspace_id"
