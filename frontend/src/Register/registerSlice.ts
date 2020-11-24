@@ -38,12 +38,9 @@ interface RegisterType {
 }
 
 interface RegisterInviteeType {
-  token: string;
-  user: {
+  user_profile: {
     name: string;
-    email: string;
     position: string;
-    password: string;
   };
 }
 
@@ -125,13 +122,15 @@ interface RegisterState {
   };
   invite: {
     token: string;
-    workspace: string;
+    workspacePathId: string;
     user: {
-      name: string;
       email: string;
-      position: string;
       password: string;
       registration: boolean;
+    };
+    userProfile: {
+      name: string;
+      position: string;
     };
   };
 }
@@ -153,14 +152,16 @@ const initialState: RegisterState = {
   },
   invite: {
     token: "",
-    workspace: "",
+    workspacePathId: "",
     user: {
-      name: "",
       email: "",
-      position: "",
       password: "",
       registration: false,
     },
+    userProfile: {
+      name: "",
+      position: "",
+    }
   },
 };
 
@@ -198,7 +199,7 @@ const registerSlice = createSlice({
       // window.location.href = "/register/step/1";
     });
     builder.addCase(fetchAsyncInvitation.fulfilled, (state, action) => {
-      state.invite.workspace = action.payload.workspace;
+      state.invite.workspacePathId = action.payload.workspace;
       state.invite.user = action.payload.data;
     });
     builder.addCase(fetchAsyncInvitation.rejected, (state, action) => {
@@ -226,6 +227,6 @@ export const selectInviteUser = (state: RootState) => state.register.invite.user
 export const selectInviteUserMail = (state: RootState) =>
   state.register.invite.user.email;
 export const selectInviteUserName = (state: RootState) =>
-  state.register.invite.user.name;
+  state.register.invite.userProfile.name;
 
 export default registerSlice.reducer;

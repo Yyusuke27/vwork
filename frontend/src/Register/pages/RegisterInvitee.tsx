@@ -4,7 +4,6 @@ import InviteeAuth from '../components/InviteeAuth';
 import InviteeWelcome from '../components/InviteeWelcome';
 import InviteeStepOne from '../components/InviteeStepOne';
 import InviteeStepTwo from '../components/InviteeStepTwo';
-import InviteeStepThree from '../components/InviteeStepThree';
 
 const RegisterInvitee = () => (
   <>
@@ -20,9 +19,6 @@ const RegisterInvitee = () => (
       </Route>
       <Route path="/register/invitee/step2" exact>
         <InviteeStepTwo />
-      </Route>
-      <Route path="/register/invitee/step3" exact>
-        <InviteeStepThree />
       </Route>
     </Switch>
   </>
