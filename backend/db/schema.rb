@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_22_130111) do
+ActiveRecord::Schema.define(version: 2020_11_24_125803) do
 
   create_table "invitations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.bigint "workspace_id", null: false
+    t.string "name"
+    t.string "email"
     t.string "invitation_token"
     t.datetime "invitation_expire_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_invitations_on_user_id"
     t.index ["workspace_id"], name: "index_invitations_on_workspace_id"
   end
 
@@ -52,10 +52,10 @@ ActiveRecord::Schema.define(version: 2020_11_22_130111) do
   create_table "user_profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "workspace_id", null: false
+    t.string "name"
     t.string "position"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "name"
     t.index ["user_id", "workspace_id"], name: "index_user_profiles_on_user_id_and_workspace_id", unique: true
     t.index ["user_id"], name: "index_user_profiles_on_user_id"
     t.index ["workspace_id"], name: "index_user_profiles_on_workspace_id"
@@ -115,7 +115,6 @@ ActiveRecord::Schema.define(version: 2020_11_22_130111) do
     t.index ["path_id"], name: "index_workspaces_on_path_id"
   end
 
-  add_foreign_key "invitations", "users"
   add_foreign_key "invitations", "workspaces"
   add_foreign_key "projects", "workspaces"
   add_foreign_key "user_profiles", "users"

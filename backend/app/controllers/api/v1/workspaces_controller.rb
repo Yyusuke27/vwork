@@ -32,9 +32,12 @@ class Api::V1::WorkspacesController < Api::ApiController
       if invitation_params.present?
         invitations = invitation_params[:invitations]
         invitations.each do |invitation|
-          Workspace.create_invitation(invitation, workspace)
+          Invitation.create_invitation(invitation, workspace)
         end
       end
+
+      # ユーザーの登録状況を更新
+      @current_user.update_registration
 
       render :template => 'api/v1/workspaces/create.json.jb', :locals => { :workspace => workspace }
     end

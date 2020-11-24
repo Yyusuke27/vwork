@@ -50,4 +50,12 @@ class User < ActiveRecord::Base
   has_many :invitations
 
   enum :role => %i[normal admin]
+
+  def update_registration
+    return if registration?
+
+    user = self
+    user.registration = true
+    user.save!
+  end
 end

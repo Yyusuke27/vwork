@@ -1,0 +1,4 @@
+{
+  :email => invitation.email,
+  :registration => is_registered
+}

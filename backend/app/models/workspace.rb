@@ -29,34 +29,6 @@ class Workspace < ApplicationRecord
 
   validates :name, :presence => true
 
-  def self.create_invitation(invitation, workspace)
-    password = SecureRandom.hex(8)
-
-    invitee = User.find_by(:email => invitation[:email])
-    if invitee.blank?
-      invitee = User.new(
-        :name => invitation[:name],
-        :email => invitation[:email],
-        :password => password,
-        :password_confirmation => password
-      )
-      invitee.save!
-    end
-
-    random_hex = SecureRandom.hex(16)
-    invitation_token = Digest::SHA512.hexdigest(random_hex)
-
-    # トークンの期限を1時間後に設定
-    invitation_expire_at = Time.current + 60 * 60
-    invitation = Invitation.new(
-      :user_id => invitee.id,
-      :workspace_id => workspace.id,
-      :invitation_token => invitation_token,
-      :invitation_expire_at => invitation_expire_at
-    )
-    invitation.save!
-  end
-
   private
 
   def set_path_id

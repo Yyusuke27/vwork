@@ -7,7 +7,11 @@ Rails.application.routes.draw do
 
   namespace 'api' do
     namespace 'v1' do
-      resources :workspaces, :only => [:index, :create, :update]
+      resources :workspaces, :only => [:index, :create, :update] do
+        member do
+          post :register_invitee
+        end
+      end
 
       resources :users, :only => [] do
         collection do
