@@ -15,6 +15,13 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :project, :only => [] do
+        collection do
+          get :near_deadline
+          get :recent
+        end
+      end
+
       namespace :workspaces do
         resources :invitations, :only => [:index, :update] do
           member do
