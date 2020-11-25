@@ -10,9 +10,11 @@ class Api::V1::WorkspacesController::InvitationsController < Api::ApiController
                            .find_by(:invitation_token => invitation_params[:invitationToken])
 
     if invitation.present?
+      workspace = invitation.workspace
       is_registerd = User.exists?(:email => invitation.email)
       render :template => 'api/v1/workspaces/invitations/auth.json.jb', :locals => {
         :invitation => invitation,
+        :workspace => workspace,
         :is_registerd => is_registerd
       }
     else
@@ -45,7 +47,7 @@ class Api::V1::WorkspacesController::InvitationsController < Api::ApiController
           # ユーザーの登録状況を更新
           @current_user.update_registration
 
-          render :template => 'api/v1/workspaces/register_invitee.json.jb', :locals => { :workspace => workspace }
+          render :template => 'api/v1/workspaces/invitations/register_invitee.json.jb', :locals => { :workspace => workspace }
         end
       rescue StandardError => e
         render :json => { :success => false, :error => e.message }
