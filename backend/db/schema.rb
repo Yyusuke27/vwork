@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_24_125803) do
+ActiveRecord::Schema.define(version: 2020_11_25_140624) do
 
   create_table "invitations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "workspace_id", null: false
@@ -47,6 +47,24 @@ ActiveRecord::Schema.define(version: 2020_11_24_125803) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["workspace_id"], name: "index_projects_on_workspace_id"
+  end
+
+  create_table "tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "workspace_id", null: false
+    t.bigint "project_id"
+    t.string "name", null: false
+    t.string "description"
+    t.datetime "start_date_at"
+    t.datetime "end_date_at"
+    t.integer "state", default: 0
+    t.integer "progress", default: 0
+    t.integer "priority", default: 0
+    t.boolean "todays_task", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id", "project_id"], name: "index_tasks_on_user_id_and_project_id"
+    t.index ["user_id", "workspace_id"], name: "index_tasks_on_user_id_and_workspace_id"
   end
 
   create_table "user_profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
