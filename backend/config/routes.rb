@@ -7,9 +7,22 @@ Rails.application.routes.draw do
 
   namespace 'api' do
     namespace 'v1' do
-      resources :workspaces, param: :path_id, :only => [:index, :create, :update] do
-        resources :project, :only => [] do
+      resources :workspaces, :param => :path_id, :only => [:index, :create, :update] do
+        resources :projects, :only => [] do
           collection do
+            get :my
+          end
+
+          member do
+            get :members
+            get :new_member
+            get :add_member
+          end
+        end
+
+        resources :tasks, :only => %i[index show create update destroy] do
+          collection do
+            get :my
             get :near_deadline
             get :recent
           end
