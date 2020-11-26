@@ -7,30 +7,28 @@ Rails.application.routes.draw do
 
   namespace 'api' do
     namespace 'v1' do
-      resources :workspaces, :only => [:index, :create, :update]
-
-      resources :users, :only => [] do
-        collection do
-          get :current
+      resources :workspaces, param: :path_id, :only => [:index, :create, :update] do
+        resources :project, :only => [] do
+          collection do
+            get :near_deadline
+            get :recent
+          end
         end
-      end
 
-      resources :project, :only => [] do
-        collection do
-          get :near_deadline
-          get :recent
-        end
-      end
-
-      namespace :workspaces do
         resources :invitations, :only => [:index, :update] do
-          member do
+          collection do
             get :auth
             post :register_invitee
           end
         end
 
         resources :members, :only => [:index]
+      end
+
+      resources :users, :only => [] do
+        collection do
+          get :current
+        end
       end
 
       mount_devise_token_auth_for 'User', :at => 'auth', :controllers => {
