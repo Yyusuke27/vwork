@@ -1,4 +1,4 @@
-class Api::V1::WorkspacesController::MembersController < Api::ApiController
+class Api::V1::Workspaces::MembersController < Api::ApiController
   def index
   end
 end

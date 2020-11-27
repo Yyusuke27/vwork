@@ -1,4 +1,4 @@
-class Api::V1::WorkspacesController::InvitationsController < Api::ApiController
+class Api::V1::Workspaces::InvitationsController < Api::ApiController
   skip_before_action :authenticate_api_v1_user!, :only => [:auth]
 
   def index
