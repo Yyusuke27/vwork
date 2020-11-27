@@ -19,13 +19,14 @@ class Workspace < ApplicationRecord
 
   before_create :set_path_id
 
-  has_many :workspace_members
+  has_many :workspace_members, :dependent => :destroy
   has_many :members, :class_name => 'User', :through => :workspace_members
-  has_many :projects
-  has_many :invitations
-  has_many :workspace_roles
+  has_many :projects, :dependent => :destroy
+  has_many :invitations, :dependent => :destroy
+  has_many :workspace_roles, :dependent => :destroy
   accepts_nested_attributes_for :members
-  has_many :user_profiles
+  has_many :user_profiles, :dependent => :destroy
+  has_many :tasks, :dependent => :destroy
 
   validates :name, :presence => true
 

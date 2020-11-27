@@ -35,4 +35,7 @@ class Task < ApplicationRecord
 
   enum :state => { :open => 0, :progress => 1, :done => 2 }
   enum :priority => { :low => 0, :normal => 1, :high => 2 }
+
+  scope :near_deadline, -> { where('end_date_at <= ?', 3.days.since) }
+  scope :recent, -> { where('updated_at >= ?', 1.week.ago) }
 end

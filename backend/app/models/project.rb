@@ -25,6 +25,7 @@ class Project < ApplicationRecord
   has_many :members, :class_name => 'User', :through => :project_members
   accepts_nested_attributes_for :members
   has_many :project_roles
+  has_many :tasks, :dependent => :destroy
 
   validates :name, :presence => true
 end
