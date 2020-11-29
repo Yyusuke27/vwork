@@ -1,7 +1,7 @@
 class Api::V1::UsersController < Api::ApiController
-  def current
+  # 現在のユーザー情報を返す
+  def show
     workspace_id = params[:workspace_id]
-
     user = User.includes(:user_profiles)
                .where(
                  :id => @current_user.id,
@@ -18,7 +18,7 @@ class Api::V1::UsersController < Api::ApiController
     )
     is_owner = workspace_role.present? ? workspace_role.owner? : false
 
-    render :template => 'api/v1/users/current.json.jb',
+    render :template => 'api/v1/users/show.json.jb',
            :locals => {
              :user => user,
              :unread_count => unread_count,
