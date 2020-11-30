@@ -8,6 +8,8 @@ class CreateNotifications < ActiveRecord::Migration[6.0]
       t.boolean :unread
 
       t.timestamps
+
+      t.index :user_id
     end
   end
 end

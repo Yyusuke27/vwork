@@ -7,6 +7,8 @@ class CreateHistories < ActiveRecord::Migration[6.0]
       t.integer :type
 
       t.timestamps
+
+      t.index :task_id
     end
   end
 end

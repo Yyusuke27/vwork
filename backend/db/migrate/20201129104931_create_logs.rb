@@ -8,6 +8,8 @@ class CreateLogs < ActiveRecord::Migration[6.0]
       t.string :new_state
 
       t.timestamps
+
+      t.index :task_id
     end
   end
 end
