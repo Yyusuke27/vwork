@@ -45,13 +45,19 @@ const InviteeAuth = () => {
 
   const getInvitation = useCallback(
     async (query) => {
-      await dispatch(fetchAsyncInvitation(query));
+      const invitationParams = {
+        invitation: {
+          invitationToken: query
+        }
+      }
+      await dispatch(fetchAsyncInvitation(invitationParams));
     },
     [dispatch]
   );
 
   // TODO: emailはapiで取得
   // PW、確認用PWだけ入力させる。
+  // registrationがtrueだったら参加する(ログイン)ボタンのみ
   useEffect(() => {
     localStorage.clear();
     const query = window.location.search.slice(1);
