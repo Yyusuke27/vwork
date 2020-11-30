@@ -1,4 +1,4 @@
-class Api::V1::Workspaces::ProjectsController < Api::ApiController
+class Api::V1::ProjectsController < Api::ApiController
   def index
     # workspaceのownerのみ閲覧可能
     # workspaceのproject一覧

@@ -1,4 +1,4 @@
-class Api::V1::Workspaces::TasksController < Api::ApiController
+class Api::V1::TasksController < Api::ApiController
   def index
     tasks = Task.where(:workspace_id => params[:workspace_id])
 

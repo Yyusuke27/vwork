@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   namespace 'api' do
     namespace 'v1' do
       resources :workspaces, :param => :path_id, :only => %i[index create update] do
+        resources :projects, :only => %i[index show create]
         namespace 'projects' do
           resources :my, :only => %i[index]
           resources :members, :only => %i[index create]
