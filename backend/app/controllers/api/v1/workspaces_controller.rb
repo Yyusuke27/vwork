@@ -14,17 +14,15 @@ class Api::V1::WorkspacesController < Api::ApiController
     ActiveRecord::Base.transaction do
       workspace = @current_user.workspaces.new workspace_params
       workspace.save!
-      workspace.members << @current_user
 
-      workspace_role = workspace.workspace_roles.new(:workspace_id => workspace.id, :member_id => @current_user.id, :role => 1)
-      workspace_role.save!
+      workspace_members = workspace.workspace_members.new(:workspace_id => workspace.id, :member_id => @current_user.id, :role => 1)
+      workspace_members.save!
 
       project = workspace.projects.new project_params
       project.save!
-      project.members << @current_user
 
-      project_role = project.project_roles.new(:project_id => project.id, :member_id => @current_user.id, :role => 1)
-      project_role.save!
+      project_members = project.project_members.new(:project_id => project.id, :member_id => @current_user.id, :role => 1)
+      project_members.save!
 
       user_profile = workspace.user_profiles.new user_profile_params.merge(:user_id => @current_user.id)
       user_profile.save!
