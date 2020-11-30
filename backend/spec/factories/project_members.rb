@@ -3,6 +3,7 @@
 # Table name: project_members
 #
 #  id         :bigint           not null, primary key
+#  role       :integer          default("normal")
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  member_id  :bigint           not null
