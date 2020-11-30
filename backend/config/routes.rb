@@ -31,7 +31,9 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :users, :only => %i[show]
+      namespace 'users' do
+        resources :current, :only => %i[index]
+      end
 
       mount_devise_token_auth_for 'User', :at => 'auth', :controllers => {
         :registrations => 'api/v1/auth/registrations'
