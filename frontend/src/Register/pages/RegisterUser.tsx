@@ -9,7 +9,7 @@ const RegisterUser = () => {
   const dispatch = useDispatch();
 
   const fetchUser = useCallback(async () => {
-    await dispatch(fetchAsyncCurrentUser());
+    await dispatch(fetchAsyncCurrentUser(""));
   }, [dispatch]);
 
   const mounted = useRef(false);

@@ -40,7 +40,7 @@ const WorkspaceMembersEdit = () => {
         bodyData: { toOwner: toOwnerId },
       })
     );
-    await dispatch(fetchAsyncCurrentUser());
+    await dispatch(fetchAsyncCurrentUser(""));
   };
 
   const toMemberHandler = async (toMemberId: string) => {
@@ -50,7 +50,7 @@ const WorkspaceMembersEdit = () => {
         bodyData: { toMember: toMemberId },
       })
     );
-    await dispatch(fetchAsyncCurrentUser());
+    await dispatch(fetchAsyncCurrentUser(""));
   };
 
   return (

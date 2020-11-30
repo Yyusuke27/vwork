@@ -78,7 +78,7 @@ const SetProfileInAvatarIconDrawer = () => {
                   bodyData: values,
                 })
               );
-              await dispatch(fetchAsyncCurrentUser());
+              await dispatch(fetchAsyncCurrentUser(""));
               dispatch(toggleLoading(false));
               dispatch(toggleSetProfileClicked(false));
             }}

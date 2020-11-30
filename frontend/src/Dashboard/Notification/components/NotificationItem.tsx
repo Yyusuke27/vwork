@@ -70,7 +70,7 @@ const NotificationItem: FC<NotificationItemProps> = ({ data }) => {
   }, [dispatch, workspaceId, data]);
 
   const updateCurrentUserInfo = useCallback(async () => {
-    await dispatch(fetchAsyncCurrentUser());
+    await dispatch(fetchAsyncCurrentUser(""));
   }, [dispatch]);
 
   return (

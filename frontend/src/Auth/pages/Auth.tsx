@@ -19,15 +19,15 @@ import DoneForgotPassword from "./DoneForgotPassword";
 const Auth = () => {
   const dispatch = useDispatch();
 
-  const token = localStorage.token;
+  const vworkInfoInlocalStorage = localStorage.vwork;
 
   useEffect(() => {
-    if (token) {
+    if (vworkInfoInlocalStorage) {
       dispatch(toggleLoading(true));
-      dispatch(fetchAsyncCurrentUser());
+      dispatch(fetchAsyncCurrentUser(""));
       dispatch(toggleLoading(false));
     }
-  }, [dispatch, token]);
+  }, [dispatch, vworkInfoInlocalStorage]);
 
   const errorMessage = useSelector(selectErrorMessage);
   const errorOpen = useSelector(selectErrorOpen);

@@ -45,9 +45,12 @@ export const fetchAsyncSignup = createAsyncThunk(
 
 export const fetchAsyncCurrentUser = createAsyncThunk(
   "auth/current",
-  async () => {
+  async (workspacePathId: string) => {
     // これを各データの処理まえに呼び出す
     const res = await axios.get(`${apiUrl}api/v1/users/current`, {
+      params: {
+        workspacePathId
+      },
       headers: {
         "token-type": "Bearer",
         "access-token": accessToken,
@@ -56,18 +59,6 @@ export const fetchAsyncCurrentUser = createAsyncThunk(
         "uid": uid,
       },
     });
-
-    // if (res.status === 200) {
-    //   localStorage.setItem(
-    //     'vwork',
-    //     JSON.stringify({
-    //       accessToken: res.headers['access-token'],
-    //       uid: res.headers['uid'],
-    //       client: res.headers['client'],
-    //       expiry: res.headers['expiry']
-    //     })
-    //   );
-    // }
 
     return res.data;
   }
@@ -232,7 +223,7 @@ export const authSlice = createSlice({
         window.location.href = "/register/welcome";
       } else {
         if (path === "/auth/login" || path === "/auth/signup") {
-          window.location.href = "/";
+          window.location.href = "/workspaces";
         }
 
         // 登録済のユーザーは登録ステップの画面にランディングできない

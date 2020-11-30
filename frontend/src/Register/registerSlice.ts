@@ -17,7 +17,7 @@ if (storeJsonData) {
   expiry = storedData.expiry;
 }
 
-const inviteeToken = localStorage.Itoken;
+// const inviteeToken = localStorage.Itoken;
 
 interface RegisterType {
   workspace: {
@@ -41,6 +41,12 @@ interface RegisterInviteeType {
   user_profile: {
     name: string;
     position: string;
+  };
+}
+
+interface InvitationTokenType {
+  invitation: {
+    invitationToken: string;
   };
 }
 
@@ -75,12 +81,14 @@ export const fetchAsyncRegisterUser = createAsyncThunk(
 
 export const fetchAsyncInvitation = createAsyncThunk(
   "register/invitation",
-  async (queryToken: string) => {
-    if (!queryToken) {
-      queryToken = inviteeToken;
-    }
+  async (invitationToken: InvitationTokenType) => {
+
     const res = await axios.get(
-      `${apiUrl}api/v1/registration/invitee/${queryToken}`
+      `${apiUrl}api/v1/workspaces/invitations/`, {
+        params: {
+          invitationToken
+        }
+      }
     );
     return res.data;
   }
@@ -191,12 +199,15 @@ const registerSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncRegisterUser.fulfilled, (state, action) => {
       console.log(action.payload);
-      
-      // window.location.href = "/";
+      const workspacePathId = action.payload.workspace.path_id
+      if (workspacePathId) {
+        window.location.href = `/${workspacePathId}`;
+      } else {
+        window.location.href = "/register/step/1";
+      }
     });
     builder.addCase(fetchAsyncRegisterUser.rejected, (state, action) => {
-      console.log(action.payload);
-      // window.location.href = "/register/step/1";
+      window.location.href = "/register/step/1";
     });
     builder.addCase(fetchAsyncInvitation.fulfilled, (state, action) => {
       state.invite.workspacePathId = action.payload.workspace;

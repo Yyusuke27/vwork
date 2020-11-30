@@ -50,7 +50,7 @@ const WorkspaceBasicEdit = () => {
               bodyData: value,
             })
           );
-          await dispatch(fetchAsyncCurrentUser());
+          await dispatch(fetchAsyncCurrentUser(""));
           action.resetForm({});
         }}
       >

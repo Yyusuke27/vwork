@@ -10,7 +10,7 @@ const WorkSpaces = () => {
   const dispatch = useDispatch();
 
   const fetchUser = useCallback(async () => {
-    await dispatch(fetchAsyncCurrentUser());
+    await dispatch(fetchAsyncCurrentUser(""));
   }, [dispatch]);
 
   useEffect(() => {

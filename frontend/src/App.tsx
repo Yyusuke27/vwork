@@ -31,7 +31,7 @@ const App = () => {
   const classes = useStyles();
   const loading = useSelector(selectLoader);
 
-  const token = localStorage.token;
+  const vworkInfoInlocalStorage = localStorage.vwork;
 
   return (
     <MuiThemeProvider theme={theme}>
@@ -51,10 +51,10 @@ const App = () => {
             <Register />
           </Route>
           <Route path="/workspaces">
-            {token ? <WorkSpaces /> : <Redirect to="/auth/login" />}
+            {vworkInfoInlocalStorage ? <WorkSpaces /> : <Redirect to="/auth/login" />}
           </Route>
           <Route path="/">
-            {token ? <Dashboard /> : <Redirect to="/auth/login" />}
+            {vworkInfoInlocalStorage ? <Dashboard /> : <Redirect to="/auth/login" />}
           </Route>
         </Switch>
       </Router>

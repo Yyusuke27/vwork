@@ -81,7 +81,8 @@ const Dashboard = () => {
   const workspace = useSelector(selectWorkspace);
 
   const fetchUser = useCallback(async () => {
-    await dispatch(fetchAsyncCurrentUser());
+    const workspacePathId = window.location.pathname.split('/')[1]
+    await dispatch(fetchAsyncCurrentUser(workspacePathId));
   }, [dispatch]);
 
   const fetchProject = useCallback(async () => {
@@ -143,31 +144,31 @@ const Dashboard = () => {
         {memberIconClicked ? <ProjectMemberClickedDrawer /> : ""}
         {kintaiCardClicked ? <KintaiCardClickedDrawer /> : ""}
         <Switch>
-          <Route path="/" exact>
+          <Route path="/:workspacePathId" exact>
             <Home />
           </Route>
-          <Route path="/mytask" exact>
+          <Route path="/:workspacePathId/mytask" exact>
             <MyTask />
           </Route>
-          <Route path="/work_manage" exact>
+          <Route path="/:workspacePathId/work_manage" exact>
             <MyAttendance />
           </Route>
-          <Route path="/members" exact>
+          <Route path="/:workspacePathId/members" exact>
             <Members />
           </Route>
-          <Route path="/members/:memberId">
+          <Route path="/:workspacePathId/members/:memberId">
             <MemberDetail />
           </Route>
-          <Route path="/project_manage" exact>
+          <Route path="/:workspacePathId/project_manage" exact>
             <ProjectManage />
           </Route>
-          <Route path="/project/:projectId" exact>
+          <Route path="/:workspacePathId/project/:projectId" exact>
             <Project />
           </Route>
-          <Route path="/workspace_manage" exact>
+          <Route path="/:workspacePathId/workspace_manage" exact>
             <WorkspaceManage />
           </Route>
-          <Route path="/notification" exact>
+          <Route path="/:workspacePathId/notification" exact>
             <Notification />
           </Route>
         </Switch>
