@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { accessToken, uid, client, expiry} from "../shared/util/auth"
 import { toast } from "react-toastify";
 import axios from "axios";
 import { RootState } from "../store";
@@ -11,7 +12,11 @@ export const fetchAsyncGetWorkspaces = createAsyncThunk(
   async () => {
     const res = await axios.get(`${apiUrl}api/v1/workspaces/`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        "token-type": "Bearer",
+        "access-token": accessToken,
+        "client": client,
+        "expiry": expiry,
+        "uid": uid,
       },
     });
     return res.data;
@@ -39,7 +44,7 @@ export const fetchAsyncUpdateWorkspace = createAsyncThunk(
 );
 
 interface workspaceState {
-  workspaces: { id: string; name: string }[];
+  workspaces: { path_id: string; name: string }[];
 }
 
 const initialState: workspaceState = {
@@ -52,7 +57,7 @@ const workspaceSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncGetWorkspaces.fulfilled, (state, action) => {
-      state.workspaces = action.payload.data;
+      state.workspaces = action.payload.workspaces;
     });
     builder.addCase(fetchAsyncUpdateWorkspace.fulfilled, (state, action) => {
       toast.info("ワークスペース情報を更新しました。", {

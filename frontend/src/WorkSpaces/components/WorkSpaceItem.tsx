@@ -1,12 +1,10 @@
 import React, { FC } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
-import { fetchAsyncUpdateUser, selectUser } from "../../Auth/authSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,28 +26,19 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface WorkSpaceItemProps {
-  id: string;
+  pathId: string;
   name: string;
 }
 
-const WorkSpaceItem: FC<WorkSpaceItemProps> = ({ id, name }) => {
+const WorkSpaceItem: FC<WorkSpaceItemProps> = ({ pathId, name }) => {
   const classes = useStyles();
-
-  const userData = useSelector(selectUser);
-  const dispatch = useDispatch();
 
   return (
     <Box width="100%" mb={3}>
       <CardActionArea
         className={classes.cardActionArea}
         onClick={async () => {
-          await dispatch(
-            fetchAsyncUpdateUser({
-              userId: userData.id,
-              postData: { currentWorkspace: id },
-            })
-          );
-          window.location.href = "/";
+          window.location.href = "/" + pathId;
         }}
       >
         <Card className={classes.root}>
