@@ -8,14 +8,13 @@ Rails.application.routes.draw do
   namespace 'api' do
     namespace 'v1' do
       resources :workspaces, :param => :path_id, :only => %i[index create update] do
-        resources :projects, :only => %i[index show create]
         namespace 'projects' do
           resources :my, :only => %i[index]
           resources :members, :only => %i[index create]
           resources :new_members, :only => %i[index]
         end
+        resources :projects, :only => %i[index show create]
 
-        resources :tasks, :only => %i[index show create update destroy]
         namespace 'tasks' do
           resources :members, :only => %i[show]
           resources :my, :only => %i[index]
@@ -23,12 +22,13 @@ Rails.application.routes.draw do
           resources :projects, :only => %i[show]
           resources :recent, :only => %i[index]
         end
+        resources :tasks, :only => %i[index show create update destroy]
 
-        resources :invitations, :only => %i[index update]
         namespace 'invitations' do
           resources :auth, :param => :invitation_token, :only => %i[show]
           resources :register, :only => %i[create]
         end
+        resources :invitations, :only => %i[index update]
       end
 
       namespace 'users' do
