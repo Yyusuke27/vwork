@@ -38,6 +38,7 @@ const NewProjectDrawer = () => {
   const dispatch = useDispatch();
   const addProjectClicked = useSelector(selectAddProjectButton);
   const workspace = useSelector(selectWorkspace);
+  const workspacePathId = window.location.pathname.split('/')[1]
 
   interface initialValuesType {
     name: string;
@@ -80,7 +81,7 @@ const NewProjectDrawer = () => {
                   },
                 })
               );
-              await dispatch(fetchAsyncAllMyProjects(workspace));
+              await dispatch(fetchAsyncAllMyProjects(workspacePathId));
               await dispatch(fetchAsyncAllProjects(workspace));
               dispatch(toggleAddProjectButton(false));
               dispatch(toggleLoading(false));

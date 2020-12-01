@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
   BrowserRouter as Router,
@@ -33,6 +33,14 @@ const App = () => {
 
   const vworkInfoInlocalStorage = localStorage.vwork;
 
+  const path = window.location.pathname
+
+  useEffect(() => {
+    if(path === "/") {
+      window.location.href = "/workspaces"
+    }
+  }, [path]);
+
   return (
     <MuiThemeProvider theme={theme}>
       {loading ? (
@@ -53,7 +61,7 @@ const App = () => {
           <Route path="/workspaces">
             {vworkInfoInlocalStorage ? <WorkSpaces /> : <Redirect to="/auth/login" />}
           </Route>
-          <Route path="/">
+          <Route path="/:workspacePathId">
             {vworkInfoInlocalStorage ? <Dashboard /> : <Redirect to="/auth/login" />}
           </Route>
         </Switch>

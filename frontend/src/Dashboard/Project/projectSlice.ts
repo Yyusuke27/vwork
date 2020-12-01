@@ -2,18 +2,23 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../../store";
 import { toast } from "react-toastify";
+import { accessToken, uid, client, expiry} from "../../shared/util/auth"
 
 const apiUrl = process.env.REACT_APP_BACKEND_URL;
 const token = localStorage.token;
 
 export const fetchAsyncAllMyProjects = createAsyncThunk(
   "project/allMyProjects",
-  async (workspace: string) => {
+  async (workspacePathId: string) => {
     const res = await axios.get(
-      `${apiUrl}api/v1/workspaces/${workspace}/projects/me`,
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/projects/my`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -239,7 +244,7 @@ const projectSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncAllMyProjects.fulfilled, (state, action) => {
-      state.projects = action.payload.data;
+      state.projects = action.payload.projects;
     });
     builder.addCase(fetchAsyncAllProjects.fulfilled, (state, action) => {
       state.selectedProjects = action.payload.data;

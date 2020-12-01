@@ -1,23 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../store";
+import { accessToken, uid, client, expiry} from "../shared/util/auth"
 
 import { toast } from "react-toastify";
 
 const apiUrl = process.env.REACT_APP_BACKEND_URL;
-
-let accessToken = ""
-let uid = ""
-let client = ""
-let expiry = ""
-let storeJsonData = localStorage.getItem('vwork')
-if (storeJsonData) {
-  const storedData = JSON.parse(storeJsonData);
-  accessToken = storedData.accessToken;
-  uid = storedData.uid;
-  client = storedData.client;
-  expiry = storedData.expiry;
-}
 
 export const fetchAsyncLogin = createAsyncThunk(
   "auth/login",

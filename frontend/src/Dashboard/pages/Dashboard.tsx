@@ -80,14 +80,17 @@ const Dashboard = () => {
 
   const workspace = useSelector(selectWorkspace);
 
+  const workspacePathId = window.location.pathname.split('/')[1]  
+
   const fetchUser = useCallback(async () => {
-    const workspacePathId = window.location.pathname.split('/')[1]
     await dispatch(fetchAsyncCurrentUser(workspacePathId));
-  }, [dispatch]);
+  }, [dispatch, workspacePathId]);
 
   const fetchProject = useCallback(async () => {
-    await dispatch(fetchAsyncAllMyProjects(workspace));
-  }, [dispatch, workspace]);
+    console.log(workspacePathId);
+    
+    await dispatch(fetchAsyncAllMyProjects(workspacePathId));
+  }, [dispatch, workspacePathId]);
 
   const fetchNearDeadlineTasks = useCallback(async () => {
     await dispatch(fetchAsyncNearDeadlineTasks(workspace));
@@ -100,12 +103,16 @@ const Dashboard = () => {
   const mounted = useRef(false);
 
   useEffect(() => {
+    console.log('hello');
+    
     if (mounted.current) {
+      console.log('hello if');
+    } else {
+      console.log('hello else');
+      fetchUser();
       fetchProject();
       fetchNearDeadlineTasks();
       fetchRecentTasks();
-    } else {
-      fetchUser();
       mounted.current = true;
     }
   }, [
@@ -113,7 +120,6 @@ const Dashboard = () => {
     fetchProject,
     fetchNearDeadlineTasks,
     fetchRecentTasks,
-    workspace,
   ]);
 
   const openMenu = useSelector(selectOpenMenu);
