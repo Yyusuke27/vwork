@@ -13,14 +13,15 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     root: {
       width: "100%",
-      borderRadius: 10,
+      borderRadius: "0px 10px 10px 0",
+      borderLeft: "5px solid #F50357",
       height: 80,
       marginBottom: 15,
       cursor: "pointer",
     },
     title: {
       fontSize: 20,
-      paddingLeft: 10,
+      paddingLeft: 20,
     },
   })
 );

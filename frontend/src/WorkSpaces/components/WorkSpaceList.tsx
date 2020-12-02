@@ -38,9 +38,6 @@ const WorkSpaceList = () => {
 
   return (
     <>
-      <Box borderBottom={1} className={classes.title} my={5}>
-        WORKSPACE一覧
-      </Box>
       <Box flexDirection="column" className={classes.workspacesArea}>
         {workspaces.map((workspace, index) => (
           <WorkSpaceItem name={workspace.name} pathId={workspace.path_id} key={index} />
