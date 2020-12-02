@@ -6,26 +6,17 @@ json = {
   :owner => is_owner
 }
 
+json[:user] = {
+  :id => user.id,
+  :name => user.name,
+  :email => user.email,
+  :registration => user.registration,
+  :role => user.role
+}
+
 if profile.present?
-  json[:user] = {
-    :id => profile.user.id,
-    :name => profile.name,
-    :email => profile.user.email,
-    :registration => profile.user.registration,
-    :role => profile.user.role
-  }
   json[:profile] = {
     :position => profile&.position
-  }
-end
-
-if user.present?
-  json[:user] = {
-    :id => user.id,
-    :name => user.name,
-    :email => user.email,
-    :registration => user.registration,
-    :role => user.role
   }
 end
 
