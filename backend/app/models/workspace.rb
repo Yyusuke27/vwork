@@ -27,6 +27,7 @@ class Workspace < ApplicationRecord
   accepts_nested_attributes_for :members
   has_many :user_profiles, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
+  has_many :attendances, :dependent => :destroy
 
   validates :name, :presence => true
 

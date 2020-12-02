@@ -49,6 +49,7 @@ class User < ActiveRecord::Base
   has_many :user_profiles
   has_many :invitations
   has_many :tasks
+  has_many :attendances
 
   enum :role => %i[normal admin]
 

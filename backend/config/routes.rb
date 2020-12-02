@@ -29,6 +29,10 @@ Rails.application.routes.draw do
           resources :register, :only => %i[create]
         end
         resources :invitations, :only => %i[index update]
+
+        namespace 'attendances' do
+          resources :today, :only => %i[index]
+        end
       end
 
       namespace 'users' do
