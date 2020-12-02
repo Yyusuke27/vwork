@@ -24,7 +24,7 @@ class Api::V1::Invitations::RegisterController < Api::ApiController
           # ユーザーの登録状況を更新
           @current_user.update_registration
 
-          render :template => 'api/v1/workspaces/invitations/register_invitee.json.jb', :locals => { :workspace => workspace }
+          render :template => 'api/v1/invitations/register_invitee.json.jb', :locals => { :workspace => workspace }
         end
       rescue StandardError => e
         render :json => { :success => false, :error => e.message }

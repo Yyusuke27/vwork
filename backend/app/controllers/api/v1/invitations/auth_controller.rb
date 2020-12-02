@@ -8,7 +8,7 @@ class Api::V1::Invitations::AuthController < Api::ApiController
     if invitation.present?
       workspace = invitation.workspace
       is_registerd = User.exists?(:email => invitation.email)
-      render :template => 'api/v1/workspaces/invitations/auth.json.jb', :locals => {
+      render :template => 'api/v1/invitations/auth.json.jb', :locals => {
         :invitation => invitation,
         :workspace => workspace,
         :is_registerd => is_registerd
