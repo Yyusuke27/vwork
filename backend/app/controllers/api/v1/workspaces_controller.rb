@@ -12,6 +12,8 @@ class Api::V1::WorkspacesController < Api::ApiController
 
   def create
     ActiveRecord::Base.transaction do
+      @current_user.update! user_params
+
       workspace = @current_user.workspaces.new workspace_params
       workspace.save!
 
@@ -64,7 +66,11 @@ class Api::V1::WorkspacesController < Api::ApiController
   end
 
   def user_profile_params
-    params.require(:userProfile).permit(:name, :position)
+    params.require(:userProfile).permit(:position)
+  end
+
+  def user_params
+    params.require(:userProfile).permit(:name)
   end
 
   def invitation_params

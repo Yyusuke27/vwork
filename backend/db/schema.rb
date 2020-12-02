@@ -10,7 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_30_112150) do
+ActiveRecord::Schema.define(version: 2020_12_02_140136) do
+
+  create_table "attendance_tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "attendance_id", null: false
+    t.bigint "task_id", null: false
+    t.string "name", null: false
+    t.string "description"
+    t.datetime "start_date_at"
+    t.datetime "end_date_at"
+    t.integer "state", default: 0
+    t.integer "progress", default: 0
+    t.integer "priority", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["attendance_id"], name: "index_attendance_tasks_on_attendance_id"
+  end
+
+  create_table "attendances", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "workspace_id", null: false
+    t.string "comment"
+    t.datetime "stared_at"
+    t.datetime "end_at"
+    t.datetime "rest_started_at"
+    t.datetime "rest_ended_at"
+    t.integer "total_work_time"
+    t.integer "total_reset_time"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id", "workspace_id", "created_at"], name: "index_attendances_on_user_id_and_workspace_id_and_created_at"
+    t.index ["user_id", "workspace_id"], name: "index_attendances_on_user_id_and_workspace_id"
+  end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
@@ -104,7 +135,6 @@ ActiveRecord::Schema.define(version: 2020_11_30_112150) do
   create_table "user_profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "workspace_id", null: false
-    t.string "name"
     t.string "position"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
