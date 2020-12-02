@@ -3,24 +3,17 @@ class Api::V1::Users::CurrentController < Api::ApiController
   def index
     profile = nil
     workspace_member = nil
-    user = nil
 
     workspace_path_id = params[:workspacePathId]
     if workspace_path_id.present?
-      workspace = Workspace.find_by(path_id: workspace_path_id)
-      profile = UserProfile.includes(:user)
-                           .where(
-                             :user_id => @current_user.id,
-                             :workspace_id => workspace.id
-                           )
-                           .first
-      workspace_member = WorkspaceMember.find_by(
-        :member_id => @current_user.id,
-        :workspace_id => workspace.id
-      )
-    else
-      user = User.find(@current_user.id)
+      workspace = Workspace.find_by(:path_id => workspace_path_id)
+      profile = UserProfile.includes(:user).where(:user_id => @current_user.id, :workspace_id => workspace.id).first
+      workspace_member = WorkspaceMember.find_by(:member_id => @current_user.id, :workspace_id => workspace.id)
     end
+
+    user = User.find(@current_user.id)
+
+    not_found if workspace_path_id.present? && workspace_member.blank?
 
     # TODO: Notification作ってから
     notifications = 0

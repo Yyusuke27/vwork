@@ -1,3 +1,20 @@
-{
+json = {
   :success => true
 }
+
+json[:tasks] = tasks.map do |task|
+  {
+    :user => task.user.id,
+    :name => task.user.name,
+    :description => task.description,
+    :startDateAt => task.start_date_at,
+    :endDateAt => task.end_date_at,
+    :state => task.state,
+    :progress => task.progress,
+    :priority => task.priority,
+    :project => task.project,
+    :todaysTask => task.todays_task
+  }
+end
+
+json

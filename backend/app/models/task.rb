@@ -25,7 +25,7 @@
 class Task < ApplicationRecord
   belongs_to :user
   belongs_to :workspace
-  belongs_to :project
+  belongs_to :project, :optional => true
 
   validates :name, :presence => true
   validates :progress, :numericality => {
