@@ -2,19 +2,24 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { RootState } from "../../store";
 import axios from "axios";
+import { accessToken, uid, client, expiry} from "../../shared/util/auth"
 
 const apiUrl = process.env.REACT_APP_BACKEND_URL;
 const token = localStorage.token;
 
 export const fetchAsyncTodaysAttendance = createAsyncThunk(
   "attendance/today",
-  async (workspace: string) => {
+  async (workspacePathId: string) => {
     const res = await axios.get(
-      `${apiUrl}api/v1/workspaces/${workspace}/attendances/today`,
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/attendances/today`,
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -198,7 +203,7 @@ const attendanceSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncTodaysAttendance.fulfilled, (state, action) => {
-      state.today = action.payload.data;
+      state.today = action.payload.attendance;
     });
     builder.addCase(
       fetchAsyncUpdateTodaysAttendance.fulfilled,
@@ -206,7 +211,7 @@ const attendanceSlice = createSlice({
         toast.info("勤怠情報を更新しました。", {
           position: toast.POSITION.TOP_CENTER,
         });
-        state.today = action.payload.data;
+        state.today = action.payload.attendance;
       }
     );
     builder.addCase(fetchAsyncGetMyAttendances.fulfilled, (state, action) => {
