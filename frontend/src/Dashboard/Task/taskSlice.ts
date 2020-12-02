@@ -2,9 +2,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { RootState } from "../../store";
+import { accessToken, uid, client, expiry} from "../../shared/util/auth"
 
 const apiUrl = process.env.REACT_APP_BACKEND_URL;
-const token = localStorage.token;
 
 export const fetchAsyncAddTask = createAsyncThunk(
   "task/add",
@@ -25,11 +25,28 @@ export const fetchAsyncAddTask = createAsyncThunk(
   }) => {
     const res = await axios.post(
       `${apiUrl}api/v1/workspaces/${body.workspace}/tasks`,
-      body.task,
+      {
+        task: {
+          user_id: body.task.user,
+          name: body.task.name,
+          description: body.task.description,
+          start_date_at: body.task.startDateAt,
+          end_date_at: body.task.endDateAt,
+          state: body.task.state,
+          progress: body.task.progress,
+          priority: body.task.priority,
+          project_id: body.task.project,
+          todays_task: body.task.todaysTask,
+        }
+      },
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -47,7 +64,11 @@ export const fetchAsyncTasks = createAsyncThunk(
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -61,7 +82,11 @@ export const fetchAsyncProjectTasks = createAsyncThunk(
     const res = await axios.get(`${apiUrl}api/v1/projects/${projectId}/tasks`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "token-type": "Bearer",
+        "access-token": accessToken,
+        "client": client,
+        "expiry": expiry,
+        "uid": uid,
       },
     });
     return res.data;
@@ -74,7 +99,11 @@ export const fetchAsyncTask = createAsyncThunk(
     const res = await axios.get(`${apiUrl}api/v1/tasks/${id}`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "token-type": "Bearer",
+        "access-token": accessToken,
+        "client": client,
+        "expiry": expiry,
+        "uid": uid,
       },
     });
     return res.data;
@@ -116,7 +145,11 @@ export const fetchAsyncUpdateTask = createAsyncThunk(
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -126,13 +159,17 @@ export const fetchAsyncUpdateTask = createAsyncThunk(
 
 export const fetchAsyncRecentTasks = createAsyncThunk(
   "task/getRecent",
-  async (workspace: string) => {
+  async (workspacePathId: string) => {
     const res = await axios.get(
-      `${apiUrl}api/v1/workspaces/${workspace}/tasks/recent`,
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/tasks/recent`,
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -142,13 +179,17 @@ export const fetchAsyncRecentTasks = createAsyncThunk(
 
 export const fetchAsyncNearDeadlineTasks = createAsyncThunk(
   "task/getNearDeadline",
-  async (workspace: string) => {
+  async (workspacePathId: string) => {
     const res = await axios.get(
-      `${apiUrl}api/v1/workspaces/${workspace}/tasks/near_deadline`,
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/tasks/near_deadline`,
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -165,7 +206,11 @@ export const fetchAsyncMemberTasks = createAsyncThunk(
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -185,7 +230,11 @@ export const fetchAsyncTaskComment = createAsyncThunk(
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -199,7 +248,12 @@ export const fetchAsyncTaskHistory = createAsyncThunk(
   async (taskId: string) => {
     const res = await axios.get(`${apiUrl}api/v1/tasks/${taskId}/histories`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        "token-type": "Bearer",
+        "access-token": accessToken,
+        "client": client,
+        "expiry": expiry,
+        "uid": uid,
       },
     });
     return res.data;
@@ -347,10 +401,10 @@ const taskSlice = createSlice({
       state.task = action.payload.data;
     });
     builder.addCase(fetchAsyncRecentTasks.fulfilled, (state, action) => {
-      state.recentTasks = action.payload.data;
+      state.recentTasks = action.payload.tasks;
     });
     builder.addCase(fetchAsyncNearDeadlineTasks.fulfilled, (state, action) => {
-      state.nearDeadlineTasks = action.payload.data;
+      state.nearDeadlineTasks = action.payload.tasks;
     });
     builder.addCase(fetchAsyncMemberTasks.fulfilled, (state, action) => {
       state.tasks.data = action.payload.data;

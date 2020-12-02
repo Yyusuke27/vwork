@@ -32,6 +32,8 @@ import {
   selectWorkspaceName,
 } from "../../../Auth/authSlice";
 
+// TODO: Workspace_path_idをdashboardSlice.tsで状態管理する
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: Theme) =>

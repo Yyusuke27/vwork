@@ -11,7 +11,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { toggleAddTaskButton } from "../../../appSlice";
 import { fetchAsyncTasks, selectTaskQuery, setQuery } from "../taskSlice";
-import { selectWorkspace } from "../../../Auth/authSlice";
+import { workspacePathId } from "../../../shared/util/workspacePathId"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,7 +30,7 @@ const TaskAddButton = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const workspace = useSelector(selectWorkspace);
+  const workspace = workspacePathId
 
   const getTasks = useCallback(
     async (workspace, query) => {

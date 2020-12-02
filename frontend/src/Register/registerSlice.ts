@@ -1,21 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../store";
+import { accessToken, uid, client, expiry} from "../shared/util/auth"
 
 const apiUrl = process.env.REACT_APP_BACKEND_URL;
 
-let accessToken = ""
-let uid = ""
-let client = ""
-let expiry = ""
-let storeJsonData = localStorage.getItem('vwork')
-if (storeJsonData) {
-  const storedData = JSON.parse(storeJsonData);
-  accessToken = storedData.accessToken;
-  uid = storedData.uid;
-  client = storedData.client;
-  expiry = storedData.expiry;
-}
 
 // const inviteeToken = localStorage.Itoken;
 
@@ -198,7 +187,6 @@ const registerSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncRegisterUser.fulfilled, (state, action) => {
-      console.log(action.payload);
       const workspacePathId = action.payload.workspace.path_id
       if (workspacePathId) {
         window.location.href = `/${workspacePathId}`;

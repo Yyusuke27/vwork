@@ -10,9 +10,10 @@ import {
   selectRecentTasks,
   selectTasks,
 } from "../Task/taskSlice";
-import { selectUser, selectWorkspace } from "../../Auth/authSlice";
+import { selectUser } from "../../Auth/authSlice";
 import { setSelectedMembers } from "../dashboardSlice";
 import { fetchAsyncTodaysAttendance } from "../Attendance/attendanceSlice";
+import { workspacePathId } from "../../shared/util/workspacePathId"
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -20,13 +21,13 @@ const Home = () => {
   const tasks = useSelector(selectTasks);
   const nearDeadlineTasks = useSelector(selectNearDeadlineTasks);
   const recentTasks = useSelector(selectRecentTasks);
-  const workspace = useSelector(selectWorkspace);
+  const workspace = workspacePathId
 
   const getTodaysAttendance = useCallback(
-    async (workspace) => {
+    async () => {
       await dispatch(fetchAsyncTodaysAttendance(workspace));
     },
-    [dispatch]
+    [dispatch, workspace]
   );
 
   useEffect(() => {
@@ -34,10 +35,8 @@ const Home = () => {
   }, [dispatch, user, tasks]);
 
   useEffect(() => {
-    if (workspace) {
-      getTodaysAttendance(workspace);
-    }
-  }, [workspace, getTodaysAttendance]);
+    getTodaysAttendance();
+  }, [getTodaysAttendance]);
 
   return (
     <>

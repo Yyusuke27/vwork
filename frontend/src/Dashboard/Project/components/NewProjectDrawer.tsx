@@ -11,7 +11,6 @@ import {
   fetchAsyncAllProjects,
   fetchAsyncCreateProject,
 } from "../projectSlice";
-import { selectWorkspace } from "../../../Auth/authSlice";
 
 import * as Yup from "yup";
 import { Field, Form, Formik } from "formik";
@@ -22,6 +21,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import { Box } from "@material-ui/core";
+import { workspacePathId } from "../../../shared/util/workspacePathId"
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -37,8 +37,7 @@ const NewProjectDrawer = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const addProjectClicked = useSelector(selectAddProjectButton);
-  const workspace = useSelector(selectWorkspace);
-  const workspacePathId = window.location.pathname.split('/')[1]
+  const workspace = workspacePathId
 
   interface initialValuesType {
     name: string;
@@ -81,7 +80,7 @@ const NewProjectDrawer = () => {
                   },
                 })
               );
-              await dispatch(fetchAsyncAllMyProjects(workspacePathId));
+              await dispatch(fetchAsyncAllMyProjects(workspace));
               await dispatch(fetchAsyncAllProjects(workspace));
               dispatch(toggleAddProjectButton(false));
               dispatch(toggleLoading(false));

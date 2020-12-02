@@ -27,7 +27,7 @@ import SubjectIcon from "@material-ui/icons/Subject";
 import { selectSelectedMembers } from "../../dashboardSlice";
 import { selectProject } from "../../Project/projectSlice";
 import { toggleLoading } from "../../../appSlice";
-import { selectWorkspace } from "../../../Auth/authSlice";
+import { workspacePathId } from "../../../shared/util/workspacePathId"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -109,7 +109,7 @@ const TaskForm: FC<TaskFormProps> = ({
   members,
 }) => {
   const classes = useStyles();
-  const workspace = useSelector(selectWorkspace);
+  const workspace = workspacePathId
   const project = useSelector(selectProject);
 
   const selectedMembers = useSelector(selectSelectedMembers);

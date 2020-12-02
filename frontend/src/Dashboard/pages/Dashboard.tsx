@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -23,7 +23,7 @@ import SetProfileInAvatarIconDrawer from "../Project/components/SetProfileInAvat
 import TaskCardClickedDrawer from "../Task/components/TaskCardClickedDrawer";
 import NewTaskAddDrawer from "../Task/components/NewTaskAddDrawer";
 import KintaiCardClickedDrawer from "../Attendance/components/KintaiCardClickedDrawer";
-import { fetchAsyncCurrentUser, selectWorkspace } from "../../Auth/authSlice";
+import { fetchAsyncCurrentUser } from "../../Auth/authSlice";
 import { fetchAsyncAllMyProjects } from "../Project/projectSlice";
 import {
   selectOpenMenu,
@@ -39,6 +39,7 @@ import {
   fetchAsyncNearDeadlineTasks,
   fetchAsyncRecentTasks,
 } from "../Task/taskSlice";
+import { workspacePathId } from "../../shared/util/workspacePathId"
 
 const drawerWidth = 240;
 
@@ -78,19 +79,15 @@ const Dashboard = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const workspace = useSelector(selectWorkspace);
-
-  const workspacePathId = window.location.pathname.split('/')[1]  
+  const workspace = workspacePathId
 
   const fetchUser = useCallback(async () => {
-    await dispatch(fetchAsyncCurrentUser(workspacePathId));
-  }, [dispatch, workspacePathId]);
+    await dispatch(fetchAsyncCurrentUser(workspace));
+  }, [dispatch, workspace]);
 
   const fetchProject = useCallback(async () => {
-    console.log(workspacePathId);
-    
-    await dispatch(fetchAsyncAllMyProjects(workspacePathId));
-  }, [dispatch, workspacePathId]);
+    await dispatch(fetchAsyncAllMyProjects(workspace));
+  }, [dispatch, workspace]);
 
   const fetchNearDeadlineTasks = useCallback(async () => {
     await dispatch(fetchAsyncNearDeadlineTasks(workspace));
@@ -100,21 +97,11 @@ const Dashboard = () => {
     await dispatch(fetchAsyncRecentTasks(workspace));
   }, [dispatch, workspace]);
 
-  const mounted = useRef(false);
-
   useEffect(() => {
-    console.log('hello');
-    
-    if (mounted.current) {
-      console.log('hello if');
-    } else {
-      console.log('hello else');
-      fetchUser();
-      fetchProject();
-      fetchNearDeadlineTasks();
-      fetchRecentTasks();
-      mounted.current = true;
-    }
+    fetchUser();
+    fetchProject();
+    fetchNearDeadlineTasks();
+    fetchRecentTasks();
   }, [
     fetchUser,
     fetchProject,

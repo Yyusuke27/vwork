@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       color: Color.VWORK_GRAY,
+      fontWeight: "bold"
     },
     addIcon: {
       fontSize: 45,
