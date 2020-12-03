@@ -31,8 +31,7 @@ import {
   selectUnreadNotification,
   selectWorkspaceName,
 } from "../../../Auth/authSlice";
-
-// TODO: Workspace_path_idをdashboardSlice.tsで状態管理する
+import { workspacePathId } from "../../util/workspacePathId"
 
 const drawerWidth = 240;
 
@@ -149,25 +148,25 @@ const SideBar = () => {
             <Typography>{workspaceName.name}</Typography>
           </Box>
           <List>
-            <ListItem button component={NavLink} to="/" exact>
+            <ListItem button component={NavLink} to={`/${workspacePathId}`} exact>
               <ListItemIcon className={classes.icon}>
                 <HomeIcon />
               </ListItemIcon>
               <ListItemText primary="ホーム" />
             </ListItem>
-            <ListItem button component={NavLink} to="/mytask" exact>
+            <ListItem button component={NavLink} to={`/${workspacePathId}/mytask`} exact>
               <ListItemIcon className={classes.icon}>
                 <CheckCircleOutlineIcon />
               </ListItemIcon>
               <ListItemText primary="マイタスク" />
             </ListItem>
-            <ListItem button component={NavLink} to="/work_manage" exact>
+            <ListItem button component={NavLink} to={`/${workspacePathId}/work_manage`} exact>
               <ListItemIcon className={classes.icon}>
                 <QueryBuilderIcon />
               </ListItemIcon>
               <ListItemText primary="勤怠管理" />
             </ListItem>
-            <ListItem button component={NavLink} to="/notification" exact>
+            <ListItem button component={NavLink} to={`/${workspacePathId}/notification`} exact>
               <ListItemIcon className={classes.icon}>
                 <NotificationsNoneIcon />
               </ListItemIcon>
@@ -177,13 +176,13 @@ const SideBar = () => {
             </ListItem>
             {isWorkspaceOwner ? (
               <>
-                <ListItem button component={NavLink} to="/members" exact>
+                <ListItem button component={NavLink} to={`/${workspacePathId}/members`} exact>
                   <ListItemIcon className={classes.icon}>
                     <GroupIcon />
                   </ListItemIcon>
                   <ListItemText primary="メンバー管理" />
                 </ListItem>
-                <ListItem button component={NavLink} to="/project_manage" exact>
+                <ListItem button component={NavLink} to={`/${workspacePathId}/project_manage`} exact>
                   <ListItemIcon className={classes.icon}>
                     <WorkIcon />
                   </ListItemIcon>
