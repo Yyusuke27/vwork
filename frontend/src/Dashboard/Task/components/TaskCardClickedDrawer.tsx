@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import VwDrawer from "../../../shared/components/Common/VwDrawer";
+import Dialog from "@material-ui/core/Dialog";
+import Grid from "@material-ui/core/Grid";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import { Box, Container } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import {
@@ -31,11 +33,13 @@ import TaskHistoryArea from "./TaskHistoryArea";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    root: {
+      height: "100%"
+    },
     historyArea: {
-      position: "absolute",
       bottom: 0,
       width: "100%",
-      height: "calc(100vh - 640px) !important",
+      height: "100%",
       backgroundColor: "#F0F7F8",
     },
     historyOutputArea: {
@@ -44,8 +48,6 @@ const useStyles = makeStyles((theme: Theme) =>
       overflowX: "hidden",
     },
     commentArea: {
-      position: "absolute",
-      bottom: 0,
       width: "100%",
     },
   })
@@ -68,6 +70,27 @@ const TaskCardClickedDrawer = () => {
   const getTask = useCallback(
     async (taskId) => {
       await dispatch(fetchAsyncTask(taskId));
+    },
+    [dispatch]
+  );
+
+  const closeTaskCard = useCallback(
+    () => {
+      dispatch(toggleTaskCardClicked(false))
+      dispatch(
+        setTask({
+          user: "",
+          name: "",
+          description: "",
+          startDateAt: "",
+          endDateAt: "",
+          state: 0,
+          progress: 0,
+          priority: 0,
+          project: "",
+          todaysTask: false,
+        })
+      );
     },
     [dispatch]
   );
@@ -103,6 +126,7 @@ const TaskCardClickedDrawer = () => {
           })
         );
       }
+
     };
   }, [dispatch, pathName]);
 
@@ -152,46 +176,42 @@ const TaskCardClickedDrawer = () => {
 
   return (
     <>
-      <VwDrawer
+      <Dialog 
         open={taskCardClicked}
-        click={() => {
-          dispatch(toggleTaskCardClicked(false));
-          dispatch(
-            setTask({
-              user: "",
-              name: "",
-              description: "",
-              startDateAt: "",
-              endDateAt: "",
-              state: 0,
-              progress: 0,
-              priority: 0,
-              project: "",
-              todaysTask: false,
-            })
-          );
-        }}
-      >
-        <Container maxWidth="md">
-          <Box mt={5}>
-            <TaskForm
-              projects={projectData}
-              submitFunction={submitFunction}
-              taskData={taskData}
-              update={update}
-              members={project.members}
-            />
-          </Box>
-        </Container>
-        <div className={classes.historyArea}>
-          <div className={classes.historyOutputArea}>
-            <TaskHistoryArea taskId={taskId} />
-          </div>
-          <div className={classes.commentArea}>
-            <TaskCommentForm taskId={taskId} />
-          </div>
-        </div>
-      </VwDrawer>
+        onClose={closeTaskCard}
+        keepMounted maxWidth="xl" className="registDialog">
+        <Grid container component="main" className={classes.root}>
+          <CssBaseline />
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={6}
+          >
+            <Container maxWidth="md">
+              <Box mt={5}>
+                <TaskForm
+                  projects={projectData}
+                  submitFunction={submitFunction}
+                  taskData={taskData}
+                  update={update}
+                  members={project.members}
+                />
+              </Box>
+            </Container>
+          </Grid>
+          <Grid item xs={false} sm={6} md={6} >
+            <div className={classes.historyArea}>
+              <div className={classes.historyOutputArea}>
+                <TaskHistoryArea taskId={taskId} />
+              </div>
+              <div className={classes.commentArea}>
+                <TaskCommentForm taskId={taskId} />
+              </div>
+            </div>
+          </Grid>
+        </Grid>
+      </Dialog>
     </>
   );
 };
