@@ -79,3 +79,12 @@ body.drawer-active {
 .vwork-bg-white {
     background-color: #FFFFFF;
 }
+
+.taskDialog .MuiDialog-paper{
+  height: 90% !important;
+  width: 80% !important;
+  max-width: 80% !important;
+  position: relative !important;
+  overflow: hidden !important;
+  background: #efefef !important;
+}

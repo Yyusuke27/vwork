@@ -95,8 +95,8 @@ export const fetchAsyncProjectTasks = createAsyncThunk(
 
 export const fetchAsyncTask = createAsyncThunk(
   "task/get",
-  async (id: string) => {
-    const res = await axios.get(`${apiUrl}api/v1/tasks/${id}`, {
+  async (params: {id: string, workspacePathId: string}) => {
+    const res = await axios.get(`${apiUrl}api/v1/workspaces/${params.workspacePathId}/tasks/${params.id}`, {
       headers: {
         "Content-Type": "application/json",
         "token-type": "Bearer",

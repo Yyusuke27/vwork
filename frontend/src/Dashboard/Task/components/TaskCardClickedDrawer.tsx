@@ -30,6 +30,7 @@ import {
 import TaskForm from "./TaskForm";
 import TaskCommentForm from "./TaskCommentForm";
 import TaskHistoryArea from "./TaskHistoryArea";
+import { workspacePathId } from "../../../shared/util/workspacePathId"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -69,7 +70,7 @@ const TaskCardClickedDrawer = () => {
 
   const getTask = useCallback(
     async (taskId) => {
-      await dispatch(fetchAsyncTask(taskId));
+      await dispatch(fetchAsyncTask({id: taskId, workspacePathId: workspacePathId}));
     },
     [dispatch]
   );
@@ -170,7 +171,7 @@ const TaskCardClickedDrawer = () => {
       await dispatch(fetchAsyncRecentTasks(workspace));
       await dispatch(fetchAsyncNearDeadlineTasks(workspace));
     }
-    await dispatch(fetchAsyncTask(taskId));
+    await dispatch(fetchAsyncTask({id: taskId, workspacePathId: workspacePathId}));
     await dispatch(fetchAsyncTaskHistory(taskId));
   };
 
@@ -179,7 +180,8 @@ const TaskCardClickedDrawer = () => {
       <Dialog 
         open={taskCardClicked}
         onClose={closeTaskCard}
-        keepMounted maxWidth="xl" className="registDialog">
+        keepMounted
+        className="taskDialog">
         <Grid container component="main" className={classes.root}>
           <CssBaseline />
           <Grid
