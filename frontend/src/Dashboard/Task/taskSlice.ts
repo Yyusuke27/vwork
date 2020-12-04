@@ -3,13 +3,13 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { RootState } from "../../store";
 import { accessToken, uid, client, expiry} from "../../shared/util/auth"
+import { workspacePathId } from "../../shared/util/workspacePathId"
 
 const apiUrl = process.env.REACT_APP_BACKEND_URL;
 
 export const fetchAsyncAddTask = createAsyncThunk(
   "task/add",
-  async (body: {
-    task: {
+  async (task: {
       user: string;
       name: string;
       description: string;
@@ -20,23 +20,21 @@ export const fetchAsyncAddTask = createAsyncThunk(
       priority: number;
       project: string | null;
       todaysTask: boolean;
-    };
-    workspace: string;
-  }) => {
+    }) => {
     const res = await axios.post(
-      `${apiUrl}api/v1/workspaces/${body.workspace}/tasks`,
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/tasks`,
       {
         task: {
-          user_id: body.task.user,
-          name: body.task.name,
-          description: body.task.description,
-          start_date_at: body.task.startDateAt,
-          end_date_at: body.task.endDateAt,
-          state: body.task.state,
-          progress: body.task.progress,
-          priority: body.task.priority,
-          project_id: body.task.project,
-          todays_task: body.task.todaysTask,
+          user_id: task.user,
+          name: task.name,
+          description: task.description,
+          start_date_at: task.startDateAt,
+          end_date_at: task.endDateAt,
+          state: task.state,
+          progress: task.progress,
+          priority: task.priority,
+          project_id: task.project,
+          todays_task: task.todaysTask,
         }
       },
       {
@@ -56,10 +54,32 @@ export const fetchAsyncAddTask = createAsyncThunk(
 
 export const fetchAsyncTasks = createAsyncThunk(
   "task/getAll",
-  async (data: { workspace: string; query?: string }) => {
+  async (query?: string) => {
     const res = await axios.get(
-      `${apiUrl}api/v1/workspaces/${data.workspace}/tasks${
-        data.query ? `?state=${data.query}` : ""
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/tasks${
+        query ? `?state=${query}` : ""
+      }`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
+        },
+      }
+    );
+    return res.data;
+  }
+);
+
+export const fetchAsyncMyTasks = createAsyncThunk(
+  "task/getMy",
+  async (query?: string) => {
+    const res = await axios.get(
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/tasks/my${
+        query ? `?state=${query}` : ""
       }`,
       {
         headers: {
@@ -140,8 +160,33 @@ export const fetchAsyncUpdateTask = createAsyncThunk(
     };
   }) => {
     const res = await axios.put(
-      `${apiUrl}api/v1/tasks/${data.id}`,
-      { task: data.task, log: data.log },
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/tasks/${data.id}`,
+      {
+        task: {
+          user_id: data.task.user,
+          name: data.task.name,
+          description: data.task.description,
+          start_date_at: data.task.startDateAt,
+          end_date_at: data.task.endDateAt,
+          state: data.task.state,
+          progress: data.task.progress,
+          priority: data.task.priority,
+          project_id: data.task.project,
+          todays_task: data.task.todaysTask,
+        },
+        log: {
+          user_id: data.log.user,
+          name: data.log.name,
+          description: data.log.description,
+          start_date_at: data.log.startDateAt,
+          end_date_at: data.log.endDateAt,
+          state: data.log.state,
+          progress: data.log.progress,
+          priority: data.log.priority,
+          project_id: data.log.project,
+          todays_task: data.log.todaysTask,
+        },
+      },
       {
         headers: {
           "Content-Type": "application/json",
@@ -261,11 +306,11 @@ export const fetchAsyncTaskHistory = createAsyncThunk(
 );
 
 interface taskState {
-  tasks: {
+  data: {
     id: string;
     count: number;
     countTodaysTask: number;
-    data: {
+    tasks: {
       name: string;
       project: { id: string; name: string };
       endDateAt: string;
@@ -313,7 +358,7 @@ interface taskState {
     createdAt: string;
     type: number;
     log?: {
-      type: string;
+      type: number;
       oldState?: string;
       newState: string;
       user: { name: string };
@@ -328,11 +373,11 @@ interface taskState {
 }
 
 const initialState: taskState = {
-  tasks: {
+  data: {
     id: "",
     count: 0,
     countTodaysTask: 0,
-    data: [],
+    tasks: [],
     todaysTasks: [],
   },
   task: {
@@ -363,7 +408,7 @@ const taskSlice = createSlice({
       state.task = action.payload;
     },
     setTasks(state, action) {
-      state.tasks = action.payload;
+      state.data = action.payload;
     },
     setSelectedTask(state, action) {
       state.selectedTask = action.payload;
@@ -382,6 +427,8 @@ const taskSlice = createSlice({
       });
     });
     builder.addCase(fetchAsyncUpdateTask.fulfilled, (state, action) => {
+      console.log(action.payload);
+      
       toast.info("タスクを更新しました。", {
         position: toast.POSITION.TOP_CENTER,
       });
@@ -392,13 +439,23 @@ const taskSlice = createSlice({
       });
     });
     builder.addCase(fetchAsyncTasks.fulfilled, (state, action) => {
-      state.tasks = action.payload;
+      state.data = action.payload;
+    });
+    builder.addCase(fetchAsyncMyTasks.fulfilled, (state, action) => {
+      console.log(action.payload);
+      
+      state.data = action.payload.data;
+
+      console.log(state.data);
+      
     });
     builder.addCase(fetchAsyncProjectTasks.fulfilled, (state, action) => {
-      state.tasks = action.payload;
+      state.data = action.payload;
     });
     builder.addCase(fetchAsyncTask.fulfilled, (state, action) => {
-      state.task = action.payload.data;
+      console.log(action.payload);
+      
+      state.task = action.payload.task;
     });
     builder.addCase(fetchAsyncRecentTasks.fulfilled, (state, action) => {
       state.recentTasks = action.payload.tasks;
@@ -407,7 +464,7 @@ const taskSlice = createSlice({
       state.nearDeadlineTasks = action.payload.tasks;
     });
     builder.addCase(fetchAsyncMemberTasks.fulfilled, (state, action) => {
-      state.tasks.data = action.payload.data;
+      state.data.tasks = action.payload.data;
     });
     builder.addCase(fetchAsyncTaskComment.fulfilled, (state, action) => {
       toast.info("コメントを追加しました。", {
@@ -420,12 +477,14 @@ const taskSlice = createSlice({
       });
     });
     builder.addCase(fetchAsyncTaskHistory.fulfilled, (state, action) => {
-      state.taskHistories = action.payload.data;
+      console.log(action.payload);
+      
+      state.taskHistories = action.payload.histories;
     });
   },
 });
 
-export const selectTasks = (state: RootState) => state.task.tasks;
+export const selectTasks = (state: RootState) => state.task.data;
 export const selectTask = (state: RootState) => state.task.task;
 export const selectSelectedTask = (state: RootState) => state.task.selectedTask;
 export const selectRecentTasks = (state: RootState) => state.task.recentTasks;

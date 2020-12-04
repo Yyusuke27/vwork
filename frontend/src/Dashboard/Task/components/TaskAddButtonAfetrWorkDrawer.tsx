@@ -45,7 +45,7 @@ const NewTaskAddAfterWorkDrawer = () => {
 
   const getTasks = useCallback(
     async (workspace) => {
-      await dispatch(fetchAsyncTasks({ workspace }));
+      await dispatch(fetchAsyncTasks());
     },
     [dispatch]
   );
@@ -84,7 +84,7 @@ const NewTaskAddAfterWorkDrawer = () => {
                     render={(arrayHelpers) => (
                       <div>
                         {tasksData.todaysTasks.length === 0 &&
-                          tasksData.data.length === 0 && (
+                          tasksData.tasks.length === 0 && (
                             <p>タスクがありません。</p>
                           )}
                         {tasksData.todaysTasks.length > 0 && (
@@ -130,7 +130,7 @@ const NewTaskAddAfterWorkDrawer = () => {
                             </div>
                           ))}
                         <br />
-                        {tasksData.data.length > 0 && (
+                        {tasksData.tasks.length > 0 && (
                           <Box
                             borderBottom={1}
                             width="80%"
@@ -142,8 +142,8 @@ const NewTaskAddAfterWorkDrawer = () => {
                             </Typography>
                           </Box>
                         )}
-                        {tasksData.data &&
-                          tasksData.data.map((task, index) => (
+                        {tasksData.tasks &&
+                          tasksData.tasks.map((task, index) => (
                             <div key={`task-${index}`}>
                               <Field
                                 component={CheckboxWithLabel}

@@ -21,7 +21,7 @@ const Project = () => {
   const dispatch = useDispatch();
 
   const project = useSelector(selectProject);
-  const tasks = useSelector(selectTasks);
+  const tasksData = useSelector(selectTasks);
 
   interface ParamsType {
     projectId: string;
@@ -91,7 +91,7 @@ const Project = () => {
         <AddButtonInProject />
         <Grid container direction="row" justify="space-between">
           <Grid item style={{ width: "70%" }}>
-            <TaskList title="タスク一覧" taskData={tasks.data} />
+            <TaskList title="タスク一覧" taskData={tasksData.tasks} />
           </Grid>
           <Grid item>
             <ProjectMemberList members={project.members} />

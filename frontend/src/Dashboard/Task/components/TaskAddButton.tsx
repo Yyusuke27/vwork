@@ -10,8 +10,7 @@ import Color from "../../../shared/util/color";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { toggleAddTaskButton } from "../../../appSlice";
-import { fetchAsyncTasks, selectTaskQuery, setQuery } from "../taskSlice";
-import { workspacePathId } from "../../../shared/util/workspacePathId"
+import { fetchAsyncMyTasks, fetchAsyncTasks, selectTaskQuery, setQuery } from "../taskSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,20 +29,24 @@ const TaskAddButton = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const workspace = workspacePathId
+  const pathName = window.location.pathname
 
   const getTasks = useCallback(
-    async (workspace, query) => {
-      await dispatch(fetchAsyncTasks({ workspace, query }));
+    async (query) => {
+      if(pathName.includes("my_task")) {
+        await dispatch(fetchAsyncMyTasks(query));
+      } else {
+        await dispatch(fetchAsyncTasks(query));
+      }
     },
-    [dispatch]
+    [dispatch, pathName]
   );
 
   const handleChange = (
     event: React.ChangeEvent<{ name?: string | undefined; value: unknown }>
   ) => {
     dispatch(setQuery(event.target.value));
-    getTasks(workspace, event.target.value);
+    getTasks(event.target.value);
   };
 
   const taskQuery = useSelector(selectTaskQuery);

@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { accessToken, uid, client, expiry} from "../../shared/util/auth"
 
 const apiUrl = process.env.REACT_APP_BACKEND_URL;
-const token = localStorage.token;
 
 export const fetchAsyncAllMyProjects = createAsyncThunk(
   "project/allMyProjects",
@@ -14,6 +13,7 @@ export const fetchAsyncAllMyProjects = createAsyncThunk(
       `${apiUrl}api/v1/workspaces/${workspacePathId}/projects/my`,
       {
         headers: {
+          "Content-Type": "application/json",
           "token-type": "Bearer",
           "access-token": accessToken,
           "client": client,
@@ -33,7 +33,12 @@ export const fetchAsyncAllProjects = createAsyncThunk(
       `${apiUrl}api/v1/workspaces/${workspace}/projects`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -46,7 +51,12 @@ export const fetchAsyncGetProject = createAsyncThunk(
   async (id: string) => {
     const res = await axios.get(`${apiUrl}api/v1/projects/${id}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        "token-type": "Bearer",
+        "access-token": accessToken,
+        "client": client,
+        "expiry": expiry,
+        "uid": uid,
       },
     });
     return res.data;
@@ -65,7 +75,11 @@ export const fetchAsyncCreateProject = createAsyncThunk(
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -80,7 +94,12 @@ export const fetchAsyncGetNewMembers = createAsyncThunk(
       `${apiUrl}api/v1/workspaces/${data.workspaces}/projects/${data.projectId}/members/new`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -95,7 +114,12 @@ export const fetchAsyncGetProjectMember = createAsyncThunk(
       `${apiUrl}api/v1/workspaces/${data.workspaces}/projects/${data.projectId}/users/${data.userId}`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -112,7 +136,11 @@ export const fetchAsyncAddMembers = createAsyncThunk(
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -128,7 +156,12 @@ export const fetchAsyncGetMemberProjects = createAsyncThunk(
       `${apiUrl}api/v1/workspaces/${data.workspace}/users/${data.userId}/projects`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -254,7 +287,9 @@ const projectSlice = createSlice({
     });
     builder.addCase(fetchAsyncAllMyProjects.rejected, (state, action) => {});
     builder.addCase(fetchAsyncGetProject.fulfilled, (state, action) => {
-      state.project = action.payload.data;
+      console.log(action.payload.project);
+      
+      state.project = action.payload.project;
     });
     builder.addCase(fetchAsyncCreateProject.fulfilled, (state, action) => {
       state.projects = action.payload.data;

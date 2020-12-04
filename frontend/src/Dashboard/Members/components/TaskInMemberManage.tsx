@@ -47,7 +47,7 @@ const TaskInMemberManage = () => {
 
   return (
     <>
-      <TaskList title="タスク一覧" taskData={taskData.data} />
+      <TaskList title="タスク一覧" taskData={taskData.tasks} />
     </>
   );
 };

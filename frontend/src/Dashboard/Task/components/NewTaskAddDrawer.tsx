@@ -68,11 +68,11 @@ const NewTaskAddDrawer = () => {
     },
     workspace: string
   ) => {
-    await dispatch(fetchAsyncAddTask({ task: value.task, workspace }));
+    await dispatch(fetchAsyncAddTask(value.task));
     if (pathName.includes("project")) {
       await dispatch(fetchAsyncProjectTasks(project.id));
-    } else if (pathName.includes("mytask")) {
-      await dispatch(fetchAsyncTasks({ workspace }));
+    } else if (pathName.includes("my_task")) {
+      await dispatch(fetchAsyncTasks());
     } else {
       await dispatch(fetchAsyncRecentTasks(workspace));
       await dispatch(fetchAsyncNearDeadlineTasks(workspace));
