@@ -6,26 +6,37 @@ class Api::V1::TasksController < Api::ApiController
   end
 
   def show
-    task = Task.find(params[:id])
+    task = Task.includes(:project, :user).find(params[:id])
 
     render :template => 'api/v1/tasks/show.json.jb', :locals => { :task => task }
   end
 
   def create
-    workspace = Workspace.find_by(:path_id => params[:workspace_path_id])
-    task = workspace.tasks.new taks_params
-    task.save!
+    ActiveRecord::Base.transaction do
+      workspace = Workspace.find_by(:path_id => params[:workspace_path_id])
+      task = workspace.tasks.new taks_params
+      task.save!
 
-    Log.create!(:user_id => @current_user.id, :task_id => task.id, :type => :create, :new_state => 'タスクを作成しました')
+      history = History.create!(:task_id => task.id, :history_type => 'log_item')
+      history.create_log!(:user_id => @current_user.id, :task_id => task.id, :log_type => 'create_new_task', :new_state => 'タスクを作成しました')
 
-    render :template => 'api/v1/tasks/create.json.jb', :locals => { :task => task }
+      render :template => 'api/v1/tasks/create.json.jb', :locals => { :task => task }
+    end
+  rescue StandardError => e
+    render :json => { :success => false, :error => e.message }
   end
 
   def update
-    task = Task.find(params[:id])
-    task.update task_params
+    ActiveRecord::Base.transaction do
+      task = Task.find(params[:id])
+      Log.create_logs(task_log_params, task, @current_user.id) if task_log_params.present?
 
-    render :template => 'api/v1/tasks/update.json.jb', :locals => { :task => task }
+      task.update! taks_params
+
+      render :template => 'api/v1/tasks/update.json.jb'
+    end
+  rescue StandardError => e
+    render :json => { :success => false, :error => e.message }
   end
 
   private
@@ -47,5 +58,22 @@ class Api::V1::TasksController < Api::ApiController
 
   def task_member_params
     params.require(:task).permit(:user)
+  end
+
+  def task_log_params
+    return nil if params[:log].blank?
+
+    params.require(:log).permit(
+      :user_id,
+      :project_id,
+      :name,
+      :description,
+      :start_date_at,
+      :end_date_at,
+      :state,
+      :progress,
+      :priority,
+      :todays_task
+    )
   end
 end

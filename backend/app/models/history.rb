@@ -2,13 +2,11 @@
 #
 # Table name: histories
 #
-#  id         :bigint           not null, primary key
-#  type       :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  comment_id :bigint
-#  log_id     :bigint
-#  task_id    :bigint
+#  id           :bigint           not null, primary key
+#  history_type :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  task_id      :bigint
 #
 # Indexes
 #
@@ -19,8 +17,8 @@ class History < ApplicationRecord
   has_one :comment, :dependent => :destroy
   belongs_to :task
 
-  enum :type => {
-    :log => 0,
-    :comment => 1
+  enum :history_type => {
+    :log_item => 0,
+    :comment_item => 1
   }
 end

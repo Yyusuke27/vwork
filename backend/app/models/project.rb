@@ -28,4 +28,8 @@ class Project < ApplicationRecord
   has_many :tasks, :dependent => :destroy
 
   validates :name, :presence => true
+
+  def member?(user_id)
+    project_members.exists?(:member_id => user_id)
+  end
 end

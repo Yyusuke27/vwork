@@ -1,3 +1,47 @@
-{
+json = {
   :success => true
 }
+
+json[:data] = {}
+
+count = 0
+count_todays_task = 0
+
+json[:data][:tasks] = tasks.map do |task|
+  count += 1
+  {
+    :id => task.id,
+    :name => task.name,
+    :endDateAt => task.end_date_at,
+    :user => {
+      :id => task.user.id,
+      :name => task.user.name
+    },
+    :project => {
+      :id => task.project.id,
+      :name => task.project.name,
+    }
+  }
+end
+
+json[:data][:todaysTasks] = todays_tasks.map do |todays_task|
+  count_todays_task += 1
+  {
+    :id => todays_task.id,
+    :name => todays_task.name,
+    :endDateAt => todays_task.end_date_at,
+    :user => {
+      :id => todays_task.user.id,
+      :name => todays_task.user.name
+    },
+    :project => {
+      :id => todays_task.project.id,
+      :name => todays_task.project.name,
+    }
+  }
+end
+
+json[:data][:count] = count
+json[:data][:countTodaysTask] = count_todays_task
+
+json

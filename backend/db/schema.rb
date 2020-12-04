@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_02_140136) do
+ActiveRecord::Schema.define(version: 2020_12_04_034858) do
 
   create_table "attendance_tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "attendance_id", null: false
@@ -46,17 +46,17 @@ ActiveRecord::Schema.define(version: 2020_12_02_140136) do
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "task_id"
-    t.string "comment"
+    t.bigint "history_id"
+    t.string "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["history_id"], name: "index_comments_on_history_id"
     t.index ["task_id"], name: "index_comments_on_task_id"
   end
 
   create_table "histories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "task_id"
-    t.bigint "comment_id"
-    t.bigint "log_id"
-    t.integer "type"
+    t.integer "history_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["task_id"], name: "index_histories_on_task_id"
@@ -76,11 +76,13 @@ ActiveRecord::Schema.define(version: 2020_12_02_140136) do
   create_table "logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "task_id"
-    t.integer "type"
+    t.bigint "history_id"
+    t.integer "log_type"
     t.string "old_state"
     t.string "new_state"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["history_id"], name: "index_logs_on_history_id"
     t.index ["task_id"], name: "index_logs_on_task_id"
   end
 
@@ -88,7 +90,7 @@ ActiveRecord::Schema.define(version: 2020_12_02_140136) do
     t.bigint "user_id"
     t.bigint "task_id"
     t.bigint "workspace_id"
-    t.integer "type"
+    t.integer "notification_type"
     t.boolean "unread"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

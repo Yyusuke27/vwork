@@ -1,3 +1,16 @@
 {
-  :success => true
+  :success => true,
+  :task => {
+    :id => task.id,
+    :user => task.user.id,
+    :name => task.name,
+    :description => task.description,
+    :startDateAt => task.start_date_at,
+    :endDateAt => task.end_date_at,
+    :state => task.state_before_type_cast,
+    :progress => task.progress,
+    :priority => task.priority_before_type_cast,
+    :project => task.project.id,
+    :todaysTask => task.todays_task
+  }
 }

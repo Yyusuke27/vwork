@@ -1,0 +1,23 @@
+json = {
+  :success => true,
+  :project => {
+    :id => project.id,
+    :name => project.name,
+    :color => project.color,
+    :icon => project.icon,
+    :description => project.description
+  }
+}
+
+json[:project][:members] = project_members.map do |project_member|
+  {
+    :id => project_member.member.id,
+    :active => project_member.member.active,
+    :email => project_member.member.email,
+    :name => project_member.member.name,
+    :registration => project_member.member.registration,
+    :role => project_member.member.role_before_type_cast
+  }
+end
+
+json

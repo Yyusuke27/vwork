@@ -1,0 +1,34 @@
+json = {
+  :success => true
+}
+
+json[:histories] = histories.map do |history|
+  result = {
+    :createdAt => history.created_at,
+    :type => history.history_type_before_type_cast
+  }
+
+  if history.log.present?
+    result[:log] = {
+      :type => history.log.log_type_before_type_cast,
+      :oldState => history.log.old_state,
+      :newState => history.log.new_state,
+      :user => {
+        :id => history.log.user.id,
+        :name => history.log.user.name
+      }
+    }
+  else
+    result[:comment] = {
+      :comment => history.comment.body,
+      :user => {
+        :id => history.comment.user.id,
+        :name => history.comment.user.name
+      }
+    }
+  end
+
+  result
+end
+
+json

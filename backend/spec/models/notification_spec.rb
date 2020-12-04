@@ -2,14 +2,14 @@
 #
 # Table name: notifications
 #
-#  id           :bigint           not null, primary key
-#  type         :integer
-#  unread       :boolean
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  task_id      :bigint
-#  user_id      :bigint
-#  workspace_id :bigint
+#  id                :bigint           not null, primary key
+#  notification_type :integer
+#  unread            :boolean
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  task_id           :bigint
+#  user_id           :bigint
+#  workspace_id      :bigint
 #
 # Indexes
 #
