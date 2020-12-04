@@ -14,4 +14,14 @@
 #  index_comments_on_task_id  (task_id)
 #
 class Comment < ApplicationRecord
+  after_create :create_history
+
+  belongs_to :user
+  belongs_to :task
+
+  private
+
+  def create_history
+    # TODO: Historyを作成
+  end
 end

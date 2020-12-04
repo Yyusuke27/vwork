@@ -21,6 +21,7 @@ Rails.application.routes.draw do
           resources :near_deadline, :only => %i[index]
           resources :projects, :only => %i[show]
           resources :recent, :only => %i[index]
+          resources :histories, :only => %i[index]
         end
         resources :tasks, :only => %i[index show create update destroy]
 

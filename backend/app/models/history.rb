@@ -15,4 +15,12 @@
 #  index_histories_on_task_id  (task_id)
 #
 class History < ApplicationRecord
+  has_one :log, :dependent => :destroy
+  has_one :comment, :dependent => :destroy
+  belongs_to :task
+
+  enum :type => {
+    :log => 0,
+    :comment => 1
+  }
 end

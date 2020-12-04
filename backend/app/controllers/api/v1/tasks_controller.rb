@@ -16,6 +16,8 @@ class Api::V1::TasksController < Api::ApiController
     task = workspace.tasks.new taks_params
     task.save!
 
+    Log.create!(:user_id => @current_user.id, :task_id => task.id, :type => :create, :new_state => 'タスクを作成しました')
+
     render :template => 'api/v1/tasks/create.json.jb', :locals => { :task => task }
   end
 
