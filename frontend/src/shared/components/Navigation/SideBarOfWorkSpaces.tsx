@@ -120,7 +120,7 @@ const SideBarOfWorkSpaces = () => {
               </ListItemIcon>
               <ListItemText primary="ホーム" />
             </ListItem>
-            <ListItem button component={NavLink} to="/mytask" exact>
+            <ListItem button component={NavLink} to="/my_task" exact>
               <ListItemIcon className={classes.iconStyle}>
                 <CheckCircleOutlineIcon />
               </ListItemIcon>

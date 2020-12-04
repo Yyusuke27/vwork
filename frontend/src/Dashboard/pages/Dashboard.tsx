@@ -140,7 +140,7 @@ const Dashboard = () => {
           <Route path="/:workspacePathId" exact>
             <Home />
           </Route>
-          <Route path="/:workspacePathId/mytask" exact>
+          <Route path="/:workspacePathId/my_task" exact>
             <MyTask />
           </Route>
           <Route path="/:workspacePathId/work_manage" exact>

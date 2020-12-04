@@ -154,7 +154,7 @@ const SideBar = () => {
               </ListItemIcon>
               <ListItemText primary="ホーム" />
             </ListItem>
-            <ListItem button component={NavLink} to={`/${workspacePathId}/mytask`} exact>
+            <ListItem button component={NavLink} to={`/${workspacePathId}/my_task`} exact>
               <ListItemIcon className={classes.icon}>
                 <CheckCircleOutlineIcon />
               </ListItemIcon>
