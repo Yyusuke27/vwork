@@ -3,6 +3,7 @@
 # Table name: invitations
 #
 #  id                   :bigint           not null, primary key
+#  discarded_at         :datetime
 #  email                :string(255)
 #  invitation_expire_at :datetime
 #  invitation_token     :string(255)
@@ -13,6 +14,7 @@
 #
 # Indexes
 #
+#  index_invitations_on_discarded_at  (discarded_at)
 #  index_invitations_on_workspace_id  (workspace_id)
 #
 # Foreign Keys

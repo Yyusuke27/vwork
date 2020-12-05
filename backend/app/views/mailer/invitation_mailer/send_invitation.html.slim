@@ -13,6 +13,6 @@ html
         | VWORKへようこそ！
       p
         = "#{@workspace.name}に招待されました。以下のURLから登録お願いします。"
-      - invitation_path = "#{@host}/register/invitee/?#{@invitation.invitation_token}"
+      - invitation_path = "#{@host}/#{@workspace.path_id}/register/invitee/auth/?#{@invitation.invitation_token}"
       p
         a href=invitation_path 登録する

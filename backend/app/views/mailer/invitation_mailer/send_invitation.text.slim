@@ -1,4 +1,4 @@
 = "#{@invitation.name}様"
 | VWORKへようこそ！
 = "#{@workspace.name}に招待されました。以下のURLから登録お願いします。"
-= "#{@host}/register/invitee/?#{@invitation.invitation_token}"
+= "#{@host}/#{@workspace.path_id}/register/invitee/auth/?#{@invitation.invitation_token}"

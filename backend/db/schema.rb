@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_04_034858) do
+ActiveRecord::Schema.define(version: 2020_12_05_023101) do
 
   create_table "attendance_tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "attendance_id", null: false
@@ -70,6 +70,8 @@ ActiveRecord::Schema.define(version: 2020_12_04_034858) do
     t.datetime "invitation_expire_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_invitations_on_discarded_at"
     t.index ["workspace_id"], name: "index_invitations_on_workspace_id"
   end
 

@@ -1,5 +1,6 @@
 {
   :workspace_name => workspace.name,
   :email => invitation.email,
-  :registration => is_registered
+  :name => invitation.name,
+  :isRegistered => is_registered
 }

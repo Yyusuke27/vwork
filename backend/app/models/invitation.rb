@@ -3,6 +3,7 @@
 # Table name: invitations
 #
 #  id                   :bigint           not null, primary key
+#  discarded_at         :datetime
 #  email                :string(255)
 #  invitation_expire_at :datetime
 #  invitation_token     :string(255)
@@ -13,6 +14,7 @@
 #
 # Indexes
 #
+#  index_invitations_on_discarded_at  (discarded_at)
 #  index_invitations_on_workspace_id  (workspace_id)
 #
 # Foreign Keys
@@ -20,10 +22,13 @@
 #  fk_rails_...  (workspace_id => workspaces.id)
 #
 class Invitation < ApplicationRecord
-  after_commit :send_invitation_mail
+  include Discard::Model
+
+  after_create_commit :send_invitation_mail
 
   belongs_to :workspace
 
+  default_scope -> { kept }
   scope :valid_token, -> { where('invitations.invitation_expire_at >= ?', Time.current) }
 
   def self.create_invitation(invitation, workspace)

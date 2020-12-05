@@ -28,7 +28,7 @@ Rails.application.routes.draw do
           resources :auth, :param => :invitation_token, :only => %i[show]
           resources :register, :only => %i[create]
         end
-        resources :invitations, :only => %i[index update]
+        resources :invitations, :only => %i[index create]
 
         namespace 'attendances' do
           resources :today, :only => %i[index]

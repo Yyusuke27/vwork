@@ -3,19 +3,17 @@ class Api::V1::Invitations::AuthController < Api::ApiController
 
   def show
     invitation = Invitation.valid_token
-                           .find_by(:invitation_token => invitation_params[:invitationToken])
+                           .find_by(:invitation_token => params[:invitation_token])
+    not_found if invitation.blank?
 
-    if invitation.present?
-      workspace = invitation.workspace
-      is_registerd = User.exists?(:email => invitation.email)
-      render :template => 'api/v1/invitations/auth.json.jb', :locals => {
-        :invitation => invitation,
-        :workspace => workspace,
-        :is_registerd => is_registerd
-      }
-    else
-      not_found
-    end
+    workspace = invitation.workspace
+    is_registered = User.exists?(:email => invitation.email)
+
+    render :template => 'api/v1/invitations/auth/show.json.jb', :locals => {
+      :invitation => invitation,
+      :workspace => workspace,
+      :is_registered => is_registered
+    }
   end
 
   private

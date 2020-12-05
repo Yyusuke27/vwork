@@ -93,6 +93,8 @@ GEM
       devise (> 3.5.2, < 5)
       rails (>= 4.2.0, < 6.1)
     diff-lcs (1.4.4)
+    discard (1.2.0)
+      activerecord (>= 4.2, < 7)
     erubi (1.9.0)
     factory_bot (6.1.0)
       activesupport (>= 5.0.0)
@@ -298,6 +300,7 @@ DEPENDENCIES
   devise
   devise-i18n
   devise_token_auth
+  discard
   factory_bot_rails
   html2slim
   jb
