@@ -1,3 +1,9 @@
 {
-  :success => true
+  :success => true,
+  :project => {
+    :id => project.id,
+    :name => project.name,
+    :color => project.color,
+    :icon => project.icon
+  }
 }

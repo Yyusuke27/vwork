@@ -20,7 +20,9 @@ class Api::V1::ProjectsController < Api::ApiController
       project = workspace.projects.create! project_params.merge(:icon => rand(6), :color => rand(6))
       project.project_members.create!(:member_id => @current_user.id, :role => 1)
 
-      render :template => 'api/v1/projects/create.json.jb'
+      render :template => 'api/v1/projects/create.json.jb', :locals => {
+        :project => project
+      }
     end
   rescue StandardError => e
     logger.warn e.message

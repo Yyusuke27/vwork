@@ -1,5 +1,5 @@
 require 'sidekiq/web'
-
+# rubocop:disable all
 Rails.application.routes.draw do
   authenticated :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web, :at => '/sidekiq'
@@ -33,6 +33,7 @@ Rails.application.routes.draw do
         namespace 'attendances' do
           resources :today, :only => %i[index]
         end
+        resources :attendances, :only => %i[index update]
       end
 
       resources 'tasks', :only => %i[] do
@@ -42,6 +43,12 @@ Rails.application.routes.draw do
 
       namespace 'users' do
         resources :current, :only => %i[index]
+      end
+
+      scope module: :projects do
+        resources :projects, :only => %i[] do
+            resources :tasks, :only => %i[index]
+        end
       end
 
       mount_devise_token_auth_for 'User', :at => 'auth', :controllers => {

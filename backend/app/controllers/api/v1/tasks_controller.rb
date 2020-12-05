@@ -1,8 +1,10 @@
 class Api::V1::TasksController < Api::ApiController
   def index
-    tasks = Task.where(:workspace_id => params[:workspace_id])
+    tasks = Task.includes(:user, :project).where(:user_id => @current_user.id)
+    todays_tasks = tasks.where(:todays_task => true)
+    tasks = tasks.where(:todays_task => false)
 
-    render :template => 'api/v1/tasks/index.json.jb', :locals => { :tasks => tasks }
+    render :template => 'api/v1/tasks/index.json.jb', :locals => { :tasks => tasks, :todays_tasks => todays_tasks }
   end
 
   def show
