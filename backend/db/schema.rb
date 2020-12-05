@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_05_023101) do
+ActiveRecord::Schema.define(version: 2020_12_05_100904) do
 
   create_table "attendance_tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "attendance_id", null: false
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2020_12_05_023101) do
     t.bigint "user_id", null: false
     t.bigint "workspace_id", null: false
     t.string "comment"
-    t.datetime "stared_at"
+    t.datetime "started_at"
     t.datetime "end_at"
     t.datetime "rest_started_at"
     t.datetime "rest_ended_at"

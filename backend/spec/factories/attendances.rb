@@ -7,7 +7,7 @@
 #  end_at           :datetime
 #  rest_ended_at    :datetime
 #  rest_started_at  :datetime
-#  stared_at        :datetime
+#  started_at       :datetime
 #  total_reset_time :integer
 #  total_work_time  :integer
 #  created_at       :datetime         not null
