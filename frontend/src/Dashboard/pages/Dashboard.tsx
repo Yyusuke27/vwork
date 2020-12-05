@@ -86,16 +86,16 @@ const Dashboard = () => {
   }, [dispatch, workspace]);
 
   const fetchProject = useCallback(async () => {
-    await dispatch(fetchAsyncAllMyProjects(workspace));
-  }, [dispatch, workspace]);
+    await dispatch(fetchAsyncAllMyProjects());
+  }, [dispatch]);
 
   const fetchNearDeadlineTasks = useCallback(async () => {
-    await dispatch(fetchAsyncNearDeadlineTasks(workspace));
-  }, [dispatch, workspace]);
+    await dispatch(fetchAsyncNearDeadlineTasks());
+  }, [dispatch]);
 
   const fetchRecentTasks = useCallback(async () => {
-    await dispatch(fetchAsyncRecentTasks(workspace));
-  }, [dispatch, workspace]);
+    await dispatch(fetchAsyncRecentTasks());
+  }, [dispatch]);
 
   useEffect(() => {
     fetchUser();

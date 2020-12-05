@@ -13,6 +13,7 @@ import TableChartIcon from "@material-ui/icons/TableChart";
 import TextureIcon from "@material-ui/icons/Texture";
 import TimelineIcon from "@material-ui/icons/Timeline";
 import Color from "../../../shared/util/color";
+import { workspacePathId } from "../../../shared/util/workspacePathId"
 
 const useStyles = makeStyles({
   icon: {
@@ -48,7 +49,7 @@ const ProjectItem: FC<ProjectItemProps> = ({ id, name, bgColor, iconNum }) => {
     <TimelineIcon className={classes.icon} />,
   ];
   return (
-    <Link to={`/project/${id}`}>
+    <Link to={`${workspacePathId}/project/${id}`}>
       <Box className={classes.contentWidth} mr={3} mb={3}>
         <Grid container direction="column">
           <Grid

@@ -168,8 +168,8 @@ const TaskCardClickedDrawer = () => {
     } else if (pathName.includes("mytask")) {
       await dispatch(fetchAsyncTasks(taskQuery));
     } else {
-      await dispatch(fetchAsyncRecentTasks(workspace));
-      await dispatch(fetchAsyncNearDeadlineTasks(workspace));
+      await dispatch(fetchAsyncRecentTasks());
+      await dispatch(fetchAsyncNearDeadlineTasks());
     }
     await dispatch(fetchAsyncTask({id: taskId, workspacePathId: workspacePathId}));
     await dispatch(fetchAsyncTaskHistory(taskId));

@@ -204,7 +204,7 @@ export const fetchAsyncUpdateTask = createAsyncThunk(
 
 export const fetchAsyncRecentTasks = createAsyncThunk(
   "task/getRecent",
-  async (workspacePathId: string) => {
+  async () => {
     const res = await axios.get(
       `${apiUrl}api/v1/workspaces/${workspacePathId}/tasks/recent`,
       {
@@ -224,7 +224,7 @@ export const fetchAsyncRecentTasks = createAsyncThunk(
 
 export const fetchAsyncNearDeadlineTasks = createAsyncThunk(
   "task/getNearDeadline",
-  async (workspacePathId: string) => {
+  async () => {
     const res = await axios.get(
       `${apiUrl}api/v1/workspaces/${workspacePathId}/tasks/near_deadline`,
       {
@@ -270,7 +270,9 @@ export const fetchAsyncTaskComment = createAsyncThunk(
     const res = await axios.post(
       `${apiUrl}api/v1/tasks/${data.taskId}/comments`,
       {
-        comment: data.comment,
+        comment: {
+          body: data.comment
+        },
       },
       {
         headers: {

@@ -6,6 +6,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import List from "@material-ui/core/List";
 import Brightness1Icon from "@material-ui/icons/Brightness1";
 import Color from "../../../shared/util/color";
+import { workspacePathId } from "../../../shared/util/workspacePathId"
 
 interface SideProjectItemProps {
   title: string;
@@ -25,7 +26,7 @@ const SideProjectItem: FC<SideProjectItemProps> = ({
           button
           style={{ paddingTop: 0, paddingBottom: 0 }}
           component={NavLink}
-          to={`/project/${projectId}`}
+          to={`${workspacePathId}/project/${projectId}`}
           exact
         >
           <ListItemIcon>

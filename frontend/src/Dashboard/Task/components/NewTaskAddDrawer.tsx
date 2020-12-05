@@ -74,8 +74,8 @@ const NewTaskAddDrawer = () => {
     } else if (pathName.includes("my_task")) {
       await dispatch(fetchAsyncTasks());
     } else {
-      await dispatch(fetchAsyncRecentTasks(workspace));
-      await dispatch(fetchAsyncNearDeadlineTasks(workspace));
+      await dispatch(fetchAsyncRecentTasks());
+      await dispatch(fetchAsyncNearDeadlineTasks());
     }
     dispatch(toggleAddTaskButton(false));
   };

@@ -21,7 +21,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import { Box } from "@material-ui/core";
-import { workspacePathId } from "../../../shared/util/workspacePathId"
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -37,7 +36,6 @@ const NewProjectDrawer = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const addProjectClicked = useSelector(selectAddProjectButton);
-  const workspace = workspacePathId
 
   interface initialValuesType {
     name: string;
@@ -73,15 +71,12 @@ const NewProjectDrawer = () => {
               dispatch(toggleLoading(true));
               await dispatch(
                 fetchAsyncCreateProject({
-                  workspace: workspace,
-                  projectData: {
-                    name: values.name,
-                    description: values.description,
-                  },
+                  name: values.name,
+                  description: values.description,
                 })
               );
-              await dispatch(fetchAsyncAllMyProjects(workspace));
-              await dispatch(fetchAsyncAllProjects(workspace));
+              await dispatch(fetchAsyncAllMyProjects());
+              await dispatch(fetchAsyncAllProjects());
               dispatch(toggleAddProjectButton(false));
               dispatch(toggleLoading(false));
             }}

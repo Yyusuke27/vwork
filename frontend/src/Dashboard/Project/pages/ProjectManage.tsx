@@ -1,24 +1,20 @@
 import React, { useCallback, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Container from "@material-ui/core/Container";
 import MainHeader from "../../../shared/components/Navigation/MainHeader";
 import ProjectList from "../components/ProjectList";
 import { fetchAsyncAllProjects, setSelectedProject } from "../projectSlice";
-import { selectWorkspace } from "../../../Auth/authSlice";
 
 const ProjectManage = () => {
   const dispatch = useDispatch();
-  const workspace = useSelector(selectWorkspace);
 
   const getProjects = useCallback(async () => {
-    await dispatch(fetchAsyncAllProjects(workspace));
-  }, [dispatch, workspace]);
+    await dispatch(fetchAsyncAllProjects());
+  }, [dispatch]);
 
   useEffect(() => {
-    if (workspace) {
       getProjects();
-    }
-  }, [getProjects, workspace]);
+  }, [getProjects]);
 
   useEffect(() => {
     return function cleanup() {

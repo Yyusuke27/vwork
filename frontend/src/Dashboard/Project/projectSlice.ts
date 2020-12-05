@@ -3,12 +3,13 @@ import axios from "axios";
 import { RootState } from "../../store";
 import { toast } from "react-toastify";
 import { accessToken, uid, client, expiry} from "../../shared/util/auth"
+import { workspacePathId } from "../../shared/util/workspacePathId"
 
 const apiUrl = process.env.REACT_APP_BACKEND_URL;
 
 export const fetchAsyncAllMyProjects = createAsyncThunk(
   "project/allMyProjects",
-  async (workspacePathId: string) => {
+  async () => {
     const res = await axios.get(
       `${apiUrl}api/v1/workspaces/${workspacePathId}/projects/my`,
       {
@@ -28,9 +29,9 @@ export const fetchAsyncAllMyProjects = createAsyncThunk(
 
 export const fetchAsyncAllProjects = createAsyncThunk(
   "project/allProjects",
-  async (workspace: string) => {
+  async () => {
     const res = await axios.get(
-      `${apiUrl}api/v1/workspaces/${workspace}/projects`,
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/projects`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -49,7 +50,7 @@ export const fetchAsyncAllProjects = createAsyncThunk(
 export const fetchAsyncGetProject = createAsyncThunk(
   "project/project",
   async (id: string) => {
-    const res = await axios.get(`${apiUrl}api/v1/projects/${id}`, {
+    const res = await axios.get(`${apiUrl}api/v1/workspaces/${workspacePathId}/projects/${id}`, {
       headers: {
         "Content-Type": "application/json",
         "token-type": "Bearer",
@@ -65,13 +66,10 @@ export const fetchAsyncGetProject = createAsyncThunk(
 
 export const fetchAsyncCreateProject = createAsyncThunk(
   "project/create",
-  async (data: {
-    workspace: string;
-    projectData: { name: string; description: string };
-  }) => {
+  async (projectData: { name: string; description: string }) => {
     const res = await axios.post(
-      `${apiUrl}api/v1/workspaces/${data.workspace}/projects`,
-      data.projectData,
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/projects`,
+      projectData,
       {
         headers: {
           "Content-Type": "application/json",
