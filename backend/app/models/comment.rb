@@ -16,17 +16,9 @@
 #  index_comments_on_task_id     (task_id)
 #
 class Comment < ApplicationRecord
-  after_create :create_history
-
   belongs_to :user
   belongs_to :task
   belongs_to :history
 
   validates :body, :presence => true
-
-  private
-
-  def create_history
-    history.create!(:history_type => 'comment', :comment_id => id, :task_id => task_id)
-  end
 end

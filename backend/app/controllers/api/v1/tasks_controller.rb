@@ -23,7 +23,7 @@ class Api::V1::TasksController < Api::ApiController
       render :template => 'api/v1/tasks/create.json.jb', :locals => { :task => task }
     end
   rescue StandardError => e
-    render :json => { :success => false, :error => e.message }
+    render :json => { :success => false }
   end
 
   def update
@@ -36,7 +36,7 @@ class Api::V1::TasksController < Api::ApiController
       render :template => 'api/v1/tasks/update.json.jb'
     end
   rescue StandardError => e
-    render :json => { :success => false, :error => e.message }
+    render :json => { :success => false }
   end
 
   private

@@ -15,10 +15,22 @@ class Api::V1::ProjectsController < Api::ApiController
   end
 
   def create
-    # workspaceのメンバーであれば作成可能
+    workspace = Workspace.find_by(:path_id => params[:workspace_path_id])
+    ActiveRecord::Base.transaction do
+      project = workspace.projects.create! project_params.merge(:icon => rand(6), :color => rand(6))
+      project.project_members.create!(:member_id => @current_user.id, :role => 1)
+
+      render :template => 'api/v1/projects/create.json.jb'
+    end
+  rescue StandardError => e
+    render :json => { :success => false }
   end
 
   private
+
+  def project_params
+    params.require(:project).permit(:name, :description)
+  end
 
   def check_project_member
     @project = Project.find(params[:id])

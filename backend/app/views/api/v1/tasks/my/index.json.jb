@@ -19,7 +19,7 @@ json[:data][:tasks] = tasks.map do |task|
     },
     :project => {
       :id => task.project.id,
-      :name => task.project.name,
+      :name => task.project.name
     }
   }
 end
@@ -36,7 +36,7 @@ json[:data][:todaysTasks] = todays_tasks.map do |todays_task|
     },
     :project => {
       :id => todays_task.project.id,
-      :name => todays_task.project.name,
+      :name => todays_task.project.name
     }
   }
 end

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
           resources :members, :only => %i[index create]
           resources :new_members, :only => %i[index]
         end
+        resources :projects, :only => %i[index show create]
 
         namespace 'tasks' do
           resources :members, :only => %i[show]
@@ -36,9 +37,8 @@ Rails.application.routes.draw do
 
       resources 'tasks', :only => %i[] do
         resources :histories, :only => %i[index]
+        resources :comments, :only => %i[create]
       end
-
-      resources :projects, :only => %i[index show create]
 
       namespace 'users' do
         resources :current, :only => %i[index]
