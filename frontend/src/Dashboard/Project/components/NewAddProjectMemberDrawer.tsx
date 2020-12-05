@@ -10,7 +10,6 @@ import {
   toggleAddMemberButton,
 } from "../../../appSlice";
 import { fetchAsyncGetNewMembers, selectProject } from "../projectSlice";
-import { selectWorkspace } from "../../../Auth/authSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,19 +30,18 @@ const NewAddProjectMemberDrawer = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const addMemberButton = useSelector(selectAddMemberButton);
-  const workspaces = useSelector(selectWorkspace);
   const project = useSelector(selectProject);
   const projectId = project.id;
 
   const getNewMembers = useCallback(
-    async (workspaces, projectId) => {
-      await dispatch(fetchAsyncGetNewMembers({ workspaces, projectId }));
+    async (projectId) => {
+      await dispatch(fetchAsyncGetNewMembers(projectId));
     },
     [dispatch]
   );
   useEffect(() => {
-    getNewMembers(workspaces, projectId);
-  }, [getNewMembers, projectId, workspaces]);
+    getNewMembers(projectId);
+  }, [getNewMembers, projectId]);
 
   return (
     <>

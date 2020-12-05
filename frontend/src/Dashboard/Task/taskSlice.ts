@@ -314,6 +314,11 @@ interface taskState {
     countTodaysTask: number;
     tasks: {
       name: string;
+      description: string;
+      startDateAt: string;
+      state: number;
+      progress: number;
+      priority: number;
       project: { id: string; name: string };
       endDateAt: string;
       id: string;
@@ -321,6 +326,11 @@ interface taskState {
     }[];
     todaysTasks: {
       name: string;
+      description: string;
+      startDateAt: string;
+      state: number;
+      progress: number;
+      priority: number;
       project: { id: string; name: string };
       endDateAt: string;
       id: string;
@@ -354,7 +364,16 @@ interface taskState {
     id: string;
     user: { id: string; name: string };
   }[];
-  todaysDoneTasks: string[];
+  todaysDoneTasks: {
+    id: string;
+    name: string;
+    description: string;
+    startDateAt: string;
+    endDateAt: string;
+    state: number;
+    progress: number;
+    priority: number;
+  }[];
   query: string;
   taskHistories: {
     createdAt: string;
@@ -441,18 +460,13 @@ const taskSlice = createSlice({
       });
     });
     builder.addCase(fetchAsyncTasks.fulfilled, (state, action) => {
-      state.data = action.payload;
+      state.data = action.payload.data;
     });
     builder.addCase(fetchAsyncMyTasks.fulfilled, (state, action) => {
-      console.log(action.payload);
-      
       state.data = action.payload.data;
-
-      console.log(state.data);
-      
     });
     builder.addCase(fetchAsyncProjectTasks.fulfilled, (state, action) => {
-      state.data = action.payload;
+      state.data = action.payload.data;
     });
     builder.addCase(fetchAsyncTask.fulfilled, (state, action) => {
       console.log(action.payload);

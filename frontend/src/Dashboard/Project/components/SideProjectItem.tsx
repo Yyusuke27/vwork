@@ -26,7 +26,7 @@ const SideProjectItem: FC<SideProjectItemProps> = ({
           button
           style={{ paddingTop: 0, paddingBottom: 0 }}
           component={NavLink}
-          to={`${workspacePathId}/project/${projectId}`}
+          to={`/${workspacePathId}/project/${projectId}`}
           exact
         >
           <ListItemIcon>

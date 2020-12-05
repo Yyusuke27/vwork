@@ -7,8 +7,6 @@ import {
   toggleLoading,
 } from "../../../appSlice";
 import {
-  fetchAsyncAllMyProjects,
-  fetchAsyncAllProjects,
   fetchAsyncCreateProject,
 } from "../projectSlice";
 
@@ -75,8 +73,6 @@ const NewProjectDrawer = () => {
                   description: values.description,
                 })
               );
-              await dispatch(fetchAsyncAllMyProjects());
-              await dispatch(fetchAsyncAllProjects());
               dispatch(toggleAddProjectButton(false));
               dispatch(toggleLoading(false));
             }}

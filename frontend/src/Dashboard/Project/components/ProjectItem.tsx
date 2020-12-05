@@ -49,7 +49,7 @@ const ProjectItem: FC<ProjectItemProps> = ({ id, name, bgColor, iconNum }) => {
     <TimelineIcon className={classes.icon} />,
   ];
   return (
-    <Link to={`${workspacePathId}/project/${id}`}>
+    <Link to={`/${workspacePathId}/project/${id}`}>
       <Box className={classes.contentWidth} mr={3} mb={3}>
         <Grid container direction="column">
           <Grid
