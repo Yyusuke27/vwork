@@ -3,9 +3,9 @@ import { toast } from "react-toastify";
 import { RootState } from "../../store";
 import axios from "axios";
 import { accessToken, uid, client, expiry} from "../../shared/util/auth"
+import { workspacePathId } from "../../shared/util/workspacePathId"
 
 const apiUrl = process.env.REACT_APP_BACKEND_URL;
-const token = localStorage.token;
 
 export const fetchAsyncTodaysAttendance = createAsyncThunk(
   "attendance/today",
@@ -37,16 +37,37 @@ export const fetchAsyncUpdateTodaysAttendance = createAsyncThunk(
       restStartedAt?: string;
       restEndedAt?: string;
       comment?: string;
-      tasks?: string[];
+      tasks?: {
+        name: string;
+        description: string;
+        startDateAt: string;
+        endDateAt: string;
+        state: number;
+        progress: number;
+        priority: number;
+      }[];
     };
   }) => {
     const res = await axios.put(
-      `${apiUrl}api/v1/attendances/${data.id}`,
-      data.attendance,
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/attendances/${data.id}`,
+      {
+        attendance: {
+          started_at: data.attendance.startedAt,
+          end_at: data.attendance.endedAt,
+          rest_started_at: data.attendance.restStartedAt,
+          rest_ended_at: data.attendance.restEndedAt,
+          comment: data.attendance.comment,
+          tasks: data.attendance.tasks,
+        }
+      },
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -61,13 +82,17 @@ export const fetchAsyncGetMyAttendances = createAsyncThunk(
     query?: { year: string; month: string };
   }) => {
     const res = await axios.get(
-      `${apiUrl}api/v1/workspaces/${data.workspace}/attendances${
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/attendances${
         data.query ? `?year=${data.query.year}&month=${data.query.month}` : ""
       }`,
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -83,7 +108,11 @@ export const fetchAsyncGetAttendance = createAsyncThunk(
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -108,7 +137,11 @@ export const fetchAsyncGetMemberAttendance = createAsyncThunk(
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -203,7 +236,12 @@ const attendanceSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncTodaysAttendance.fulfilled, (state, action) => {
+      console.log(action.payload);
+      
       state.today = action.payload.attendance;
+
+      console.log(state.today);
+      
     });
     builder.addCase(
       fetchAsyncUpdateTodaysAttendance.fulfilled,

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import _ from "lodash";
 import * as Yup from "yup";
 import { Field, Form, Formik, FieldArray } from "formik";
 import { CheckboxWithLabel } from "formik-material-ui";
@@ -55,7 +56,16 @@ const NewTaskAddAfterWorkDrawer = () => {
   }, [getTasks, workspace]);
 
   interface TaskFormValues {
-    tasks: string[];
+    tasks: {
+      id: string;
+      name: string;
+      description: string;
+      startDateAt: string;
+      endDateAt: string;
+      state: number;
+      progress: number;
+      priority: number;
+    }[];
   }
 
   const initialValues: TaskFormValues = {
@@ -109,18 +119,25 @@ const NewTaskAddAfterWorkDrawer = () => {
                                 type="checkbox"
                                 value={todaysTask.id}
                                 checked={
-                                  todaysDoneTasks.includes(todaysTask.id) ||
-                                  values.tasks.includes(todaysTask.id)
+                                  _.some(todaysDoneTasks, ['id', todaysTask.id]) ||
+                                  _.some(values.tasks, ['id', todaysTask.id])
                                 }
                                 onChange={(
                                   e: React.ChangeEvent<HTMLInputElement>
                                 ) => {
                                   if (e.target.checked) {
-                                    arrayHelpers.push(todaysTask.id);
+                                    arrayHelpers.push({
+                                      id: todaysTask.id,
+                                      name: todaysTask.name,
+                                      description: todaysTask.description,
+                                      startDateAt: todaysTask.startDateAt,
+                                      endDateAt: todaysTask.endDateAt,
+                                      state: todaysTask.state,
+                                      progress: todaysTask.progress,
+                                      priority: todaysTask.priority,
+                                    });
                                   } else {
-                                    const idx = values.tasks.indexOf(
-                                      todaysTask.id
-                                    );
+                                    const idx = _.findIndex(values.tasks, { 'id': todaysTask.id })
                                     arrayHelpers.remove(idx);
                                   }
                                 }}
@@ -152,16 +169,25 @@ const NewTaskAddAfterWorkDrawer = () => {
                                 type="checkbox"
                                 value={task.id}
                                 checked={
-                                  todaysDoneTasks.includes(task.id) ||
-                                  values.tasks.includes(task.id)
+                                  _.some(todaysDoneTasks, ['id', task.id]) ||
+                                  _.some(values.tasks, ['id', task.id])
                                 }
                                 onChange={(
                                   e: React.ChangeEvent<HTMLInputElement>
                                 ) => {
                                   if (e.target.checked) {
-                                    arrayHelpers.push(task.id);
+                                    arrayHelpers.push({
+                                      id: task.id,
+                                      name: task.name,
+                                      description: task.description,
+                                      startDateAt: task.startDateAt,
+                                      endDateAt: task.endDateAt,
+                                      state: task.state,
+                                      progress: task.progress,
+                                      priority: task.priority,
+                                    });
                                   } else {
-                                    const idx = values.tasks.indexOf(task.id);
+                                    const idx = _.findIndex(values.tasks, { 'id': task.id });
                                     arrayHelpers.remove(idx);
                                   }
                                 }}
