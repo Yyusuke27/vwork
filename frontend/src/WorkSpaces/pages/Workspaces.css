@@ -1,0 +1,7 @@
+.workspaceDialog .MuiDialog-paper{
+  height: 60% !important;
+  width: 60% !important;
+  position: relative !important;
+  overflow: hidden !important;
+  background: #efefef !important;
+}

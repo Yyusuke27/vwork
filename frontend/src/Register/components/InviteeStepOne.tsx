@@ -50,6 +50,7 @@ const InviteeStepOne = () => {
         <DialogContentText id="alert-dialog-slide-description"></DialogContentText>
       </DialogContent>
       <Formik
+        enableReinitialize={true}
         initialValues={{ name: inviteeName, position: "" }}
         validationSchema={Yup.object().shape({
           name: Yup.string().required("氏名は必須です。"),
@@ -66,40 +67,42 @@ const InviteeStepOne = () => {
           dispatch(toggleLoading(false));
         }}
       >
-        <Form>
-          <Field
-            component={TextField}
-            name="name"
-            label="氏名*"
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="name"
-            value={inviteeName}
-          />
-          <br />
-          <Field
-            component={TextField}
-            name="position"
-            label="役職・担当"
-            placeholder="経営企画"
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="position"
-          />
-          <DialogActions>
-            <Button
-              type="submit"
+        {(props) => (
+          <Form>
+            <Field
+              component={TextField}
+              name="name"
+              label="氏名*"
+              variant="outlined"
+              margin="normal"
               fullWidth
-              variant="contained"
-              className={classes.button}
-              color="primary"
-            >
-              登録
-            </Button>
-          </DialogActions>
-        </Form>
+              id="name"
+              value={props.values.name}
+            />
+            <br />
+            <Field
+              component={TextField}
+              name="position"
+              label="役職・担当"
+              placeholder="経営企画"
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              id="position"
+            />
+            <DialogActions>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                className={classes.button}
+                color="primary"
+              >
+                登録
+              </Button>
+            </DialogActions>
+          </Form>
+        )}
       </Formik>
     </>
   );

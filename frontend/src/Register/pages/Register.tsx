@@ -16,7 +16,7 @@ const Register = () => {
         <Container maxWidth="md">
           <Router>
             <Switch>
-              <Route path="/register/invitee">
+              <Route path="/:workspacePathId/register/invitee">
                 <RegisterInvitee />
               </Route>
               <Route path="/register">

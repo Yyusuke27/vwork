@@ -12,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { Box } from "@material-ui/core";
 import { toggleLoading } from "../../appSlice";
 import { fetchAsyncInvitation } from "../registerSlice";
+import { workspacePathId } from "../../shared/util/workspacePathId"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,9 +42,8 @@ const InviteeWelcome = () => {
   );
 
   useEffect(() => {
-    localStorage.clear();
     const query = window.location.search.slice(1);
-    localStorage.setItem("Itoken", query);
+    // localStorage.setItem("Itoken", query);
     dispatch(toggleLoading(true));
     getInvitation(query);
     dispatch(toggleLoading(false));
@@ -69,7 +69,7 @@ const InviteeWelcome = () => {
         </Box>
       </DialogContent>
       <DialogActions>
-        <Link to="/register/invitee/step1" style={{ textDecoration: "none" }}>
+        <Link to={`/${workspacePathId}/register/invitee/step1`} style={{ textDecoration: "none" }}>
           <Button
             variant="contained"
             className={classes.button}

@@ -7,6 +7,7 @@ import SideBarOfWorkSpaces from "../../shared/components/Navigation/SideBarOfWor
 import WorkSpaceList from "../components/WorkSpaceList";
 import { fetchAsyncCurrentUser } from "../../Auth/authSlice";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import "./Workspaces.css";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,7 +34,7 @@ const WorkSpaces = () => {
   return (
     <>
       <SideBarOfWorkSpaces />
-      <Dialog open keepMounted maxWidth="xl" className="registDialog">
+      <Dialog open keepMounted maxWidth="xl" className="workspaceDialog">
         <Box className={classes.title} pt={5} pb={1} mb={5}>
           WORKSPACES
         </Box>

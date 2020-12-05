@@ -2,12 +2,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../store";
 import { accessToken, uid, client, expiry} from "../shared/util/auth"
+import { workspacePathId } from "../shared/util/workspacePathId"
+
+import { toast } from "react-toastify";
 
 const apiUrl = process.env.REACT_APP_BACKEND_URL;
-
-
-// const inviteeToken = localStorage.Itoken;
-
 interface RegisterType {
   workspace: {
     name: string;
@@ -73,11 +72,7 @@ export const fetchAsyncInvitation = createAsyncThunk(
   async (invitationToken: InvitationTokenType) => {
 
     const res = await axios.get(
-      `${apiUrl}api/v1/workspaces/invitations/`, {
-        params: {
-          invitationToken
-        }
-      }
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/invitations/auth/${invitationToken}`
     );
     return res.data;
   }
@@ -87,15 +82,44 @@ export const fetchAsyncRegisterInvitee = createAsyncThunk(
   "register/invitee",
   async (register: RegisterInviteeType) => {
     const res = await axios.post(
-      `${apiUrl}api/v1/registration/invitee/`,
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/invitations/register/`,
       register,
       {
         headers: {
           "Content-Type": "application/json",
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
     return res.data;
+  }
+);
+
+export const fetchAsyncInviteeSignIn = createAsyncThunk(
+  "register/inviteeLogin",
+  async (auth: { email: string; password: string }) => {
+    const res = await axios.post(`${apiUrl}api/v1/auth/sign_in`, auth, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return res.headers;
+  }
+);
+
+export const fetchAsyncInviteeSignup = createAsyncThunk(
+  "register/inviteeSignup",
+  async (auth: { email: string; password: string; password_confirmation: string }) => {
+    const res = await axios.post(`${apiUrl}api/v1/auth`, auth, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return res.headers;
   }
 );
 
@@ -118,8 +142,13 @@ interface RegisterState {
     }[];
   };
   invite: {
+    auth: {
+      workspaceName: string;
+      email: string;
+      name: string;
+      isRegistered: boolean;
+    },
     token: string;
-    workspacePathId: string;
     user: {
       email: string;
       password: string;
@@ -148,8 +177,13 @@ const initialState: RegisterState = {
     invitations: [],
   },
   invite: {
+    auth: {
+      workspaceName: "",
+      email: "",
+      name: "",
+      isRegistered: false,
+    },
     token: "",
-    workspacePathId: "",
     user: {
       email: "",
       password: "",
@@ -198,18 +232,74 @@ const registerSlice = createSlice({
       window.location.href = "/register/step/1";
     });
     builder.addCase(fetchAsyncInvitation.fulfilled, (state, action) => {
-      state.invite.workspacePathId = action.payload.workspace;
-      state.invite.user = action.payload.data;
+      state.invite.auth.workspaceName = action.payload.workspace_name;
+      state.invite.auth.email = action.payload.email;
+      state.invite.auth.name = action.payload.name;
+      state.invite.auth.isRegistered = action.payload.isRegistered;
     });
     builder.addCase(fetchAsyncInvitation.rejected, (state, action) => {
+      localStorage.clear();
       window.location.href = "/auth/signup";
     });
     builder.addCase(fetchAsyncRegisterInvitee.fulfilled, (state, action) => {
-      localStorage.setItem("token", action.payload.token);
-      window.location.href = "/";
+      if (workspacePathId) {
+        window.location.href = `/${workspacePathId}`;
+      } else {
+        window.location.href = `/${workspacePathId}/register/invitee/step1`;
+      }
     });
     builder.addCase(fetchAsyncRegisterInvitee.rejected, (state, action) => {
-      window.location.href = "/register/invitee/step1";
+      window.location.href = `/${workspacePathId}/register/invitee/step1`;
+    });
+    builder.addCase(fetchAsyncInviteeSignIn.fulfilled, (state, action) => {
+      const accessToken = action.payload['access-token']
+      const uid = action.payload['uid']
+      const client = action.payload['client']
+      const expiry = action.payload['expiry']
+
+      localStorage.setItem(
+        'vwork',
+        JSON.stringify({
+          accessToken: accessToken,
+          uid: uid,
+          client: client,
+          expiry: expiry
+        })
+      );
+
+      const inviteeToken = localStorage.Itoken;
+
+      window.location.href = `/${workspacePathId}/register/invitee/welcome/?${inviteeToken}`
+    });
+    builder.addCase(fetchAsyncInviteeSignIn.rejected, (state, action) => {
+      toast.error("認証情報が間違っています。", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    });
+    builder.addCase(fetchAsyncInviteeSignup.fulfilled, (state, action) => {
+      const accessToken = action.payload['access-token']
+      const uid = action.payload['uid']
+      const client = action.payload['client']
+      const expiry = action.payload['expiry']
+
+      localStorage.setItem(
+        'vwork',
+        JSON.stringify({
+          accessToken: accessToken,
+          uid: uid,
+          client: client,
+          expiry: expiry
+        })
+      );
+
+      const inviteeToken = localStorage.Itoken;
+      
+      window.location.href = `/${workspacePathId}/register/invitee/welcome/?${inviteeToken}`
+    });
+    builder.addCase(fetchAsyncInviteeSignup.rejected, (state, action) => {
+      toast.error("登録に失敗しました。", {
+        position: toast.POSITION.TOP_CENTER,
+      });
     });
   },
 });
@@ -223,9 +313,10 @@ export const {
 
 export const selectRegister = (state: RootState) => state.register.register;
 export const selectInviteUser = (state: RootState) => state.register.invite.user;
+export const selectInviteAuth = (state: RootState) => state.register.invite.auth;
 export const selectInviteUserMail = (state: RootState) =>
   state.register.invite.user.email;
 export const selectInviteUserName = (state: RootState) =>
-  state.register.invite.userProfile.name;
+  state.register.invite.auth.name;
 
 export default registerSlice.reducer;

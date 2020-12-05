@@ -58,6 +58,9 @@ const App = () => {
           <Route path="/register">
             <Register />
           </Route>
+          <Route path="/:workspacePathId/register">
+            <Register />
+          </Route>
           <Route path="/workspaces">
             {vworkInfoInlocalStorage ? <WorkSpaces /> : <Redirect to="/auth/login" />}
           </Route>

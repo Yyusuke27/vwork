@@ -6,7 +6,6 @@ import {
   toggleInviteMemberClicked,
   toggleLoading,
 } from "../../appSlice";
-import { selectWorkspace } from "../../Auth/authSlice";
 import { fetchAsyncInviteMember } from "../dashboardSlice";
 import { Field, Form, Formik, FieldArray } from "formik";
 import * as Yup from "yup";
@@ -35,7 +34,6 @@ const InviteMemberInAddIconDrawer = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const inviteMemberClicked = useSelector(selectInviteMemberClicked);
-  const workspace = useSelector(selectWorkspace);
 
   return (
     <>
@@ -64,10 +62,7 @@ const InviteMemberInAddIconDrawer = () => {
             onSubmit={async (values) => {
               dispatch(toggleLoading(true));
               await dispatch(
-                fetchAsyncInviteMember({
-                  workspace,
-                  invitations: values.invitations,
-                })
+                fetchAsyncInviteMember(values.invitations)
               );
               dispatch(toggleLoading(false));
               dispatch(toggleInviteMemberClicked(false));

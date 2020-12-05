@@ -53,7 +53,16 @@ export const fetchAsyncCurrentUser = createAsyncThunk(
 );
 
 export const fetchAsyncLogout = createAsyncThunk("auth/logout", async () => {
-  const res = await axios.get(`${apiUrl}api/v1/auth/logout`);
+  const res = await axios.delete(`${apiUrl}api/v1/auth/sign_out`,{
+    headers: {
+      "token-type": "Bearer",
+      "access-token": accessToken,
+      "client": client,
+      "expiry": expiry,
+      "uid": uid,
+    },
+  }
+  );
   return res.data;
 });
 
@@ -207,7 +216,7 @@ export const authSlice = createSlice({
 
       const path = window.location.pathname;
 
-      if (!state.user.registration && !path.includes("/regist")) {
+      if (!state.user.registration && !path.includes("/register")) {
         window.location.href = "/register/welcome";
       } else {
         if (path === "/auth/login" || path === "/auth/signup") {

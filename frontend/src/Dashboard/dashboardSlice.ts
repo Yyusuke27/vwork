@@ -1,24 +1,27 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import axios from "axios";
+import { accessToken, uid, client, expiry} from "../shared/util/auth"
+import { workspacePathId } from "../shared/util/workspacePathId"
 
 import { toast } from "react-toastify";
 
 const apiUrl = process.env.REACT_APP_BACKEND_URL;
-const token = localStorage.token;
 
 export const fetchAsyncInviteMember = createAsyncThunk(
   "dashboard/invite",
-  async (data: {
-    workspace: string;
-    invitations: { name: string; email: string }[];
-  }) => {
+  async (invitations: { name: string; email: string }[]) => {
     const res = await axios.post(
-      `${apiUrl}api/v1/workspaces/${data.workspace}/members`,
-      { invitations: data.invitations },
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/invitations`,
+      { invitations },
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -39,7 +42,11 @@ export const fetchAsyncUpdateUserProfile = createAsyncThunk(
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );

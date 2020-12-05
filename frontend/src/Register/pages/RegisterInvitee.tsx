@@ -8,16 +8,16 @@ import InviteeStepTwo from '../components/InviteeStepTwo';
 const RegisterInvitee = () => (
   <>
     <Switch>
-      <Route path="/register/invitee/auth" exact>
+      <Route path="/:workspacePathId/register/invitee/auth">
         <InviteeAuth />
       </Route>
-      <Route path="/register/invitee/welcome" exact>
+      <Route path="/:workspacePathId/register/invitee/welcome" exact>
         <InviteeWelcome />
       </Route>
-      <Route path="/register/invitee/step1" exact>
+      <Route path="/:workspacePathId/register/invitee/step1" exact>
         <InviteeStepOne />
       </Route>
-      <Route path="/register/invitee/step2" exact>
+      <Route path="/:workspacePathId/register/invitee/step2" exact>
         <InviteeStepTwo />
       </Route>
     </Switch>
