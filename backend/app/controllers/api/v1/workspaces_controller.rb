@@ -42,6 +42,7 @@ class Api::V1::WorkspacesController < Api::ApiController
       render :template => 'api/v1/workspaces/create.json.jb', :locals => { :workspace => workspace }
     end
   rescue StandardError => e
+    logger.warn e.message
     render :json => { :success => false }
   end
 

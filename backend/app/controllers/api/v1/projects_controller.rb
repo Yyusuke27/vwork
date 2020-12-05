@@ -23,6 +23,7 @@ class Api::V1::ProjectsController < Api::ApiController
       render :template => 'api/v1/projects/create.json.jb'
     end
   rescue StandardError => e
+    logger.warn e.message
     render :json => { :success => false }
   end
 
