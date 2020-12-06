@@ -99,9 +99,9 @@ export const fetchAsyncGetMyAttendances = createAsyncThunk(
 
 export const fetchAsyncGetAttendance = createAsyncThunk(
   "attendance/attendance",
-  async (data: { id: string; workspace: string }) => {
+  async (id: string) => {
     const res = await axios.get(
-      `${apiUrl}api/v1/workspaces/${data.workspace}/attendances/${data.id}`,
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/attendances/${id}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -168,7 +168,16 @@ interface attendanceState {
   }[];
   attendance: {
     data: {
-      tasks: string[];
+      tasks: {
+        name: string;
+        description: string;
+        startDateAt: string;
+        endDateAt: string;
+        state: number;
+        progress: number;
+        priority: number;
+        id: string;
+      }[];
       id: string;
       user: string;
       workspace: string;
@@ -181,13 +190,26 @@ interface attendanceState {
     };
     tasks: {
       name: string;
-      project: { id: string; name: string };
+      description: string;
+      startDateAt: string;
       endDateAt: string;
+      state: number;
+      progress: number;
+      priority: number;
       id: string;
-      user: { id: string; name: string };
     }[];
   };
   selectedAttendance: string;
+  selectedAttendanceTask: {
+    name: string;
+    description: string;
+    startDateAt: string;
+    endDateAt: string;
+    state: number;
+    progress: number;
+    priority: number;
+    id: string;
+  }
 }
 
 const initialState: attendanceState = {
@@ -215,6 +237,16 @@ const initialState: attendanceState = {
     tasks: [],
   },
   selectedAttendance: "",
+  selectedAttendanceTask: {
+    name: "",
+    description: "",
+    startDateAt: "",
+    endDateAt: "",
+    state: 0,
+    progress: 0,
+    priority: 0,
+    id: ""
+  }
 };
 
 const attendanceSlice = createSlice({
@@ -229,6 +261,9 @@ const attendanceSlice = createSlice({
     },
     setAttendances(state, action) {
       state.attendances = action.payload;
+    },
+    setSelectedAttendanceTask(state, action) {
+      state.selectedAttendanceTask = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -255,7 +290,10 @@ const attendanceSlice = createSlice({
       state.attendances = action.payload.attendances;
     });
     builder.addCase(fetchAsyncGetAttendance.fulfilled, (state, action) => {
-      state.attendance.data = action.payload.data;
+      console.log(action.payload);
+      
+      state.attendance.data = action.payload.attendance;
+      // TODO 下の記述をなくす
       state.attendance.tasks = action.payload.tasks;
     });
     builder.addCase(
@@ -273,6 +311,8 @@ export const selectAttenances = (state: RootState) =>
   state.attendance.attendances;
 export const selectSelectedAttenances = (state: RootState) =>
   state.attendance.selectedAttendance;
+export const selectSelectedAttenanceTask = (state: RootState) =>
+  state.attendance.selectedAttendanceTask;
 export const selectAttendance = (state: RootState) =>
   state.attendance.attendance;
 
@@ -280,6 +320,7 @@ export const {
   setSelectedAttendance,
   setAttendance,
   setAttendances,
+  setSelectedAttendanceTask
 } = attendanceSlice.actions;
 
 export default attendanceSlice.reducer;

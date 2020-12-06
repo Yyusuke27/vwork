@@ -33,7 +33,7 @@ Rails.application.routes.draw do
         namespace 'attendances' do
           resources :today, :only => %i[index]
         end
-        resources :attendances, :only => %i[index update]
+        resources :attendances, :only => %i[index update show]
       end
 
       resources 'tasks', :only => %i[] do

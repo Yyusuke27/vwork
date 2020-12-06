@@ -16,6 +16,15 @@ class Api::V1::AttendancesController < Api::ApiController
     }
   end
 
+  def show
+    attendance = Attendance.includes(:attendance_tasks).find(params[:id])
+    not_found if attendance.blank?
+
+    render :template => 'api/v1/attendances/show.json.jb', :locals => {
+      :attendance => attendance
+    }
+  end
+
   def update
     attendance = Attendance.find(params[:id])
     not_found if attendance.blank?

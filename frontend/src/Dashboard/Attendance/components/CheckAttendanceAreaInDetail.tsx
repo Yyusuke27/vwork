@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Color from "../../../shared/util/color";
-import TaskList from "../../Task/components/TaskList";
+import AttendanceTaskList from "./AttendanceTaskList";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Card from "@material-ui/core/Card";
@@ -41,7 +41,7 @@ const CheckAttendanceAreaInDetail = () => {
   let minutes;
 
   if (attendance.data) {
-    //　勤務時間
+    // 勤務時間
     const start = moment(attendance.data.startedAt).utcOffset("+09:00");
     const end = moment(attendance.data.endedAt).utcOffset("+09:00");
     const diff = Math.round(end.diff(start, "minute", true));
@@ -183,7 +183,7 @@ const CheckAttendanceAreaInDetail = () => {
                 item
                 onClick={() => dispatch(toggleKintaiCardClicked(false))}
               >
-                <TaskList title="対応タスク" taskData={attendance.tasks} />
+                <AttendanceTaskList title="対応タスク" taskData={attendance.data.tasks} />
               </Grid>
             </Box>
           </Grid>

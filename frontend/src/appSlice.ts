@@ -8,6 +8,7 @@ interface appState {
   inviteMemberClicked: boolean;
   setProfileClicked: boolean;
   taskCardClicked: boolean;
+  attendanceTaskCardClicked: boolean;
   addTaskButton: boolean;
   kintaiCardClicked: boolean;
   addButtonAfterTask: boolean;
@@ -23,6 +24,7 @@ const initialState: appState = {
   inviteMemberClicked: false,
   setProfileClicked: false,
   taskCardClicked: false,
+  attendanceTaskCardClicked: false,
   addTaskButton: false,
   kintaiCardClicked: false,
   addButtonAfterTask: false,
@@ -53,6 +55,9 @@ const appSlice = createSlice({
     toggleTaskCardClicked(state, action) {
       state.taskCardClicked = action.payload;
     },
+    toggleAttendanceTaskCardClicked(state, action) {
+      state.attendanceTaskCardClicked = action.payload;
+    },
     toggleAddTaskButton(state, action) {
       state.addTaskButton = action.payload;
     },
@@ -81,6 +86,7 @@ export const {
   toggleInviteMemberClicked,
   toggleSetProfileClicked,
   toggleTaskCardClicked,
+  toggleAttendanceTaskCardClicked,
   toggleAddTaskButton,
   toggleKintaiCardClicked,
   toggleAddButtonAfterTask,
@@ -98,6 +104,8 @@ export const selectSetProfileClicked = (state: RootState) =>
   state.app.setProfileClicked;
 export const selectTaskCardClicked = (state: RootState) =>
   state.app.taskCardClicked;
+export const selectAttendanceTaskCardClicked = (state: RootState) =>
+  state.app.attendanceTaskCardClicked;
 export const selectAddTaskButton = (state: RootState) =>
   state.app.addTaskButton;
 export const selectKintaiCardClicked = (state: RootState) =>

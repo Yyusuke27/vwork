@@ -23,6 +23,7 @@ import SetProfileInAvatarIconDrawer from "../Project/components/SetProfileInAvat
 import TaskCardClickedDrawer from "../Task/components/TaskCardClickedDrawer";
 import NewTaskAddDrawer from "../Task/components/NewTaskAddDrawer";
 import KintaiCardClickedDrawer from "../Attendance/components/KintaiCardClickedDrawer";
+import AttendanceTaskCardClickedDrawer from "../Attendance/components/AttendanceTaskCardClickedDrawer";
 import { fetchAsyncCurrentUser } from "../../Auth/authSlice";
 import { fetchAsyncAllMyProjects } from "../Project/projectSlice";
 import {
@@ -34,6 +35,7 @@ import {
   selectAddTaskButton,
   selectMemberIconClicked,
   selectKintaiCardClicked,
+  selectAttendanceTaskCardClicked
 } from "../../appSlice";
 import {
   fetchAsyncNearDeadlineTasks,
@@ -117,6 +119,7 @@ const Dashboard = () => {
   const addTaskButton = useSelector(selectAddTaskButton);
   const memberIconClicked = useSelector(selectMemberIconClicked);
   const kintaiCardClicked = useSelector(selectKintaiCardClicked);
+  const attendanceTaskCardClicked = useSelector(selectAttendanceTaskCardClicked);
 
   return (
     <div className={classes.root}>
@@ -136,6 +139,7 @@ const Dashboard = () => {
         {addTaskButton ? <NewTaskAddDrawer /> : ""}
         {memberIconClicked ? <ProjectMemberClickedDrawer /> : ""}
         {kintaiCardClicked ? <KintaiCardClickedDrawer /> : ""}
+        {attendanceTaskCardClicked ? <AttendanceTaskCardClickedDrawer /> : ""}
         <Switch>
           <Route path="/:workspacePathId" exact>
             <Home />

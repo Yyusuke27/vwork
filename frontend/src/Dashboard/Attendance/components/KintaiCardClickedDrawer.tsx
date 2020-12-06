@@ -12,32 +12,27 @@ import {
   fetchAsyncGetAttendance,
   selectSelectedAttenances,
 } from "../attendanceSlice";
-import { selectWorkspace } from "../../../Auth/authSlice";
 import { setAttendance } from "../attendanceSlice";
 
 const KintaiCardClickedDrawer = () => {
   const dispatch = useDispatch();
   const kintaiCardClicked = useSelector(selectKintaiCardClicked);
   const selectedAttendance = useSelector(selectSelectedAttenances);
-  const workspace = useSelector(selectWorkspace);
 
   const getAttendance = useCallback(
-    async (workspace, selectedAttendance) => {
+    async (selectedAttendance) => {
       await dispatch(
-        fetchAsyncGetAttendance({
-          workspace: workspace,
-          id: selectedAttendance,
-        })
+        fetchAsyncGetAttendance(selectedAttendance)
       );
     },
     [dispatch]
   );
 
   useEffect(() => {
-    if (workspace && selectedAttendance) {
-      getAttendance(workspace, selectedAttendance);
+    if (selectedAttendance) {
+      getAttendance(selectedAttendance);
     }
-  }, [getAttendance, workspace, selectedAttendance]);
+  }, [getAttendance, selectedAttendance]);
 
   return (
     <>

@@ -1,0 +1,30 @@
+json = {
+  :success => true,
+  :attendance => {
+    :id => attendance.id,
+    :user => attendance.user_id,
+    :workspace => attendance.workspace_id,
+    :createdAt => attendance.created_at,
+    :startedAt => attendance.started_at,
+    :endedAt => attendance.end_at,
+    :restStartedAt => attendance.rest_started_at,
+    :restEndedAt => attendance.rest_ended_at,
+    :comment => attendance.comment,
+    :tasks => attendance.attendance_tasks
+  }
+}
+
+json[:attendance][:tasks] = attendance.attendance_tasks.map do |task|
+  {
+    :id => task.id,
+    :name => task.name,
+    :description => task.description,
+    :startDateAt => task.start_date_at,
+    :endDateAt => task.end_date_at,
+    :state => task.state_before_type_cast,
+    :progress => task.progress,
+    :priority => task.priority_before_type_cast
+  }
+end
+
+json

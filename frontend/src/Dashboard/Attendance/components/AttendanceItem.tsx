@@ -135,10 +135,12 @@ const AttendanceItem: FC<AttendanceItemProps> = ({ attendance }) => {
                                 .format("HH:mm")
                             : ""}
                         </Grid>
-                        <Grid item className={classes.time}>
-                          <span style={{ fontWeight: 600 }}>【勤務時間</span>:
-                          {`${hour}時間${minutes}分`}】
-                        </Grid>
+                        { hour && minutes ? 
+                          <Grid item className={classes.time}>
+                            <span style={{ fontWeight: 600 }}>【勤務時間</span>:
+                            { `${hour}時間${minutes}分` }】
+                          </Grid>
+                        : "" }
                       </Grid>
                     </Grid>
                   </Grid>
