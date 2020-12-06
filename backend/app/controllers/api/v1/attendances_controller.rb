@@ -2,7 +2,7 @@ class Api::V1::AttendancesController < Api::ApiController
   def index
     attendances = Attendance.includes(:attendance_tasks)
                             .where(
-                              :user_id => @current_user.id,
+                              :user_id => @current_user.id
                             )
     attendances =
       if params[:year] && params[:month]

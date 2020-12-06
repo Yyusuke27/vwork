@@ -20,6 +20,7 @@ import TaskInMemberManage from "../components/TaskInMemberManage";
 import MemberInfo from "../components/MemberInfo";
 import { setAttendances } from "../../Attendance/attendanceSlice";
 import { setSelectedProject } from "../../Project/projectSlice";
+import { workspacePathId } from "../../../shared/util/workspacePathId"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -48,15 +49,15 @@ const MemberDetail = () => {
   const history = useHistory();
 
   const handlePageChangeToKintai = () => {
-    history.push(`/members/${memberId}`);
+    history.push(`/${workspacePathId}/members/${memberId}`);
   };
 
   const handlePageChangeToProject = () => {
-    history.push(`/members/${memberId}/project`);
+    history.push(`/${workspacePathId}/members/${memberId}/project`);
   };
 
   const handlePageChangeToTask = () => {
-    history.push(`/members/${memberId}/task`);
+    history.push(`/${workspacePathId}/members/${memberId}/task`);
   };
 
   useEffect(() => {
@@ -123,13 +124,13 @@ const MemberDetail = () => {
               </Tabs>
             </Box>
             <Switch>
-              <Route path="/members/:memberId" exact>
+              <Route path="/:workspacePathId/members/:memberId" exact>
                 <AttendanceInfoInMemberManage />
               </Route>
-              <Route path="/members/:memberId/project" exact>
+              <Route path="/:workspacePathId/members/:memberId/project" exact>
                 <ProjectInMemberManage />
               </Route>
-              <Route path="/members/:memberId/task" exact>
+              <Route path="/:workspacePathId/members/:memberId/task" exact>
                 <TaskInMemberManage />
               </Route>
             </Switch>

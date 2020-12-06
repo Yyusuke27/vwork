@@ -1,19 +1,25 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../../store";
+import { accessToken, uid, client, expiry} from "../../shared/util/auth"
+import { workspacePathId } from "../../shared/util/workspacePathId"
 
 const apiUrl = process.env.REACT_APP_BACKEND_URL;
-const token = localStorage.token;
 
-//　メンバー管理のメンバー一覧
+// メンバー管理のメンバー一覧
 export const fetchAsyncGetMembers = createAsyncThunk(
   "member/all",
-  async (workspaceId: string) => {
+  async () => {
     const res = await axios.get(
-      `${apiUrl}api/v1/workspaces/${workspaceId}/users`,
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/members`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -25,12 +31,17 @@ export const fetchAsyncGetMembers = createAsyncThunk(
 // userとprofile情報を返す
 export const fetchAsyncGetMember = createAsyncThunk(
   "member/single",
-  async (data: { workspaceId: string; id: string }) => {
+  async (id: string) => {
     const res = await axios.get(
-      `${apiUrl}api/v1/workspaces/${data.workspaceId}/users/${data.id}`,
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/members/${id}`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -71,7 +82,7 @@ const memberSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncGetMembers.fulfilled, (state, action) => {
-      state.members = action.payload.users;
+      state.members = action.payload.members;
     });
     builder.addCase(fetchAsyncGetMembers.rejected, (state, action) => {
       window.location.href = "/";

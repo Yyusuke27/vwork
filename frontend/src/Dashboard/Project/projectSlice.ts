@@ -155,9 +155,9 @@ export const fetchAsyncAddMembers = createAsyncThunk(
 // メンバー管理でユーザーに紐づくプロジェクトを見られるようにする
 export const fetchAsyncGetMemberProjects = createAsyncThunk(
   "project/memberProjects",
-  async (data: { workspace: string; userId: string }) => {
+  async (userId: string) => {
     const res = await axios.get(
-      `${apiUrl}api/v1/workspaces/${data.workspace}/users/${data.userId}/projects`,
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/members/${userId}/projects`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -322,7 +322,9 @@ const projectSlice = createSlice({
       });
     });
     builder.addCase(fetchAsyncGetMemberProjects.fulfilled, (state, action) => {
-      state.selectedProjects = action.payload.data;
+      console.log(action.payload);
+      
+      state.selectedProjects = action.payload.projects;
     });
     builder.addCase(fetchAsyncGetMemberProjects.rejected, (state, action) => {
       window.location.href = "/";

@@ -34,6 +34,14 @@ Rails.application.routes.draw do
           resources :today, :only => %i[index]
         end
         resources :attendances, :only => %i[index update show]
+
+        resources :members, :only => %i[index show] do
+          scope module: :members do
+            resources :attendances, :only => %i[index]
+            resources :projects, :only => %i[index]
+            resources :tasks, :only => %i[index]
+          end
+        end
       end
 
       resources 'tasks', :only => %i[] do

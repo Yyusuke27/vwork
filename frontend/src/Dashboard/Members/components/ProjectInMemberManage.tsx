@@ -1,31 +1,27 @@
 import React, { useCallback, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import ProjectList from "../../Project/components/ProjectList";
 import { fetchAsyncGetMemberProjects } from "../../Project/projectSlice";
-import { selectWorkspace } from "../../../Auth/authSlice";
 
 const ProjectInMemberManage = () => {
   interface ParamsType {
     memberId: string;
   }
   const memberId = useParams<ParamsType>().memberId;
-  const workspaceId = useSelector(selectWorkspace);
   const dispatch = useDispatch();
   const getProjects = useCallback(
-    async (workspace, userId) => {
+    async (userId) => {
       await dispatch(
-        fetchAsyncGetMemberProjects({ workspace: workspace, userId: userId })
+        fetchAsyncGetMemberProjects(userId)
       );
     },
     [dispatch]
   );
 
   useEffect(() => {
-    if (workspaceId) {
-      getProjects(workspaceId, memberId);
-    }
-  }, [getProjects, workspaceId, memberId]);
+    getProjects(memberId);
+  }, [getProjects, memberId]);
 
   return (
     <>

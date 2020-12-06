@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import TaskList from "../../Task/components/TaskList";
 import { fetchAsyncMemberTasks, setTasks } from "../../Task/taskSlice";
-import { selectWorkspace } from "../../../Auth/authSlice";
 import { selectTasks } from "../../Task/taskSlice";
 
 const TaskInMemberManage = () => {
@@ -12,22 +11,19 @@ const TaskInMemberManage = () => {
   }
   const memberId = useParams<ParamsType>().memberId;
   const dispatch = useDispatch();
-  const workspaceId = useSelector(selectWorkspace);
   const taskData = useSelector(selectTasks);
   const getTasks = useCallback(
-    async (workspace, userId) => {
+    async (userId) => {
       await dispatch(
-        fetchAsyncMemberTasks({ workspace: workspace, userId: userId })
+        fetchAsyncMemberTasks(userId)
       );
     },
     [dispatch]
   );
 
   useEffect(() => {
-    if (workspaceId) {
-      getTasks(workspaceId, memberId);
-    }
-  }, [getTasks, workspaceId, memberId]);
+    getTasks(memberId);
+  }, [getTasks, memberId]);
 
   useEffect(() => {
     return function cleanup() {

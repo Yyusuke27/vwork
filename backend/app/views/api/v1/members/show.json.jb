@@ -1,0 +1,9 @@
+{
+  :user => {
+    :name => workspace_member.member.name,
+    :email => workspace_member.member.email
+  },
+  :profile => {
+    :position => profile.position
+  }
+}

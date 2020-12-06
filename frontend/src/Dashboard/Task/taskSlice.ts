@@ -245,9 +245,9 @@ export const fetchAsyncNearDeadlineTasks = createAsyncThunk(
 // ユーザー管理のユーザーに紐づくタスク一覧
 export const fetchAsyncMemberTasks = createAsyncThunk(
   "task/member",
-  async (data: { workspace: string; userId: string }) => {
+  async (userId: string) => {
     const res = await axios.get(
-      `${apiUrl}api/v1/workspaces/${data.workspace}/users/${data.userId}/tasks`,
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/members/${userId}/tasks`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -480,7 +480,7 @@ const taskSlice = createSlice({
       state.nearDeadlineTasks = action.payload.tasks;
     });
     builder.addCase(fetchAsyncMemberTasks.fulfilled, (state, action) => {
-      state.data.tasks = action.payload.data;
+      state.data.tasks = action.payload.tasks;
     });
     builder.addCase(fetchAsyncTaskComment.fulfilled, (state, action) => {
       toast.info("コメントを追加しました。", {

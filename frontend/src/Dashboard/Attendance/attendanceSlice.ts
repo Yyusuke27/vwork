@@ -122,11 +122,10 @@ export const fetchAsyncGetMemberAttendance = createAsyncThunk(
   "attendance/memberAttendance",
   async (data: {
     userId: string;
-    workspace: string;
     query?: { year: string; month: string };
   }) => {
     const res = await axios.get(
-      `${apiUrl}api/v1/workspaces/${data.workspace}/users/${
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/members/${
         data.userId
       }/attendances${
         data.query ? `?year=${data.query.year}&month=${data.query.month}` : ""
@@ -299,7 +298,7 @@ const attendanceSlice = createSlice({
     builder.addCase(
       fetchAsyncGetMemberAttendance.fulfilled,
       (state, action) => {
-        state.attendances = action.payload.data;
+        state.attendances = action.payload.attendances;
       }
     );
   },

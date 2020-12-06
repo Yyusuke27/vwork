@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { fetchAsyncGetMember, selectMember } from "../memberSlice";
-import { selectWorkspace } from "../../../Auth/authSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,20 +29,16 @@ const MemberInfo = () => {
   }
   const memberId = useParams<ParamsType>().memberId;
 
-  const workspaceId = useSelector(selectWorkspace);
-
   const getMembers = useCallback(
-    async (workspaceId) => {
-      await dispatch(fetchAsyncGetMember({ workspaceId, id: memberId }));
+    async () => {
+      await dispatch(fetchAsyncGetMember(memberId))
     },
     [dispatch, memberId]
   );
 
   useEffect(() => {
-    if (workspaceId) {
-      getMembers(workspaceId);
-    }
-  }, [getMembers, workspaceId]);
+    getMembers();
+  }, [getMembers]);
   return (
     <>
       <Grid item>

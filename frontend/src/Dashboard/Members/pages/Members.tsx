@@ -4,26 +4,21 @@ import Container from "@material-ui/core/Container";
 import MemberList from "../components/MemberList";
 import MainHeader from "../../../shared/components/Navigation/MainHeader";
 import { fetchAsyncGetMembers, selectMembers } from "../memberSlice";
-import { selectWorkspace } from "../../../Auth/authSlice";
 
 const Members = () => {
   const dispatch = useDispatch();
   const members = useSelector(selectMembers);
 
-  const workspaceId = useSelector(selectWorkspace);
-
   const getMembers = useCallback(
-    async (workspaceId) => {
-      await dispatch(fetchAsyncGetMembers(workspaceId));
+    async () => {
+      await dispatch(fetchAsyncGetMembers());
     },
     [dispatch]
   );
 
   useEffect(() => {
-    if (workspaceId) {
-      getMembers(workspaceId);
-    }
-  }, [getMembers, workspaceId]);
+      getMembers();
+  }, [getMembers]);
 
   return (
     <>

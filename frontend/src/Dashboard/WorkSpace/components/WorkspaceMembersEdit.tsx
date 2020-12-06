@@ -21,17 +21,15 @@ const WorkspaceMembersEdit = () => {
   const owners = useSelector(selectWorkspaceOwners);
 
   const getMembers = useCallback(
-    async (workspaceId) => {
-      await dispatch(fetchAsyncGetMembers(workspaceId));
+    async () => {
+      await dispatch(fetchAsyncGetMembers());
     },
     [dispatch]
   );
 
   useEffect(() => {
-    if (workspaceId) {
-      getMembers(workspaceId);
-    }
-  }, [getMembers, workspaceId]);
+    getMembers();
+  }, [getMembers]);
 
   const toOwnerHandler = async (toOwnerId: string) => {
     await dispatch(

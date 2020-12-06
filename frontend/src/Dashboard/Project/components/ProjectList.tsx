@@ -42,7 +42,7 @@ const ProjectList: FC<ProjectListProps> = ({ title = "", selected }) => {
 
   const selectedProjects = useSelector(selectSelectedProjects);
   const projects = useSelector(selectProjects);
-
+  
   const projectData = selected ? selectedProjects : projects;
 
   return (

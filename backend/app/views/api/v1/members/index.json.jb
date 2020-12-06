@@ -1,0 +1,11 @@
+json = {}
+
+json[:members] = workspace_members.map do |workspace_member|
+  {
+    :id => workspace_member.member.id,
+    :name => workspace_member.member.name,
+    :email => workspace_member.member.email
+  }
+end
+
+json

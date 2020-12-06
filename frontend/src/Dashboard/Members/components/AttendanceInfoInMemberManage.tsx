@@ -7,30 +7,26 @@ import {
   fetchAsyncGetMemberAttendance,
   selectAttenances,
 } from "../../Attendance/attendanceSlice";
-import { selectWorkspace } from "../../../Auth/authSlice";
 
 const AttendanceInfoInMemberManage = () => {
   interface ParamsType {
     memberId: string;
   }
   const memberId = useParams<ParamsType>().memberId;
-  const workspaceId = useSelector(selectWorkspace);
   const dispatch = useDispatch();
   const attendances = useSelector(selectAttenances);
   const getAttendances = useCallback(
-    async (workspace, userId) => {
+    async (userId) => {
       await dispatch(
-        fetchAsyncGetMemberAttendance({ userId: userId, workspace: workspace })
+        fetchAsyncGetMemberAttendance({ userId: userId })
       );
     },
     [dispatch]
   );
 
   useEffect(() => {
-    if (workspaceId) {
-      getAttendances(workspaceId, memberId);
-    }
-  }, [getAttendances, workspaceId, memberId]);
+      getAttendances(memberId);
+  }, [getAttendances, memberId]);
   return (
     <>
       <DatePickerArea userId={memberId} />

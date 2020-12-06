@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import { DatePicker } from "@material-ui/pickers";
@@ -7,7 +7,6 @@ import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import Typography from "@material-ui/core/Typography";
 import DateFnsUtils from "@date-io/date-fns";
 import { ja } from "date-fns/locale";
-import { selectWorkspace } from "../../../Auth/authSlice";
 import {
   fetchAsyncGetMemberAttendance,
   fetchAsyncGetMyAttendances,
@@ -22,19 +21,16 @@ const DatePickerArea: FC<DatePickerProps> = ({ userId }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [month, setMonth] = useState(moment().format("M"));
 
-  const workspace = useSelector(selectWorkspace);
-
   const dispatch = useDispatch();
 
   const path = window.location.pathname;
 
   const getAttendance = useCallback(
-    async (workspace, year, month) => {
+    async (year, month) => {
       if (path.includes("members")) {
         await dispatch(
           fetchAsyncGetMemberAttendance({
             userId: userId ? userId : "",
-            workspace,
             query: { year, month },
           })
         );
@@ -55,7 +51,7 @@ const DatePickerArea: FC<DatePickerProps> = ({ userId }) => {
     const updatedDate = moment(`${querYear}-${queryMonth}-01`).toDate();
     setSelectedDate(updatedDate);
 
-    getAttendance(workspace, querYear, queryMonth);
+    getAttendance(querYear, queryMonth);
   };
 
   return (

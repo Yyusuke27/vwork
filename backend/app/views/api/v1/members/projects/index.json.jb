@@ -1,0 +1,12 @@
+json = {}
+
+json[:projects] = project_members.map do |project_member|
+  {
+    :id => project_member.project.id,
+    :name => project_member.project.name,
+    :color => project_member.project.color,
+    :icon => project_member.project.icon
+  }
+end
+
+json
