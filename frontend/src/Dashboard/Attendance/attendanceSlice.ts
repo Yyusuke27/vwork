@@ -9,7 +9,7 @@ const apiUrl = process.env.REACT_APP_BACKEND_URL;
 
 export const fetchAsyncTodaysAttendance = createAsyncThunk(
   "attendance/today",
-  async (workspacePathId: string) => {
+  async () => {
     const res = await axios.get(
       `${apiUrl}api/v1/workspaces/${workspacePathId}/attendances/today`,
       {
@@ -77,13 +77,10 @@ export const fetchAsyncUpdateTodaysAttendance = createAsyncThunk(
 
 export const fetchAsyncGetMyAttendances = createAsyncThunk(
   "attendance/myAttendances",
-  async (data: {
-    workspace: string;
-    query?: { year: string; month: string };
-  }) => {
+  async (query?: { year: string; month: string }) => {
     const res = await axios.get(
       `${apiUrl}api/v1/workspaces/${workspacePathId}/attendances${
-        data.query ? `?year=${data.query.year}&month=${data.query.month}` : ""
+        query ? `?year=${query.year}&month=${query.month}` : ""
       }`,
       {
         headers: {
@@ -253,7 +250,9 @@ const attendanceSlice = createSlice({
       }
     );
     builder.addCase(fetchAsyncGetMyAttendances.fulfilled, (state, action) => {
-      state.attendances = action.payload.data;
+      console.log(action.payload);
+      
+      state.attendances = action.payload.attendances;
     });
     builder.addCase(fetchAsyncGetAttendance.fulfilled, (state, action) => {
       state.attendance.data = action.payload.data;

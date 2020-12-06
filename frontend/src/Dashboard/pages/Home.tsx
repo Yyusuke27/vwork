@@ -13,7 +13,6 @@ import {
 import { selectUser } from "../../Auth/authSlice";
 import { setSelectedMembers } from "../dashboardSlice";
 import { fetchAsyncTodaysAttendance } from "../Attendance/attendanceSlice";
-import { workspacePathId } from "../../shared/util/workspacePathId"
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -21,13 +20,12 @@ const Home = () => {
   const tasks = useSelector(selectTasks);
   const nearDeadlineTasks = useSelector(selectNearDeadlineTasks);
   const recentTasks = useSelector(selectRecentTasks);
-  const workspace = workspacePathId
 
   const getTodaysAttendance = useCallback(
     async () => {
-      await dispatch(fetchAsyncTodaysAttendance(workspace));
+      await dispatch(fetchAsyncTodaysAttendance());
     },
-    [dispatch, workspace]
+    [dispatch]
   );
 
   useEffect(() => {

@@ -1,3 +1,20 @@
-{
+json = {
   :success => true
 }
+
+json[:attendances] = attendances.map do |attendance|
+  {
+    :id => attendance.id,
+    :user => attendance.user_id,
+    :workspace => attendance.workspace_id,
+    :createdAt => attendance.created_at,
+    :startedAt => attendance.started_at,
+    :endedAt => attendance.end_at,
+    :restStartedAt => attendance.rest_started_at,
+    :restEndedAt => attendance.rest_ended_at,
+    :comment => attendance.comment,
+    :tasks => attendance.attendance_tasks
+  }
+end
+
+json

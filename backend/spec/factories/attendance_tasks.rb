@@ -6,10 +6,10 @@
 #  description   :string(255)
 #  end_date_at   :datetime
 #  name          :string(255)      not null
-#  priority      :integer          default(0)
+#  priority      :integer          default("low")
 #  progress      :integer          default(0)
 #  start_date_at :datetime
-#  state         :integer          default(0)
+#  state         :integer          default("open")
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  attendance_id :bigint           not null

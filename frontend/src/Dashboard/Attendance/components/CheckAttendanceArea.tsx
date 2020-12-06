@@ -35,7 +35,6 @@ import CloseIcon from "@material-ui/icons/Close";
 import Button from "@material-ui/core/Button";
 import FormControl from "@material-ui/core/FormControl";
 import { selectTodaysDoneTasks } from "../../Task/taskSlice";
-import { selectWorkspace } from "../../../Auth/authSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -93,8 +92,6 @@ const Transition = React.forwardRef(function Transition(
 const CheckAttendanceArea = () => {
   const classes = useStyles();
   const moment = require("moment");
-
-  const workspace = useSelector(selectWorkspace);
 
   const [open, setOpen] = React.useState(false);
 
@@ -348,7 +345,7 @@ const CheckAttendanceArea = () => {
                             })
                           );
                           await dispatch(
-                            fetchAsyncGetMyAttendances({ workspace })
+                            fetchAsyncGetMyAttendances()
                           );
                           dispatch(toggleLoading(false));
                           setOpen(false);

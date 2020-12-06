@@ -5,7 +5,6 @@ import CheckAttendanceArea from "../components/CheckAttendanceArea";
 import DatePickerArea from "../components/DatePickerArea";
 import AttendanceList from "../components/AttendanceList";
 import MainHeader from "../../../shared/components/Navigation/MainHeader";
-import { selectWorkspace } from "../../../Auth/authSlice";
 import {
   fetchAsyncGetMyAttendances,
   fetchAsyncTodaysAttendance,
@@ -14,29 +13,26 @@ import {
 
 const MyAttendance = () => {
   const dispatch = useDispatch();
-  const workspace = useSelector(selectWorkspace);
   const attendances = useSelector(selectAttenances);
 
   const getTodaysAttendance = useCallback(
-    async (workspace) => {
-      await dispatch(fetchAsyncTodaysAttendance(workspace));
+    async () => {
+      await dispatch(fetchAsyncTodaysAttendance());
     },
     [dispatch]
   );
 
   const getAttendances = useCallback(
-    async (workspace) => {
-      await dispatch(fetchAsyncGetMyAttendances({ workspace }));
+    async () => {
+      await dispatch(fetchAsyncGetMyAttendances());
     },
     [dispatch]
   );
 
   useEffect(() => {
-    if (workspace) {
-      getTodaysAttendance(workspace);
-      getAttendances(workspace);
-    }
-  }, [workspace, getTodaysAttendance, getAttendances]);
+    getTodaysAttendance();
+    getAttendances();
+  }, [getTodaysAttendance, getAttendances]);
 
   return (
     <>

@@ -40,7 +40,7 @@ const DatePickerArea: FC<DatePickerProps> = ({ userId }) => {
         );
       } else {
         await dispatch(
-          fetchAsyncGetMyAttendances({ workspace, query: { year, month } })
+          fetchAsyncGetMyAttendances({ year, month })
         );
       }
     },
