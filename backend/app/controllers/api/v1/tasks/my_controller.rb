@@ -5,8 +5,8 @@ class Api::V1::Tasks::MyController < Api::ApiController
     tasks = tasks.where(:todays_task => false)
 
     if params[:state].present?
-      todays_tasks = todays_tasks.where(:progress => params[:state])
-      tasks = tasks.where(:progress => params[:state])
+      todays_tasks = todays_tasks.where(:state => params[:state])
+      tasks = tasks.where(:state => params[:state])
     end
 
     render :template => 'api/v1/tasks/my/index.json.jb', :locals => { :tasks => tasks, :todays_tasks => todays_tasks }

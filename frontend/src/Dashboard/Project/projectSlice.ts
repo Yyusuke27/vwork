@@ -131,9 +131,12 @@ export const fetchAsyncGetProjectMember = createAsyncThunk(
 export const fetchAsyncAddMembers = createAsyncThunk(
   "project/addMember",
   async (data: { projectId: string; members: string[] }) => {
-    const res = await axios.put(
-      `${apiUrl}api/v1/projects/${data.projectId}/members`,
-      { members: data.members },
+    const res = await axios.post(
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/projects/members`,
+      { 
+        members: data.members,
+        projectId: data.projectId
+      },
       {
         headers: {
           "Content-Type": "application/json",
@@ -288,8 +291,6 @@ const projectSlice = createSlice({
     });
     builder.addCase(fetchAsyncAllMyProjects.rejected, (state, action) => {});
     builder.addCase(fetchAsyncGetProject.fulfilled, (state, action) => {
-      console.log(action.payload.project);
-      
       state.project = action.payload.project;
     });
     builder.addCase(fetchAsyncCreateProject.fulfilled, (state, action) => {
