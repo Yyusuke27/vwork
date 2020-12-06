@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import { useDispatch } from "react-redux";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import { Form, Field, Formik } from "formik";
 import { TextField } from "formik-material-ui";
 import * as Yup from "yup";
@@ -43,11 +42,6 @@ const InviteeSignIn: FC<InviteeSignInProps> = ({ email }) => {
   const dispatch = useDispatch();
   return (
     <Box mt={2}>
-      <DialogContentText id="alert-dialog-slide-description">
-        これからVWORKを活用するための設定をして頂きます。
-        <br />
-        「NEXT」を押して次のステップへ進んで下さい。
-      </DialogContentText>
       <Typography component="h1" variant="h5">
         ログイン
       </Typography>
