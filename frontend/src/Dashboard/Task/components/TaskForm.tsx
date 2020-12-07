@@ -27,6 +27,7 @@ import SubjectIcon from "@material-ui/icons/Subject";
 import { selectSelectedMembers } from "../../dashboardSlice";
 import { selectProject } from "../../Project/projectSlice";
 import { toggleLoading } from "../../../appSlice";
+import { selectUser } from "../../../Auth/authSlice";
 import { workspacePathId } from "../../../shared/util/workspacePathId"
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -111,10 +112,13 @@ const TaskForm: FC<TaskFormProps> = ({
   const classes = useStyles();
   const workspace = workspacePathId
   const project = useSelector(selectProject);
+  const currentUser = useSelector(selectUser);
 
   const selectedMembers = useSelector(selectSelectedMembers);
 
   const taskMembers = members && members.length > 0 ? members : selectedMembers;
+
+  let isProjectMember = true
 
   if (!taskData.startDateAt) {
     taskData.startDateAt = moment().toString();
@@ -130,8 +134,13 @@ const TaskForm: FC<TaskFormProps> = ({
   if (!taskData.project) {
     if (project.id) {
       taskData.project = project.id;
+      isProjectMember = _.some(project.members, ['id', currentUser.id]);
     } else {
       taskData.project = "";
+    }
+  } else {
+    if (project.id) {
+      isProjectMember = _.some(project.members, ['id', currentUser.id]);
     }
   }
 
@@ -204,28 +213,32 @@ const TaskForm: FC<TaskFormProps> = ({
                   component={TextField}
                   name="name"
                   label="タスク名"
+                  disabled={!isProjectMember}
                   fullWidth
                   id="name"
                   value={props.values.name}
                 />
               </Grid>
-              <Grid item xs={2}>
-                <DialogActions>
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                  >
-                    保存
-                  </Button>
-                </DialogActions>
-              </Grid>
+              { isProjectMember ?
+                <Grid item xs={2}>
+                  <DialogActions>
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                    >
+                      保存
+                    </Button>
+                  </DialogActions>
+                </Grid>
+              : ""}
             </Grid>
             <Field
               component={CheckboxWithLabel}
               type="checkbox"
               name="todaysTask"
+              disabled={!isProjectMember}
               Label={{ label: "今日やる" }}
               checked={props.values.todaysTask}
             />
@@ -242,6 +255,7 @@ const TaskForm: FC<TaskFormProps> = ({
                     component={TextField}
                     name="user"
                     id="user"
+                    disabled={!isProjectMember}
                     defaultValue={props.values.user}
                     select
                     onChange={props.handleChange("user")}
@@ -281,6 +295,7 @@ const TaskForm: FC<TaskFormProps> = ({
                       <Grid item>
                         <Field
                           component={DatePicker}
+                          disabled={!isProjectMember}
                           name="startDateAt"
                           label="開始"
                           id="startDateAt"
@@ -290,6 +305,7 @@ const TaskForm: FC<TaskFormProps> = ({
                       <Grid item>
                         <Field
                           component={DatePicker}
+                          disabled={!isProjectMember}
                           name="endDateAt"
                           label="終了"
                           id="endDateAt"
@@ -301,42 +317,45 @@ const TaskForm: FC<TaskFormProps> = ({
                 </FormControl>
               </Grid>
             </Grid>
-            <Grid container className={classes.formContent}>
-              <Grid item xs={2}>
-                <Box height="100%" display="flex" alignItems="center">
-                  <DashboardIcon
-                    color="disabled"
-                    className={classes.labelIcon}
-                  />
-                  プロジェクト
-                </Box>
+            { isProjectMember ?
+              <Grid container className={classes.formContent}>
+                <Grid item xs={2}>
+                  <Box height="100%" display="flex" alignItems="center">
+                    <DashboardIcon
+                      color="disabled"
+                      className={classes.labelIcon}
+                    />
+                    プロジェクト
+                  </Box>
+                </Grid>
+                <Grid item xs={8}>
+                  <FormControl className={classes.formControl}>
+                    <InputLabel htmlFor="project">プロジェクト選択</InputLabel>
+                    <Field
+                      component={Select}
+                      disabled={!isProjectMember && update}
+                      name="project"
+                      id="project"
+                      as="select"
+                      defaultValue={props.values.project}
+                      inputProps={{
+                        id: "project",
+                      }}
+                    >
+                      <MenuItem value="">未選択</MenuItem>
+                      {projects.map((project, index) => {
+                        return (
+                          <MenuItem value={project.id} key={index}>
+                            {project.name}
+                          </MenuItem>
+                        );
+                      })}
+                    </Field>
+                  </FormControl>
+                </Grid>
               </Grid>
-              <Grid item xs={8}>
-                <FormControl className={classes.formControl}>
-                  <InputLabel htmlFor="project">プロジェクト選択</InputLabel>
-                  <Field
-                    component={Select}
-                    disabled={update}
-                    name="project"
-                    id="project"
-                    as="select"
-                    defaultValue={props.values.project}
-                    inputProps={{
-                      id: "project",
-                    }}
-                  >
-                    <MenuItem value="">未選択</MenuItem>
-                    {projects.map((project, index) => {
-                      return (
-                        <MenuItem value={project.id} key={index}>
-                          {project.name}
-                        </MenuItem>
-                      );
-                    })}
-                  </Field>
-                </FormControl>
-              </Grid>
-            </Grid>
+              : ""
+            }
             <Grid container className={classes.formContent}>
               <Grid item xs={2}>
                 <Box height="100%" display="flex" alignItems="center">
@@ -351,6 +370,7 @@ const TaskForm: FC<TaskFormProps> = ({
                 <FormControl className={classes.formControl}>
                   <Field
                     component={Select}
+                    disabled={!isProjectMember}
                     name="state"
                     id="state"
                     as="select"
@@ -380,6 +400,7 @@ const TaskForm: FC<TaskFormProps> = ({
                 <FormControl className={classes.formControl}>
                   <Field
                     component={Select}
+                    disabled={!isProjectMember}
                     name="priority"
                     id="priority"
                     defaultValue={props.values.priority}
@@ -407,6 +428,7 @@ const TaskForm: FC<TaskFormProps> = ({
                 <FormControl className={classes.formControl}>
                   <Slider
                     color="secondary"
+                    disabled={!isProjectMember}
                     name="progress"
                     id="progress"
                     value={props.values.progress}
@@ -432,6 +454,7 @@ const TaskForm: FC<TaskFormProps> = ({
                 <FormControl className={classes.formControl}>
                   <Field
                     component={TextField}
+                    disabled={!isProjectMember}
                     name="description"
                     label="詳細"
                     variant="outlined"

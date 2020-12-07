@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-material-ui";
@@ -10,6 +10,9 @@ import { Container } from "@material-ui/core";
 import "./Task.css";
 import { fetchAsyncTaskComment, fetchAsyncTaskHistory } from "../taskSlice";
 import { toggleLoading } from "../../../appSlice";
+import { selectProject } from "../../Project/projectSlice";
+import { selectUser } from "../../../Auth/authSlice";
+import _ from "lodash";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -28,8 +31,18 @@ const TaskCommentForm: FC<TaskCommentFormProps> = ({ taskId }) => {
 
   const dispatch = useDispatch();
 
+  const project = useSelector(selectProject);
+  const currentUser = useSelector(selectUser);
+
+  let isProjectMember = true
+
+  if (project) {
+    isProjectMember = _.some(project.members, ['id', currentUser.id]);
+  }
+
   return (
     <>
+    { isProjectMember ? 
       <Formik
         initialValues={{ comment: "" }}
         validationSchema={Yup.object().shape({})}
@@ -74,6 +87,7 @@ const TaskCommentForm: FC<TaskCommentFormProps> = ({ taskId }) => {
           </Container>
         </Form>
       </Formik>
+      : ""}
     </>
   );
 };

@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAsyncTaskHistory, selectTaskHistory } from "../taskSlice";
+import { fetchAsyncTaskHistory, selectTaskHistory, setTaskHistories } from "../taskSlice";
 import Color from "../../../shared/util/color";
 import { outputLog } from "../../../shared/util/log";
 import moment from "moment";
@@ -65,6 +65,14 @@ const TaskHistoryArea: FC<TaskHistoryAreaProps> = ({ taskId }) => {
   useEffect(() => {
     getTaskHistory(taskId);
   }, [getTaskHistory, taskId]);
+
+  useEffect(() => {
+    return function cleanup() {
+      dispatch(
+        setTaskHistories([])
+      );
+    };
+  }, [dispatch]);
 
   return (
     <>
