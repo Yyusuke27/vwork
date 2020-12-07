@@ -39,21 +39,21 @@ docker-compose run backend rails db:migrate
 
 ### サイトURL
 
-https://v-work-2020.web.app/
+デプロイ後追記
 
 ### サンプルデータのログイン方法
 
 - 管理者としてログイン
 
-  メールアドレス: sample-owner@test.com
+  メールアドレス: デプロイ後追記
 
-  PW: sampleowner
+  PW: デプロイ後追記
 
 - メンバーとしてログイン
 
-  メールアドレス: sample-member@test.com
+  メールアドレス: デプロイ後追記
 
-  PW: samplemember
+  PW: デプロイ後追記
   
 ※会員登録をして利用することも可能です。以下に記載してあるVWORKの機能を確認する際にサンプルデータをご活用ください。
 
@@ -62,8 +62,6 @@ https://v-work-2020.web.app/
 Google Chrome
 
 Safari
-
-※スマホ対応していません
 
 ### 用語
 
@@ -152,5 +150,4 @@ Safari
 
 ### インフラ
 
-- サーバーサイド：
-- フロントエンド：
+デプロイ後追記
