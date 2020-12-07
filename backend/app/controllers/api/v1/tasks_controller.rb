@@ -1,4 +1,6 @@
 class Api::V1::TasksController < Api::ApiController
+  before_action :set_workspace, :only => [:update]
+
   def index
     tasks = Task.includes(:user, :project).where(:user_id => @current_user.id)
     todays_tasks = tasks.where(:todays_task => true)
@@ -35,6 +37,17 @@ class Api::V1::TasksController < Api::ApiController
       Log.create_logs(task_log_params, task, @current_user.id) if task_log_params.present?
 
       task.update! taks_params
+
+      # タスクの担当ユーザーと更新ユーザーが違う場合は通知処理
+      if task.user_id != @current_user.id
+        Notification.create!(
+          :notification_type => 0,
+          :user_id => task.user_id,
+          :task_id => task.id,
+          :workspace_id => @workspace.id,
+          :unread => true
+        )
+      end
 
       render :template => 'api/v1/tasks/update.json.jb'
     end
@@ -79,5 +92,10 @@ class Api::V1::TasksController < Api::ApiController
       :priority,
       :todays_task
     )
+  end
+
+  def set_workspace
+    @workspace = Workspace.find_by(:path_id => params[:workspace_path_id])
+    not_found if @workspace.blank?
   end
 end

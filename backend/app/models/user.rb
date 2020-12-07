@@ -46,10 +46,11 @@ class User < ActiveRecord::Base
   has_many :workspaces, :through => :workspace_members
   has_many :project_members, :foreign_key => 'member_id'
   has_many :projects, :through => :project_members
-  has_many :user_profiles
-  has_many :invitations
-  has_many :tasks
-  has_many :attendances
+  has_many :user_profiles, :dependent => :destroy
+  has_many :invitations, :dependent => :destroy
+  has_many :tasks, :dependent => :destroy
+  has_many :attendances, :dependent => :destroy
+  has_many :notifications, :dependent => :destroy
 
   enum :role => %i[normal admin]
 

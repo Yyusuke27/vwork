@@ -28,6 +28,7 @@ class Workspace < ApplicationRecord
   has_many :user_profiles, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
   has_many :attendances, :dependent => :destroy
+  has_many :notifications, :dependent => :destroy
 
   validates :name, :presence => true
 

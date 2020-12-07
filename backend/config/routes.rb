@@ -13,7 +13,17 @@ Rails.application.routes.draw do
           resources :members, :only => %i[index create]
           resources :new_members, :only => %i[index]
         end
-        resources :projects, :only => %i[index show create]
+        resources :projects, :only => %i[index show create] do
+          scope module: :projects do
+            resources :members, :only => %i[show]
+          end
+        end
+
+        resources :projects, :only => %i[] do
+          scope module: :projects do
+            resources :tasks, :only => %i[index]
+          end
+        end
 
         namespace 'tasks' do
           resources :members, :only => %i[show]
@@ -42,6 +52,8 @@ Rails.application.routes.draw do
             resources :tasks, :only => %i[index]
           end
         end
+
+        resources :notifications, :only => %i[index update]
       end
 
       resources 'tasks', :only => %i[] do
@@ -51,12 +63,6 @@ Rails.application.routes.draw do
 
       namespace 'users' do
         resources :current, :only => %i[index]
-      end
-
-      scope module: :projects do
-        resources :projects, :only => %i[] do
-            resources :tasks, :only => %i[index]
-        end
       end
 
       mount_devise_token_auth_for 'User', :at => 'auth', :controllers => {

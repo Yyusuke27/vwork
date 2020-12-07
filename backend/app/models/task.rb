@@ -27,6 +27,7 @@ class Task < ApplicationRecord
   belongs_to :workspace
   belongs_to :project, :optional => true
   has_one :history, :dependent => :destroy
+  has_many :notifications, :dependent => :destroy
 
   validates :name, :presence => true
   validates :progress, :numericality => {

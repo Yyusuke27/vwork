@@ -1,18 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 import axios from "axios";
+import { accessToken, uid, client, expiry} from "../../shared/util/auth"
+import { workspacePathId } from "../../shared/util/workspacePathId"
 
 const apiUrl = process.env.REACT_APP_BACKEND_URL;
-const token = localStorage.token;
 
 export const fetchAsyncGetNotifications = createAsyncThunk(
   "notification/getAll",
-  async (workspaceId: string) => {
+  async () => {
     const res = await axios.get(
-      `${apiUrl}api/v1/workspaces/${workspaceId}/notifications`,
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/notifications`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -23,17 +29,20 @@ export const fetchAsyncGetNotifications = createAsyncThunk(
 export const fetchAsyncUpdateNotification = createAsyncThunk(
   "notification/updateNotification",
   async (data: {
-    workspaceId: string;
     notificationId: string;
     bodyData: { unread: boolean };
   }) => {
     const res = await axios.put(
-      `${apiUrl}api/v1/workspaces/${data.workspaceId}/notifications/${data.notificationId}`,
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/notifications/${data.notificationId}`,
       data.bodyData,
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );
@@ -65,7 +74,7 @@ const notificationSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncGetNotifications.fulfilled, (state, action) => {
-      state.notifications = action.payload.data;
+      state.notifications = action.payload.notifications;
     });
     builder.addCase(
       fetchAsyncUpdateNotification.fulfilled,

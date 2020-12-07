@@ -16,11 +16,11 @@ import {
 import {
   fetchAsyncCurrentUser,
   selectUser,
-  selectWorkspace,
 } from "../../../Auth/authSlice";
 import { setSelectedMembers } from "../../dashboardSlice";
 import { setSelectedTask } from "../../Task/taskSlice";
 import { toggleTaskCardClicked } from "../../../appSlice";
+import { workspacePathId } from "../../../shared/util/workspacePathId"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -55,22 +55,20 @@ const NotificationItem: FC<NotificationItemProps> = ({ data }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const workspaceId = useSelector(selectWorkspace);
   const user = useSelector(selectUser);
 
   const updateNotification = useCallback(async () => {
     await dispatch(
       fetchAsyncUpdateNotification({
-        workspaceId,
         notificationId: data.id,
         bodyData: { unread: false },
       })
     );
-    await dispatch(fetchAsyncGetNotifications(workspaceId));
-  }, [dispatch, workspaceId, data]);
+    await dispatch(fetchAsyncGetNotifications());
+  }, [dispatch, data])
 
   const updateCurrentUserInfo = useCallback(async () => {
-    await dispatch(fetchAsyncCurrentUser(""));
+    await dispatch(fetchAsyncCurrentUser(workspacePathId));
   }, [dispatch]);
 
   return (

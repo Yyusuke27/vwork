@@ -6,27 +6,22 @@ import {
   fetchAsyncGetNotifications,
   selectNotifications,
 } from "../notificationSlice";
-import { selectWorkspace } from "../../../Auth/authSlice";
 
 const NotificationList = () => {
   const dispatch = useDispatch();
 
-  const workspaceId = useSelector(selectWorkspace);
-
   const notifications = useSelector(selectNotifications);
 
   const getNotifications = useCallback(
-    async (workspaceId) => {
-      await dispatch(fetchAsyncGetNotifications(workspaceId));
+    async () => {
+      await dispatch(fetchAsyncGetNotifications());
     },
     [dispatch]
   );
 
   useEffect(() => {
-    if (workspaceId) {
-      getNotifications(workspaceId);
-    }
-  }, [workspaceId, getNotifications]);
+    getNotifications();
+  }, [getNotifications]);
 
   return (
     <>

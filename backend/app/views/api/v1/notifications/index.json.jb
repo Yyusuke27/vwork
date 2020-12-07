@@ -1,0 +1,17 @@
+json = {}
+
+json[:notifications] = notifications.map do |notification|
+  {
+    :id => notification.id,
+    :createdAt => notification.created_at,
+    :type => notification.notification_type_before_type_cast,
+    :unread => notification.unread,
+    :task => {
+      :id => notification.task.id,
+      :name => notification.task.name,
+      :project => { :name => notification.task.project.name }
+    }
+  }
+end
+
+json
