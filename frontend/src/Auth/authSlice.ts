@@ -213,6 +213,7 @@ export const authSlice = createSlice({
 
       state.profile = action.payload.profile;
       state.owner = action.payload.owner;
+      state.workspace = action.payload.workspace;
 
       const path = window.location.pathname;
 

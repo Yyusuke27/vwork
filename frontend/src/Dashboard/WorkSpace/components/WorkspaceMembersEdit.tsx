@@ -8,15 +8,13 @@ import { fetchAsyncUpdateWorkspace } from "../../../WorkSpaces/workspaceSlice";
 import { fetchAsyncGetMembers, selectMembers } from "../../Members/memberSlice";
 import {
   fetchAsyncCurrentUser,
-  selectWorkspace,
   selectWorkspaceOwners,
 } from "../../../Auth/authSlice";
+import { workspacePathId } from "../../../shared/util/workspacePathId"
 
 const WorkspaceMembersEdit = () => {
   const dispatch = useDispatch();
   const members = useSelector(selectMembers);
-
-  const workspaceId = useSelector(selectWorkspace);
 
   const owners = useSelector(selectWorkspaceOwners);
 
@@ -33,22 +31,16 @@ const WorkspaceMembersEdit = () => {
 
   const toOwnerHandler = async (toOwnerId: string) => {
     await dispatch(
-      fetchAsyncUpdateWorkspace({
-        workspace: workspaceId,
-        bodyData: { toOwner: toOwnerId },
-      })
+      fetchAsyncUpdateWorkspace({ toOwner: toOwnerId })
     );
-    await dispatch(fetchAsyncCurrentUser(""));
+    await dispatch(fetchAsyncCurrentUser(workspacePathId));
   };
 
   const toMemberHandler = async (toMemberId: string) => {
     await dispatch(
-      fetchAsyncUpdateWorkspace({
-        workspace: workspaceId,
-        bodyData: { toMember: toMemberId },
-      })
+      fetchAsyncUpdateWorkspace({ toMember: toMemberId })
     );
-    await dispatch(fetchAsyncCurrentUser(""));
+    await dispatch(fetchAsyncCurrentUser(workspacePathId));
   };
 
   return (

@@ -191,7 +191,7 @@ const SideBar = () => {
                 <ListItem
                   button
                   component={NavLink}
-                  to="/workspace_manage"
+                  to={`/${workspacePathId}/workspace_manage`}
                   exact
                 >
                   <ListItemIcon className={classes.icon}>

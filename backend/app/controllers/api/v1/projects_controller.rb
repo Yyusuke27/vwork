@@ -1,9 +1,22 @@
 class Api::V1::ProjectsController < Api::ApiController
   before_action :check_project_member, :only => [:show]
+  before_action :set_workspace, :only => [:index]
 
   def index
     # workspaceのownerのみ閲覧可能
     # workspaceのproject一覧
+    workspace_member = WorkspaceMember.find_by(
+      :workspace_id => @workspace.id,
+      :member_id => @current_user.id
+    )
+
+    not_found if workspace_member.blank? || workspace_member.normal?
+
+    projects = Project.where(:workspace_id => @workspace.id)
+
+    render :template => 'api/v1/projects/index.json.jb', :locals => {
+      :projects => projects
+    }
   end
 
   def show
@@ -38,6 +51,11 @@ class Api::V1::ProjectsController < Api::ApiController
   def check_project_member
     @project = Project.find(params[:id])
 
-    not_found unless @project.member? @current_user.id
+    unauthorized unless @project.member? @current_user.id
+  end
+
+  def set_workspace
+    @workspace = Workspace.find_by(:path_id => params[:workspace_path_id])
+    not_found if @workspace.blank?
   end
 end

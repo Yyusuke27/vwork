@@ -14,6 +14,14 @@ json[:user] = {
   :role => user.role
 }
 
+if workspace.present?
+  json[:workspace] = {
+    :id => workspace.id,
+    :name => workspace.name,
+    :owners => all_workspace_member_ids
+  }
+end
+
 if profile.present?
   json[:profile] = {
     :position => profile&.position

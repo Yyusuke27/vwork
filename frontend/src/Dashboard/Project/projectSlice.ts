@@ -284,7 +284,7 @@ const projectSlice = createSlice({
       state.projects = action.payload.projects;
     });
     builder.addCase(fetchAsyncAllProjects.fulfilled, (state, action) => {
-      state.selectedProjects = action.payload.data;
+      state.selectedProjects = action.payload.projects;
     });
     builder.addCase(fetchAsyncAllProjects.rejected, (state, action) => {
       window.location.href = "/";

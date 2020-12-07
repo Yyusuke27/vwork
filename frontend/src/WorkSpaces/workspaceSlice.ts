@@ -3,15 +3,16 @@ import { accessToken, uid, client, expiry} from "../shared/util/auth"
 import { toast } from "react-toastify";
 import axios from "axios";
 import { RootState } from "../store";
+import { workspacePathId } from "../shared/util/workspacePathId"
 
 const apiUrl = process.env.REACT_APP_BACKEND_URL;
-const token = localStorage.token;
 
 export const fetchAsyncGetWorkspaces = createAsyncThunk(
   "workspace/all",
   async () => {
     const res = await axios.get(`${apiUrl}api/v1/workspaces/`, {
       headers: {
+        "Content-Type": "application/json",
         "token-type": "Bearer",
         "access-token": accessToken,
         "client": client,
@@ -25,17 +26,18 @@ export const fetchAsyncGetWorkspaces = createAsyncThunk(
 
 export const fetchAsyncUpdateWorkspace = createAsyncThunk(
   "workspace/update",
-  async (data: {
-    workspace: string;
-    bodyData: { name?: string; toOwner?: string; toMember?: string };
-  }) => {
+  async (bodyData: { name?: string; toOwner?: string; toMember?: string }) => {
     const res = await axios.put(
-      `${apiUrl}api/v1/workspaces/${data.workspace}`,
-      data.bodyData,
+      `${apiUrl}api/v1/workspaces/${workspacePathId}`,
+      bodyData,
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "token-type": "Bearer",
+          "access-token": accessToken,
+          "client": client,
+          "expiry": expiry,
+          "uid": uid,
         },
       }
     );

@@ -1,13 +1,11 @@
 class Api::V1::WorkspacesController < Api::ApiController
+  before_action :set_workspace, :only => [:update]
+  before_action :check_workspace_owner, :only => [:update]
+
   def index
     workspaces = @current_user.workspaces
 
     render :template => 'api/v1/workspaces/index.json.jb', :locals => { :workspaces => workspaces }
-  end
-
-  def show
-    # TODO: Workspaceのメンバーのみ閲覧可能
-    # Workspaceの詳細情報
   end
 
   def create
@@ -47,11 +45,16 @@ class Api::V1::WorkspacesController < Api::ApiController
   end
 
   def update
-    workspace = Workspace.find(params[:id])
-
-    not_found if workspace.blank?
+    @workspace.update!(:name => params[:name]) if params[:name]
+    if params[:toOwner] || params[:toMember]
+      workspace_member = WorkspaceMember.find_by(:member_id => params[:toOwner], :workspace_id => @workspace.id)
+      not_found if workspace_member.blank?
+    end
+    workspace_member.update!(:role => 1) if params[:toOwner]
+    workspace_member.update!(:role => 0) if params[:toMember]
 
     # Workspaceの管理者のみ変更可能
+    render :template => 'api/v1/workspaces/update.json.jb'
   end
 
   private
@@ -76,5 +79,19 @@ class Api::V1::WorkspacesController < Api::ApiController
 
   def invitation_params
     params.permit(:invitations => %i[name email])
+  end
+
+  def set_workspace
+    @workspace = Workspace.find_by(:path_id => params[:path_id])
+    not_found if @workspace.blank?
+  end
+
+  def check_workspace_owner
+    is_workspace_owner = WorkspaceMember.exists?(
+      :workspace_id => @workspace.id,
+      :member_id => @current_user.id,
+      :role => 1
+    )
+    unauthorized unless is_workspace_owner
   end
 end

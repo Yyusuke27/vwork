@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-material-ui";
@@ -11,8 +11,8 @@ import Grid from "@material-ui/core/Grid";
 import { fetchAsyncUpdateWorkspace } from "../../../WorkSpaces/workspaceSlice";
 import {
   fetchAsyncCurrentUser,
-  selectWorkspace,
 } from "../../../Auth/authSlice";
+import { workspacePathId } from "../../../shared/util/workspacePathId"
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -30,7 +30,6 @@ const WorkspaceBasicEdit = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const workspaceId = useSelector(selectWorkspace);
   return (
     <>
       <Box borderBottom={1} width="90%">
@@ -45,12 +44,9 @@ const WorkspaceBasicEdit = () => {
         })}
         onSubmit={async (value, action) => {
           await dispatch(
-            fetchAsyncUpdateWorkspace({
-              workspace: workspaceId,
-              bodyData: value,
-            })
+            fetchAsyncUpdateWorkspace(value)
           );
-          await dispatch(fetchAsyncCurrentUser(""));
+          await dispatch(fetchAsyncCurrentUser(workspacePathId));
           action.resetForm({});
         }}
       >
