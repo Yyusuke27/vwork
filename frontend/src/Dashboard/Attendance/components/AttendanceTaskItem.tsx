@@ -54,8 +54,6 @@ const AttendanceTaskItem: FC<AttendanceTaskItemProps> = ({ iconType = "", data }
         <CardActionArea
           className={classes.cardActionArea}
           onClick={() => {
-            console.log(data);
-            
             dispatch(setSelectedAttendanceTask(data));
             dispatch(toggleAttendanceTaskCardClicked(true));
           }}

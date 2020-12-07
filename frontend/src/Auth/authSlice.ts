@@ -281,7 +281,6 @@ export const authSlice = createSlice({
     builder.addCase(fetchAsyncResetPassword.fulfilled, (state, action) => {
       localStorage.setItem("token", action.payload.token);
       if (action.payload.token) {
-        console.log("login success");
         action.payload.workspaceCount > 1
           ? (window.location.href = "/workspaces")
           : (window.location.href = "/");

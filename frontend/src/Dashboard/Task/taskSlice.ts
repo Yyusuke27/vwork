@@ -448,8 +448,6 @@ const taskSlice = createSlice({
       });
     });
     builder.addCase(fetchAsyncUpdateTask.fulfilled, (state, action) => {
-      console.log(action.payload);
-      
       toast.info("タスクを更新しました。", {
         position: toast.POSITION.TOP_CENTER,
       });
@@ -469,8 +467,6 @@ const taskSlice = createSlice({
       state.data = action.payload.data;
     });
     builder.addCase(fetchAsyncTask.fulfilled, (state, action) => {
-      console.log(action.payload);
-      
       state.task = action.payload.task;
     });
     builder.addCase(fetchAsyncRecentTasks.fulfilled, (state, action) => {
@@ -493,8 +489,6 @@ const taskSlice = createSlice({
       });
     });
     builder.addCase(fetchAsyncTaskHistory.fulfilled, (state, action) => {
-      console.log(action.payload);
-      
       state.taskHistories = action.payload.histories;
     });
   },

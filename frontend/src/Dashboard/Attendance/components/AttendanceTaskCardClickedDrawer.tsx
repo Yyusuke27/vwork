@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Dialog from "@material-ui/core/Dialog";
 import Grid from "@material-ui/core/Grid";
@@ -40,52 +40,13 @@ const AttendanceTaskCardClickedDrawer = () => {
   const dispatch = useDispatch();
   const attendanceTaskCardClicked = useSelector(selectAttendanceTaskCardClicked);
   const selectedAttenanceTask = useSelector(selectSelectedAttenanceTask);
-
-
-  console.log(attendanceTaskCardClicked);
   
   const closeTaskCard = useCallback(
     () => {
       dispatch(toggleAttendanceTaskCardClicked(false))
-      // dispatch(
-      //   setAttendanceTask({
-      //     user: "",
-      //     name: "",
-      //     description: "",
-      //     startDateAt: "",
-      //     endDateAt: "",
-      //     state: 0,
-      //     progress: 0,
-      //     priority: 0,
-      //     project: "",
-      //     todaysTask: false,
-      //   })
-      // );
     },
     [dispatch]
   );
-
-  // taskはreadonly propertyだから新しい変数に渡す
-  // const taskData = { ...task };
-
-  useEffect(() => {
-    return function cleanup() {
-      // if (!pathName.includes("project")) {
-      //   dispatch(
-      //     setProject({
-      //       id: "",
-      //       name: "",
-      //       color: 0,
-      //       icon: 0,
-      //       description: "",
-      //       members: [],
-      //       tasks: [],
-      //     })
-      //   );
-      // }
-
-    };
-  }, [dispatch]);
 
   return (
     <>

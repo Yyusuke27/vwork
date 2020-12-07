@@ -267,12 +267,7 @@ const attendanceSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncTodaysAttendance.fulfilled, (state, action) => {
-      console.log(action.payload);
-      
       state.today = action.payload.attendance;
-
-      console.log(state.today);
-      
     });
     builder.addCase(
       fetchAsyncUpdateTodaysAttendance.fulfilled,
@@ -284,13 +279,9 @@ const attendanceSlice = createSlice({
       }
     );
     builder.addCase(fetchAsyncGetMyAttendances.fulfilled, (state, action) => {
-      console.log(action.payload);
-      
       state.attendances = action.payload.attendances;
     });
     builder.addCase(fetchAsyncGetAttendance.fulfilled, (state, action) => {
-      console.log(action.payload);
-      
       state.attendance.data = action.payload.attendance;
       // TODO 下の記述をなくす
       state.attendance.tasks = action.payload.tasks;

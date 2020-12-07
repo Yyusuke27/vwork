@@ -307,8 +307,6 @@ const projectSlice = createSlice({
       });
     });
     builder.addCase(fetchAsyncGetNewMembers.fulfilled, (state, action) => {
-      console.log(action.payload);
-      
       state.newMembers = action.payload.data;
     });
     builder.addCase(fetchAsyncGetProjectMember.fulfilled, (state, action) => {
@@ -322,8 +320,6 @@ const projectSlice = createSlice({
       });
     });
     builder.addCase(fetchAsyncGetMemberProjects.fulfilled, (state, action) => {
-      console.log(action.payload);
-      
       state.selectedProjects = action.payload.projects;
     });
     builder.addCase(fetchAsyncGetMemberProjects.rejected, (state, action) => {
