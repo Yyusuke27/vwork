@@ -1,6 +1,6 @@
 class Api::V1::ProjectsController < Api::ApiController
-  before_action :check_project_member, :only => [:show]
-  before_action :set_workspace, :only => [:index]
+  before_action :set_project, :only => [:show]
+  before_action :set_workspace, :only => [:index, :show]
 
   def index
     # workspaceのownerのみ閲覧可能
@@ -20,11 +20,24 @@ class Api::V1::ProjectsController < Api::ApiController
   end
 
   def show
-    # メンバーのみ閲覧可能
-    project = Project.find(params[:id])
-    project_members = ProjectMember.includes(:member).where(:project_id => project.id)
+    # メンバー、Workspaceのownerのみ閲覧可能
+    project_members = ProjectMember.includes(:member).where(:project_id => @project.id)
+    is_workspace_owner = WorkspaceMember.exists?(
+      :workspace_id => @workspace.id,
+      :member_id => @current_user.id,
+      :role => 'owner'
+    )
+    is_project_member = project_members.where(
+      :member_id => @current_user.id
+    )
+    if is_workspace_owner || is_project_member.present? || @current_user.admin?
+      render :template => 'api/v1/projects/show.json.jb', :locals => {
+        :project => @project,
+        :project_members => project_members
+      } and return
+    end
 
-    render :template => 'api/v1/projects/show.json.jb', :locals => { :project => project, :project_members => project_members }
+    render :status => :unauthorized, :json => { :status => 401, :message => 'Unauthorized' }
   end
 
   def create
@@ -48,10 +61,9 @@ class Api::V1::ProjectsController < Api::ApiController
     params.require(:project).permit(:name, :description)
   end
 
-  def check_project_member
+  def set_project
     @project = Project.find(params[:id])
-
-    unauthorized unless @project.member? @current_user.id
+    not_found if @project.blank?
   end
 
   def set_workspace

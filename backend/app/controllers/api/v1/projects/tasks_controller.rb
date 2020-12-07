@@ -1,20 +1,41 @@
 class Api::V1::Projects::TasksController < Api::ApiController
-  before_action :check_project_member, :only => [:index]
+  before_action :set_project, :only => [:index]
+  before_action :set_workspace, :only => [:index]
+  before_action :valid_member?, :only => [:index]
 
   def index
-    tasks = Task.includes(:user, :project).where(:project_id => @project.id)
+    if @is_workspace_owner || @is_project_member.present? || @current_user.admin?
+      tasks = Task.includes(:user, :project).where(:project_id => @project.id)
 
-    render :template => 'api/v1/projects/tasks/index.json.jb', :locals => {
-      :tasks => tasks
-    }
+      render :template => 'api/v1/projects/tasks/index.json.jb', :locals => {
+        :tasks => tasks
+      } and return
+    end
+
+    render :status => :unauthorized, :json => { :status => 401, :message => 'Unauthorized' }
   end
 
   private
 
-  def check_project_member
+  def set_project
     @project = Project.find(params[:project_id])
     not_found if @project.blank?
+  end
 
-    not_found unless @project.member? @current_user.id
+  def set_workspace
+    @workspace = Workspace.find_by(:path_id => params[:workspace_path_id])
+    not_found if @workspace.blank?
+  end
+
+  def valid_member?
+    project_members = ProjectMember.includes(:member).where(:project_id => @project.id)
+    @is_workspace_owner = WorkspaceMember.exists?(
+      :workspace_id => @workspace.id,
+      :member_id => @current_user.id,
+      :role => 'owner'
+    )
+    @is_project_member = project_members.where(
+      :member_id => @current_user.id
+    )
   end
 end

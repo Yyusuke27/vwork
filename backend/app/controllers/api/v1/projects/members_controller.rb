@@ -1,6 +1,31 @@
 class Api::V1::Projects::MembersController < Api::ApiController
-  def index
-    # projectのメンバーを取得
+  before_action :set_workspace, :only => [:show]
+
+  def show
+    # project_member = ProjectMember.includes(:member).find_by(
+    #   :project_id => params[:project_id],
+    #   :member_id => params[:id]
+    # )
+
+    # not_found if project_member.blank?
+    user = User.find(params[:id])
+
+    tasks = Task.includes(:project, :user).where(
+      :user_id => params[:id],
+      :project_id => params[:project_id]
+    )
+
+    user_profile = UserProfile.find_by(
+      :user_id => params[:id],
+      :workspace_id => @workspace.id
+    )
+
+    render :template => 'api/v1/projects/members/show.json.jb', :locals => {
+      # :project_member => project_member,
+      :user => user,
+      :tasks => tasks,
+      :profile => user_profile
+    }
   end
 
   def create
@@ -24,5 +49,10 @@ class Api::V1::Projects::MembersController < Api::ApiController
 
   def members_params
     params.permit(:members => [])
+  end
+
+  def set_workspace
+    @workspace = Workspace.find_by(:path_id => params[:workspace_path_id])
+    not_found if @workspace.blank?
   end
 end

@@ -10,6 +10,6 @@ class Api::V1::Members::WorkspacesController < Api::ApiController
       :member_id => @current_user.id,
       :role => 1
     )
-    unauthorized unless is_workspace_owner
+    render :status => :unauthorized, :json => { :status => 401, :message => 'Unauthorized' } unless is_workspace_owner
   end
 end
