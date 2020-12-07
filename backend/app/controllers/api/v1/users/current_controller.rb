@@ -4,6 +4,7 @@ class Api::V1::Users::CurrentController < Api::ApiController
     profile = nil
     workspace_member = nil
     all_workspace_member_ids = []
+    notifications = []
 
     workspace_path_id = params[:workspacePathId]
     if workspace_path_id.present?
@@ -12,15 +13,14 @@ class Api::V1::Users::CurrentController < Api::ApiController
       workspace_member = WorkspaceMember.where(:workspace_id => workspace.id)
       all_workspace_member_ids = workspace_member.where(:role => 1).pluck(:member_id)
       my_workspace_member = workspace_member.where(:member_id => @current_user.id).first
+      notifications = Notification.where(:user_id => @current_user, :unread => true, :workspace_id => workspace.id)
     end
 
     user = User.find(@current_user.id)
 
     not_found if workspace_path_id.present? && workspace_member.blank?
 
-    # TODO: Notification作ってから
-    notifications = 0
-    unread_count = notifications
+    unread_count = notifications.length
     is_owner = my_workspace_member.present? ? my_workspace_member.owner? : false
 
     render :template => 'api/v1/users/current/index.json.jb',
