@@ -10,7 +10,6 @@ import {
   selectMemberIconClicked,
   toggleMemberIconClicked,
 } from "../../../appSlice";
-import { selectWorkspace } from "../../../Auth/authSlice";
 import {
   fetchAsyncGetProjectMember,
   selectProject,
@@ -36,24 +35,23 @@ const useStyles = makeStyles((theme: Theme) =>
 const ProjectMemberClickedDrawer = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const workspace = useSelector(selectWorkspace);
   const MemberIconClicked = useSelector(selectMemberIconClicked);
   const project = useSelector(selectProject);
   const selectedProjectMember = useSelector(selectSelectedProjectMember);
   const member = useSelector(selectProjectMember);
 
   const getMember = useCallback(
-    async (workspaces, projectId, userId) => {
+    async (projectId, userId) => {
       await dispatch(
-        fetchAsyncGetProjectMember({ workspaces, projectId, userId })
+        fetchAsyncGetProjectMember({ projectId, userId })
       );
     },
     [dispatch]
   );
 
   useEffect(() => {
-    getMember(workspace, project.id, selectedProjectMember);
-  }, [getMember, workspace, project, selectedProjectMember]);
+    getMember(project.id, selectedProjectMember);
+  }, [getMember, project, selectedProjectMember]);
 
   return (
     <>

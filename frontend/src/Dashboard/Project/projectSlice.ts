@@ -110,9 +110,9 @@ export const fetchAsyncGetNewMembers = createAsyncThunk(
 
 export const fetchAsyncGetProjectMember = createAsyncThunk(
   "project/member",
-  async (data: { workspaces: string; projectId: string; userId: string }) => {
+  async (data: { projectId: string; userId: string }) => {
     const res = await axios.get(
-      `${apiUrl}api/v1/workspaces/${data.workspaces}/projects/${data.projectId}/users/${data.userId}`,
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/projects/${data.projectId}/members/${data.userId}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -136,6 +136,7 @@ export const fetchAsyncAddMembers = createAsyncThunk(
       { 
         members: data.members,
         projectId: data.projectId
+        // TODO: pathの中にprojectIdを入れる
       },
       {
         headers: {

@@ -99,7 +99,7 @@ export const fetchAsyncMyTasks = createAsyncThunk(
 export const fetchAsyncProjectTasks = createAsyncThunk(
   "task/getProjectTask",
   async (projectId: string) => {
-    const res = await axios.get(`${apiUrl}api/v1/projects/${projectId}/tasks`, {
+    const res = await axios.get(`${apiUrl}api/v1/workspaces/${workspacePathId}/projects/${projectId}/tasks`, {
       headers: {
         "Content-Type": "application/json",
         "token-type": "Bearer",
@@ -273,6 +273,7 @@ export const fetchAsyncTaskComment = createAsyncThunk(
         comment: {
           body: data.comment
         },
+        workspace_path_id: workspacePathId
       },
       {
         headers: {
@@ -440,6 +441,9 @@ const taskSlice = createSlice({
     setQuery(state, action) {
       state.query = action.payload;
     },
+    setTaskHistories(state, action) {
+      state.taskHistories = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAsyncAddTask.fulfilled, (state, action) => {
@@ -448,9 +452,15 @@ const taskSlice = createSlice({
       });
     });
     builder.addCase(fetchAsyncUpdateTask.fulfilled, (state, action) => {
-      toast.info("タスクを更新しました。", {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      if(action.payload.success === true) {
+        toast.info("タスクを更新しました。", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      } else {
+        toast.error("更新に失敗しました。", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
     });
     builder.addCase(fetchAsyncUpdateTask.rejected, (state, action) => {
       toast.error("更新に失敗しました。", {
@@ -511,6 +521,7 @@ export const {
   setTasks,
   setTask,
   setQuery,
+  setTaskHistories
 } = taskSlice.actions;
 
 export default taskSlice.reducer;

@@ -1,0 +1,30 @@
+json = {
+  :user => {
+    :id => user.id,
+    :name => user.name,
+    :email => user.email,
+    :registration => user.registration,
+    :role => user.role_before_type_cast
+  },
+  :profile => {
+    :position => profile.position
+  }
+}
+
+json[:tasks] = tasks.map do |task|
+  {
+    :id => task.id,
+    :name => task.name,
+    :endDateAt => task.end_date_at,
+    :project => {
+      :id => task.project.id,
+      :name => task.project.name
+    },
+    :user => {
+      :id => task.user.id,
+      :name => task.user.name
+    }
+  }
+end
+
+json
