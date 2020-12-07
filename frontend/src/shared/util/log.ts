@@ -39,13 +39,13 @@ export const outputLog = (
       }」に変更しました`;
     case 8:
       return `[今日のタスク]${
-        newState === "true"
+        newState === '1'
           ? "今日のタスクに設定しました"
           : "今日のタスクから外しました"
       }`;
     case 9:
       return `プロジェクトが変更されました`;
     case 10:
-        return "担当者が変更されました。";
+        return `担当者が${newState}さんに変更されました。`;
   }
 };

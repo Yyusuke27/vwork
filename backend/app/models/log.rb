@@ -41,7 +41,7 @@ class Log < ApplicationRecord
     change_logs = []
     if log[:user_id].present?
       new_user = User.find(log[:user_id])
-      change_logs << { :user_id => user_id, :task_id => task.id, :log_type => 'user', :new_state => new_user, :old_state => task.user_id }
+      change_logs << { :user_id => user_id, :task_id => task.id, :log_type => 'user', :new_state => new_user.name, :old_state => task.user_id }
     end
     if log[:start_date_at].present?
       new_date = DateTime.parse(log[:start_date_at]).strftime('%Y年%m月%d日')
