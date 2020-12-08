@@ -10,6 +10,8 @@
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@material-ui/pickers": "3.2.10",
     "@reduxjs/toolkit": "1.4.0",
+    "@sentry/react": "5.29.0",
+    "@sentry/tracing": "5.29.0",
     "@svgr/webpack": "4.3.3",
     "@testing-library/jest-dom": "^5.11.3",
     "@testing-library/react": "^10.4.8",
