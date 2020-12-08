@@ -67,7 +67,7 @@ const MemberDetail = () => {
   }, [dispatch]);
 
   const backPage = () => {
-    history.push("/members");
+    history.push(`/${workspacePathId}/members`);
   };
 
   useEffect(() => {
