@@ -31,6 +31,8 @@ module Backend
       :routing_specs => false
     end
 
+    config.hosts << '.example.com'
+
     config.cache_store = :redis_store, "redis://#{ENV['REDIS_HOST']}:#{ENV['REDIS_PORT']}/0/cache", { :expires_in => 90.minutes }
 
     config.active_job.queue_adapter = :sidekiq

@@ -39,6 +39,8 @@ FactoryBot.define do
     email { 'taro@test.com' }
     password { 'test1234' }
     password_confirmation { 'test1234' }
+    registration { true }
+    role { 0 }
 
     after(:create) do |member|
       workspace = create(:workspace)
