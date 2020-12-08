@@ -54,6 +54,7 @@ Rails.application.routes.draw do
         end
 
         resources :notifications, :only => %i[index update]
+        resources :users, :only => %i[update]
       end
 
       resources 'tasks', :only => %i[] do

@@ -14,13 +14,13 @@ import {
   fetchAsyncCurrentUser,
   selectProfile,
   selectUser,
-  selectWorkspace,
 } from "../../../Auth/authSlice";
 import {
   selectSetProfileClicked,
   toggleLoading,
   toggleSetProfileClicked,
 } from "../../../appSlice";
+import { workspacePathId } from "../../../shared/util/workspacePathId"
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -36,19 +36,16 @@ const SetProfileInAvatarIconDrawer = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const profileClicked = useSelector(selectSetProfileClicked);
-  const workspace = useSelector(selectWorkspace);
   const user = useSelector(selectUser);
   const profile = useSelector(selectProfile);
 
   interface initialValuesType {
     name: string;
-    email: string;
     position: string;
   }
 
   const initialValues: initialValuesType = {
     name: user.name,
-    email: user.email,
     position: profile ? profile.position : "",
   };
 
@@ -73,12 +70,11 @@ const SetProfileInAvatarIconDrawer = () => {
               dispatch(toggleLoading(true));
               await dispatch(
                 fetchAsyncUpdateUserProfile({
-                  workspace,
                   userId: user.id,
                   bodyData: values,
                 })
               );
-              await dispatch(fetchAsyncCurrentUser(""));
+              await dispatch(fetchAsyncCurrentUser(workspacePathId));
               dispatch(toggleLoading(false));
               dispatch(toggleSetProfileClicked(false));
             }}
@@ -98,18 +94,6 @@ const SetProfileInAvatarIconDrawer = () => {
                   {props.values.name}
                 </Field>
                 <br />
-                <Field
-                  component={TextField}
-                  label="メールアドレス"
-                  fullWidth
-                  variant="outlined"
-                  margin="normal"
-                  name="email"
-                  id="email"
-                  value={props.values.email}
-                >
-                  {props.values.email}
-                </Field>
                 <Field
                   component={TextField}
                   label="役職・担当"

@@ -32,12 +32,11 @@ export const fetchAsyncInviteMember = createAsyncThunk(
 export const fetchAsyncUpdateUserProfile = createAsyncThunk(
   "dashboard/updateProfile",
   async (data: {
-    workspace: string;
     userId: string;
     bodyData: { name?: string; email?: string; position?: string };
   }) => {
     const res = await axios.put(
-      `${apiUrl}api/v1/workspaces/${data.workspace}/users/${data.userId}/profile`,
+      `${apiUrl}api/v1/workspaces/${workspacePathId}/users/${data.userId}`,
       data.bodyData,
       {
         headers: {
