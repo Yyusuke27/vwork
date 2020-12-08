@@ -1,6 +1,6 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Dialog from "@material-ui/core/Dialog";
+import VwDrawer from "../../../shared/components/Common/VwDrawer";
 import Grid from "@material-ui/core/Grid";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { Box, Container } from "@material-ui/core";
@@ -9,8 +9,8 @@ import {
   selectAttendanceTaskCardClicked,
   toggleAttendanceTaskCardClicked,
 } from "../../../appSlice";
-import TaskForm from "./AttendanceTaskForm";
-import { selectSelectedAttenanceTask } from "../attendanceSlice";
+import AttendanceTaskForm from "./AttendanceTaskForm";
+import { selectSelectedAttenanceTask, setSelectedAttendanceTask } from "../attendanceSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,39 +40,43 @@ const AttendanceTaskCardClickedDrawer = () => {
   const dispatch = useDispatch();
   const attendanceTaskCardClicked = useSelector(selectAttendanceTaskCardClicked);
   const selectedAttenanceTask = useSelector(selectSelectedAttenanceTask);
-  
-  const closeTaskCard = useCallback(
-    () => {
-      dispatch(toggleAttendanceTaskCardClicked(false))
-    },
-    [dispatch]
-  );
 
   return (
     <>
-      <Dialog 
+      <VwDrawer
         open={attendanceTaskCardClicked}
-        onClose={closeTaskCard}
-        keepMounted
-        className="taskDialog">
+        click={() => {
+          dispatch(toggleAttendanceTaskCardClicked(false))
+          dispatch(
+            setSelectedAttendanceTask({
+              name: "",
+              description: "",
+              startDateAt: "",
+              endDateAt: "",
+              state: 0,
+              progress: 0,
+              priority: 0,
+              id: ""
+            })
+          );
+        }}
+      >
         <Grid container component="main" className={classes.root}>
           <CssBaseline />
           <Grid
             item
             xs={12}
-            sm={6}
-            md={6}
           >
             <Container maxWidth="md">
               <Box mt={5}>
-                <TaskForm
+                <AttendanceTaskForm
                   taskData={selectedAttenanceTask}
                 />
               </Box>
             </Container>
           </Grid>
         </Grid>
-      </Dialog>
+      </VwDrawer>
     </>
   );
 };
