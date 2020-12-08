@@ -1,8 +1,11 @@
 class Api::V1::TasksController < Api::ApiController
-  before_action :set_workspace, :only => [:update]
+  before_action :set_workspace, :only => [:index, :update]
 
   def index
-    tasks = Task.includes(:user, :project).where(:user_id => @current_user.id)
+    tasks = Task.includes(:user, :project).where(
+      :user_id => @current_user.id,
+      :workspace_id => @workspace.id
+    )
     todays_tasks = tasks.where(:todays_task => true)
     tasks = tasks.where(:todays_task => false)
 
