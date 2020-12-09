@@ -5,6 +5,7 @@
 #  id         :bigint           not null, primary key
 #  active     :boolean
 #  name       :string(255)
+#  slug       :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  path_id    :string(191)
@@ -12,12 +13,16 @@
 # Indexes
 #
 #  index_workspaces_on_path_id  (path_id)
+#  index_workspaces_on_slug     (slug) UNIQUE
 #
 class Workspace < ApplicationRecord
+  before_create :set_path_id
+
   require 'securerandom'
   require 'digest'
 
-  before_create :set_path_id
+  extend FriendlyId
+  friendly_id :path_id, :use => :slugged
 
   has_many :workspace_members, :dependent => :destroy
   has_many :members, :class_name => 'User', :through => :workspace_members

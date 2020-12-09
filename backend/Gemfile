@@ -27,6 +27,8 @@ gem 'slim-rails'
 gem 'html2slim'
 # 論理削除
 gem 'discard'
+# URLカスタム
+gem 'friendly_id', '~> 5.4.0'
 
 group :development, :test do
   gem 'byebug', :platforms => %i[mri mingw x64_mingw]
