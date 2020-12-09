@@ -31,6 +31,8 @@ gem 'discard'
 gem 'friendly_id', '~> 5.4.0'
 # エラーログ
 gem "sentry-raven"
+# 環境変数
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'byebug', :platforms => %i[mri mingw x64_mingw]
