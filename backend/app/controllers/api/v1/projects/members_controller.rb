@@ -1,13 +1,6 @@
 class Api::V1::Projects::MembersController < Api::ApiController
-  before_action :set_workspace, :only => [:show]
 
   def show
-    # project_member = ProjectMember.includes(:member).find_by(
-    #   :project_id => params[:project_id],
-    #   :member_id => params[:id]
-    # )
-
-    # not_found if project_member.blank?
     user = User.find(params[:id])
 
     tasks = Task.includes(:project, :user).where(
@@ -49,10 +42,5 @@ class Api::V1::Projects::MembersController < Api::ApiController
 
   def members_params
     params.permit(:members => [])
-  end
-
-  def set_workspace
-    @workspace = Workspace.find_by(:path_id => params[:workspace_path_id])
-    not_found if @workspace.blank?
   end
 end

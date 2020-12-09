@@ -1,5 +1,4 @@
 class Api::V1::NotificationsController < Api::ApiController
-  before_action :set_workspace, :only => [:index, :update]
   before_action :set_notifications, :only => [:index]
   before_action :set_notification, :only => [:update]
 
@@ -16,11 +15,6 @@ class Api::V1::NotificationsController < Api::ApiController
   end
 
   private
-
-  def set_workspace
-    @workspace = Workspace.find_by(:path_id => params[:workspace_path_id])
-    not_found if @workspace.blank?
-  end
 
   def set_notifications
     @notifications = Notification.includes(:task => [:project])

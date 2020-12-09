@@ -1,6 +1,6 @@
 class Api::V1::Projects::NewMembersController < Api::ApiController
   def index
-    workspace = Workspace.find_by(:path_id => params[:workspace_path_id])
+    workspace = Workspace.friendly.find(params[:workspace_path_id])
     not_found if workspace.blank?
 
     project_member_ids = ProjectMember.where(:project_id => params[:projectId]).pluck(:member_id)

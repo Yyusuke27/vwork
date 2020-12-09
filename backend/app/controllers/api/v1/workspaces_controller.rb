@@ -1,5 +1,4 @@
 class Api::V1::WorkspacesController < Api::ApiController
-  before_action :set_workspace, :only => [:update]
   before_action :check_workspace_owner, :only => [:update]
 
   def index
@@ -47,7 +46,8 @@ class Api::V1::WorkspacesController < Api::ApiController
   def update
     @workspace.update!(:name => params[:name]) if params[:name]
     if params[:toOwner] || params[:toMember]
-      workspace_member = WorkspaceMember.find_by(:member_id => params[:toOwner], :workspace_id => @workspace.id)
+      member_id = params[:toOwner] || params[:toMember]
+      workspace_member = WorkspaceMember.find_by(:member_id => member_id, :workspace_id => @workspace.id)
       not_found if workspace_member.blank?
     end
     workspace_member.update!(:role => 1) if params[:toOwner]
@@ -79,19 +79,5 @@ class Api::V1::WorkspacesController < Api::ApiController
 
   def invitation_params
     params.permit(:invitations => %i[name email])
-  end
-
-  def set_workspace
-    @workspace = Workspace.find_by(:path_id => params[:path_id])
-    not_found if @workspace.blank?
-  end
-
-  def check_workspace_owner
-    is_workspace_owner = WorkspaceMember.exists?(
-      :workspace_id => @workspace.id,
-      :member_id => @current_user.id,
-      :role => 1
-    )
-    render :status => :unauthorized, :json => { :status => 401, :message => 'Unauthorized' } unless is_workspace_owner
   end
 end

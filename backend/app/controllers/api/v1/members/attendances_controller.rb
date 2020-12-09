@@ -1,5 +1,4 @@
-class Api::V1::Members::AttendancesController < Api::V1::Members::WorkspacesController
-  before_action :set_workspace, :only => [:index]
+class Api::V1::Members::AttendancesController < Api::ApiController
   before_action :check_workspace_owner, :only => [:index]
 
   def index

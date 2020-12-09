@@ -1,6 +1,5 @@
 class Api::V1::ProjectsController < Api::ApiController
   before_action :set_project, :only => [:show]
-  before_action :set_workspace, :only => [:index, :show]
 
   def index
     # workspaceのownerのみ閲覧可能
@@ -41,7 +40,7 @@ class Api::V1::ProjectsController < Api::ApiController
   end
 
   def create
-    workspace = Workspace.find_by(:path_id => params[:workspace_path_id])
+    workspace = Workspace.friendly.find(params[:workspace_path_id])
     ActiveRecord::Base.transaction do
       project = workspace.projects.create! project_params.merge(:icon => rand(6), :color => rand(6))
       project.project_members.create!(:member_id => @current_user.id, :role => 1)
@@ -64,10 +63,5 @@ class Api::V1::ProjectsController < Api::ApiController
   def set_project
     @project = Project.find(params[:id])
     not_found if @project.blank?
-  end
-
-  def set_workspace
-    @workspace = Workspace.find_by(:path_id => params[:workspace_path_id])
-    not_found if @workspace.blank?
   end
 end

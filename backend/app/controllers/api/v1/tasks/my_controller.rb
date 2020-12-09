@@ -1,6 +1,4 @@
 class Api::V1::Tasks::MyController < Api::ApiController
-  before_action :set_workspace, :only => [:index]
-
   def index
     tasks = Task.includes(:user, :project).where(
       :user_id => @current_user.id,
@@ -15,12 +13,5 @@ class Api::V1::Tasks::MyController < Api::ApiController
     end
 
     render :template => 'api/v1/tasks/my/index.json.jb', :locals => { :tasks => tasks, :todays_tasks => todays_tasks }
-  end
-
-  private
-
-  def set_workspace
-    @workspace = Workspace.find_by(:path_id => params[:workspace_path_id])
-    not_found if @workspace.blank?
   end
 end

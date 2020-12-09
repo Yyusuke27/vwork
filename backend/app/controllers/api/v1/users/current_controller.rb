@@ -8,7 +8,7 @@ class Api::V1::Users::CurrentController < Api::ApiController
 
     workspace_path_id = params[:workspacePathId]
     if workspace_path_id.present?
-      workspace = Workspace.includes(:workspace_members).find_by(:path_id => workspace_path_id)
+      workspace = Workspace.includes(:workspace_members).friendly.find(workspace_path_id)
       profile = UserProfile.includes(:user).where(:user_id => @current_user.id, :workspace_id => workspace.id).first
       workspace_member = WorkspaceMember.where(:workspace_id => workspace.id)
       all_workspace_member_ids = workspace_member.where(:role => 1).pluck(:member_id)

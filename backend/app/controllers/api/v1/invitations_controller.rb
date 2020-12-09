@@ -4,7 +4,7 @@ class Api::V1::InvitationsController < Api::ApiController
   end
 
   def create
-    workspace = Workspace.find_by(:path_id => params[:workspace_path_id])
+    workspace = Workspace.friendly.find(params[:workspace_path_id])
     not_found if workspace.blank?
 
     if invitation_params.present?
@@ -22,4 +22,5 @@ class Api::V1::InvitationsController < Api::ApiController
   def invitation_params
     params.permit(:invitations => %i[name email])
   end
+
 end

@@ -1,6 +1,5 @@
 class Api::V1::Projects::TasksController < Api::ApiController
   before_action :set_project, :only => [:index]
-  before_action :set_workspace, :only => [:index]
   before_action :valid_member?, :only => [:index]
 
   def index
@@ -20,11 +19,6 @@ class Api::V1::Projects::TasksController < Api::ApiController
   def set_project
     @project = Project.find(params[:project_id])
     not_found if @project.blank?
-  end
-
-  def set_workspace
-    @workspace = Workspace.find_by(:path_id => params[:workspace_path_id])
-    not_found if @workspace.blank?
   end
 
   def valid_member?

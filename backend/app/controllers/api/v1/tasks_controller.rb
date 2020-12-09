@@ -1,6 +1,4 @@
 class Api::V1::TasksController < Api::ApiController
-  before_action :set_workspace, :only => [:index, :update]
-
   def index
     tasks = Task.includes(:user, :project).where(
       :user_id => @current_user.id,
@@ -20,7 +18,7 @@ class Api::V1::TasksController < Api::ApiController
 
   def create
     ActiveRecord::Base.transaction do
-      workspace = Workspace.find_by(:path_id => params[:workspace_path_id])
+      workspace = Workspace.friendly.find(params[:workspace_path_id])
       task = workspace.tasks.new taks_params
       task.save!
 
@@ -95,10 +93,5 @@ class Api::V1::TasksController < Api::ApiController
       :priority,
       :todays_task
     )
-  end
-
-  def set_workspace
-    @workspace = Workspace.find_by(:path_id => params[:workspace_path_id])
-    not_found if @workspace.blank?
   end
 end

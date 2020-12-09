@@ -1,6 +1,6 @@
 class Api::V1::Tasks::NearDeadlineController < Api::ApiController
   def index
-    workspace = Workspace.find_by(:path_id => params[:workspace_path_id])
+    workspace = Workspace.friendly.find(params[:workspace_path_id])
     not_found if workspace.blank?
 
     # 期限が近い(3日以内)タスクを取得

@@ -1,6 +1,6 @@
 class Api::V1::Attendances::TodayController < Api::ApiController
   def index
-    workspace = Workspace.find_by(:path_id => params[:workspace_path_id])
+    workspace = Workspace.friendly.find(params[:workspace_path_id])
     not_found if workspace.blank?
 
     attendance = Attendance.current_workspace(@current_user, workspace).today.first

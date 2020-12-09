@@ -1,6 +1,4 @@
 class Api::V1::CommentsController < Api::ApiController
-  before_action :set_workspace, :only => [:create]
-
   def create
     task_id = params[:task_id]
     ActiveRecord::Base.transaction do
@@ -29,10 +27,5 @@ class Api::V1::CommentsController < Api::ApiController
 
   def comment_params
     params.require(:comment).permit(:body)
-  end
-
-  def set_workspace
-    @workspace = Workspace.find_by(:path_id => params[:workspace_path_id])
-    not_found if @workspace.blank?
   end
 end

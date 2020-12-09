@@ -1,6 +1,6 @@
 class Api::V1::Invitations::RegisterController < Api::ApiController
   def create
-    workspace = Workspace.find_by(:path_id => params[:workspace_path_id])
+    workspace = Workspace.friendly.find(params[:workspace_path_id])
 
     if workspace.present?
       begin

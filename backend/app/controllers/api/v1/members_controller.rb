@@ -1,6 +1,4 @@
 class Api::V1::MembersController < Api::ApiController
-  before_action :set_workspace, :only => [:index, :show]
-
   def index
     workspace_members = WorkspaceMember.includes(:member).where(:workspace_id => @workspace.id)
 
@@ -18,12 +16,5 @@ class Api::V1::MembersController < Api::ApiController
       :workspace_member => workspace_member,
       :profile => profile
     }
-  end
-
-  private
-
-  def set_workspace
-    @workspace = Workspace.find_by(:path_id => params[:workspace_path_id])
-    not_found if @workspace.blank?
   end
 end
