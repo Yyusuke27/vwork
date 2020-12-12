@@ -23,17 +23,25 @@
 #  index_tasks_on_user_id_and_workspace_id  (user_id,workspace_id)
 #
 FactoryBot.define do
+  sequence :task_name do |n|
+    "Task #{n}"
+  end
+
+  sequence :task_description do |n|
+    "Task Description #{n}"
+  end
+
   factory :task do
-    user_id { '' }
-    workspace_id { '' }
-    project_id { '' }
-    name { 'MyString' }
-    description { 'MyString' }
+    user { :user }
+    workspace { :workspace }
+    project { :project }
+    name { generate :task_name }
+    description { generate :task_description }
     start_date_at { '2020-11-25 23:06:24' }
     end_date_at { '2020-11-25 23:06:24' }
-    state { 1 }
+    state { 'open' }
     progress { 1 }
-    priority { 1 }
+    priority { 'low' }
     todays_task { false }
   end
 end

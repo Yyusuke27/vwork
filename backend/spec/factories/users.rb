@@ -44,7 +44,20 @@ FactoryBot.define do
 
     after(:create) do |member|
       workspace = create(:workspace)
-      member.workspace_members << create(:workspace_member, :member => member, :workspace => workspace)
+      member.workspace_members << create(
+        :workspace_member,
+        :member => member,
+        :workspace => workspace
+      )
+
+      project = create(:project, :workspace => workspace)
+      member.project_members << create(
+        :project_member,
+        :member => member,
+        :project => project
+      )
+
+      create(:task, :user => member, :workspace => workspace, :project => project)
     end
   end
 end

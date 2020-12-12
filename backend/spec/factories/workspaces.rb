@@ -19,5 +19,10 @@ FactoryBot.define do
   factory :workspace do
     name { 'Workspace1' }
     active { true }
+
+    after(:create) do |workspace|
+      workspace.slug = workspace.path_id.downcase
+      workspace.save!
+    end
   end
 end
