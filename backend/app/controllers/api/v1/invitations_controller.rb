@@ -22,5 +22,4 @@ class Api::V1::InvitationsController < Api::ApiController
   def invitation_params
     params.permit(:invitations => %i[name email])
   end
-
 end

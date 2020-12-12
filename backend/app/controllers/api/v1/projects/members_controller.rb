@@ -1,5 +1,4 @@
 class Api::V1::Projects::MembersController < Api::ApiController
-
   def show
     user = User.find(params[:id])
 

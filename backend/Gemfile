@@ -30,7 +30,7 @@ gem 'discard'
 # URLカスタム
 gem 'friendly_id', '~> 5.4.0'
 # エラーログ
-gem "sentry-raven"
+gem 'sentry-raven'
 # 環境変数
 gem 'dotenv-rails'
 
