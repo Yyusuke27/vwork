@@ -104,3 +104,8 @@ Lint/UnreachableLoop:
 
 Style/HashSyntax:
   EnforcedStyle: hash_rockets
+
+Metrics/BlockLength:
+  Max: 47
+  Exclude:
+    - 'spec/**/*'
