@@ -26,10 +26,8 @@ Rails.application.routes.draw do
         end
 
         namespace 'tasks' do
-          resources :members, :only => %i[show]
           resources :my, :only => %i[index]
           resources :near_deadline, :only => %i[index]
-          resources :projects, :only => %i[show]
           resources :recent, :only => %i[index]
         end
         resources :tasks, :only => %i[index show create update destroy]
