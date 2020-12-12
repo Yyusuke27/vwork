@@ -11,20 +11,13 @@ class Api::V1::WorkspacesController < Api::ApiController
     ActiveRecord::Base.transaction do
       @current_user.update! user_params
 
-      workspace = @current_user.workspaces.new workspace_params
-      workspace.save!
+      workspace = @current_user.workspaces.create! workspace_params
+      workspace.workspace_members.create!(:workspace_id => workspace.id, :member_id => @current_user.id, :role => 1)
 
-      workspace_members = workspace.workspace_members.new(:workspace_id => workspace.id, :member_id => @current_user.id, :role => 1)
-      workspace_members.save!
+      project = workspace.projects.create! project_params
+      project.project_members.create!(:project_id => project.id, :member_id => @current_user.id, :role => 1)
 
-      project = workspace.projects.new project_params
-      project.save!
-
-      project_members = project.project_members.new(:project_id => project.id, :member_id => @current_user.id, :role => 1)
-      project_members.save!
-
-      user_profile = workspace.user_profiles.new user_profile_params.merge(:user_id => @current_user.id)
-      user_profile.save!
+      workspace.user_profiles.create! user_profile_params.merge(:user_id => @current_user.id)
 
       if invitation_params.present?
         invitations = invitation_params[:invitations]
