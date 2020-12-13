@@ -15,4 +15,10 @@ FactoryBot.define do
     member { :member }
     role { 1 }
   end
+
+  factory :workspace_normal_member, :class => WorkspaceMember do
+    workspace { :workspace }
+    member { :member }
+    role { 0 }
+  end
 end

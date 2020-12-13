@@ -16,8 +16,12 @@
 #  index_workspaces_on_slug     (slug) UNIQUE
 #
 FactoryBot.define do
+  sequence :workspace_name do |n|
+    "Workspace#{n}"
+  end
+
   factory :workspace do
-    name { 'Workspace1' }
+    name { generate :workspace_name }
     active { true }
 
     after(:create) do |workspace|

@@ -34,21 +34,46 @@
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #
 FactoryBot.define do
+  sequence :name do |n|
+    "ユーザー#{n}"
+  end
+
+  sequence :email do |n|
+    "user#{n}@test.com"
+  end
+
   factory :user, :aliases => [:member] do
-    name { '田中太郎' }
-    email { 'taro@test.com' }
+    name { generate :name }
+    email { generate :email }
     password { 'test1234' }
     password_confirmation { 'test1234' }
     registration { true }
-    role { 0 }
+    role { 1 }
 
-    after(:create) do |member|
+    transient do
+      workspace_owner { true }
+    end
+
+    after(:create) do |member, evaluator|
       workspace = create(:workspace)
-      member.workspace_members << create(
-        :workspace_member,
-        :member => member,
-        :workspace => workspace
-      )
+
+      create(:user_profile, :workspace => workspace, :user => member)
+
+      workspace_member =
+        if evaluator.workspace_owner
+          create(
+            :workspace_member,
+            :member => member,
+            :workspace => workspace
+          )
+        else
+          create(
+            :workspace_normal_member,
+            :member => member,
+            :workspace => workspace
+          )
+        end
+      member.workspace_members << workspace_member
 
       project = create(:project, :workspace => workspace)
       member.project_members << create(
