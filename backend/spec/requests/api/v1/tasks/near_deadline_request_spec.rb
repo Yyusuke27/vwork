@@ -19,9 +19,7 @@ RSpec.describe 'Api::V1::Tasks::NearDeadline', :type => :request do
       task_count = Task.where(
         :user_id => @user.id,
         :workspace_id => @workspace.id
-      )
-      .near_deadline
-      .count
+      ).near_deadline.count
 
       expect(json[:tasks].length).to eq task_count
     end

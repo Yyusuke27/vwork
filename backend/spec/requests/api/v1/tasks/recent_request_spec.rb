@@ -19,9 +19,7 @@ RSpec.describe 'Api::V1::Tasks::Recent', :type => :request do
       task_count = Task.where(
         :user_id => @user.id,
         :workspace_id => @workspace.id
-      )
-      .recent
-      .count
+      ).recent.count
 
       expect(json[:tasks].length).to eq task_count
     end
