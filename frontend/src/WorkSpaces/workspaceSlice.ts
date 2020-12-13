@@ -62,9 +62,15 @@ const workspaceSlice = createSlice({
       state.workspaces = action.payload.workspaces;
     });
     builder.addCase(fetchAsyncUpdateWorkspace.fulfilled, (state, action) => {
-      toast.info("ワークスペース情報を更新しました。", {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      if (action.payload.success) {
+        toast.info("ワークスペース情報を更新しました。", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      } else {
+        toast.error(action.payload.error, {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
     });
     builder.addCase(fetchAsyncUpdateWorkspace.rejected, (state, action) => {
       toast.error("ワークスペース情報を更新できませんでした。", {

@@ -44,7 +44,13 @@ class Api::V1::WorkspacesController < Api::ApiController
       not_found if workspace_member.blank?
     end
     workspace_member.update!(:role => 1) if params[:toOwner]
-    workspace_member.update!(:role => 0) if params[:toMember]
+
+    if params[:toMember]
+      workspace_member_roles = WorkspaceMember.where(:workspace_id => @workspace.id).pluck(:role)
+      render :json => { :success => false, :error => '管理者は1名以上必要です。' } and return unless workspace_member_roles.count('owner') > 1
+
+      workspace_member.update!(:role => 0)
+    end
 
     # Workspaceの管理者のみ変更可能
     render :template => 'api/v1/workspaces/update.json.jb'
