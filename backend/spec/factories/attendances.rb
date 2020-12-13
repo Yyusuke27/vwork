@@ -22,14 +22,7 @@
 #
 FactoryBot.define do
   factory :attendance do
-    user_id { '' }
-    workspace_id { '' }
-    comment { 'MyString' }
-    stared_at { '2020-12-02 09:32:33' }
-    end_at { '2020-12-02 09:32:33' }
-    rest_started_at { '2020-12-02 09:32:33' }
-    rest_ended_at { '2020-12-02 09:32:33' }
-    total_work_time { 1 }
-    total_reset_time { 1 }
+    user { :user }
+    workspace { :workspace }
   end
 end
